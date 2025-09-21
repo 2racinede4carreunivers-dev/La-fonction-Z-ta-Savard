@@ -428,10 +428,10 @@ async def startup_event():
         await db.concepts.insert_many(CONCEPTS_BASE)
         print("Base de connaissances initialisée avec succès")
     
-    tableaux_count = await db.tableaux_philippot.count_documents({})
-    if tableaux_count == 0:
-        await db.tableaux_philippot.insert_many(TABLEAUX_PHILIPPOT)
-        print("Tableaux de Philippôt initialisés avec succès")
+    # Forcer la réinitialisation des tableaux avec les 14 complets
+    await db.tableaux_philippot.delete_many({})
+    await db.tableaux_philippot.insert_many(TABLEAUX_PHILIPPOT)
+    print(f"14 Tableaux de Philippôt réinitialisés avec succès")
 
 # Routes API existantes
 @app.get("/api/health")
