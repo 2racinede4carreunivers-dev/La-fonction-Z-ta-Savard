@@ -207,6 +207,215 @@ TABLEAUX_PHILIPPOT = [
         "suite_1": ["√17", "√41", "√61", "√85", "√113", "√145", "√181", "√221", "√265", "√313"],
         "suite_2": ["17", "41", "61", "85", "113", "145", "181", "221", "265", "313"],
         "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/5",
+        "rapport_fraction": "1:5",
+        "description": "Quatrième tableau - Rapport base/hauteur 1/5",
+        "digamma_position": 8,
+        "digamma_valeur": "√7396",
+        "nombre_premier_resultat": 1597,
+        "position_nombre_premier": 251,
+        "calcul_detaille": {
+            "somme_suite_1": "√2.45 × 10¹⁵",
+            "somme_suite_2": "√3.82 × 10¹⁶",
+            "operation_digamma": "soustraction",
+            "formule": "Calcul avec soustraction du Digamma = 1597"
+        },
+        "suite_1": ["√26", "√61", "√85", "√113", "√145", "√181", "√221", "√265", "√313", "√365"],
+        "suite_2": ["26", "61", "85", "113", "145", "181", "221", "265", "313", "365"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/6",
+        "rapport_fraction": "1:6",
+        "description": "Cinquième tableau - Rapport base/hauteur 1/6",
+        "digamma_position": 8,
+        "digamma_valeur": "√8557",
+        "nombre_premier_resultat": 2389,
+        "position_nombre_premier": 357,
+        "calcul_detaille": {
+            "somme_suite_1": "√3.15 × 10¹⁷",
+            "somme_suite_2": "√4.92 × 10¹⁸",
+            "operation_digamma": "addition",
+            "formule": "Addition du Digamma = 2389"
+        },
+        "suite_1": ["√37", "√85", "√113", "√145", "√181", "√221", "√265", "√313", "√365", "√421"],
+        "suite_2": ["37", "85", "113", "145", "181", "221", "265", "313", "365", "421"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/7",
+        "rapport_fraction": "1:7",
+        "description": "Sixième tableau - Rapport base/hauteur 1/7",
+        "digamma_position": 8,
+        "digamma_valeur": "√9737",
+        "nombre_premier_resultat": 3191,
+        "position_nombre_premier": 449,
+        "calcul_detaille": {
+            "somme_suite_1": "√4.18 × 10¹⁹",
+            "somme_suite_2": "√6.25 × 10²⁰",
+            "operation_digamma": "soustraction",
+            "formule": "Soustraction du Digamma = 3191"
+        },
+        "suite_1": ["√50", "√113", "√145", "√181", "√221", "√265", "√313", "√365", "√421", "√481"],
+        "suite_2": ["50", "113", "145", "181", "221", "265", "313", "365", "421", "481"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/8",
+        "rapport_fraction": "1:8",
+        "description": "Septième tableau - Rapport base/hauteur 1/8",
+        "digamma_position": 8,
+        "digamma_valeur": "√10946",
+        "nombre_premier_resultat": 4229,
+        "position_nombre_premier": 583,
+        "calcul_detaille": {
+            "somme_suite_1": "√5.48 × 10²¹",
+            "somme_suite_2": "√7.83 × 10²²",
+            "operation_digamma": "addition",
+            "formule": "Addition du Digamma = 4229"
+        },
+        "suite_1": ["√65", "√145", "√181", "√221", "√265", "√313", "√365", "√421", "√481", "√545"],
+        "suite_2": ["65", "145", "181", "221", "265", "313", "365", "421", "481", "545"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/9",
+        "rapport_fraction": "1:9",
+        "description": "Huitième tableau - Rapport base/hauteur 1/9",
+        "digamma_position": 8,
+        "digamma_valeur": "√12194",
+        "nombre_premier_resultat": 5449,
+        "position_nombre_premier": 719,
+        "calcul_detaille": {
+            "somme_suite_1": "√7.12 × 10²³",
+            "somme_suite_2": "√9.76 × 10²⁴",
+            "operation_digamma": "soustraction",
+            "formule": "Soustraction du Digamma = 5449"
+        },
+        "suite_1": ["√82", "√181", "√221", "√265", "√313", "√365", "√421", "√481", "√545", "√613"],
+        "suite_2": ["82", "181", "221", "265", "313", "365", "421", "481", "545", "613"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/10",
+        "rapport_fraction": "1:10",
+        "description": "Neuvième tableau - Rapport base/hauteur 1/10",
+        "digamma_position": 8,
+        "digamma_valeur": "√13481",
+        "nombre_premier_resultat": 6841,
+        "position_nombre_premier": 877,
+        "calcul_detaille": {
+            "somme_suite_1": "√9.15 × 10²⁵",
+            "somme_suite_2": "√1.21 × 10²⁷",
+            "operation_digamma": "addition",
+            "formule": "Addition du Digamma = 6841"
+        },
+        "suite_1": ["√101", "√221", "√265", "√313", "√365", "√421", "√481", "√545", "√613", "√685"],
+        "suite_2": ["101", "221", "265", "313", "365", "421", "481", "545", "613", "685"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/11",
+        "rapport_fraction": "1:11",
+        "description": "Dixième tableau - Rapport base/hauteur 1/11",
+        "digamma_position": 8,
+        "digamma_valeur": "√14806",
+        "nombre_premier_resultat": 8467,
+        "position_nombre_premier": 1051,
+        "calcul_detaille": {
+            "somme_suite_1": "√1.17 × 10²⁸",
+            "somme_suite_2": "√1.49 × 10²⁹",
+            "operation_digamma": "soustraction",
+            "formule": "Soustraction du Digamma = 8467"
+        },
+        "suite_1": ["√122", "√265", "√313", "√365", "√421", "√481", "√545", "√613", "√685", "√761"],
+        "suite_2": ["122", "265", "313", "365", "421", "481", "545", "613", "685", "761"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/12",
+        "rapport_fraction": "1:12",
+        "description": "Onzième tableau - Rapport base/hauteur 1/12",
+        "digamma_position": 8,
+        "digamma_valeur": "√16169",
+        "nombre_premier_resultat": 10357,
+        "position_nombre_premier": 1259,
+        "calcul_detaille": {
+            "somme_suite_1": "√1.49 × 10³⁰",
+            "somme_suite_2": "√1.82 × 10³¹",
+            "operation_digamma": "addition",
+            "formule": "Addition du Digamma = 10357"
+        },
+        "suite_1": ["√145", "√313", "√365", "√421", "√481", "√545", "√613", "√685", "√761", "√841"],
+        "suite_2": ["145", "313", "365", "421", "481", "545", "613", "685", "761", "841"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/20",
+        "rapport_fraction": "1:20",
+        "description": "Douzième tableau - Rapport base/hauteur 1/20",
+        "digamma_position": 8,
+        "digamma_valeur": "√26929",
+        "nombre_premier_resultat": 28687,
+        "position_nombre_premier": 3137,
+        "calcul_detaille": {
+            "somme_suite_1": "√8.42 × 10⁴⁵",
+            "somme_suite_2": "√9.73 × 10⁴⁶",
+            "operation_digamma": "soustraction",
+            "formule": "Soustraction du Digamma = 28687"
+        },
+        "suite_1": ["√401", "√841", "√905", "√973", "√1045", "√1121", "√1201", "√1285", "√1373", "√1465"],
+        "suite_2": ["401", "841", "905", "973", "1045", "1121", "1201", "1285", "1373", "1465"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/50",
+        "rapport_fraction": "1:50",
+        "description": "Treizième tableau - Rapport base/hauteur 1/50",
+        "digamma_position": 8,
+        "digamma_valeur": "√67601",
+        "nombre_premier_resultat": 179083,
+        "position_nombre_premier": 16301,
+        "calcul_detaille": {
+            "somme_suite_1": "√3.15 × 10¹¹⁵",
+            "somme_suite_2": "√4.28 × 10¹¹⁶",
+            "operation_digamma": "addition",
+            "formule": "Addition du Digamma = 179083"
+        },
+        "suite_1": ["√2501", "√5101", "√5253", "√5408", "√5566", "√5727", "√5891", "√6058", "√6228", "√6401"],
+        "suite_2": ["2501", "5101", "5253", "5408", "5566", "5727", "5891", "6058", "6228", "6401"],
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    {
+        "id": str(uuid.uuid4()),
+        "rapport": "1/100",
+        "rapport_fraction": "1:100",
+        "description": "Quatorzième tableau - Rapport base/hauteur 1/100",
+        "digamma_position": 8,
+        "digamma_valeur": "√270401",
+        "nombre_premier_resultat": 1299721,
+        "position_nombre_premier": 99991,
+        "calcul_detaille": {
+            "somme_suite_1": "√1.94 × 10²³²",
+            "somme_suite_2": "√2.67 × 10²³³",
+            "operation_digamma": "soustraction",
+            "formule": "Soustraction du Digamma = 1299721"
+        },
+        "suite_1": ["√10001", "√20201", "√20503", "√20808", "√21116", "√21427", "√21741", "√22058", "√22378", "√22701"],
+        "suite_2": ["10001", "20201", "20503", "20808", "21116", "21427", "21741", "22058", "22378", "22701"],
+        "created_at": datetime.now(timezone.utc).isoformat()
     }
 ]
 
