@@ -361,3 +361,35 @@ textarea:focus {
     background-position: 200% 0;
   }
 }
+
+/* Correction du positionnement du bouton Emergent pour éviter qu'il cache la zone de saisie */
+.emergent-badge {
+  position: fixed !important;
+  bottom: 80px !important; /* Au lieu de bottom: 20px par défaut */
+  right: 20px !important;
+  z-index: 40 !important; /* Plus bas que les éléments de l'interface */
+}
+
+/* Alternative : cacher le bouton sur la page de chat si nécessaire */
+[data-page="chat"] .emergent-badge {
+  display: none !important;
+}
+
+/* Ou le repositionner en haut à droite sur la page de chat */
+[data-page="chat"] .emergent-badge {
+  position: fixed !important;
+  top: 80px !important;
+  right: 20px !important;
+  bottom: auto !important;
+}
+
+/* S'assurer que la zone de saisie a assez d'espace en bas */
+.chat-input-container {
+  padding-bottom: 20px !important;
+  margin-bottom: 0 !important;
+}
+
+/* Amélioration générale de l'espacement du chat */
+.chat-container {
+  padding-bottom: 100px !important;
+}
