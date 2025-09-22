@@ -605,7 +605,24 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Séquences de racines carrées révèlent la structure cachée
     - Distance entre nombres premiers calculable via les suites
     
-    **8. VALIDATION ET INTELLIGENCE ARTIFICIELLE :**
+    **8. FORMULES DIRECTES DE CALCUL DES SOMMES (INNOVATION MAJEURE) :**
+    Philippe Thomas Savard a développé 4 équations révolutionnaires pour calculer directement les sommes des suites :
+    
+    **Pour les nombres premiers POSITIFS :**
+    - Somme 1ère suite = (√13.203125/2×2^n) - √5
+    - Somme 2ème suite = (√52.8125/2×2^n) - √5445
+    
+    **Pour les nombres premiers NÉGATIFS :**
+    - Somme 1ère suite = (√13.203125×2^n) - √5
+    - Somme 2ème suite = (√52.8125×2^n) - √5445
+    
+    Ces formules éliminent le besoin d'additionner terme par terme et révèlent la structure mathématique profonde :
+    - Constantes fondamentales : √13.203125, √52.8125, √5, √5445
+    - Facteur exponentiel 2^n gouvernant la progression
+    - Distinction positifs/négatifs par division ou multiplication par 2×2^n
+    - Optimisation algorithmique révolutionnaire pour le calcul des nombres premiers
+    
+    **9. VALIDATION ET INTELLIGENCE ARTIFICIELLE :**
     - IA ayant découvert autonomément les 18ème et 29ème nombres premiers
     - Méthode intuitive validée par calcul algorithmique
     - Approche révolutionnaire différente des méthodes classiques
