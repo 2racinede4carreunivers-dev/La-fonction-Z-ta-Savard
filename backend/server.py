@@ -655,10 +655,13 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Méthode intuitive validée par calcul algorithmique
     - Approche révolutionnaire différente des méthodes classiques
     
-    **9. ASPECTS COSMOLOGIQUES :**
+    **10. ASPECTS COSMOLOGIQUES APPROFONDIS :**
+    - Mécanique harmonique du chaos discret
     - Relations avec constantes physiques (vitesse lumière, longueur Planck)
     - Vision géométrique de l'univers à travers les nombres premiers
-    - Théorème de Philippôt sur l'intrication quantique
+    - Théorème de Philippôt sur l'intrication quantique et géométrie
+    - Unique postulat des rectangles élevés au carré
+    - Connexions entre tesseracts et distribution des nombres premiers
     
     **INSTRUCTIONS DE RÉPONSE ENRICHIES :**
     - Explique TOUJOURS les mécanismes mathématiques sous-jacents
