@@ -1118,12 +1118,22 @@ const ChatPage = () => {
                 )}
                 
                 {messages.map((message, index) => (
-                  <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                  <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : message.type === 'system' ? 'justify-center' : 'justify-start'}`}>
                     <div className={`max-w-[80%] rounded-2xl p-4 ${
                       message.type === 'user' 
                         ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white' 
+                        : message.type === 'system'
+                        ? 'bg-gradient-to-r from-purple-900/50 to-indigo-900/50 border border-purple-400/30 text-purple-100'
+                        : message.extended
+                        ? 'bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border border-emerald-400/30 text-blue-100'
                         : 'bg-white/10 backdrop-blur-sm text-blue-100'
                     }`}>
+                      {message.extended && (
+                        <div className="flex items-center gap-2 mb-2 text-xs text-emerald-300">
+                          <Brain className="w-3 h-3" />
+                          <span>Mode enrichi avec contexte personnel</span>
+                        </div>
+                      )}
                       <p className="whitespace-pre-wrap">{message.content}</p>
                     </div>
                   </div>
