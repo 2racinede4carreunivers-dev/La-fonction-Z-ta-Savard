@@ -1060,15 +1060,30 @@ const ChatPage = () => {
           <p className="text-blue-200">Claude Sonnet 3.5 expert en théorie "L'univers est au carré" et méthode de Philippôt.</p>
         </div>
 
-        <Card className="bg-white/5 backdrop-blur-sm border border-white/10 h-[600px] flex flex-col">
+        <Card className="bg-white/5 backdrop-blur-sm border border-white/10 h-[700px] flex flex-col">
           <CardHeader className="border-b border-white/10">
-            <CardTitle className="text-white flex items-center gap-2">
-              <Brain className="w-5 h-5 text-cyan-400" />
-              Chat avec Claude (Expert Philippôt)
-            </CardTitle>
-            <CardDescription className="text-blue-200">
-              Spécialisé dans les 14 tableaux, le Digamma, et tous les aspects de la théorie
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-white flex items-center gap-2">
+                  <Brain className="w-5 h-5 text-cyan-400" />
+                  Assistant IA Personnel - Philippe Thomas Savard
+                </CardTitle>
+                <CardDescription className="text-blue-200">
+                  {extendedMode ? 'Mode enrichi avec mémoire étendue et analyse de documents' : 'Mode standard spécialisé dans votre théorie'}
+                </CardDescription>
+              </div>
+              
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={extendedMode ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setExtendedMode(!extendedMode)}
+                  className={extendedMode ? "bg-emerald-600 hover:bg-emerald-700" : "border-emerald-400 text-emerald-300 hover:bg-emerald-400/10"}
+                >
+                  {extendedMode ? "🧠 Enrichi" : "📝 Standard"}
+                </Button>
+              </div>
+            </div>
           </CardHeader>
           
           <CardContent className="flex-1 flex flex-col p-0">
