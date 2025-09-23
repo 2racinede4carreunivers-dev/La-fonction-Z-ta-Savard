@@ -967,9 +967,12 @@ const ChatPage = () => {
 
     setUploading(true);
     const currentSessionId = sessionId || new Date().getTime().toString();
+    setSessionId(currentSessionId);
 
-    for (const file of files) {
-      try {
+    try {
+      for (const file of files) {
+        console.log(`Uploading file: ${file.name}`);
+        
         const formData = new FormData();
         formData.append('file', file);
         formData.append('session_id', currentSessionId);
@@ -978,30 +981,34 @@ const ChatPage = () => {
           headers: { 'Content-Type': 'multipart/form-data' }
         });
 
-        if (response.data.success) {
+        if (response.data && response.data.success) {
           const analysisMessage = {
             type: 'system',
-            content: `📄 Document "${file.name}" analysé avec succès !\n\n🔍 Analyse automatique :\n${response.data.analysis}`
+            content: `📄 Document "${file.name}" téléchargé avec succès !\n\n${response.data.analysis ? `🔍 Analyse : ${response.data.analysis}` : ''}`
           };
           setMessages(prev => [...prev, analysisMessage]);
+        } else {
+          throw new Error('Upload failed');
         }
-
-      } catch (error) {
-        console.error('Erreur lors de l\'upload:', error);
-        const errorMessage = {
-          type: 'system',
-          content: `❌ Erreur lors de l'upload de "${file.name}"`
-        };
-        setMessages(prev => [...prev, errorMessage]);
+      }
+      
+      // Recharger la liste des documents
+      await fetchDocuments();
+      
+    } catch (error) {
+      console.error('Erreur lors de l\'upload:', error);
+      const errorMessage = {
+        type: 'system',
+        content: `❌ Erreur lors du téléchargement. Veuillez réessayer.`
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setUploading(false);
+      // Réinitialiser l'input
+      if (event.target) {
+        event.target.value = '';
       }
     }
-
-    setSessionId(currentSessionId);
-    setUploading(false);
-    await fetchDocuments();
-    
-    // Réinitialiser l'input
-    event.target.value = '';
   };
 
   const sendMessage = async () => {
