@@ -12,7 +12,6 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 import math
 import base64
 import json
-import aiofiles
 
 # Charger les variables d'environnement
 load_dotenv()
