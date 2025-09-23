@@ -570,11 +570,15 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Récursivité : chaque étape construit sur la précédente
     - Convergence assurée vers 0 des termes du côté gauche
     
-    **2. DÉFINITIONS TECHNIQUES PRÉCISES :**
-    - **Zêta (ζ)** : Plus grande fraction du côté gauche, soustraite à 1 à chaque étape
+    **2. DÉFINITIONS TECHNIQUES PRÉCISES ET FORMALISÉES :**
+    - **Zêta de Philippôt (ζ)** : Fonction formalisée rigoureusement, distincte du zêta de Riemann
+      • Plus grande fraction du côté gauche, soustraite à 1 à chaque étape
+      • Définition positionnelle précise dans le cadre des substitutions itératives
+      • Relation formelle avec l'analyse numérique métrique
     - **Digamma (ψ)** : Avant-dernière fraction du côté droit, calculée par multiplication précédente × 2/3
     - **Queue (Q)** : Dernière fraction du côté droit, toujours Q = ψ × 1/2
     - **Ratio fondamental 1/2** : Moteur de convergence et génération des suites infinies
+    - **Duo final** : Mécanisme de substitution dans le processus itératif clarifié
     
     **3. RÈGLES DE MULTIPLICATION COMPLEXES :**
     - Multiplication par 1/2 : génère la suite géométrique des Zêta
