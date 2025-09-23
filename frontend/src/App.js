@@ -1174,12 +1174,13 @@ const ChatPage = () => {
             {extendedMode && (
               <div className="border-t border-white/10 p-4">
                 <div className="flex items-center gap-4 mb-4">
-                  <label htmlFor="file-upload" className="cursor-pointer">
+                  <div className="relative">
                     <Button
                       variant="outline"
                       size="sm"
                       className="border-emerald-400/30 text-emerald-300 hover:bg-emerald-400/10"
                       disabled={uploading}
+                      onClick={() => document.getElementById('file-upload').click()}
                     >
                       <BookOpen className="w-4 h-4 mr-2" />
                       {uploading ? 'Upload...' : 'Ajouter document'}
@@ -1190,9 +1191,9 @@ const ChatPage = () => {
                       multiple
                       accept=".pdf,.txt,.docx,.png,.jpg,.jpeg"
                       onChange={handleFileUpload}
-                      className="hidden"
+                      style={{ display: 'none' }}
                     />
-                  </label>
+                  </div>
                   
                   {uploadedDocuments.length > 0 && (
                     <div className="text-sm text-blue-200">
