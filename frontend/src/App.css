@@ -362,21 +362,45 @@ textarea:focus {
   }
 }
 
-/* Correction du positionnement du bouton Emergent - déplacé en haut à droite */
+/* Correction du positionnement du bouton Emergent - petit et en haut à droite */
 .emergent-badge {
   position: fixed !important;
-  top: 80px !important; /* En haut au lieu du bas */
-  right: 20px !important;
+  top: 10px !important; /* Tout en haut */
+  right: 10px !important;
   bottom: auto !important; /* Annule le positionnement par le bas */
-  z-index: 40 !important; /* Plus bas que les éléments de l'interface */
+  z-index: 30 !important; /* Plus bas que la navigation */
+  transform: scale(0.7) !important; /* Réduire la taille */
+  transform-origin: top right !important;
 }
 
 /* S'assurer que le bouton reste en haut à droite sur toutes les pages */
 body .emergent-badge {
   position: fixed !important;
-  top: 80px !important;
-  right: 20px !important;
+  top: 10px !important;
+  right: 10px !important;
   bottom: auto !important;
+  transform: scale(0.7) !important;
+  transform-origin: top right !important;
+}
+
+/* Règles spéciales pour mobile (Samsung S25 et autres) */
+@media (max-width: 768px) {
+  .emergent-badge, body .emergent-badge {
+    position: fixed !important;
+    top: 5px !important;
+    right: 5px !important;
+    bottom: auto !important;
+    transform: scale(0.5) !important; /* Encore plus petit sur mobile */
+    transform-origin: top right !important;
+    z-index: 25 !important;
+  }
+}
+
+/* Si le bouton gêne encore, option pour le cacher sur la page de chat mobile */
+@media (max-width: 768px) {
+  .chat-page .emergent-badge {
+    display: none !important;
+  }
 }
 
 /* S'assurer que la zone de saisie a assez d'espace en bas */
