@@ -574,6 +574,238 @@ async def calculateur_philippot(request: CalculateurRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur de calcul: {str(e)}")
 
+# Nouveau endpoint pour upload de fichiers
+@app.post("/api/upload-document")
+async def upload_document(
+    file: UploadFile = File(...),
+    session_id: str = Form(...)
+):
+    """Upload et analyse d'un document pour enrichir les discussions"""
+    try:
+        # Générer un ID unique pour le document
+        doc_id = str(uuid.uuid4())
+        
+        # Lire le contenu du fichier
+        content = await file.read()
+        
+        # Convertir en base64 pour stockage
+        content_b64 = base64.b64encode(content).decode()
+        
+        # Créer l'enregistrement du document
+        document = {
+            "id": doc_id,
+            "filename": file.filename,
+            "file_type": file.content_type,
+            "content": content_b64,
+            "analysis": "",  # Sera rempli après analyse
+            "user_session": session_id,
+            "upload_date": datetime.now(timezone.utc).isoformat(),
+            "file_size": len(content)
+        }
+        
+        # Sauvegarder dans MongoDB
+        await db.uploaded_documents.insert_one(document)
+        
+        # Analyser le document avec l'IA si c'est un fichier text/image
+        analysis = ""
+        if file.content_type.startswith('text/') or file.content_type == 'application/pdf':
+            try:
+                # Analyser avec l'IA spécialisée
+                analysis_prompt = f"""
+                Analyse ce nouveau document dans le contexte de la théorie 'L'univers est au carré' de Philippe Thomas Savard.
+                
+                Identifie :
+                1. Les nouveaux concepts ou développements présentés
+                2. Les liens avec les concepts existants de la théorie
+                3. Les questions ou pistes de recherche suggérées
+                4. Les clarifications ou corrections apportées
+                5. Les implications pour la compréhension globale de la théorie
+                
+                Sois précis et technique dans ton analyse.
+                """
+                
+                chat = LlmChat(
+                    api_key=EMERGENT_LLM_KEY,
+                    session_id=doc_id,
+                    system_message="Tu es l'IA spécialisée dans la théorie 'L'univers est au carré'. Analyse ce document en profondeur."
+                ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+                
+                analysis = await chat.send_message(UserMessage(text=analysis_prompt))
+                
+                # Mettre à jour l'analyse dans la base
+                await db.uploaded_documents.update_one(
+                    {"id": doc_id},
+                    {"$set": {"analysis": analysis}}
+                )
+                
+            except Exception as e:
+                print(f"Erreur lors de l'analyse : {str(e)}")
+        
+        return {
+            "success": True,
+            "document_id": doc_id,
+            "filename": file.filename,
+            "analysis": analysis,
+            "message": "Document uploadé et analysé avec succès"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de l'upload: {str(e)}")
+
+@app.get("/api/documents/{session_id}")
+async def get_documents(session_id: str):
+    """Récupère tous les documents d'une session"""
+    documents = await db.uploaded_documents.find(
+        {"user_session": session_id}
+    ).sort("upload_date", -1).to_list(length=None)
+    
+    # Retourner sans le contenu pour économiser la bande passante
+    return [
+        {
+            "id": doc["id"],
+            "filename": doc["filename"],
+            "file_type": doc["file_type"],
+            "analysis": doc["analysis"],
+            "upload_date": doc["upload_date"]
+        }
+        for doc in documents
+    ]
+
+@app.post("/api/chat-extended", response_model=ChatResponse)
+async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
+    """Chat enrichi avec contexte étendu et documents attachés"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    # Générer un session_id si non fourni
+    session_id = chat_message.session_id or str(uuid.uuid4())
+    
+    # Récupérer le contexte personnel étendu
+    personal_context = await get_personal_context(session_id)
+    
+    # Récupérer les documents attachés si spécifiés
+    attached_docs_context = ""
+    if chat_message.attached_files:
+        for doc_id in chat_message.attached_files:
+            doc = await db.uploaded_documents.find_one({"id": doc_id})
+            if doc and doc.get("analysis"):
+                attached_docs_context += f"\n\n--- Document: {doc['filename']} ---\n{doc['analysis']}"
+    
+    # Construire le contexte enrichi
+    enhanced_system_message = f"""{system_message}
+    
+    **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
+    
+    **Historique des insights clés :**
+    {json.dumps(personal_context.get('key_insights', []), indent=2)}
+    
+    **Patterns de raisonnement identifiés :**
+    {json.dumps(personal_context.get('reasoning_patterns', {}), indent=2)}
+    
+    **Fils de recherche en cours :**
+    {json.dumps(personal_context.get('research_threads', []), indent=2)}
+    
+    **Documents récemment analysés :**
+    {attached_docs_context}
+    
+    **INSTRUCTIONS PERSONNALISÉES :**
+    - Tu connais l'auteur Philippe Thomas Savard et son style de questionnement
+    - Adapte tes réponses à son niveau de compréhension avancé de sa propre théorie
+    - Référence les discussions passées quand pertinent
+    - Identifie et signale les nouvelles pistes de recherche
+    - Aide à structurer et clarifier sa pensée
+    - Propose des connexions avec ses travaux précédents
+    """
+    
+    try:
+        # Chat avec contexte enrichi
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=enhanced_system_message
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=chat_message.message)
+        response = await chat.send_message(user_message)
+        
+        # Sauvegarder la conversation enrichie
+        conversation = {
+            "session_id": session_id,
+            "user_message": chat_message.message,
+            "ai_response": response,
+            "attached_files": chat_message.attached_files or [],
+            "context_mode": chat_message.context_mode,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.conversations_extended.insert_one(conversation)
+        
+        # Mettre à jour le contexte personnel
+        await update_personal_context(session_id, chat_message.message, response)
+        
+        return ChatResponse(response=response, session_id=session_id)
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors du chat enrichi: {str(e)}")
+
+async def get_personal_context(session_id: str) -> Dict[str, Any]:
+    """Récupère le contexte personnel de Philippe Thomas Savard"""
+    context = await db.personal_context.find_one({"user_id": "philippe_savard"})
+    
+    if not context:
+        # Créer un contexte initial
+        default_context = {
+            "user_id": "philippe_savard",
+            "conversation_history": [],
+            "uploaded_documents": [],
+            "reasoning_patterns": {
+                "prefere_approches_geometriques": True,
+                "focus_sur_relations_numeriques": True,
+                "interesse_par_validations_empiriques": True,
+                "cherche_connections_cosmologiques": True
+            },
+            "key_insights": [
+                "Développement de la méthode de Philippôt avec 14 tableaux",
+                "Importance du Digamma à la 8ème position",
+                "Théorème de convergence formel établi",
+                "Matrice à dérive première dans la mécanique harmonique"
+            ],
+            "research_threads": [
+                {"theme": "Validation empirique de la méthode", "status": "actif"},
+                {"theme": "Extensions aux nombres premiers négatifs", "status": "exploratoire"},
+                {"theme": "Connexions cosmologiques approfondies", "status": "théorique"}
+            ]
+        }
+        await db.personal_context.insert_one(default_context)
+        return default_context
+    
+    return context
+
+async def update_personal_context(session_id: str, user_message: str, ai_response: str):
+    """Met à jour le contexte personnel basé sur la conversation"""
+    # Analyser la conversation pour identifier de nouveaux insights
+    # Cette fonction pourrait être étendue avec une IA d'analyse
+    
+    conversation_entry = {
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "user_message": user_message,
+        "ai_response": ai_response,
+        "session_id": session_id
+    }
+    
+    # Ajouter à l'historique (garder les 50 dernières conversations)
+    await db.personal_context.update_one(
+        {"user_id": "philippe_savard"},
+        {
+            "$push": {
+                "conversation_history": {
+                    "$each": [conversation_entry],
+                    "$slice": -50  # Garder seulement les 50 dernières
+                }
+            }
+        },
+        upsert=True
+    )
+
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat_with_ai(chat_message: ChatMessage):
     """Chat avec l'IA spécialisée dans la théorie 'L'univers est au carré'"""
