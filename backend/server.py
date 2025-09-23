@@ -1076,6 +1076,141 @@ async def get_chat_history(session_id: str):
         for conv in history
     ]
 
+@app.post("/api/collaborate")
+async def collaborate_with_ai(request: CollaborationRequest):
+    """Collaboration IA pour compléter et améliorer un document"""
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Contexte spécialisé pour la collaboration
+        collaboration_system = f"""{system_message}
+        
+        **MODE COLLABORATION DOCUMENTAIRE :**
+        
+        Tu travailles avec Philippe Thomas Savard sur un document collaboratif. Ta mission :
+        - AJOUTER du contenu pertinent selon sa demande
+        - DÉVELOPPER ses idées en restant fidèle à sa théorie
+        - STRUCTURER et CLARIFIER ses pensées
+        - PROPOSER des connexions avec d'autres aspects de sa théorie
+        - MAINTENIR la cohérence avec ses travaux existants
+        
+        **RÈGLES DE COLLABORATION :**
+        1. Ajoute ton contenu de manière claire et identifiable
+        2. Respecte le style et le niveau technique de l'auteur
+        3. Développe les idées sans les dénaturer
+        4. Propose des améliorations constructives
+        5. Maintiens la structure bi-partite (vision auteur + contexte scientifique)
+        
+        **DOCUMENT ACTUEL :**
+        Titre : {request.document_title}
+        Contenu : {request.document}
+        
+        **DEMANDE :** {request.request}
+        
+        Retourne le document COMPLET avec tes ajouts intégrés de manière naturelle.
+        Marque tes contributions avec [IA: ...] pour clarté.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=request.session_id,
+            system_message=collaboration_system
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Améliore ce document selon ma demande : {request.request}")
+        updated_document = await chat.send_message(user_message)
+        
+        # Sauvegarder la collaboration
+        collaboration_log = {
+            "session_id": request.session_id,
+            "document_title": request.document_title,
+            "original_document": request.document,
+            "request": request.request,
+            "updated_document": updated_document,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.collaborations.insert_one(collaboration_log)
+        
+        return {
+            "success": True,
+            "updated_document": updated_document,
+            "message": "Document mis à jour avec succès"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de la collaboration: {str(e)}")
+
+@app.post("/api/save-collaboration")
+async def save_collaboration(request: SaveCollaborationRequest):
+    """Sauvegarder un document collaboratif"""
+    try:
+        doc_id = request.document_id or str(uuid.uuid4())
+        
+        document_data = {
+            "id": doc_id,
+            "title": request.title,
+            "content": request.document,
+            "session_id": request.session_id,
+            "created_at": datetime.now(timezone.utc).isoformat(),
+            "updated_at": datetime.now(timezone.utc).isoformat(),
+            "word_count": len(request.document.split()),
+            "char_count": len(request.document)
+        }
+        
+        if request.document_id:
+            # Mise à jour
+            document_data["updated_at"] = datetime.now(timezone.utc).isoformat()
+            await db.collaboration_documents.update_one(
+                {"id": request.document_id},
+                {"$set": document_data}
+            )
+        else:
+            # Nouveau document
+            await db.collaboration_documents.insert_one(document_data)
+        
+        return {
+            "success": True,
+            "document_id": doc_id,
+            "message": "Document sauvegardé avec succès"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de la sauvegarde: {str(e)}")
+
+@app.get("/api/collaboration-documents/{session_id}")
+async def get_collaboration_documents(session_id: str):
+    """Récupérer les documents collaboratifs d'une session"""
+    documents = await db.collaboration_documents.find(
+        {"session_id": session_id}
+    ).sort("updated_at", -1).to_list(length=None)
+    
+    return [
+        {
+            "id": doc["id"],
+            "title": doc["title"],
+            "updated_at": doc["updated_at"],
+            "word_count": doc.get("word_count", 0),
+            "char_count": doc.get("char_count", 0)
+        }
+        for doc in documents
+    ]
+
+@app.get("/api/collaboration-document/{doc_id}")
+async def get_collaboration_document(doc_id: str):
+    """Récupérer un document collaboratif spécifique"""
+    document = await db.collaboration_documents.find_one({"id": doc_id})
+    if not document:
+        raise HTTPException(status_code=404, detail="Document non trouvé")
+    
+    return {
+        "id": document["id"],
+        "title": document["title"],
+        "content": document["content"],
+        "created_at": document["created_at"],
+        "updated_at": document["updated_at"]
+    }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
