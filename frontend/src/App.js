@@ -454,6 +454,158 @@ const HomePage = () => {
           ))}
         </div>
       </div>
+
+      {/* Section des Trois Domaines Distincts */}
+      <div className="container mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-center text-white mb-4">
+          Trois Domaines Distincts de la Théorie
+        </h2>
+        <p className="text-center text-blue-200 mb-12 max-w-4xl mx-auto">
+          La théorie "L'univers est au carré" se compose de trois domaines d'étude séparés, 
+          chacun explorant des aspects uniques sans connexions forcées.
+        </p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <Card className="bg-gradient-to-b from-cyan-900/30 to-blue-900/30 border border-cyan-400/30 hover:border-cyan-300 transition-all duration-300 hover:scale-105">
+            <CardHeader className="text-center pb-4">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-full flex items-center justify-center">
+                <Calculator className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl text-cyan-300">Énigme de Riemann</CardTitle>
+              <CardDescription className="text-blue-200">
+                Analyse numérique métrique des nombres premiers
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <ul className="text-sm text-blue-100 space-y-2 text-left">
+                <li>• Représentation en tesseract sur sphère</li>
+                <li>• Rapports fractionnels (1/2, 1/3, 1/5)</li>
+                <li>• Technique du "moulinet"</li>
+                <li>• Concept du Digamma</li>
+                <li>• Zéros non triviaux de la fonction Zêta</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-b from-purple-900/30 to-indigo-900/30 border border-purple-400/30 hover:border-purple-300 transition-all duration-300 hover:scale-105">
+            <CardHeader className="text-center pb-4">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-purple-400 to-indigo-600 rounded-full flex items-center justify-center">
+                <Atom className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl text-purple-300">Intrication Quantique</CardTitle>
+              <CardDescription className="text-blue-200">
+                Théorème de Philippôt et géométrie du "squaring"
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <ul className="text-sm text-blue-100 space-y-2 text-left">
+                <li>• Triangles intriqués géométriquement</li>
+                <li>• Invariance selon choix d'unité</li>
+                <li>• Produit alternatif</li>
+                <li>• Rectangles élevés au carré</li>
+                <li>• Matrice de longueurs unitaires</li>
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gradient-to-b from-emerald-900/30 to-teal-900/30 border border-emerald-400/30 hover:border-emerald-300 transition-all duration-300 hover:scale-105">
+            <CardHeader className="text-center pb-4">
+              <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-br from-emerald-400 to-teal-600 rounded-full flex items-center justify-center">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <CardTitle className="text-2xl text-emerald-300">Chaos Discret</CardTitle>
+              <CardDescription className="text-blue-200">
+                Mécanique harmonique et géométrie relationnelle
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="text-center">
+              <ul className="text-sm text-blue-100 space-y-2 text-left">
+                <li>• Géométrie relationnelle</li>
+                <li>• Matrice à dérive première</li>
+                <li>• Équilibre dynamique</li>
+                <li>• Chaons et pression gravito-spectrale</li>
+                <li>• Structures auto-organisatrices</li>
+              </ul>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Section Deuxième Partie */}
+      <div className="container mx-auto px-6 py-16 bg-gradient-to-r from-slate-800/30 to-purple-900/30">
+        <h2 className="text-3xl font-bold text-center text-white mb-4">
+          Deuxième Partie : Géométrie du Spectre
+        </h2>
+        <p className="text-center text-blue-200 mb-12 max-w-4xl mx-auto">
+          Exploration des fondements invisibles de l'univers à travers une géométrie singulière 
+          issue du spectre des nombres premiers.
+        </p>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-yellow-400/30 transition-all duration-300">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-yellow-300 text-lg">Théorème Principal</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-blue-100">
+                <strong>"Trois carrés égale un triangle"</strong>
+                <p className="text-xs text-blue-200 mt-2">
+                  Ancré dans le théorème de Pythagore, établit une relation fondamentale entre carrés et triangles rectangles.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-yellow-400/30 transition-all duration-300">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-yellow-300 text-lg">Innovations Métriques</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-blue-100">
+                <strong>Longueur de Philippôt</strong>
+                <p className="text-xs text-blue-200 mt-2">
+                  Inspirée de la longueur de Planck, liée à la position du Soleil selon la perspective théorique.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-yellow-400/30 transition-all duration-300">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-yellow-300 text-lg">Cercle Denis</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-blue-100">
+                <strong>Diamètre 1, Circonférence ≈ 4</strong>
+                <p className="text-xs text-blue-200 mt-2">
+                  Relie constantes physiques (pression atmosphérique) aux formes géométriques.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-yellow-400/30 transition-all duration-300">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-yellow-300 text-lg">√10 comme π</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-blue-100">
+                <strong>Nouvelle approximation</strong>
+                <p className="text-xs text-blue-200 mt-2">
+                  √10 remplace π car il représente mieux le volume et la surface d'un espace selon Philippôt.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      {/* Section Catégories */}
+      <div className="container mx-auto px-6 py-16">
+        <h2 className="text-3xl font-bold text-center text-white mb-12">
+          Navigation par domaines
+        </h2>
+      </div>
     </div>
   );
 };
