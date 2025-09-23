@@ -1091,24 +1091,42 @@ const ChatPage = () => {
               <div className="space-y-4">
                 {messages.length === 0 && (
                   <div className="text-center py-8">
-                    <div className="bg-gradient-to-r from-cyan-500/20 to-blue-600/20 rounded-2xl p-6 max-w-md mx-auto mb-6">
-                      <Brain className="w-12 h-12 text-cyan-400 mx-auto mb-4" />
-                      <h3 className="text-white font-semibold mb-2">Bonjour ! Je suis votre expert IA</h3>
+                    <div className={`${extendedMode ? 'bg-gradient-to-r from-emerald-500/20 to-cyan-600/20 border border-emerald-400/30' : 'bg-gradient-to-r from-cyan-500/20 to-blue-600/20'} rounded-2xl p-6 max-w-md mx-auto mb-6`}>
+                      <Brain className={`w-12 h-12 ${extendedMode ? 'text-emerald-400' : 'text-cyan-400'} mx-auto mb-4`} />
+                      <h3 className="text-white font-semibold mb-2">
+                        {extendedMode ? 'Bonjour Philippe ! Votre assistant personnel' : 'Bonjour ! Je suis votre expert IA'}
+                      </h3>
                       <p className="text-blue-200 text-sm">
-                        Je connais parfaitement la méthode de Philippôt, ses 14 tableaux, 
-                        le calcul du Digamma, et toute la théorie "L'univers est au carré".
+                        {extendedMode 
+                          ? 'Mode enrichi activé : je me souviens de nos discussions, analyse vos documents, et adapte mes réponses à votre style de raisonnement unique.'
+                          : 'Je connais parfaitement la méthode de Philippôt, ses 14 tableaux, le calcul du Digamma, et toute la théorie "L\'univers est au carré".'
+                        }
                       </p>
+                      
+                      {extendedMode && (
+                        <div className="mt-4 text-xs text-emerald-300">
+                          🧠 Contexte personnel actif • 📚 {uploadedDocuments.length} documents analysés • 💭 Mémoire étendue
+                        </div>
+                      )}
                     </div>
                     
                     <div className="space-y-2">
-                      <p className="text-blue-300 text-sm mb-3">Suggestions de questions :</p>
-                      {suggestions.map((suggestion, index) => (
+                      <p className="text-blue-300 text-sm mb-3">
+                        {extendedMode ? 'Questions adaptées à votre recherche :' : 'Suggestions de questions :'}
+                      </p>
+                      {(extendedMode ? [
+                        "Analysons cette nouvelle idée que j'ai développée...",
+                        "Que penses-tu de cette connexion avec mes travaux précédents ?",
+                        "Comment puis-je approfondir cette piste de recherche ?",
+                        "Aide-moi à structurer cette nouvelle approche",
+                        "Quelles implications cela a-t-il pour ma théorie globale ?"
+                      ] : suggestions).map((suggestion, index) => (
                         <Button
                           key={index}
                           variant="outline"
                           size="sm"
                           onClick={() => setInputMessage(suggestion)}
-                          className="border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10 text-xs mx-1 mb-2"
+                          className={`${extendedMode ? 'border-emerald-400/30 text-emerald-300 hover:bg-emerald-400/10' : 'border-cyan-400/30 text-cyan-300 hover:bg-cyan-400/10'} text-xs mx-1 mb-2`}
                         >
                           {suggestion}
                         </Button>
