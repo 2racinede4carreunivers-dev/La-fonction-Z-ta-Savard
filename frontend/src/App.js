@@ -1625,6 +1625,7 @@ const App = () => {
           <Route path="/methode-philippot" element={<MethodePhilippotPage />} />
           <Route path="/explorer" element={<ExplorerPage />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/collaboration" element={<CollaborationPage />} />
         </Routes>
       </div>
     </Router>
