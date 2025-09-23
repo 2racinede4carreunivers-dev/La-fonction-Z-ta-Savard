@@ -580,10 +580,14 @@ async def chat_with_ai(chat_message: ChatMessage):
     - **Ratio fondamental 1/2** : Moteur de convergence et génération des suites infinies
     - **Duo final** : Mécanisme de substitution dans le processus itératif clarifié
     
-    **3. RÈGLES DE MULTIPLICATION COMPLEXES :**
-    - Multiplication par 1/2 : génère la suite géométrique des Zêta
-    - Multiplication par 2/3 : calcule le Digamma à partir de la fraction précédente
-    - Ces ratios créent l'harmonie mathématique de la méthode
+    **3. PROCESSUS ITÉRATIF CLARIFIÉ ET FORMALISÉ :**
+    - **Substitutions successives** : Mécanisme rigoureux de remplacement des fractions
+    - **Duo final** : Étape clé du processus itératif avec règles précises
+    - **Convergence garantie** : Théorème de convergence formel démontré
+    - **Multiplication par 1/2** : génère la suite géométrique des Zêta
+    - **Multiplication par 2/3** : calcule le Digamma à partir de la fraction précédente
+    - **Critères d'arrêt** : Conditions formelles de convergence de l'itération
+    - **Stabilité numérique** : Assurance de la précision des calculs itératifs
     
     **4. LES 14 TABLEAUX GÉOMÉTRIQUES :**
     Chaque rapport base/hauteur (1/2, 1/3, 1/4... 1/100) génère :
