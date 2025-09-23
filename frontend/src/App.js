@@ -1142,10 +1142,72 @@ const ChatPage = () => {
               </div>
             </ScrollArea>
             
+            {/* Barre d'outils avec upload */}
+            {extendedMode && (
+              <div className="border-t border-white/10 p-4">
+                <div className="flex items-center gap-4 mb-4">
+                  <label htmlFor="file-upload" className="cursor-pointer">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-emerald-400/30 text-emerald-300 hover:bg-emerald-400/10"
+                      disabled={uploading}
+                    >
+                      <BookOpen className="w-4 h-4 mr-2" />
+                      {uploading ? 'Upload...' : 'Ajouter document'}
+                    </Button>
+                    <input
+                      id="file-upload"
+                      type="file"
+                      multiple
+                      accept=".pdf,.txt,.docx,.png,.jpg,.jpeg"
+                      onChange={handleFileUpload}
+                      className="hidden"
+                    />
+                  </label>
+                  
+                  {uploadedDocuments.length > 0 && (
+                    <div className="text-sm text-blue-200">
+                      {uploadedDocuments.length} document{uploadedDocuments.length > 1 ? 's' : ''} analysé{uploadedDocuments.length > 1 ? 's' : ''}
+                    </div>
+                  )}
+                </div>
+
+                {/* Liste des documents */}
+                {uploadedDocuments.length > 0 && (
+                  <div className="bg-slate-800/50 rounded-lg p-3 mb-4 max-h-32 overflow-y-auto">
+                    <div className="text-xs text-cyan-300 mb-2">Documents analysés :</div>
+                    <div className="space-y-1">
+                      {uploadedDocuments.slice(0, 3).map((doc) => (
+                        <div key={doc.id} className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={selectedFiles.includes(doc.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedFiles(prev => [...prev, doc.id]);
+                              } else {
+                                setSelectedFiles(prev => prev.filter(id => id !== doc.id));
+                              }
+                            }}
+                            className="w-3 h-3"
+                          />
+                          <span className="text-xs text-blue-200 truncate">{doc.filename}</span>
+                        </div>
+                      ))}
+                      {uploadedDocuments.length > 3 && (
+                        <div className="text-xs text-blue-300">+{uploadedDocuments.length - 3} autres...</div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="border-t border-white/10 p-6">
               <div className="flex gap-2">
                 <Input
-                  placeholder="Posez votre question sur la méthode de Philippôt..."
+                  placeholder={extendedMode ? "Discutons de votre théorie avec contexte enrichi..." : "Posez votre question sur la méthode de Philippôt..."}
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
                   className="bg-white/10 border-white/20 text-white placeholder:text-blue-200"
@@ -1155,11 +1217,17 @@ const ChatPage = () => {
                 <Button 
                   onClick={sendMessage} 
                   disabled={loading || !inputMessage.trim()}
-                  className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700"
+                  className={`${extendedMode ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700' : 'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700'}`}
                 >
                   <Send className="w-4 h-4" />
                 </Button>
               </div>
+              
+              {selectedFiles.length > 0 && (
+                <div className="mt-2 text-xs text-emerald-300">
+                  📎 {selectedFiles.length} document{selectedFiles.length > 1 ? 's' : ''} attaché{selectedFiles.length > 1 ? 's' : ''}
+                </div>
+              )}
             </div>
           </CardContent>
         </Card>
