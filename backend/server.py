@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
@@ -10,6 +10,9 @@ from datetime import datetime, timezone
 import uuid
 from emergentintegrations.llm.chat import LlmChat, UserMessage
 import math
+import base64
+import json
+import aiofiles
 
 # Charger les variables d'environnement
 load_dotenv()
