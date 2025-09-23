@@ -1290,6 +1290,9 @@ const Navigation = () => {
             <Link to="/chat" className="text-blue-200 hover:text-cyan-400 transition-colors">
               IA Expert
             </Link>
+            <Link to="/collaboration" className="text-blue-200 hover:text-cyan-400 transition-colors">
+              Collaboration
+            </Link>
           </div>
         </div>
       </div>
