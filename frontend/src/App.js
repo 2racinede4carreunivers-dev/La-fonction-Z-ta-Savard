@@ -940,6 +940,10 @@ const ChatPage = () => {
   const [inputMessage, setInputMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [sessionId, setSessionId] = useState(null);
+  const [uploadedDocuments, setUploadedDocuments] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState([]);
+  const [uploading, setUploading] = useState(false);
+  const [extendedMode, setExtendedMode] = useState(true);
 
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
