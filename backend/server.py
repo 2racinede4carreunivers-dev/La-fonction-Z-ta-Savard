@@ -78,6 +78,29 @@ class CalculateurRequest(BaseModel):
     rapport_base: int
     rapport_hauteur: int
 
+class DocumentUpload(BaseModel):
+    id: str
+    filename: str
+    file_type: str
+    content: str
+    analysis: str
+    user_session: str
+    upload_date: str
+
+class ExtendedChatMessage(BaseModel):
+    message: str
+    session_id: Optional[str] = None
+    attached_files: Optional[List[str]] = None
+    context_mode: Optional[str] = "extended"  # "normal" ou "extended"
+
+class PersonalContext(BaseModel):
+    user_id: str = "philippe_savard"  # Puisque c'est votre app personnelle
+    conversation_history: List[Dict[str, Any]] = []
+    uploaded_documents: List[str] = []
+    reasoning_patterns: Dict[str, Any] = {}
+    key_insights: List[str] = []
+    research_threads: List[Dict[str, Any]] = []
+
 # Base de connaissances enrichie de la théorie
 CONCEPTS_BASE = [
     {
