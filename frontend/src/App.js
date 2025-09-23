@@ -90,8 +90,8 @@ const HomePage = () => {
               </h1>
               
               <p className="text-xl text-blue-100 mb-8 leading-relaxed">
-                Découvrez la méthode révolutionnaire de Philippôt : 14 tableaux géométriques pour déterminer 
-                les nombres premiers avec une précision parfaite, validée par l'Intelligence Artificielle.
+                Une théorie personnelle en deux parties : découvrez les trois domaines distincts d'exploration - 
+                l'énigme de Riemann, l'intrication quantique et la mécanique du chaos discret.
               </p>
             </div>
 
