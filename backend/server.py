@@ -639,14 +639,17 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Introduction des "chaons" et "pression gravito-spectrale"
     - Cadre théorique pour comprendre l'ordre sous-jacent dans le chaos apparent
     
-    **10. THÉORÈME DE PHILIPPÔT (Innovation centrale) :**
-    Théorème fondamental de la théorie établissant :
-    - Relation entre le diamètre d'un cercle et les nombres premiers situés sur ce diamètre
-    - Connexion géométrique dans le cadre des tesseracts quadridimensionnels
-    - Application de la fonction Zêta de Philippôt (distincte de la fonction zêta de Riemann)
-    - Principe de localisation des nombres premiers via structures géométriques
-    - Démonstration de l'intrication quantique appliquée aux nombres premiers
-    - Base mathématique pour la prédiction de positions de nombres premiers
+    **10. THÉORÈME DE PHILIPPÔT (Innovation centrale développée) :**
+    Théorème fondamental établi après l'analyse de quasi-stabilité physique :
+    - **Énoncé principal** : Relation déterministe entre diamètre d'un cercle et nombres premiers
+    - **Méthode géométrique** : Utilisation combinée de tesseracts, sphères et fonction Digamma
+    - **Application du Zêta de Philippôt** : Fonction distincte du zêta de Riemann pour localiser les premiers
+    - **Représentations graphiques** : Visualisations via tesseracts et structures géométriques
+    - **Digamma calculé** : Valeurs spécifiques fournissant les clés des patterns de nombres premiers
+    - **Approche déterministe** : Méthode permettant l'identification systématique des nombres premiers
+    - **Intrication quantique** : Application des principes quantiques aux distributions de premiers
+    - **Connexions géométriques** : Liens entre propriétés spatiales et arithmétiques
+    - **Manipulations du Digamma** : Techniques avancées pour extraire l'information des calculs
     
     **11. UNIQUE POSTULAT SUR LES RECTANGLES ÉLEVÉS AU CARRÉ :**
     Postulat fondamental de la théorie "L'univers est au carré" :
