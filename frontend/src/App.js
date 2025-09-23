@@ -146,61 +146,267 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Section Méthode de Philippôt */}
+      {/* Section Exemples précis de la Méthode */}
       <div className="container mx-auto px-6 py-16">
         <h2 className="text-3xl font-bold text-center text-white mb-4">
-          La Méthode de Philippôt en action
+          Exemples précis de la Méthode de Philippôt
         </h2>
         <p className="text-center text-blue-200 mb-12 max-w-3xl mx-auto">
-          Chaque tableau utilise un rapport base/hauteur différent pour générer des séquences de racines carrées. 
-          Le "Digamma" calculé à la 8ème position permet de déterminer un nombre premier précis.
+          Découvrez 3 calculs complets détaillés montrant comment les séquences de racines carrées 
+          génèrent précisément les nombres premiers 29, 31, et 2999.
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          {tableaux.slice(0, 3).map((tableau) => (
-            <Card 
-              key={tableau.id}
-              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/30 transition-all duration-300 hover:scale-105 cursor-pointer group"
-            >
-              <CardHeader className="pb-3">
-                <div className="flex items-center justify-between">
-                  <Badge className="bg-cyan-900/50 text-cyan-300 border-cyan-400/30">
-                    Rapport {tableau.rapport}
-                  </Badge>
-                  <div className="text-2xl font-bold text-purple-400">
-                    {tableau.nombre_premier_resultat}
-                  </div>
+        <div className="space-y-8">
+          {/* Tableau détaillé pour le nombre premier 29 */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-cyan-400/30">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-2xl text-cyan-400 mb-2">
+                    Nombre Premier 29 - 10ème position
+                  </CardTitle>
+                  <CardDescription className="text-blue-200">
+                    Calcul complet avec 10 données - Rapport triangulaire optimisé
+                  </CardDescription>
                 </div>
-                <CardTitle className="text-white text-lg group-hover:text-cyan-300 transition-colors">
-                  {tableau.description}
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between text-blue-200">
-                    <span>Digamma :</span>
-                    <span className="text-cyan-300">{tableau.digamma_valeur}</span>
+                <div className="text-4xl font-bold text-purple-400">29</div>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Suite 1 */}
+                <Card className="bg-slate-800/50 border-slate-600">
+                  <CardHeader>
+                    <CardTitle className="text-cyan-300 text-lg">Suite 1 (Racines carrées)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      {["√5", "√13", "√25", "√41", "√61", "√85", "√113", "√145", "√181", "√221"].map((valeur, index) => (
+                        <div key={index} className="flex justify-between">
+                          <span className="text-blue-200">Position {index + 1} :</span>
+                          <code className={`${index === 7 ? 'text-yellow-400 font-bold' : 'text-white'} bg-slate-700 px-2 py-1 rounded`}>
+                            {valeur} {index === 7 && '← Digamma'}
+                          </code>
+                        </div>
+                      ))}
+                      <div className="border-t border-slate-600 pt-2 mt-3">
+                        <div className="flex justify-between font-semibold">
+                          <span className="text-cyan-300">Somme :</span>
+                          <code className="text-cyan-300">√3452805</code>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Suite 2 */}
+                <Card className="bg-slate-800/50 border-slate-600">
+                  <CardHeader>
+                    <CardTitle className="text-purple-300 text-lg">Suite 2 (Carrés)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      {["5", "13", "25", "41", "61", "85", "113", "145", "181", "221"].map((valeur, index) => (
+                        <div key={index} className="flex justify-between">
+                          <span className="text-blue-200">Position {index + 1} :</span>
+                          <code className="text-white bg-slate-700 px-2 py-1 rounded">
+                            {valeur}
+                          </code>
+                        </div>
+                      ))}
+                      <div className="border-t border-slate-600 pt-2 mt-3">
+                        <div className="flex justify-between font-semibold">
+                          <span className="text-purple-300">Somme :</span>
+                          <code className="text-purple-300">√13300805</code>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* Calcul final */}
+              <Card className="bg-gradient-to-r from-emerald-900/30 to-cyan-900/30 border-emerald-400/30 mt-6">
+                <CardHeader>
+                  <CardTitle className="text-emerald-300 text-lg">Calcul Final</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="bg-slate-800/70 p-4 rounded-lg">
+                      <div className="text-sm text-blue-200 mb-2">Digamma (8ème position) :</div>
+                      <code className="text-yellow-400 text-lg">√81920</code>
+                    </div>
+                    <div className="bg-slate-800/70 p-4 rounded-lg">
+                      <div className="text-sm text-blue-200 mb-2">Formule appliquée :</div>
+                      <code className="text-emerald-300 text-lg">(√3452805 − √81920) / √5120 = 29</code>
+                    </div>
+                    <div className="text-center">
+                      <Badge className="bg-purple-600 text-white text-lg px-4 py-2">
+                        29 est le 10ème nombre premier
+                      </Badge>
+                    </div>
                   </div>
-                  <div className="flex justify-between text-blue-200">
-                    <span>Position :</span>
-                    <span className="text-purple-300">{tableau.position_nombre_premier}ème premier</span>
-                  </div>
-                  <div className="flex justify-between text-blue-200">
-                    <span>Opération :</span>
-                    <span className="text-emerald-300">{tableau.calcul_detaille.operation_digamma}</span>
-                  </div>
+                </CardContent>
+              </Card>
+            </CardContent>
+          </Card>
+
+          {/* Tableau détaillé pour le nombre premier 31 */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-purple-400/30">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-2xl text-purple-400 mb-2">
+                    Nombre Premier 31 - 11ème position
+                  </CardTitle>
+                  <CardDescription className="text-blue-200">
+                    Calcul avec 11 données - Séquence étendue
+                  </CardDescription>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                <div className="text-4xl font-bold text-cyan-400">31</div>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Suite 1 étendue */}
+                <Card className="bg-slate-800/50 border-slate-600">
+                  <CardHeader>
+                    <CardTitle className="text-cyan-300 text-lg">Suite 1 (11 termes)</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      {["√5", "√13", "√25", "√41", "√61", "√85", "√113", "√145", "√181", "√221", "√265"].map((valeur, index) => (
+                        <div key={index} className="flex justify-between">
+                          <span className="text-blue-200">Position {index + 1} :</span>
+                          <code className={`${index === 7 ? 'text-yellow-400 font-bold' : 'text-white'} bg-slate-700 px-2 py-1 rounded`}>
+                            {valeur} {index === 7 && '← Digamma'}
+                          </code>
+                        </div>
+                      ))}
+                      <div className="border-t border-slate-600 pt-2 mt-3">
+                        <div className="flex justify-between font-semibold">
+                          <span className="text-cyan-300">Somme :</span>
+                          <code className="text-cyan-300">√7079856640</code>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Calcul pour 31 */}
+                <Card className="bg-gradient-to-b from-purple-900/30 to-indigo-900/30 border-purple-400/30">
+                  <CardHeader>
+                    <CardTitle className="text-purple-300 text-lg">Calcul pour 31</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-4">
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200">Digamma (8ème) :</div>
+                        <code className="text-yellow-400">√145 = √281300</code>
+                      </div>
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200">Suite 2 :</div>
+                        <code className="text-purple-300">√6.333294724 × 10¹⁰</code>
+                      </div>
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200">Calcul intermédiaire :</div>
+                        <code className="text-emerald-300">√7079856640 - √281300</code>
+                      </div>
+                      <div className="text-center">
+                        <Badge className="bg-cyan-600 text-white text-lg px-4 py-2">
+                          Résultat : 31 (11ème premier)
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Tableau pour le rapport 1/5 donnant 2999 */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-emerald-400/30">
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-2xl text-emerald-400 mb-2">
+                    Rapport 1/5 → Premier 2999
+                  </CardTitle>
+                  <CardDescription className="text-blue-200">
+                    Triangle base/hauteur 1/5 - Calcul avancé
+                  </CardDescription>
+                </div>
+                <div className="text-4xl font-bold text-emerald-400">2999</div>
+              </div>
+            </CardHeader>
+            
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Configuration du triangle */}
+                <Card className="bg-slate-800/50 border-slate-600">
+                  <CardHeader>
+                    <CardTitle className="text-emerald-300 text-lg">Configuration Géométrique</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-blue-200">Rapport base/hauteur :</span>
+                        <code className="text-emerald-400 bg-slate-700 px-2 py-1 rounded">1/5</code>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-blue-200">Séquence générée :</span>
+                        <code className="text-white bg-slate-700 px-2 py-1 rounded">Position 55-56</code>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-blue-200">Digamma calculé :</span>
+                        <code className="text-yellow-400 bg-slate-700 px-2 py-1 rounded">√((55)² + 56)¹/²</code>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Calcul final complexe */}
+                <Card className="bg-gradient-to-b from-emerald-900/30 to-teal-900/30 border-emerald-400/30">
+                  <CardHeader>
+                    <CardTitle className="text-emerald-300 text-lg">Calcul Final</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200 mb-1">Suite 1 :</div>
+                        <code className="text-cyan-300 text-sm">√3.580561045 × 10¹⁵</code>
+                      </div>
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200 mb-1">Suite 2 :</div>
+                        <code className="text-purple-300 text-sm">√1.452125243 × 10¹⁴</code>
+                      </div>
+                      <div className="bg-slate-800/70 p-3 rounded">
+                        <div className="text-sm text-blue-200 mb-1">Formule :</div>
+                        <code className="text-emerald-300 text-xs break-all">
+                          (√3.580561045×10¹⁵ - √1.452125243×10¹⁴) / √((55)²+56) = 2999
+                        </code>
+                      </div>
+                      <div className="text-center">
+                        <Badge className="bg-emerald-600 text-white text-lg px-4 py-2">
+                          2999 est un nombre premier
+                        </Badge>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
-        <div className="text-center">
+        <div className="text-center mt-12">
           <Button 
             onClick={() => navigate('/methode-philippot')}
             className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full font-semibold"
           >
-            Voir tous les tableaux <ArrowRight className="w-4 h-4 ml-2" />
+            Voir tous les 14 tableaux <ArrowRight className="w-4 h-4 ml-2" />
           </Button>
         </div>
       </div>
