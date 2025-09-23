@@ -945,6 +945,65 @@ const ChatPage = () => {
   const [uploading, setUploading] = useState(false);
   const [extendedMode, setExtendedMode] = useState(true);
 
+  // Charger les documents au démarrage
+  useEffect(() => {
+    if (sessionId) {
+      fetchDocuments();
+    }
+  }, [sessionId]);
+
+  const fetchDocuments = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/documents/${sessionId}`);
+      setUploadedDocuments(response.data);
+    } catch (error) {
+      console.error('Erreur lors du chargement des documents:', error);
+    }
+  };
+
+  const handleFileUpload = async (event) => {
+    const files = Array.from(event.target.files);
+    if (files.length === 0) return;
+
+    setUploading(true);
+    const currentSessionId = sessionId || new Date().getTime().toString();
+
+    for (const file of files) {
+      try {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('session_id', currentSessionId);
+
+        const response = await axios.post(`${API_URL}/api/upload-document`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+
+        if (response.data.success) {
+          const analysisMessage = {
+            type: 'system',
+            content: `📄 Document "${file.name}" analysé avec succès !\n\n🔍 Analyse automatique :\n${response.data.analysis}`
+          };
+          setMessages(prev => [...prev, analysisMessage]);
+        }
+
+      } catch (error) {
+        console.error('Erreur lors de l\'upload:', error);
+        const errorMessage = {
+          type: 'system',
+          content: `❌ Erreur lors de l'upload de "${file.name}"`
+        };
+        setMessages(prev => [...prev, errorMessage]);
+      }
+    }
+
+    setSessionId(currentSessionId);
+    setUploading(false);
+    await fetchDocuments();
+    
+    // Réinitialiser l'input
+    event.target.value = '';
+  };
+
   const sendMessage = async () => {
     if (!inputMessage.trim()) return;
 
@@ -953,14 +1012,22 @@ const ChatPage = () => {
     setLoading(true);
     
     try {
-      const response = await axios.post(`${API_URL}/api/chat`, {
+      const endpoint = extendedMode ? '/api/chat-extended' : '/api/chat';
+      const requestData = extendedMode ? {
+        message: inputMessage,
+        session_id: sessionId,
+        attached_files: selectedFiles,
+        context_mode: 'extended'
+      } : {
         message: inputMessage,
         session_id: sessionId
-      });
+      };
+
+      const response = await axios.post(`${API_URL}${endpoint}`, requestData);
       
       setSessionId(response.data.session_id);
       
-      const aiMessage = { type: 'ai', content: response.data.response };
+      const aiMessage = { type: 'ai', content: response.data.response, extended: extendedMode };
       setMessages(prev => [...prev, aiMessage]);
       
     } catch (error) {
@@ -973,6 +1040,7 @@ const ChatPage = () => {
     } finally {
       setLoading(false);
       setInputMessage('');
+      setSelectedFiles([]);
     }
   };
 
