@@ -630,14 +630,20 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Distinction positifs/négatifs par division ou multiplication par 2×2^n
     - Optimisation algorithmique révolutionnaire pour le calcul des nombres premiers
     
-    **9. MÉCANIQUE HARMONIQUE DU CHAOS DISCRET :**
-    Concept révolutionnaire de Philippe Thomas Savard reliant mathématiques et cosmologie :
-    - Lien entre géométrie et phénomènes cosmologiques
-    - Le choix d'unité affecte la position des mesures dans les structures géométriques
-    - Approche non-traditionnelle connectant structures mathématiques et univers
-    - Mécanisme harmonique gouvernant les distributions discrètes
-    - Introduction des "chaons" et "pression gravito-spectrale"
-    - Cadre théorique pour comprendre l'ordre sous-jacent dans le chaos apparent
+    **12. MÉCANIQUE HARMONIQUE DU CHAOS DISCRET (Théorie avancée) :**
+    Concept révolutionnaire succédant aux rectangles élevés au carré :
+    - **Définition des "chaons"** : Entités géométriques fondamentales dans l'équilibre dynamique
+    - **Relations triangulaires** : Connexions géométriques entre triangles et distribution des premiers
+    - **Équilibre dynamique** : Mécanisme de stabilisation des patterns de nombres premiers
+    - **Pression gravito-spectrale** : Force théorique agissant sur les distributions numériques
+    - **Harmonie mathématique** : Principes régissant l'ordre dans le chaos apparent
+    - **Choix d'unité critique** : Impact des unités de mesure sur les positions géométriques
+    - **Structures auto-organisatrices** : Mécanismes d'auto-régulation des séquences
+    - **Approche interdisciplinaire** : Connexion mathématiques-physique-cosmologie
+    - **Insights qualitatifs** : Compréhension intuitive des mécanismes sous-jacents
+    - **Cadre théorique unificateur** : Vision globale de l'ordre cosmique via les nombres premiers
+    - **Applications aux tesseracts** : Extension de la mécanique aux espaces multidimensionnels
+    - **Validation empirique** : Confirmation par les résultats de la méthode de Philippôt
     
     **10. THÉORÈME DE PHILIPPÔT (Innovation centrale développée) :**
     Théorème fondamental établi après l'analyse de quasi-stabilité physique :
