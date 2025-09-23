@@ -1300,6 +1300,320 @@ const Navigation = () => {
   );
 };
 
+// Page Collaboration avec éditeur de texte
+const CollaborationPage = () => {
+  const [document, setDocument] = useState('');
+  const [sessionId, setSessionId] = useState(null);
+  const [isEditing, setIsEditing] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [savedDocuments, setSavedDocuments] = useState([]);
+  const [currentDocId, setCurrentDocId] = useState(null);
+  const [documentTitle, setDocumentTitle] = useState('Nouveau Document');
+
+  useEffect(() => {
+    const newSessionId = `collab_${Date.now()}`;
+    setSessionId(newSessionId);
+    loadSavedDocuments();
+  }, []);
+
+  const loadSavedDocuments = async () => {
+    try {
+      // Charger les documents sauvegardés (simulation pour l'instant)
+      setSavedDocuments([
+        { id: '1', title: 'Réflexions sur les matrices à dérive première', date: new Date().toISOString() },
+        { id: '2', title: 'Développements de la mécanique harmonique', date: new Date().toISOString() }
+      ]);
+    } catch (error) {
+      console.error('Erreur lors du chargement des documents:', error);
+    }
+  };
+
+  const insertText = (before, after = '') => {
+    const textarea = document.querySelector('#collaboration-editor');
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+    const selectedText = document.substring(start, end);
+    const newText = document.substring(0, start) + before + selectedText + after + document.substring(end);
+    setDocument(newText);
+    
+    // Repositionner le curseur
+    setTimeout(() => {
+      textarea.focus();
+      textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
+    }, 0);
+  };
+
+  const formatText = (type) => {
+    switch (type) {
+      case 'bold':
+        insertText('**', '**');
+        break;
+      case 'italic':
+        insertText('*', '*');
+        break;
+      case 'bullet':
+        insertText('\n• ');
+        break;
+      case 'number':
+        insertText('\n1. ');
+        break;
+      case 'heading':
+        insertText('\n## ');
+        break;
+      case 'paragraph':
+        insertText('\n\n');
+        break;
+      default:
+        break;
+    }
+  };
+
+  const collaborateWithAI = async (request) => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/collaborate`, {
+        document: document,
+        request: request,
+        session_id: sessionId,
+        document_title: documentTitle
+      });
+
+      if (response.data.success) {
+        setDocument(response.data.updated_document);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la collaboration:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const saveDocument = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/api/save-collaboration`, {
+        document: document,
+        title: documentTitle,
+        session_id: sessionId,
+        document_id: currentDocId
+      });
+
+      if (response.data.success) {
+        setCurrentDocId(response.data.document_id);
+        await loadSavedDocuments();
+      }
+    } catch (error) {
+      console.error('Erreur lors de la sauvegarde:', error);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      <div className="container mx-auto px-6 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-4 flex items-center gap-2">
+            <Edit3 className="w-8 h-8 text-cyan-400" />
+            Espace de Collaboration
+          </h1>
+          <p className="text-blue-200 text-lg">
+            Co-écrivez et développez vos idées avec l'IA spécialisée dans un éditeur de texte enrichi.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Sidebar avec documents sauvegardés */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 lg:col-span-1">
+            <CardHeader>
+              <CardTitle className="text-white text-lg">Documents</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <Button
+                  onClick={() => {
+                    setDocument('');
+                    setDocumentTitle('Nouveau Document');
+                    setCurrentDocId(null);
+                  }}
+                  className="w-full bg-cyan-600 hover:bg-cyan-700"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nouveau
+                </Button>
+                
+                {savedDocuments.map((doc) => (
+                  <Card
+                    key={doc.id}
+                    className="bg-slate-800/50 border-slate-600 cursor-pointer hover:border-cyan-400/30 transition-all"
+                    onClick={() => {
+                      setCurrentDocId(doc.id);
+                      setDocumentTitle(doc.title);
+                      // Charger le contenu du document
+                    }}
+                  >
+                    <CardContent className="p-3">
+                      <div className="text-sm text-white font-medium truncate">{doc.title}</div>
+                      <div className="text-xs text-blue-300">
+                        {new Date(doc.date).toLocaleDateString()}
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Éditeur principal */}
+          <div className="lg:col-span-3">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+              <CardHeader className="border-b border-white/10">
+                <div className="flex items-center justify-between">
+                  <Input
+                    value={documentTitle}
+                    onChange={(e) => setDocumentTitle(e.target.value)}
+                    className="bg-transparent border-none text-xl font-bold text-white focus:ring-2 focus:ring-cyan-400"
+                    placeholder="Titre du document..."
+                  />
+                  <Button
+                    onClick={saveDocument}
+                    className="bg-emerald-600 hover:bg-emerald-700"
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    Sauvegarder
+                  </Button>
+                </div>
+              </CardHeader>
+
+              {/* Barre d'outils */}
+              <div className="border-b border-white/10 p-4">
+                <div className="flex flex-wrap items-center gap-2">
+                  <div className="flex items-center gap-1 border-r border-white/20 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('bold')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      <Bold className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('italic')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      <Italic className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center gap-1 border-r border-white/20 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('heading')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      <Type className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('paragraph')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      <AlignLeft className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center gap-1 border-r border-white/20 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('bullet')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      <List className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('number')}
+                      className="text-white hover:bg-white/10"
+                    >
+                      1.
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
+                      disabled={loading}
+                      className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                    >
+                      <Brain className="w-4 h-4 mr-2" />
+                      IA : Compléter
+                    </Button>
+                    <Button
+                      onClick={() => collaborateWithAI("Améliore la structure et la clarté de ce texte")}
+                      disabled={loading}
+                      className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700"
+                    >
+                      <Sparkles className="w-4 h-4 mr-2" />
+                      IA : Améliorer
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Zone d'édition */}
+              <CardContent className="p-0">
+                <textarea
+                  id="collaboration-editor"
+                  value={document}
+                  onChange={(e) => setDocument(e.target.value)}
+                  placeholder="Commencez à écrire vos idées ici... L'IA peut vous aider à les développer et les structurer.
+
+Exemples d'utilisation :
+• Rédigez une idée de base
+• Utilisez les boutons IA pour la faire développer
+• Ajoutez votre propre contenu
+• Collaborez de manière itérative
+
+## Nouvelle section
+Votre contenu ici...
+
+1. Premier point
+2. Deuxième point"
+                  className="w-full h-96 bg-transparent text-white p-6 border-none resize-none focus:outline-none focus:ring-2 focus:ring-cyan-400 font-mono text-sm leading-relaxed"
+                  disabled={loading}
+                />
+              </CardContent>
+
+              {/* Barre de statut */}
+              <div className="border-t border-white/10 p-4">
+                <div className="flex items-center justify-between text-sm text-blue-300">
+                  <div>
+                    {document.length} caractères • {document.split(/\s+/).filter(word => word.length > 0).length} mots
+                  </div>
+                  <div className="flex items-center gap-4">
+                    {loading && (
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cyan-400"></div>
+                        <span>L'IA collabore...</span>
+                      </div>
+                    )}
+                    <div className="text-xs">
+                      Session: {sessionId?.slice(-8)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // App principale
 const App = () => {
   return (
