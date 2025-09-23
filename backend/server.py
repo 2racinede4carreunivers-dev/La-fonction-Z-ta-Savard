@@ -101,6 +101,18 @@ class PersonalContext(BaseModel):
     key_insights: List[str] = []
     research_threads: List[Dict[str, Any]] = []
 
+class CollaborationRequest(BaseModel):
+    document: str
+    request: str
+    session_id: str
+    document_title: str
+
+class SaveCollaborationRequest(BaseModel):
+    document: str
+    title: str
+    session_id: str
+    document_id: Optional[str] = None
+
 # Base de connaissances enrichie de la théorie
 CONCEPTS_BASE = [
     {
