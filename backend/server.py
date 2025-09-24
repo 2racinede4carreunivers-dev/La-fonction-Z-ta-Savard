@@ -343,6 +343,64 @@ def get_concept_enrichi_by_domain(domain=None):
     return CONCEPTS_ENRICHIS
 
 def enrich_system_message_with_theory():
+    """Génère un message système enrichi avec tous les concepts théoriques"""
+    
+    # Organiser les concepts par domaine
+    domaines = {}
+    for concept in CONCEPTS_ENRICHIS:
+        domaine = concept["domaine_principal"]
+        if domaine not in domaines:
+            domaines[domaine] = []
+        domaines[domaine].append(concept)
+    
+    enrichment = "\n\n## CONNAISSANCES THÉORIQUES SPÉCIALISÉES - L'UNIVERS EST AU CARRÉ\n\n"
+    
+    for domaine, concepts in domaines.items():
+        enrichment += f"### {domaine.upper()}\n\n"
+        
+        for concept in concepts:
+            enrichment += f"**{concept['titre']}**\n"
+            enrichment += f"- Description: {concept['description']}\n"
+            enrichment += f"- Niveau: {concept['niveau_complexite']}\n"
+            
+            if concept['concepts_cles']:
+                enrichment += f"- Concepts clés: {', '.join(concept['concepts_cles'])}\n"
+            
+            if concept['formules']:
+                enrichment += f"- Formules importantes: {' | '.join(concept['formules'])}\n"
+                
+            if concept['definitions']:
+                enrichment += f"- Définitions: {' | '.join(concept['definitions'])}\n"
+                
+            if concept['relations']:
+                enrichment += f"- Relations: {' | '.join(concept['relations'])}\n"
+                
+            enrichment += f"- Source: {concept['document_source']} ({concept['page_reference']})\n\n"
+    
+    enrichment += """
+## INSTRUCTIONS SPÉCIALISÉES POUR L'IA
+
+**Utilisation des concepts:**
+1. Intègre ces concepts spécialisés dans tes réponses selon la pertinence
+2. Maintiens la distinction entre les différents domaines théoriques
+3. N'établis des connections entre concepts que si elles sont clairement justifiées
+4. Respecte la complexité et la nuance de chaque concept
+5. Utilise la structure bi-partite: vision de l'auteur + contexte scientifique neutre
+
+**Séparation des domaines:**
+- **Géométrie Fondamentale**: Théorème de Philippôt, constructions géométriques
+- **Géométrie Non-Euclidienne**: Systèmes géométriques avancés, espaces multidimensionnels  
+- **Physique Théorique**: Applications à la relativité, espace-temps
+- **Théorie des Nombres**: Fonction zêta, nombres premiers
+- **Géophysique**: Applications terrestres, résonances
+
+**Approche pédagogique:**
+- Explique les concepts progressivement selon leur niveau de complexité
+- Utilise des analogies appropriées pour les concepts avancés
+- Maintiens l'intégrité théorique tout en restant accessible
+"""
+    
+    return enrichment
 
 # Base de connaissances étendue (conservée pour compatibilité)
 CONCEPTS_BASE = [
