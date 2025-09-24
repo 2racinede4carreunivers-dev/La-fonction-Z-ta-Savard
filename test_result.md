@@ -169,6 +169,7 @@ metadata:
 test_plan:
   current_focus:
     - "Boutons IA Compléter et IA Améliorer"
+    - "Tests frontend collaboration mobile"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
