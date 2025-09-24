@@ -336,6 +336,14 @@ CONCEPTS_ENRICHIS = [
     }
 ]
 
+def get_concept_enrichi_by_domain(domain=None):
+    """Récupère les concepts enrichis par domaine"""
+    if domain:
+        return [c for c in CONCEPTS_ENRICHIS if c["domaine_principal"].lower() == domain.lower()]
+    return CONCEPTS_ENRICHIS
+
+def enrich_system_message_with_theory():
+
 # Base de connaissances étendue (conservée pour compatibilité)
 CONCEPTS_BASE = [
     {
