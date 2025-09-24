@@ -408,15 +408,16 @@ textarea:focus {
   }
 }
 
-/* Correction du positionnement du bouton Emergent - petit et en haut à droite */
+/* Correction du positionnement du bouton Emergent - complètement en haut droite */
 .emergent-badge {
   position: fixed !important;
-  top: 10px !important; /* Tout en haut */
+  top: 10px !important;
   right: 10px !important;
-  bottom: auto !important; /* Annule le positionnement par le bas */
-  z-index: 30 !important; /* Plus bas que la navigation */
-  transform: scale(0.7) !important; /* Réduire la taille */
+  bottom: auto !important;
+  z-index: 10 !important; /* Z-index plus bas pour ne pas gêner */
+  transform: scale(0.6) !important; /* Plus petit */
   transform-origin: top right !important;
+  pointer-events: none !important; /* Ne peut pas être cliqué pour éviter les problèmes */
 }
 
 /* S'assurer que le bouton reste en haut à droite sur toutes les pages */
@@ -425,26 +426,30 @@ body .emergent-badge {
   top: 10px !important;
   right: 10px !important;
   bottom: auto !important;
-  transform: scale(0.7) !important;
+  transform: scale(0.6) !important;
   transform-origin: top right !important;
+  z-index: 10 !important;
+  pointer-events: none !important;
 }
 
-/* Règles spéciales pour mobile (Samsung S25 et autres) */
+/* Sur mobile, le placer encore plus haut et plus petit pour éviter obstruction */
 @media (max-width: 768px) {
   .emergent-badge, body .emergent-badge {
     position: fixed !important;
-    top: 5px !important;
-    right: 5px !important;
+    top: 2px !important;
+    right: 2px !important;
     bottom: auto !important;
-    transform: scale(0.5) !important; /* Encore plus petit sur mobile */
+    transform: scale(0.4) !important; /* Très petit sur mobile */
     transform-origin: top right !important;
-    z-index: 25 !important;
+    z-index: 5 !important; /* Z-index encore plus bas */
+    pointer-events: none !important;
+    opacity: 0.7 !important; /* Moins opaque pour être moins intrusif */
   }
 }
 
-/* Si le bouton gêne encore, option pour le cacher sur la page de chat mobile */
-@media (max-width: 768px) {
-  .chat-page .emergent-badge {
+/* Cacher complètement sur très petit écran si nécessaire */
+@media (max-width: 480px) {
+  .emergent-badge {
     display: none !important;
   }
 }
