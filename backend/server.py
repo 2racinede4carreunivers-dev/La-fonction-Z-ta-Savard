@@ -1438,8 +1438,12 @@ async def collaborate_with_ai(request: CollaborationRequest):
         raise HTTPException(status_code=500, detail="Clé API manquante")
     
     try:
-        # Contexte spécialisé pour la collaboration
+        # Contexte spécialisé pour la collaboration avec connaissances enrichies
+        theory_enrichment = enrich_system_message_with_theory()
+        
         collaboration_system = f"""{system_message}
+        
+        {theory_enrichment}
         
         **MODE COLLABORATION DOCUMENTAIRE :**
         
@@ -1447,8 +1451,9 @@ async def collaborate_with_ai(request: CollaborationRequest):
         - AJOUTER du contenu pertinent selon sa demande
         - DÉVELOPPER ses idées en restant fidèle à sa théorie
         - STRUCTURER et CLARIFIER ses pensées
-        - PROPOSER des connexions avec d'autres aspects de sa théorie
+        - PROPOSER des connexions avec d'autres aspects de sa théorie selon leur domaine
         - MAINTENIR la cohérence avec ses travaux existants
+        - UTILISER les concepts théoriques enrichis appropriés selon le contexte
         
         **RÈGLES DE COLLABORATION :**
         1. Ajoute ton contenu de manière claire et identifiable
@@ -1456,6 +1461,8 @@ async def collaborate_with_ai(request: CollaborationRequest):
         3. Développe les idées sans les dénaturer
         4. Propose des améliorations constructives
         5. Maintiens la structure bi-partite (vision auteur + contexte scientifique)
+        6. Intègre les concepts enrichis selon leur domaine spécifique
+        7. Respecte la séparation des domaines théoriques
         
         **DOCUMENT ACTUEL :**
         Titre : {request.document_title}
