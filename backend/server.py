@@ -1053,8 +1053,12 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
             if doc and doc.get("analysis"):
                 attached_docs_context += f"\n\n--- Document: {doc['filename']} ---\n{doc['analysis']}"
     
-    # Construire le contexte enrichi
+    # Construire le contexte enrichi avec les concepts théoriques spécialisés
+    theory_enrichment = enrich_system_message_with_theory()
+    
     enhanced_system_message = f"""{system_message}
+    
+    {theory_enrichment}
     
     **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
     
@@ -1077,6 +1081,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     - Identifie et signale les nouvelles pistes de recherche
     - Aide à structurer et clarifier sa pensée
     - Propose des connexions avec ses travaux précédents
+    - Utilise les concepts théoriques enrichis selon leur domaine spécifique
     """
     
     try:
