@@ -112,6 +112,20 @@ class SaveCollaborationRequest(BaseModel):
     session_id: str
     document_id: Optional[str] = None
 
+class ConceptEnrichi(BaseModel):
+    id: str
+    titre: str
+    description: str
+    domaine_principal: str
+    concepts_cles: List[str]
+    formules: List[str]
+    definitions: List[str]
+    relations: List[str]
+    document_source: str
+    page_reference: Optional[str] = None
+    niveau_complexite: str  # "fondamental", "intermediaire", "avance"
+    created_at: str
+
 # Base de connaissances enrichie de la théorie
 CONCEPTS_BASE = [
     {
