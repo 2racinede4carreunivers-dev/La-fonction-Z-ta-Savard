@@ -1540,6 +1540,76 @@ async def save_collaboration(request: SaveCollaborationRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de la sauvegarde: {str(e)}")
 
+@app.get("/api/concepts-enrichis")
+async def get_concepts_enrichis():
+    """Récupérer tous les concepts théoriques enrichis"""
+    return {
+        "success": True,
+        "concepts": CONCEPTS_ENRICHIS,
+        "domaines": list(set([c["domaine_principal"] for c in CONCEPTS_ENRICHIS]))
+    }
+
+@app.get("/api/concepts-enrichis/{domaine}")
+async def get_concepts_by_domain(domaine: str):
+    """Récupérer les concepts d'un domaine spécifique"""
+    concepts_domaine = get_concept_enrichi_by_domain(domaine)
+    return {
+        "success": True,
+        "domaine": domaine,
+        "concepts": concepts_domaine,
+        "count": len(concepts_domaine)
+    }
+
+@app.post("/api/chat-with-domain")
+async def chat_with_domain_focus(request: dict):
+    """Chat avec focus sur un domaine théorique spécifique"""
+    domaine = request.get("domaine")
+    message = request.get("message")
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    # Récupérer les concepts du domaine spécifique
+    concepts_domaine = get_concept_enrichi_by_domain(domaine) if domaine else CONCEPTS_ENRICHIS
+    
+    # Construire un message système focalisé sur le domaine
+    domain_context = f"\n\n**FOCUS SUR LE DOMAINE: {domaine.upper() if domaine else 'TOUS LES DOMAINES'}**\n\n"
+    
+    for concept in concepts_domaine:
+        domain_context += f"**{concept['titre']}**: {concept['description']}\n"
+        domain_context += f"Concepts clés: {', '.join(concept['concepts_cles'])}\n\n"
+    
+    specialized_system = f"""{system_message}
+    
+    {domain_context}
+    
+    **INSTRUCTIONS SPÉCIALISÉES:**
+    - Concentre-toi sur le domaine {domaine if domaine else 'approprié'} 
+    - Utilise les concepts spécifiques de ce domaine
+    - Maintiens la cohérence théorique du domaine
+    - Évite les mélanges entre domaines sauf si explicitement demandé
+    """
+    
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=specialized_system
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        response = await chat.send_message(UserMessage(content=message))
+        
+        return {
+            "success": True,
+            "response": response.content,
+            "domaine_focus": domaine,
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors du chat spécialisé: {str(e)}")
+
 @app.get("/api/collaboration-documents/{session_id}")
 async def get_collaboration_documents(session_id: str):
     """Récupérer les documents collaboratifs d'une session"""
