@@ -126,7 +126,217 @@ class ConceptEnrichi(BaseModel):
     niveau_complexite: str  # "fondamental", "intermediaire", "avance"
     created_at: str
 
-# Base de connaissances enrichie de la théorie
+# Base de connaissances enrichie de la théorie "L'univers est au carré"
+CONCEPTS_ENRICHIS = [
+    # 1. THÉORÈME DE PHILIPPÔT
+    {
+        "id": "theoreme_philippot",
+        "titre": "Théorème de Philippôt",
+        "description": "Théorème fondamental établissant qu'un ensemble de trois carrés peut être égal géométriquement à un triangle. Analogue géométrique du théorème de Pythagore avec des propriétés d'involution.",
+        "domaine_principal": "Géométrie Fondamentale",
+        "concepts_cles": [
+            "Trois carrés égaux à un triangle",
+            "Involution géométrique", 
+            "Intrication quantique géométrique",
+            "Rapports communs et diamètres hyperréels",
+            "Invariance des longueurs d'arcs",
+            "Figures jumelles"
+        ],
+        "formules": [
+            "√10 ≈ π (approximation de Philippôt)",
+            "Relations aires-volumes: A₁² + A₂² + A₃² = V_triangle",
+            "Longueurs d'arcs invariantes sous transformation"
+        ],
+        "definitions": [
+            "Involution: Transformation réciproque à sa propre réciproque",
+            "Cercle Denis: Interprétation alternative de π",
+            "Hypersurface du présent: Projection géométrique temporelle"
+        ],
+        "relations": [
+            "Extension du théorème de Pythagore",
+            "Lien avec l'intrication quantique",
+            "Connections aux nombres hyperréels"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Sections 3.1-3.14",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 2. GÉOMÉTRIE DE PHILIPPÔT
+    {
+        "id": "geometrie_philippot",
+        "titre": "Géométrie de Philippôt", 
+        "description": "Système géométrique non-euclidien basé sur l'élévation au carré des figures et leurs transformations dans des espaces multidimensionnels. Géométrie informationnelle à cinq sphères.",
+        "domaine_principal": "Géométrie Non-Euclidienne",
+        "concepts_cles": [
+            "Géométrie à cinq sphères",
+            "Élévation au carré (squaring)",
+            "Espace de Philippôt",
+            "Circuit parallèle à deux phases",
+            "Division de la sphère terrestre en cinq cubes",
+            "Projections hyperplanaires"
+        ],
+        "formules": [
+            "Transformations par élévation: f(x) → f(x)²",
+            "Divisions sphériques en cubes: 5 cubes = 1 sphère",
+            "Circuits parallèles: Phase₁ ⊕ Phase₂"
+        ],
+        "definitions": [
+            "Squaring: Opération d'élévation géométrique au carré",
+            "Espace de Philippôt: Espace géométrique multidimensionnel",
+            "Géométrie informationnelle: Géométrie portant de l'information"
+        ],
+        "relations": [
+            "Extension de la géométrie euclidienne",
+            "Applications à la physique quantique",
+            "Liens avec la théorie de l'information"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf", 
+        "page_reference": "Sections 6-7",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 3. RÉSONANCE TERRESTRE
+    {
+        "id": "resonance_terrestre",
+        "titre": "Résonance Terrestre selon Philippôt",
+        "description": "Application de la géométrie de Philippôt à l'étude des fréquences de résonance terrestre, incluant l'analyse des basses fréquences et la détermination de la fréquence fondamentale.",
+        "domaine_principal": "Géophysique Théorique",
+        "concepts_cles": [
+            "Basses fréquences terrestres",
+            "Fréquence fondamentale de la Terre", 
+            "Résonance géométrique",
+            "Lien volumes-circonférences",
+            "Fréquences harmoniques terrestres",
+            "Modélisation géométrique terrestre"
+        ],
+        "formules": [
+            "f_fondamentale = f(V_terre, C_terre)",
+            "Harmoniques: f_n = n × f_fondamentale",
+            "Relations volume-fréquence géométriques"
+        ],
+        "definitions": [
+            "Fréquence fondamentale: Fréquence de base de résonance terrestre",
+            "Harmoniques terrestres: Multiples de la fréquence fondamentale",
+            "Résonance géométrique: Résonance basée sur les propriétés géométriques"
+        ],
+        "relations": [
+            "Connections avec la physique terrestre",
+            "Applications à la sismologie",
+            "Liens avec les propriétés géométriques planétaires"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Section 8",
+        "niveau_complexite": "intermediaire", 
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 4. ESPACE DE MINKOWSKI SELON PHILIPPÔT
+    {
+        "id": "minkowski_philippot",
+        "titre": "Espace de Minkowski selon Philippôt",
+        "description": "Réinterprétation de l'espace-temps de Minkowski à travers la géométrie de Philippôt, incluant les groupes de Poincaré et une métrique géométrique originale.",
+        "domaine_principal": "Physique Théorique",
+        "concepts_cles": [
+            "Hypersurface du présent",
+            "Groupe de Poincaré géométrique",
+            "Métrique de Minkowski revisitée",
+            "Nombres hypercomplexes",
+            "Aires de l'espace infini", 
+            "Cônes de lumière géométriques",
+            "Équilibre géométrique spatio-temporel"
+        ],
+        "formules": [
+            "ds² = -c²dt² + dx² + dy² + dz² (métrique classique)",
+            "Métrique de Philippôt: intégration géométrique",
+            "Transformations de Lorentz géométriques"
+        ],
+        "definitions": [
+            "Hypersurface du présent: Interface géométrique temporelle",
+            "Nombres hypercomplexes: Extension des nombres complexes",
+            "Équilibre géométrique: État stable spatio-temporel"
+        ],
+        "relations": [
+            "Réinterprétation de la relativité restreinte",
+            "Connections avec la géométrie de Philippôt",
+            "Applications à la cosmologie"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Section 9", 
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 5. FONCTION ZÊTA DE PHILIPPÔT 
+    {
+        "id": "zeta_philippot",
+        "titre": "Fonction Zêta de Philippôt",
+        "description": "Approche géométrique originale de la fonction zêta de Riemann utilisant une sphère construite à partir de cinq cubes, offrant une visualisation géométrique des propriétés de la fonction zêta.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Sphère de la fonction zêta",
+            "Visualisation géométrique de ζ(s)", 
+            "Cinq cubes constitutifs",
+            "Vue isométrique des cubes",
+            "Interprétation géométrique des zéros",
+            "Hypothèse de Riemann géométrique"
+        ],
+        "formules": [
+            "ζ(s) = Σ(1/n^s) pour Re(s) > 1",
+            "Représentation géométrique: 5 cubes → sphère zêta",
+            "Relations géométriques des zéros non-triviaux"
+        ],
+        "definitions": [
+            "Sphère zêta: Construction géométrique représentant ζ(s)",
+            "Cubes constitutifs: Les 5 cubes formant la sphère",
+            "Zéros géométriques: Interprétation spatiale des zéros de ζ(s)"
+        ],
+        "relations": [
+            "Lien avec l'hypothèse de Riemann",
+            "Connections aux nombres premiers",
+            "Applications à la géométrie des nombres"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Section 12",
+        "niveau_complexite": "avance", 
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 6. CARRÉ DE GABRIEL
+    {
+        "id": "carre_gabriel",
+        "titre": "Carré de Gabriel",
+        "description": "Construction géométrique permettant d'inscrire un carré dans différents types de triangles (scalènes, rectangles), démontrant des propriétés géométriques universelles.",
+        "domaine_principal": "Géométrie Constructive",
+        "concepts_cles": [
+            "Construction de carré inscrit",
+            "Triangles scalènes non-rectangles",
+            "Propriétés universelles d'inscription",
+            "Géométrie constructive",
+            "Invariants géométriques"
+        ],
+        "formules": [
+            "Relations aire carré/aire triangle",
+            "Constructions géométriques algorithmiques"
+        ],
+        "definitions": [
+            "Carré de Gabriel: Carré inscrit selon la méthode de Gabriel",
+            "Triangle scalène: Triangle aux trois côtés inégaux"
+        ],
+        "relations": [
+            "Applications en géométrie plane",
+            "Liens avec les constructions classiques"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Section 11",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    }
+]
+
+# Base de connaissances étendue (conservée pour compatibilité)
 CONCEPTS_BASE = [
     {
         "id": str(uuid.uuid4()),
