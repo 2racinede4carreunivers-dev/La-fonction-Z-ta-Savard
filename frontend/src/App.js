@@ -1457,6 +1457,9 @@ const Navigation = () => {
             <Link to="/collaboration" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Collaboration
             </Link>
+            <Link to="/concepts-enrichis" className="text-blue-200 hover:text-cyan-400 transition-colors">
+              Concepts Enrichis
+            </Link>
           </div>
 
           {/* Navigation mobile compacte */}
