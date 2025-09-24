@@ -1424,6 +1424,253 @@ const ChatPage = () => {
   );
 };
 
+// Page Concepts Enrichis
+const ConceptsEnrichisPage = () => {
+  const [concepts, setConcepts] = useState([]);
+  const [domaines, setDomaines] = useState([]);
+  const [domaineSelectionne, setDomaineSelectionne] = useState('');
+  const [conceptSelectionne, setConceptSelectionne] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadConcepts();
+  }, []);
+
+  const loadConcepts = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/concepts-enrichis`);
+      if (response.data.success) {
+        setConcepts(response.data.concepts);
+        setDomaines(response.data.domaines);
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement des concepts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const conceptsFiltres = domaineSelectionne 
+    ? concepts.filter(c => c.domaine_principal === domaineSelectionne)
+    : concepts;
+
+  const handleConceptSelect = (concept) => {
+    setConceptSelectionne(concept);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      <div className="container mx-auto px-6 py-8">
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold text-white mb-4 flex items-center gap-2">
+            <Brain className="w-8 h-8 text-cyan-400" />
+            Concepts Théoriques Enrichis
+          </h1>
+          <p className="text-blue-200 text-lg">
+            Exploration approfondie de la deuxième partie de "L'univers est au carré" - Concepts séparés par domaines théoriques.
+          </p>
+        </div>
+
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-400"></div>
+            <span className="ml-2 text-white">Chargement des concepts...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            {/* Sidebar - Filtres par domaine */}
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 lg:col-span-1">
+              <CardHeader>
+                <CardTitle className="text-white text-lg">Domaines Théoriques</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-2">
+                  <Button
+                    onClick={() => setDomaineSelectionne('')}
+                    variant={domaineSelectionne === '' ? "default" : "ghost"}
+                    className={`w-full justify-start ${domaineSelectionne === '' 
+                      ? 'bg-cyan-600 hover:bg-cyan-700' 
+                      : 'text-blue-200 hover:bg-white/10'}`}
+                  >
+                    Tous les domaines ({concepts.length})
+                  </Button>
+                  {domaines.map((domaine) => (
+                    <Button
+                      key={domaine}
+                      onClick={() => setDomaineSelectionne(domaine)}
+                      variant={domaineSelectionne === domaine ? "default" : "ghost"}
+                      className={`w-full justify-start text-sm ${domaineSelectionne === domaine 
+                        ? 'bg-cyan-600 hover:bg-cyan-700' 
+                        : 'text-blue-200 hover:bg-white/10'}`}
+                    >
+                      {domaine} ({concepts.filter(c => c.domaine_principal === domaine).length})
+                    </Button>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Zone principale - Liste des concepts */}
+            <div className="lg:col-span-3">
+              {conceptSelectionne ? (
+                // Vue détaillée d'un concept
+                <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <CardTitle className="text-white text-2xl">{conceptSelectionne.titre}</CardTitle>
+                        <Badge className="mt-2 bg-gradient-to-r from-purple-600 to-indigo-600">
+                          {conceptSelectionne.domaine_principal}
+                        </Badge>
+                      </div>
+                      <Button
+                        onClick={() => setConceptSelectionne(null)}
+                        variant="ghost"
+                        className="text-blue-200 hover:bg-white/10"
+                      >
+                        ← Retour
+                      </Button>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div>
+                      <h3 className="text-lg font-semibold text-cyan-400 mb-2">Description</h3>
+                      <p className="text-blue-100">{conceptSelectionne.description}</p>
+                    </div>
+
+                    {conceptSelectionne.concepts_cles.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-semibold text-cyan-400 mb-2">Concepts Clés</h3>
+                        <div className="flex flex-wrap gap-2">
+                          {conceptSelectionne.concepts_cles.map((concept, index) => (
+                            <Badge key={index} variant="secondary" className="bg-slate-700 text-blue-200">
+                              {concept}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {conceptSelectionne.formules.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-semibold text-cyan-400 mb-2">Formules Importantes</h3>
+                        <div className="bg-slate-800/50 p-4 rounded-lg">
+                          {conceptSelectionne.formules.map((formule, index) => (
+                            <div key={index} className="text-blue-100 font-mono text-sm mb-2">
+                              • {formule}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {conceptSelectionne.definitions.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-semibold text-cyan-400 mb-2">Définitions</h3>
+                        <div className="space-y-2">
+                          {conceptSelectionne.definitions.map((definition, index) => (
+                            <div key={index} className="bg-indigo-900/30 p-3 rounded border-l-4 border-cyan-400">
+                              <p className="text-blue-100">{definition}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {conceptSelectionne.relations.length > 0 && (
+                      <div>
+                        <h3 className="text-lg font-semibold text-cyan-400 mb-2">Relations Théoriques</h3>
+                        <ul className="space-y-1">
+                          {conceptSelectionne.relations.map((relation, index) => (
+                            <li key={index} className="text-blue-100 flex items-center">
+                              <ArrowRight className="w-4 h-4 text-cyan-400 mr-2" />
+                              {relation}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="border-t border-white/10 pt-4">
+                      <p className="text-sm text-blue-300">
+                        <strong>Source:</strong> {conceptSelectionne.document_source} - {conceptSelectionne.page_reference}
+                      </p>
+                      <p className="text-sm text-blue-300">
+                        <strong>Niveau:</strong> {conceptSelectionne.niveau_complexite}
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ) : (
+                // Vue grille des concepts
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-white">
+                      {domaineSelectionne || 'Tous les concepts'} ({conceptsFiltres.length})
+                    </h2>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {conceptsFiltres.map((concept) => (
+                      <Card
+                        key={concept.id}
+                        className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/30 transition-all cursor-pointer card-hover"
+                        onClick={() => handleConceptSelect(concept)}
+                      >
+                        <CardHeader>
+                          <div className="flex items-center justify-between">
+                            <CardTitle className="text-white text-lg">{concept.titre}</CardTitle>
+                            <Badge 
+                              className={`text-xs ${
+                                concept.niveau_complexite === 'fondamental' ? 'bg-green-600' :
+                                concept.niveau_complexite === 'intermediaire' ? 'bg-yellow-600' :
+                                'bg-red-600'
+                              }`}
+                            >
+                              {concept.niveau_complexite}
+                            </Badge>
+                          </div>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-blue-200 text-sm mb-3 line-clamp-3">
+                            {concept.description}
+                          </p>
+                          
+                          <div className="space-y-2">
+                            <div>
+                              <span className="text-xs text-cyan-400 font-medium">Domaine:</span>
+                              <Badge variant="secondary" className="ml-2 text-xs bg-slate-700 text-blue-200">
+                                {concept.domaine_principal}
+                              </Badge>
+                            </div>
+                            
+                            <div>
+                              <span className="text-xs text-cyan-400 font-medium">Concepts:</span>
+                              <span className="text-xs text-blue-300 ml-2">
+                                {concept.concepts_cles.slice(0, 2).join(', ')}
+                                {concept.concepts_cles.length > 2 && '...'}
+                              </span>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-center justify-between mt-4">
+                            <span className="text-xs text-blue-400">{concept.page_reference}</span>
+                            <ArrowRight className="w-4 h-4 text-cyan-400" />
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // Navigation
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
