@@ -1518,6 +1518,13 @@ const Navigation = () => {
               >
                 Collaboration
               </Link>
+              <Link 
+                to="/concepts-enrichis" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Concepts Enrichis
+              </Link>
             </div>
           </div>
         )}
