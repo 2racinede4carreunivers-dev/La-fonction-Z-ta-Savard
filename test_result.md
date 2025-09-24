@@ -159,6 +159,21 @@ frontend:
         - working: "unknown"
           agent: "main"
           comment: "Boutons présents dans l'interface, besoin de tester fonctionnalité avec backend"
+        - working: "unknown"
+          agent: "main"  
+          comment: "Page collaboration s'affiche correctement en mobile (375x667). Boutons IA Compléter et IA Améliorer visibles. CSS responsive amélioré. Besoin test fonctionnalité E2E."
+
+  - task: "Affichage responsive mobile"
+    implemented: true
+    working: true
+    file: "/app/frontend/src/App.css"
+    stuck_count: 0  
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "main"
+          comment: "CSS responsive amélioré. Navigation mobile adaptée. Bouton Made with Emergent repositionné. Page collaboration s'affiche correctement sur mobile 375x667."
 
 metadata:
   created_by: "main_agent"
