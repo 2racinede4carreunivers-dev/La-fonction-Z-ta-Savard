@@ -1426,18 +1426,22 @@ const ChatPage = () => {
 
 // Navigation
 const Navigation = () => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
     <nav className="bg-black/20 backdrop-blur-sm border-b border-white/10 sticky top-0 z-50">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg flex items-center justify-center">
               <Globe className="w-5 h-5 text-white" />
             </div>
-            <span className="text-white font-bold text-lg">L'univers est au carré</span>
+            <span className="text-white font-bold text-lg hidden sm:inline">L'univers est au carré</span>
+            <span className="text-white font-bold text-sm sm:hidden">L'univers²</span>
           </Link>
           
-          <div className="flex items-center gap-6">
+          {/* Navigation desktop */}
+          <div className="hidden lg:flex items-center gap-6">
             <Link to="/" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Accueil
             </Link>
@@ -1454,7 +1458,66 @@ const Navigation = () => {
               Collaboration
             </Link>
           </div>
+
+          {/* Navigation mobile compacte */}
+          <div className="lg:hidden flex items-center gap-2">
+            <Link to="/chat" className="text-blue-200 hover:text-cyan-400 transition-colors text-sm px-2">
+              IA
+            </Link>
+            <Link to="/collaboration" className="text-blue-200 hover:text-cyan-400 transition-colors text-sm px-2">
+              Collab
+            </Link>
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-blue-200 hover:text-cyan-400 transition-colors p-1"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
         </div>
+
+        {/* Menu mobile déroulant */}
+        {isMobileMenuOpen && (
+          <div className="lg:hidden bg-black/30 backdrop-blur-sm border-t border-white/10 py-4">
+            <div className="flex flex-col space-y-2">
+              <Link 
+                to="/" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Accueil
+              </Link>
+              <Link 
+                to="/methode-philippot" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Méthode Philippôt
+              </Link>
+              <Link 
+                to="/explorer" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Explorer
+              </Link>
+              <Link 
+                to="/chat" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                IA Expert
+              </Link>
+              <Link 
+                to="/collaboration" 
+                className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Collaboration
+              </Link>
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
