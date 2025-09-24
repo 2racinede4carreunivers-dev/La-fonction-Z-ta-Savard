@@ -464,3 +464,78 @@ body .emergent-badge {
 .chat-container {
   padding-bottom: 100px !important;
 }
+
+/* Corrections spécifiques pour éviter les débordements sur mobile */
+@media (max-width: 768px) {
+  /* Conteneur principal */
+  .min-h-screen {
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden !important;
+  }
+  
+  /* Cards et conteneurs */
+  .card, [class*="Card"] {
+    max-width: calc(100vw - 1.5rem) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+  
+  /* Textes longs */
+  .text-lg, .text-xl, .text-2xl {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    hyphens: auto !important;
+  }
+  
+  /* Éléments flex */
+  .flex {
+    flex-wrap: wrap !important;
+  }
+  
+  /* Boutons responsive */
+  .button, [class*="Button"] {
+    font-size: 0.875rem !important;
+    padding: 0.5rem 0.75rem !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Navigation mobile */
+  .navigation {
+    padding: 0.5rem !important;
+  }
+  
+  .navigation a {
+    font-size: 0.875rem !important;
+    padding: 0.25rem 0.5rem !important;
+  }
+  
+  /* Zone de chat/contenu principal */
+  .content-area {
+    margin-top: 60px !important; /* Espace pour la navigation */
+    margin-bottom: 20px !important;
+    padding: 0 0.75rem !important;
+  }
+  
+  /* Input et textarea mobile */
+  input, textarea {
+    font-size: 16px !important; /* Évite le zoom sur iOS */
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Grilles responsive */
+  .grid-cols-2 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid-cols-3 {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .grid-cols-4 {
+    grid-template-columns: 1fr !important;
+  }
+}
