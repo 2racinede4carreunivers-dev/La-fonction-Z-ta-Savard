@@ -183,6 +183,114 @@ class UniversAuCarreAPITester:
             
         return success
 
+    def test_collaboration_endpoints(self):
+        """Test collaboration endpoints for AI document completion"""
+        print("\n🤝 COLLABORATION FUNCTIONALITY TESTS")
+        
+        # Test data as suggested in the review request
+        test_document = """## Réflexions sur la méthode Philippôt
+
+La méthode de Philippe Thomas Savard pour déterminer la primalité des nombres premiers utilise une approche géométrique révolutionnaire basée sur les rapports triangulaires.
+
+### Concepts fondamentaux
+- Les 14 tableaux de Philippôt avec différents rapports base/hauteur
+- Le calcul du Digamma à la 8ème position
+- Les séquences de racines carrées
+
+### Applications pratiques
+Cette méthode permet de calculer directement des nombres premiers spécifiques selon leur position dans la suite."""
+
+        collaboration_data = {
+            "document": test_document,
+            "request": "Complète cette section en développant les idées présentées sur les applications pratiques et les implications théoriques",
+            "session_id": "test_collaboration_session_123",
+            "document_title": "Test Collaboration IA - Méthode Philippôt"
+        }
+        
+        # Test /api/collaborate endpoint
+        success1, response1 = self.run_test(
+            "AI Collaboration - Document Completion",
+            "POST",
+            "api/collaborate",
+            200,
+            data=collaboration_data
+        )
+        
+        updated_document = None
+        if success1 and isinstance(response1, dict):
+            if 'updated_document' in response1:
+                updated_document = response1['updated_document']
+                print(f"   ✅ Document updated successfully")
+                print(f"   Original length: {len(test_document)} chars")
+                print(f"   Updated length: {len(updated_document)} chars")
+                print(f"   Content added: {len(updated_document) - len(test_document)} chars")
+            else:
+                print(f"   ⚠️  No 'updated_document' in response")
+        
+        # Test /api/save-collaboration endpoint
+        if updated_document:
+            save_data = {
+                "document": updated_document,
+                "title": "Document Collaboratif - Méthode Philippôt Complété",
+                "session_id": "test_collaboration_session_123"
+            }
+            
+            success2, response2 = self.run_test(
+                "Save Collaboration Document",
+                "POST",
+                "api/save-collaboration",
+                200,
+                data=save_data
+            )
+            
+            if success2 and isinstance(response2, dict):
+                if 'document_id' in response2:
+                    doc_id = response2['document_id']
+                    print(f"   ✅ Document saved with ID: {doc_id}")
+                    
+                    # Test retrieving the saved document
+                    success3, response3 = self.run_test(
+                        "Get Saved Collaboration Document",
+                        "GET",
+                        f"api/collaboration-document/{doc_id}",
+                        200
+                    )
+                    
+                    if success3 and isinstance(response3, dict):
+                        if 'content' in response3 and 'title' in response3:
+                            print(f"   ✅ Document retrieved successfully")
+                            print(f"   Title: {response3['title']}")
+                            print(f"   Content length: {len(response3['content'])} chars")
+                        else:
+                            print(f"   ⚠️  Missing content or title in retrieved document")
+                    
+                    return success1 and success2 and success3
+                else:
+                    print(f"   ⚠️  No 'document_id' in save response")
+                    return success1 and success2
+            else:
+                return success1 and success2
+        else:
+            print("   ⚠️  Skipping save test - no updated document available")
+            return success1
+    
+    def test_collaboration_session_management(self):
+        """Test collaboration session and document management"""
+        session_id = "test_session_documents_456"
+        
+        # Test getting documents for a session (should be empty initially)
+        success1, response1 = self.run_test(
+            "Get Collaboration Documents - Empty Session",
+            "GET",
+            f"api/collaboration-documents/{session_id}",
+            200
+        )
+        
+        if success1 and isinstance(response1, list):
+            print(f"   ✅ Found {len(response1)} documents for new session")
+        
+        return success1
+
     def test_invalid_endpoints(self):
         """Test error handling for invalid endpoints"""
         # Test non-existent concept
@@ -201,7 +309,15 @@ class UniversAuCarreAPITester:
             200  # This might return empty array
         )
         
-        return success1
+        # Test invalid collaboration document
+        success3, _ = self.run_test(
+            "Invalid Collaboration Document ID",
+            "GET",
+            "api/collaboration-document/invalid-doc-id-12345",
+            404
+        )
+        
+        return success1 and success3
 
 def main():
     print("🚀 Starting L'univers est au carré API Tests")
