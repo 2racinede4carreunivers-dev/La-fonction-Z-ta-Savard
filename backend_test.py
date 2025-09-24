@@ -341,6 +341,10 @@ def main():
     tester.test_chat_functionality()
     tester.test_chat_history()
     
+    print("\n🤝 COLLABORATION FUNCTIONALITY TESTS")
+    tester.test_collaboration_endpoints()
+    tester.test_collaboration_session_management()
+    
     print("\n❌ ERROR HANDLING TESTS")
     tester.test_invalid_endpoints()
     
