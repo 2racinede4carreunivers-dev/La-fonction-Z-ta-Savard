@@ -14,7 +14,7 @@ import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 
 // Icônes
-import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline } from 'lucide-react';
+import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
