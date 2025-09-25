@@ -1864,7 +1864,14 @@ const CollaborationPage = () => {
     insertText(symbol);
     // Garder le focus sur le textarea après insertion
     setTimeout(() => {
-      document.querySelector('#collaboration-editor').focus();
+      try {
+        const textarea = document.querySelector('#collaboration-editor');
+        if (textarea) {
+          textarea.focus();
+        }
+      } catch (error) {
+        console.warn('Erreur focus textarea:', error);
+      }
     }, 100);
   };
 
