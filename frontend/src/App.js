@@ -1938,14 +1938,8 @@ const CollaborationPage = () => {
 
       if (response.data.success) {
         setDocument(response.data.updated_document);
-        // Notification de succès
-        setTimeout(() => {
-          const notification = document.createElement('div');
-          notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50';
-          notification.textContent = '✓ Contenu enrichi par l\'IA';
-          document.body.appendChild(notification);
-          setTimeout(() => notification.remove(), 3000);
-        }, 100);
+        // Notification de succès simple
+        console.log('✓ Contenu enrichi par l\'IA');
       } else {
         console.error('Réponse API sans succès:', response.data);
         alert('Erreur: La collaboration IA a échoué');
