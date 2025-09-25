@@ -374,6 +374,53 @@ CONCEPTS_ENRICHIS = [
         "page_reference": "Document complet - Méthode spectrale",
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 8. SQUARING GÉNÉRALISÉ ET NEUROMORPHISME
+    {
+        "id": "squaring_generalise_neuromorphisme",
+        "titre": "Squaring Généralisé et Neuromorphisme",
+        "description": "Forme généralisée du squaring (élévation au carré des rectangles) et ses connexions avec l'évolution neuromorphique. Postulat unique de la théorie reliant géométrie rectangulaire et développement des formes neuronales dans l'univers au carré.",
+        "domaine_principal": "Géométrie Neuromorphique",
+        "concepts_cles": [
+            "Squaring généralisé des rectangles",
+            "Élévation géométrique au carré", 
+            "Neuromorphisme et évolution des formes",
+            "Rectangles élevés au carré (postulat unique)",
+            "Transformation géométrique des neurones",
+            "Évolution adaptative de la forme neuronale",
+            "Géométrie adaptative des structures neurales",
+            "Morphogenèse géométrique rectangulaire",
+            "Patterns rectangulaires dans la croissance neuronale",
+            "Connexion géométrie-biologie"
+        ],
+        "formules": [
+            "Squaring généralisé: Rectangle(a,b) → Rectangle²(a²,b²)",
+            "Transformation neuromorphique: N(t) → Square(N(t))",
+            "Évolution géométrique: dN/dt = f(Square_Généralisé(Rectangle))",
+            "Postulat unique: Rectangle_élevé_au_carré ↔ Forme_Neuronale",
+            "Croissance adaptative: G(t) = α × Square_Généralisé(R(t))",
+            "Morphogenèse: M(x,y) = Square(Rectangle_initial(x,y))"
+        ],
+        "definitions": [
+            "Squaring généralisé: Extension de l'opération d'élévation au carré aux structures rectangulaires complexes et leurs transformations géométriques",
+            "Neuromorphisme: Évolution adaptative et développement de la forme des neurones selon des principes géométriques rectangulaires",
+            "Rectangle élevé au carré: Transformation géométrique fondamentale constituant l'unique postulat de base de la théorie",
+            "Géométrie neuromorphique: Application des transformations rectangulaires aux processus d'évolution et de développement neuronal",
+            "Morphogenèse géométrique: Développement des formes biologiques par applications successives de transformations rectangulaires au carré"
+        ],
+        "relations": [
+            "Extension directe du concept de squaring de la première partie de L'univers est au carré",
+            "Réalisation concrète du postulat unique des rectangles élevés au carré",
+            "Application biologique des principes géométriques fondamentaux",
+            "Pont conceptuel entre géométrie pure et évolution neuronale",
+            "Intégration avec l'ensemble de la théorie de l'univers au carré",
+            "Validation du caractère universel des transformations rectangulaires"
+        ],
+        "document_source": "4ieme_prompt_emergent.pdf",
+        "page_reference": "Document complet - Squaring généralisé et neuromorphisme",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
     }
 ]
 
