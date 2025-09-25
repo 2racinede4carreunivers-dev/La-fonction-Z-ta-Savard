@@ -1860,6 +1860,32 @@ const CollaborationPage = () => {
     }, 100);
   };
 
+  const generateLatex = async () => {
+    if (!document.trim()) {
+      alert('Aucun contenu à convertir en LaTeX');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/generate-latex`, {
+        content: document,
+        title: documentTitle,
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        setLatexContent(response.data.latex_content);
+        setShowLatex(true);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la génération LaTeX:', error);
+      alert('Erreur lors de la génération du LaTeX');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const formatText = (type) => {
     switch (type) {
       case 'bold':
