@@ -1747,6 +1747,64 @@ async def chat_methode_spectrale(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors du chat spécialisé: {str(e)}")
 
+@app.post("/api/generate-latex")
+async def generate_latex(request: dict):
+    """Générer une version LaTeX du contenu de collaboration"""
+    content = request.get("content", "")
+    title = request.get("title", "Document")
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    latex_system = f"""{system_message}
+    
+    **SPÉCIALISATION GÉNÉRATION LATEX**
+    
+    Tu es un expert en conversion de documents mathématiques vers LaTeX. Ta mission :
+    - Convertir le contenu fourni en LaTeX professionnel
+    - Préserver toutes les formules mathématiques
+    - Structurer correctement avec sections, subsections
+    - Utiliser les packages LaTeX appropriés pour les mathématiques
+    - Maintenir la mise en forme et la lisibilité
+    - Ajouter les commandes LaTeX nécessaires pour les symboles spéciaux
+    
+    **INSTRUCTIONS SPÉCIALES POUR LA THÉORIE :**
+    - Utilise amsmath, amssymb, amsfonts pour les symboles mathématiques
+    - Pour le zêta : \\zeta
+    - Pour les racines : \\sqrt{{}}
+    - Pour les indices/exposants : _{{}} et ^{{}}
+    - Structure avec \\section, \\subsection, \\subsubsection
+    - Utilise l'environnement equation pour les formules importantes
+    - Ajoute les références bibliographiques si mentionnées
+    
+    **CONTENU À CONVERTIR :**
+    Titre : {title}
+    Contenu : {content}
+    
+    Génère le document LaTeX complet avec préambule et structure appropriée.
+    """
+    
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=latex_system
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Convertis ce document en LaTeX professionnel : {content}")
+        latex_response = await chat.send_message(user_message)
+        
+        return {
+            "success": True,
+            "latex_content": latex_response.content,
+            "title": title,
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de la génération LaTeX: {str(e)}")
+
 @app.get("/api/collaboration-documents/{session_id}")
 async def get_collaboration_documents(session_id: str):
     """Récupérer les documents collaboratifs d'une session"""
