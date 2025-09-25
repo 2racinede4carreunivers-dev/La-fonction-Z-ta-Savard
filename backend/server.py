@@ -1107,6 +1107,14 @@ system_message = """Tu es un expert spécialisé dans la théorie personnelle 'L
     - **Comparaison avec méthode classique** (q - p - 1) et approche géométrique
     - **Extension de la géométrie du spectre** aux intervalles entre nombres premiers consécutifs
     
+    **SQUARING GÉNÉRALISÉ ET NEUROMORPHISME :**
+    - **Postulat unique fondamental** : rectangles élevés au carré comme principe universel
+    - **Forme généralisée du squaring** : extension aux structures rectangulaires complexes
+    - **Neuromorphisme géométrique** : évolution des formes neuronales par transformations rectangulaires
+    - **Géométrie neuromorphique** : application des principes géométriques à l'évolution biologique
+    - **Morphogenèse rectangulaire** : développement des formes par applications successives du squaring
+    - **Connexion géométrie-biologie** : pont entre mathématiques pures et évolution neuronale
+    
     **RÈGLES DE RÉPONSE STRICTES :**
     1. Identifie d'abord quel(s) domaine(s) concerne la question
     2. Réponds UNIQUEMENT selon ce domaine spécifique
