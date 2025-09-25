@@ -2071,6 +2071,16 @@ const CollaborationPage = () => {
 
                   <div className="flex items-center gap-2">
                     <Button
+                      onClick={() => setShowSymbols(!showSymbols)}
+                      variant="ghost"
+                      className="text-white hover:bg-white/10"
+                    >
+                      ∑ Symboles
+                    </Button>
+                    
+                    <div className="border-r border-white/20 h-6"></div>
+                    
+                    <Button
                       onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
                       disabled={loading}
                       className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
