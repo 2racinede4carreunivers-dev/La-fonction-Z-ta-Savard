@@ -1803,6 +1803,8 @@ const CollaborationPage = () => {
   const [saveStatus, setSaveStatus] = useState('');
   const [showSymbols, setShowSymbols] = useState(false);
   const [selectedSymbolCategory, setSelectedSymbolCategory] = useState('Grec');
+  const [showLatex, setShowLatex] = useState(false);
+  const [latexContent, setLatexContent] = useState('');
 
   useEffect(() => {
     const newSessionId = `collab_${Date.now()}`;
