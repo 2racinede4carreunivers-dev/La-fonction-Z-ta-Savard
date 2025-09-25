@@ -1939,7 +1939,9 @@ const CollaborationPage = () => {
                     onClick={() => {
                       setCurrentDocId(doc.id);
                       setDocumentTitle(doc.title);
-                      // Charger le contenu du document
+                      if (doc.content) {
+                        setDocument(doc.content);
+                      }
                     }}
                   >
                     <CardContent className="p-3">
