@@ -2124,6 +2124,17 @@ const CollaborationPage = () => {
                       <Sparkles className="w-4 h-4 mr-2" />
                       IA : Améliorer
                     </Button>
+                    
+                    <div className="border-r border-white/20 h-6"></div>
+                    
+                    <Button
+                      onClick={generateLatex}
+                      disabled={loading}
+                      className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
+                    >
+                      <Calculator className="w-4 h-4 mr-2" />
+                      IA : LaTeX
+                    </Button>
                   </div>
                 </div>
               </div>
