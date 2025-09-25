@@ -1780,6 +1780,17 @@ const Navigation = () => {
   );
 };
 
+// Symboles mathématiques pour l'éditeur
+const SYMBOLES_MATHEMATIQUES = {
+  'Grec': ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'λ', 'μ', 'π', 'ρ', 'σ', 'τ', 'φ', 'χ', 'ψ', 'ω', 'Γ', 'Δ', 'Θ', 'Λ', 'Π', 'Σ', 'Φ', 'Ψ', 'Ω'],
+  'Racines': ['√', '∛', '∜', '√²', '√³', '√ⁿ'],
+  'Opérateurs': ['±', '∓', '×', '÷', '∞', '∑', '∏', '∫', '∂', '∇', '≈', '≠', '≤', '≥', '≡', '∝', '∈', '∉', '⊂', '⊆', '∪', '∩'],
+  'Exposants': ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹', 'ⁿ', '⁻¹', '⁻²'],
+  'Indices': ['₀', '₁', '₂', '₃', '₄', '₅', '₆', '₇', '₈', '₉', 'ₙ', 'ₓ', 'ᵢ'],
+  'Géométrie': ['°', '∠', '⊥', '∥', '△', '□', '◯', '⌒', '⌓'],
+  'Ensembles': ['ℕ', 'ℤ', 'ℚ', 'ℝ', 'ℂ', '∅', '∀', '∃', '∄']
+};
+
 // Page Collaboration avec éditeur de texte
 const CollaborationPage = () => {
   const [document, setDocument] = useState('');
@@ -1790,6 +1801,8 @@ const CollaborationPage = () => {
   const [currentDocId, setCurrentDocId] = useState(null);
   const [documentTitle, setDocumentTitle] = useState('Nouveau Document');
   const [saveStatus, setSaveStatus] = useState('');
+  const [showSymbols, setShowSymbols] = useState(false);
+  const [selectedSymbolCategory, setSelectedSymbolCategory] = useState('Grec');
 
   useEffect(() => {
     const newSessionId = `collab_${Date.now()}`;
