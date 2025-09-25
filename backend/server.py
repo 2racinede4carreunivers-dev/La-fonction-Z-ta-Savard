@@ -1646,7 +1646,8 @@ async def chat_with_domain_focus(request: dict):
             system_message=specialized_system
         ).with_model("anthropic", "claude-3-5-sonnet-20241022")
         
-        response = await chat.send_message(message)
+        user_message = UserMessage(text=message)
+        response = await chat.send_message(user_message)
         
         return {
             "success": True,
@@ -1733,7 +1734,8 @@ async def chat_methode_spectrale(request: dict):
             system_message=specialized_system
         ).with_model("anthropic", "claude-3-5-sonnet-20241022")
         
-        response = await chat.send_message(message)
+        user_message = UserMessage(text=message)
+        response = await chat.send_message(user_message)
         
         return {
             "success": True,
