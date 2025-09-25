@@ -333,6 +333,47 @@ CONCEPTS_ENRICHIS = [
         "page_reference": "Section 11",
         "niveau_complexite": "intermediaire",
         "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 7. QUANTITÉ DE NOMBRES ENTRE DEUX PREMIERS - MÉTHODE SPECTRALE
+    {
+        "id": "quantite_nombres_premiers",
+        "titre": "Quantité de Nombres entre Deux Premiers - Méthode Spectrale",
+        "description": "Approche spectrale originale pour déterminer la quantité de nombres entiers entre deux nombres premiers consécutifs, utilisant des suites mathématiques, des constantes empiriques et la fonction Digamma de Philippôt.",
+        "domaine_principal": "Géométrie du Spectre des Nombres Premiers",
+        "concepts_cles": [
+            "Méthode spectrale multi-étapes",
+            "Suites mathématiques associées aux premiers", 
+            "Constantes empiriques A, B, C, D, E",
+            "Application de la fonction Digamma",
+            "Calculs par étapes progressives",
+            "Comparaison avec la méthode classique",
+            "Approche géométrique des intervalles premiers"
+        ],
+        "formules": [
+            "Méthode classique: q - p - 1 (où q > p sont premiers consécutifs)",
+            "Étape 1: somme_suite_1 - (somme_suite_2 - Digamma_grand_premier)",
+            "Étape 2: (résultat_étape_1 - Digamma_petit_premier) / √5120",
+            "Somme suite 1: ((√A)/2 × 2^n) - √B",
+            "Somme suite 2: ((√C)/2 × 2^n) - √D", 
+            "Digamma de Philippôt: ((somme_suite_2 / √E) - N) × √E"
+        ],
+        "definitions": [
+            "Méthode spectrale: Approche multi-étapes utilisant des suites et corrections",
+            "Constantes empiriques: Valeurs A,B,C,D,E liées aux propriétés des nombres premiers",
+            "Digamma de Philippôt: Fonction de correction spécialisée pour les intervalles premiers",
+            "Suite associée: Séquence mathématique liée aux positions des nombres premiers"
+        ],
+        "relations": [
+            "Extension de la géométrie du spectre des nombres premiers",
+            "Lien avec la méthode de Philippôt pour la détermination des premiers",
+            "Application des concepts de suites géométriques aux intervalles",
+            "Connexion avec l'approche empirique de la théorie"
+        ],
+        "document_source": "3ieme_prompt_emergent.pdf",
+        "page_reference": "Document complet - Méthode spectrale",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
     }
 ]
 
