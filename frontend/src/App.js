@@ -1850,6 +1850,14 @@ const CollaborationPage = () => {
     }, 0);
   };
 
+  const insertSymbol = (symbol) => {
+    insertText(symbol);
+    // Garder le focus sur le textarea après insertion
+    setTimeout(() => {
+      document.querySelector('#collaboration-editor').focus();
+    }, 100);
+  };
+
   const formatText = (type) => {
     switch (type) {
       case 'bold':
