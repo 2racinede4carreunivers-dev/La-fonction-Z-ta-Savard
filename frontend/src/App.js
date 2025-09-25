@@ -1838,18 +1838,26 @@ const CollaborationPage = () => {
   };
 
   const insertText = (before, after = '') => {
-    const textarea = document.querySelector('#collaboration-editor');
-    const start = textarea.selectionStart;
-    const end = textarea.selectionEnd;
-    const selectedText = document.substring(start, end);
-    const newText = document.substring(0, start) + before + selectedText + after + document.substring(end);
-    setDocument(newText);
-    
-    // Repositionner le curseur
-    setTimeout(() => {
-      textarea.focus();
-      textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
-    }, 0);
+    try {
+      const textarea = document.querySelector('#collaboration-editor');
+      if (!textarea) return;
+      
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const selectedText = document.substring(start, end);
+      const newText = document.substring(0, start) + before + selectedText + after + document.substring(end);
+      setDocument(newText);
+      
+      // Repositionner le curseur
+      setTimeout(() => {
+        if (textarea) {
+          textarea.focus();
+          textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
+        }
+      }, 100);
+    } catch (error) {
+      console.warn('Erreur insertText:', error);
+    }
   };
 
   const insertSymbol = (symbol) => {
