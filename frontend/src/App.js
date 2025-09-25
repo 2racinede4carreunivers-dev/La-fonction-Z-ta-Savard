@@ -2100,6 +2100,45 @@ const CollaborationPage = () => {
                 </div>
               </div>
 
+              {/* Palette de symboles mathématiques */}
+              {showSymbols && (
+                <div className="border-b border-white/10 p-4 bg-slate-800/30">
+                  <div className="mb-3">
+                    <span className="text-white text-sm font-medium mr-3">Catégories :</span>
+                    {Object.keys(SYMBOLES_MATHEMATIQUES).map((category) => (
+                      <Button
+                        key={category}
+                        onClick={() => setSelectedSymbolCategory(category)}
+                        variant={selectedSymbolCategory === category ? "default" : "ghost"}
+                        size="sm"
+                        className={`mr-2 text-xs ${
+                          selectedSymbolCategory === category 
+                            ? 'bg-cyan-600 hover:bg-cyan-700' 
+                            : 'text-blue-200 hover:bg-white/10'
+                        }`}
+                      >
+                        {category}
+                      </Button>
+                    ))}
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-1">
+                    {SYMBOLES_MATHEMATIQUES[selectedSymbolCategory].map((symbol, index) => (
+                      <Button
+                        key={index}
+                        onClick={() => insertSymbol(symbol)}
+                        variant="ghost"
+                        size="sm"
+                        className="text-white hover:bg-cyan-600/30 min-w-[2.5rem] h-8 text-base font-mono"
+                        title={`Insérer ${symbol}`}
+                      >
+                        {symbol}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Zone d'édition */}
               <CardContent className="p-0">
                 <textarea
