@@ -1733,7 +1733,7 @@ async def chat_methode_spectrale(request: dict):
             system_message=specialized_system
         ).with_model("anthropic", "claude-3-5-sonnet-20241022")
         
-        response = await chat.send_message(UserMessage(content=message))
+        response = await chat.send_message(message)
         
         return {
             "success": True,
