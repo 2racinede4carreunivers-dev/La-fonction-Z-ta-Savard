@@ -1789,6 +1789,7 @@ const CollaborationPage = () => {
   const [savedDocuments, setSavedDocuments] = useState([]);
   const [currentDocId, setCurrentDocId] = useState(null);
   const [documentTitle, setDocumentTitle] = useState('Nouveau Document');
+  const [saveStatus, setSaveStatus] = useState('');
 
   useEffect(() => {
     const newSessionId = `collab_${Date.now()}`;
