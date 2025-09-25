@@ -2224,6 +2224,49 @@ Votre contenu ici...
             </Card>
           </div>
         </div>
+
+        {/* Modal LaTeX */}
+        {showLatex && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-2xl">Version LaTeX Générée</CardTitle>
+                  <Button
+                    onClick={() => setShowLatex(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-cyan-400 font-medium">Document : {documentTitle}</span>
+                  <Button
+                    onClick={() => navigator.clipboard.writeText(latexContent)}
+                    className="bg-cyan-600 hover:bg-cyan-700"
+                  >
+                    📋 Copier LaTeX
+                  </Button>
+                </div>
+                
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4 max-h-96 overflow-y-auto">
+                  <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                    {latexContent}
+                  </pre>
+                </div>
+                
+                <div className="text-sm text-blue-300 space-y-1">
+                  <p>• Le code LaTeX a été généré automatiquement par l'IA spécialisée</p>
+                  <p>• Vous pouvez copier ce code et l'utiliser dans votre éditeur LaTeX préféré</p>
+                  <p>• Les formules mathématiques et symboles ont été convertis automatiquement</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
