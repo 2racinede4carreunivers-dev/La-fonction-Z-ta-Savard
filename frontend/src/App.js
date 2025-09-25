@@ -1798,13 +1798,26 @@ const CollaborationPage = () => {
 
   const loadSavedDocuments = async () => {
     try {
-      // Charger les documents sauvegardés (simulation pour l'instant)
-      setSavedDocuments([
-        { id: '1', title: 'Réflexions sur les matrices à dérive première', date: new Date().toISOString() },
-        { id: '2', title: 'Développements de la mécanique harmonique', date: new Date().toISOString() }
-      ]);
+      if (sessionId) {
+        const response = await axios.get(`${API_URL}/api/collaboration-documents/${sessionId}`);
+        if (response.data && Array.isArray(response.data)) {
+          setSavedDocuments(response.data.map(doc => ({
+            id: doc.id,
+            title: doc.title,
+            date: doc.updated_at || doc.created_at,
+            content: doc.content
+          })));
+        } else {
+          // Documents par défaut si aucun document sauvegardé
+          setSavedDocuments([]);
+        }
+      }
     } catch (error) {
       console.error('Erreur lors du chargement des documents:', error);
+      // En cas d'erreur, garder des documents par défaut
+      setSavedDocuments([
+        { id: 'default-1', title: 'Nouveau document', date: new Date().toISOString() }
+      ]);
     }
   };
 
