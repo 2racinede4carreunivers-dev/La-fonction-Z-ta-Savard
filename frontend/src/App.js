@@ -1973,13 +1973,18 @@ const CollaborationPage = () => {
                     className="bg-transparent border-none text-xl font-bold text-white focus:ring-2 focus:ring-cyan-400"
                     placeholder="Titre du document..."
                   />
-                  <Button
-                    onClick={saveDocument}
-                    className="bg-emerald-600 hover:bg-emerald-700"
-                  >
-                    <Save className="w-4 h-4 mr-2" />
-                    Sauvegarder
-                  </Button>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={saveDocument}
+                      className="bg-emerald-600 hover:bg-emerald-700"
+                    >
+                      <Save className="w-4 h-4 mr-2" />
+                      Sauvegarder
+                    </Button>
+                    {saveStatus && (
+                      <span className="text-sm text-emerald-400">{saveStatus}</span>
+                    )}
+                  </div>
                 </div>
               </CardHeader>
 
