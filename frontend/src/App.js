@@ -1884,6 +1884,7 @@ const CollaborationPage = () => {
 
   const saveDocument = async () => {
     try {
+      setSaveStatus('Sauvegarde...');
       const response = await axios.post(`${API_URL}/api/save-collaboration`, {
         document: document,
         title: documentTitle,
@@ -1894,9 +1895,13 @@ const CollaborationPage = () => {
       if (response.data.success) {
         setCurrentDocId(response.data.document_id);
         await loadSavedDocuments();
+        setSaveStatus('✓ Sauvegardé');
+        setTimeout(() => setSaveStatus(''), 3000);
       }
     } catch (error) {
       console.error('Erreur lors de la sauvegarde:', error);
+      setSaveStatus('Erreur sauvegarde');
+      setTimeout(() => setSaveStatus(''), 3000);
     }
   };
 
