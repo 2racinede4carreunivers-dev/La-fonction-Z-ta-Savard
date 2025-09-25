@@ -1658,6 +1658,93 @@ async def chat_with_domain_focus(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors du chat spécialisé: {str(e)}")
 
+@app.get("/api/methode-spectrale-info")
+async def get_methode_spectrale_info():
+    """Récupérer les informations sur la méthode spectrale pour les intervalles entre nombres premiers"""
+    concept = next((c for c in CONCEPTS_ENRICHIS if c["id"] == "quantite_nombres_premiers"), None)
+    if not concept:
+        return {"success": False, "message": "Concept non trouvé"}
+    
+    return {
+        "success": True,
+        "concept": concept,
+        "exemples_application": {
+            "methode_classique": "Pour p=23, q=29: 29-23-1 = 5 nombres (24,25,26,27,28)",
+            "methode_spectrale": "Utilise suites mathématiques + Digamma pour validation",
+            "avantages_spectrale": [
+                "Approche géométrique des intervalles",
+                "Intégration avec la théorie du spectre des nombres premiers",
+                "Utilisation de la fonction Digamma de Philippôt",
+                "Validation par suites mathématiques associées"
+            ]
+        }
+    }
+
+@app.post("/api/chat-methode-spectrale")
+async def chat_methode_spectrale(request: dict):
+    """Chat spécialisé sur la méthode spectrale pour les intervalles entre nombres premiers"""
+    message = request.get("message")
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    # Récupérer le concept de la méthode spectrale
+    concept_spectral = next((c for c in CONCEPTS_ENRICHIS if c["id"] == "quantite_nombres_premiers"), None)
+    
+    spectral_context = f"""
+**SPÉCIALISATION MÉTHODE SPECTRALE POUR INTERVALLES ENTRE NOMBRES PREMIERS**
+
+{concept_spectral['description'] if concept_spectral else ''}
+
+**FORMULES SPÉCIALISÉES :**
+- Méthode classique: q - p - 1 (où q > p sont premiers consécutifs)
+- Étape 1 spectrale: somme_suite_1 - (somme_suite_2 - Digamma_grand_premier)
+- Étape 2 spectrale: (résultat_étape_1 - Digamma_petit_premier) / √5120
+- Digamma de Philippôt: ((somme_suite_2 / √E) - N) × √E
+
+**CONSTANTES EMPIRIQUES :**
+- A, B, C, D, E : Constantes liées aux propriétés spectrales des nombres premiers
+- √5120 : Constante de normalisation dans la méthode spectrale
+
+**APPROCHE PÉDAGOGIQUE :**
+- Explique d'abord la méthode classique simple
+- Présente la méthode spectrale comme extension géométrique 
+- Maintiens la vision de l'auteur tout en contextualisant scientifiquement
+- Respecte l'approche empirique et intuitive de la théorie
+"""
+    
+    specialized_system = f"""{system_message}
+    
+    {spectral_context}
+    
+    **INSTRUCTIONS SPÉCIALISÉES:**
+    - Focus sur la géométrie du spectre des nombres premiers
+    - Explique les deux approches (classique et spectrale) 
+    - Maintiens la structure bi-partite des réponses
+    - Respecte l'approche empirique de l'auteur
+    - Contextualise dans le cadre de la théorie générale
+    """
+    
+    try:
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=specialized_system
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        response = await chat.send_message(UserMessage(content=message))
+        
+        return {
+            "success": True,
+            "response": response.content,
+            "specialisation": "Méthode Spectrale - Intervalles entre Nombres Premiers",
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors du chat spécialisé: {str(e)}")
+
 @app.get("/api/collaboration-documents/{session_id}")
 async def get_collaboration_documents(session_id: str):
     """Récupérer les documents collaboratifs d'une session"""
