@@ -1923,9 +1923,21 @@ const CollaborationPage = () => {
 
       if (response.data.success) {
         setDocument(response.data.updated_document);
+        // Notification de succès
+        setTimeout(() => {
+          const notification = document.createElement('div');
+          notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50';
+          notification.textContent = '✓ Contenu enrichi par l\'IA';
+          document.body.appendChild(notification);
+          setTimeout(() => notification.remove(), 3000);
+        }, 100);
+      } else {
+        console.error('Réponse API sans succès:', response.data);
+        alert('Erreur: La collaboration IA a échoué');
       }
     } catch (error) {
       console.error('Erreur lors de la collaboration:', error);
+      alert(`Erreur de collaboration: ${error.message}`);
     } finally {
       setLoading(false);
     }
