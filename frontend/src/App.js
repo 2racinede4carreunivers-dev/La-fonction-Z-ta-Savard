@@ -2194,6 +2194,32 @@ const CollaborationPage = () => {
                     </Button>
                   </div>
 
+                  {/* Boutons IA */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
+                      disabled={loading}
+                      variant="ghost"
+                      size="sm"
+                      className="text-purple-400 hover:bg-purple-600/20"
+                      title="IA : Compléter le contenu"
+                    >
+                      <Brain className="w-4 h-4 mr-1" />
+                      IA : Compléter
+                    </Button>
+                    <Button
+                      onClick={() => collaborateWithAI("Améliore la structure et la clarté de ce texte")}
+                      disabled={loading}
+                      variant="ghost"
+                      size="sm"
+                      className="text-cyan-400 hover:bg-cyan-600/20"
+                      title="IA : Améliorer le texte"
+                    >
+                      <Sparkles className="w-4 h-4 mr-1" />
+                      IA : Améliorer
+                    </Button>
+                  </div>
+
                   {/* Boutons de gestion des documents */}
                   <div className="flex items-center gap-1">
                     <Button
