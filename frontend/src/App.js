@@ -2121,32 +2121,118 @@ const CollaborationPage = () => {
 
           {/* ZONE 2: CRÉATION ET ÉDITION */}
           <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
-              <CardHeader className="border-b border-white/10">
+            <CardHeader className="border-b border-white/10 pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Edit3 className="w-5 h-5 text-cyan-400" />
+                  <span className="text-white text-lg font-semibold">Création & Édition</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button
+                    onClick={createNewDocument}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Nouveau
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col p-4">
+              <div className="mb-3">
+                <Input
+                  value={documentTitle}
+                  onChange={(e) => setDocumentTitle(e.target.value)}
+                  className="bg-slate-800 border-slate-600 text-white text-base"
+                  placeholder="Titre du document..."
+                />
+              </div>
+              
+              <textarea
+                id="collaboration-editor"
+                value={document}
+                onChange={(e) => setDocument(e.target.value)}
+                placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'..."
+                className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none"
+              />
+              
+              <div className="mt-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Button
+                    onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
+                    disabled={loading}
+                    className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
+                  >
+                    <Brain className="w-4 h-4 mr-2" />
+                    IA : Compléter
+                  </Button>
+                  <Button
+                    onClick={() => collaborateWithAI("Améliore la structure et la clarté de ce texte")}
+                    disabled={loading}
+                    className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700"
+                  >
+                    <Sparkles className="w-4 h-4 mr-2" />
+                    IA : Améliorer
+                  </Button>
+                </div>
+                
+                <Button
+                  onClick={saveDocument}
+                  className="bg-emerald-600 hover:bg-emerald-700"
+                >
+                  <Save className="w-4 h-4 mr-2" />
+                  Sauvegarder
+                </Button>
+              </div>
+              
+              {saveStatus && (
+                <div className="mt-2 text-sm text-emerald-400">{saveStatus}</div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* ZONE 3: AFFICHAGE ET HISTORIQUE */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-white text-lg flex items-center gap-2">
+                <List className="w-5 h-5 text-cyan-400" />
+                Documents & Historique
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col">
+              <div className="text-center text-blue-300 text-sm py-8">
+                Historique des collaborations avec l'IA
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Modal LaTeX (si nécessaire) */}
+        {showLatex && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Edit3 className="w-5 h-5 text-cyan-400" />
-                    <Input
-                      value={documentTitle}
-                      onChange={(e) => setDocumentTitle(e.target.value)}
-                      className="bg-transparent border-none text-lg font-bold text-white focus:ring-2 focus:ring-cyan-400"
-                      placeholder="Titre du document..."
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Button
-                      onClick={createNewDocument}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      <Plus className="w-4 h-4 mr-2" />
-                      Nouveau
-                    </Button>
-                    <Button
-                      onClick={saveDocument}
-                      className="bg-emerald-600 hover:bg-emerald-700"
-                    >
-                      <Save className="w-4 h-4 mr-2" />
-                      Sauvegarder
-                    </Button>
+                  <CardTitle className="text-white text-2xl">Version LaTeX Générée</CardTitle>
+                  <Button
+                    onClick={() => setShowLatex(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4 max-h-96 overflow-y-auto">
+                  <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                    {latexContent}
+                  </pre>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
                     {saveStatus && (
                       <span className="text-sm text-emerald-400">{saveStatus}</span>
                     )}
