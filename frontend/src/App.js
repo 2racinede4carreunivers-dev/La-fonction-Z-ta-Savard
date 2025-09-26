@@ -2147,13 +2147,145 @@ const CollaborationPage = () => {
                   placeholder="Titre du document..."
                 />
               </div>
+
+              {/* Barre d'outils de formatage */}
+              <div className="mb-3 border border-slate-600 rounded-lg p-2 bg-slate-800/50">
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* Options de formatage */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('bold')}
+                      className="text-white hover:bg-white/10"
+                      title="Gras"
+                    >
+                      <Bold className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('italic')}
+                      className="text-white hover:bg-white/10"
+                      title="Italique"
+                    >
+                      <Italic className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  {/* Options de structure */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('heading')}
+                      className="text-white hover:bg-white/10"
+                      title="Titre"
+                    >
+                      <Type className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('paragraph')}
+                      className="text-white hover:bg-white/10"
+                      title="Paragraphe"
+                    >
+                      <AlignLeft className="w-4 h-4" />
+                    </Button>
+                  </div>
+
+                  {/* Options de listes */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('bullet')}
+                      className="text-white hover:bg-white/10"
+                      title="Liste à puces"
+                    >
+                      <List className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => formatText('number')}
+                      className="text-white hover:bg-white/10"
+                      title="Liste numérotée"
+                    >
+                      1.
+                    </Button>
+                  </div>
+
+                  {/* Symboles mathématiques */}
+                  <Button
+                    onClick={() => setShowSymbols(!showSymbols)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-white hover:bg-white/10"
+                    title="Symboles mathématiques"
+                  >
+                    ∑ Symboles
+                  </Button>
+                </div>
+
+                {/* Palette de symboles mathématiques */}
+                {showSymbols && (
+                  <div className="mt-3 border-t border-slate-600 pt-3">
+                    <div className="mb-2">
+                      <span className="text-white text-xs font-medium mr-3">Catégories :</span>
+                      <div className="flex flex-wrap gap-1">
+                        {Object.keys(SYMBOLES_MATHEMATIQUES).map((category) => (
+                          <Button
+                            key={category}
+                            onClick={() => setSelectedSymbolCategory(category)}
+                            variant={selectedSymbolCategory === category ? "default" : "ghost"}
+                            size="sm"
+                            className={`text-xs ${
+                              selectedSymbolCategory === category 
+                                ? 'bg-cyan-600 hover:bg-cyan-700' 
+                                : 'text-blue-200 hover:bg-white/10'
+                            }`}
+                          >
+                            {category}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-1">
+                      {SYMBOLES_MATHEMATIQUES[selectedSymbolCategory].map((symbol, index) => (
+                        <Button
+                          key={index}
+                          onClick={() => insertSymbol(symbol)}
+                          variant="ghost"
+                          size="sm"
+                          className="text-white hover:bg-cyan-600/30 min-w-[2rem] h-7 text-sm font-mono"
+                          title={`Insérer ${symbol}`}
+                        >
+                          {symbol}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
               
               <textarea
                 id="collaboration-editor"
                 value={document}
                 onChange={(e) => setDocument(e.target.value)}
-                placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'..."
-                className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none"
+                placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'...
+
+Utilisez les outils de formatage ci-dessus :
+• Boutons de formatage : gras, italique
+• Structures : titres, paragraphes  
+• Listes : puces, numérotées
+• Symboles mathématiques : ∑ Symboles
+
+Exemple avec symboles mathématiques :
+La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
+                className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none font-mono leading-relaxed"
               />
               
               <div className="mt-3 flex items-center justify-between">
