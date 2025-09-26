@@ -1865,7 +1865,7 @@ const CollaborationPage = () => {
     // Garder le focus sur le textarea après insertion
     setTimeout(() => {
       try {
-        const textarea = document.querySelector('#collaboration-editor');
+        const textarea = window.document.querySelector('#collaboration-editor');
         if (textarea) {
           textarea.focus();
         }
