@@ -1810,6 +1810,17 @@ const CollaborationPage = () => {
   const [chatHistory, setChatHistory] = useState([]);
   const [isChatLoading, setIsChatLoading] = useState(false);
   
+  // États pour le système de corrections personnelles
+  const [showCorrectionForm, setShowCorrectionForm] = useState(false);
+  const [correctionData, setCorrectionData] = useState({
+    messageIndex: -1,
+    questionOriginale: '',
+    reponseOriginale: '',
+    correctionAuteur: '',
+    domainesConcernes: '',
+    typeCorrection: 'nuance_manquante'
+  });
+  
   // États généraux
   const [sessionId, setSessionId] = useState(null);
   const [loading, setLoading] = useState(false);
