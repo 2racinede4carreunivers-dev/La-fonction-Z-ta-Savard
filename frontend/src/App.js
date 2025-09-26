@@ -1875,6 +1875,20 @@ const CollaborationPage = () => {
     }, 100);
   };
 
+  const createNewDocument = () => {
+    setDocument('');
+    setDocumentTitle('Nouveau Document');
+    setCurrentDocId(null);
+    setSaveStatus('');
+    // Focus sur l'éditeur
+    setTimeout(() => {
+      const textarea = window.document.querySelector('#collaboration-editor');
+      if (textarea) {
+        textarea.focus();
+      }
+    }, 100);
+  };
+
   const generateLatex = async () => {
     if (!document.trim()) {
       alert('Aucun contenu à convertir en LaTeX');
