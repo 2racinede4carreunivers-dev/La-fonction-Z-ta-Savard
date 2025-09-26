@@ -2052,9 +2052,9 @@ const CollaborationPage = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-180px)]">
-          {/* Sidebar avec documents sauvegardés */}
-          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 lg:col-span-1">
-            <CardHeader>
+          {/* ZONE 1: CHATBOT SIMPLE */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
+            <CardHeader className="pb-3">
               <CardTitle className="text-white text-lg">Documents</CardTitle>
             </CardHeader>
             <CardContent>
