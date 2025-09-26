@@ -451,6 +451,19 @@ def get_concept_enrichi_by_domain(domain=None):
         return [c for c in CONCEPTS_ENRICHIS if c["domaine_principal"].lower() == domain.lower()]
     return CONCEPTS_ENRICHIS
 
+async def get_corrections_personnelles_pour_session(session_id: str):
+    """Récupérer les corrections personnelles pour enrichir l'IA"""
+    try:
+        corrections = await db.corrections_personnelles.find(
+            {"session_id": session_id, "approuve": True}
+        ).sort("created_at", -1).to_list(length=20)
+        
+        profil = await db.profil_auteur.find_one({"session_id": session_id})
+        
+        return corrections, profil
+    except:
+        return [], None
+
 def enrich_system_message_with_theory():
     """Génère un message système enrichi avec tous les concepts théoriques"""
     
