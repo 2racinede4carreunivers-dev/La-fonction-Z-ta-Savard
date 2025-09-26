@@ -1881,6 +1881,90 @@ async def generate_latex(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de la génération LaTeX: {str(e)}")
 
+@app.post("/api/correction-personnelle")
+async def ajouter_correction_personnelle(correction: dict):
+    """Ajouter une correction personnelle de l'auteur"""
+    try:
+        correction_data = {
+            "id": str(uuid.uuid4()),
+            "session_id": correction.get("session_id"),
+            "question_originale": correction.get("question_originale"),
+            "reponse_ia_originale": correction.get("reponse_ia_originale"),
+            "correction_auteur": correction.get("correction_auteur"),
+            "contexte_theorique": correction.get("contexte_theorique", ""),
+            "domaine_concerne": correction.get("domaine_concerne", "General"),
+            "type_correction": correction.get("type_correction", "nuance_manquante"),
+            "approuve": True,
+            "created_at": datetime.now(timezone.utc).isoformat()
+        }
+        
+        await db.corrections_personnelles.insert_one(correction_data)
+        
+        # Mettre à jour le profil auteur
+        await mettre_a_jour_profil_auteur(correction.get("session_id"), correction_data)
+        
+        return {
+            "success": True,
+            "message": "Correction enregistrée avec succès",
+            "correction_id": correction_data["id"]
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de l'enregistrement: {str(e)}")
+
+@app.get("/api/corrections-personnelles/{session_id}")
+async def get_corrections_personnelles(session_id: str):
+    """Récupérer les corrections personnelles d'une session"""
+    corrections = await db.corrections_personnelles.find(
+        {"session_id": session_id, "approuve": True}
+    ).sort("created_at", -1).to_list(length=50)
+    
+    return {
+        "success": True,
+        "corrections": corrections
+    }
+
+@app.post("/api/profil-auteur")
+async def mettre_a_jour_profil_auteur(session_id: str, correction_data: dict):
+    """Mettre à jour le profil de l'auteur avec les corrections"""
+    try:
+        profil_existant = await db.profil_auteur.find_one({"session_id": session_id})
+        
+        if profil_existant:
+            # Mise à jour du profil existant
+            update_data = {
+                "corrections_approuvees": profil_existant.get("corrections_approuvees", []) + [correction_data["id"]],
+                "derniere_mise_a_jour": datetime.now(timezone.utc).isoformat()
+            }
+            
+            # Ajouter la correction aux nuances importantes
+            nuances = profil_existant.get("nuances_importantes", [])
+            nuances.append(correction_data["correction_auteur"][:200])  # Limiter la taille
+            update_data["nuances_importantes"] = nuances[-20:]  # Garder les 20 dernières
+            
+            await db.profil_auteur.update_one(
+                {"session_id": session_id},
+                {"$set": update_data}
+            )
+        else:
+            # Créer un nouveau profil
+            nouveau_profil = {
+                "session_id": session_id,
+                "preferences_style": ["structure_bi_partie", "vision_auteur_scientifique"],
+                "corrections_approuvees": [correction_data["id"]],
+                "expressions_preferees": {},
+                "nuances_importantes": [correction_data["correction_auteur"][:200]],
+                "domaines_expertise": ["L'univers est au carré", correction_data["domaine_concerne"]],
+                "derniere_mise_a_jour": datetime.now(timezone.utc).isoformat()
+            }
+            
+            await db.profil_auteur.insert_one(nouveau_profil)
+            
+        return {"success": True}
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur profil auteur: {str(e)}")
+
 @app.get("/api/collaboration-documents/{session_id}")
 async def get_collaboration_documents(session_id: str):
     """Récupérer les documents collaboratifs d'une session"""
