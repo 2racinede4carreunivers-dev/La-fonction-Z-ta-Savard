@@ -2040,18 +2040,18 @@ const CollaborationPage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
-      <div className="container mx-auto px-6 py-8">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-white mb-4 flex items-center gap-2">
-            <Edit3 className="w-8 h-8 text-cyan-400" />
-            Espace de Collaboration
+      <div className="container mx-auto px-4 py-6">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
+            <Edit3 className="w-7 h-7 text-cyan-400" />
+            Espace de Collaboration - L'univers est au carré
           </h1>
-          <p className="text-blue-200 text-lg">
-            Co-écrivez et développez vos idées avec l'IA spécialisée dans un éditeur de texte enrichi.
+          <p className="text-blue-200">
+            Trois zones de travail : Chatbot • Création • Affichage des réponses
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-180px)]">
           {/* Sidebar avec documents sauvegardés */}
           <Card className="bg-white/5 backdrop-blur-sm border border-white/10 lg:col-span-1">
             <CardHeader>
