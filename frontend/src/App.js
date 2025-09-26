@@ -2370,8 +2370,47 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
-              <div className="text-center text-blue-300 text-sm py-8">
+              {/* Boutons d'actions pour les documents */}
+              <div className="space-y-3 mb-4">
+                <Button
+                  onClick={createNewDocument}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nouveau Document
+                </Button>
+                
+                {/* Bouton trombone pour upload */}
+                <label className="w-full cursor-pointer">
+                  <Button
+                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
+                    asChild
+                  >
+                    <span>
+                      📎 Uploader Fichier
+                    </span>
+                  </Button>
+                  <input
+                    type="file"
+                    onChange={handleFileUpload}
+                    accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif"
+                    className="hidden"
+                  />
+                </label>
+                
+                {uploadStatus && (
+                  <div className="text-center text-xs text-orange-400 mt-2">
+                    {uploadStatus}
+                  </div>
+                )}
+              </div>
+
+              {/* Historique des collaborations */}
+              <div className="flex-1 text-center text-blue-300 text-sm py-4">
                 Historique des collaborations avec l'IA
+                <div className="mt-2 text-xs text-blue-400">
+                  Les documents uploadés et les collaborations IA s'afficheront ici
+                </div>
               </div>
             </CardContent>
           </Card>
