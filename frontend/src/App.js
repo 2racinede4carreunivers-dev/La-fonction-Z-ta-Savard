@@ -2287,26 +2287,7 @@ const CollaborationPage = () => {
                       📁 Documents
                     </Button>
                     
-                    {/* Bouton upload de fichiers */}
-                    <label className="cursor-pointer">
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="text-orange-400 hover:bg-orange-600/20"
-                        title="Uploader documents/images de votre appareil"
-                        asChild
-                      >
-                        <span>
-                          📎 Upload
-                        </span>
-                      </Button>
-                      <input
-                        type="file"
-                        onChange={handleFileUpload}
-                        accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif"
-                        className="hidden"
-                      />
-                    </label>
+                    {/* Bouton upload retiré d'ici, déplacé vers Zone 3 */}
                     
                     {(saveStatus || uploadStatus) && (
                       <span className="text-xs ml-2">
