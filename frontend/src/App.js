@@ -1803,6 +1803,7 @@ const CollaborationPage = () => {
   const [selectedSymbolCategory, setSelectedSymbolCategory] = useState('Grec');
   const [showLatex, setShowLatex] = useState(false);
   const [latexContent, setLatexContent] = useState('');
+  const [uploadStatus, setUploadStatus] = useState('');
   
   // États pour la zone chatbot
   const [chatMessage, setChatMessage] = useState('');
