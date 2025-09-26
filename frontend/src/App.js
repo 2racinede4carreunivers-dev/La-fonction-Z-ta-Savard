@@ -2483,6 +2483,93 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </Card>
         </div>
 
+        {/* Modal de Correction Personnelle */}
+        {showCorrectionForm && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-2xl w-full">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl">🔧 Correction Personnelle</CardTitle>
+                  <Button
+                    onClick={() => setShowCorrectionForm(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label className="text-cyan-400 text-sm font-medium">Question originale :</label>
+                  <div className="bg-slate-800/50 p-2 rounded text-blue-200 text-sm mt-1">
+                    {correctionData.questionOriginale}
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-cyan-400 text-sm font-medium">Réponse de l'IA (à corriger) :</label>
+                  <div className="bg-slate-800/50 p-2 rounded text-blue-200 text-sm mt-1 max-h-32 overflow-y-auto">
+                    {correctionData.reponseOriginale}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="text-cyan-400 text-sm font-medium">Votre correction (vision d'auteur) :</label>
+                  <textarea
+                    value={correctionData.correctionAuteur}
+                    onChange={(e) => setCorrectionData({...correctionData, correctionAuteur: e.target.value})}
+                    placeholder="Expliquez votre vision d'auteur, les nuances importantes, les corrections nécessaires..."
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm mt-1"
+                    rows={4}
+                  />
+                </div>
+
+                <div>
+                  <label className="text-cyan-400 text-sm font-medium">Domaine théorique concerné :</label>
+                  <input
+                    value={correctionData.domainesConcernes}
+                    onChange={(e) => setCorrectionData({...correctionData, domainesConcernes: e.target.value})}
+                    placeholder="Ex: Théorème de Philippôt, Géométrie neuromorphique..."
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm mt-1"
+                  />
+                </div>
+
+                <div>
+                  <label className="text-cyan-400 text-sm font-medium">Type de correction :</label>
+                  <select
+                    value={correctionData.typeCorrection}
+                    onChange={(e) => setCorrectionData({...correctionData, typeCorrection: e.target.value})}
+                    className="w-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm mt-1"
+                  >
+                    <option value="nuance_manquante">Nuance importante manquante</option>
+                    <option value="erreur_factuelle">Erreur factuelle</option>
+                    <option value="style_auteur">Style/ton d'auteur</option>
+                    <option value="interpretation">Interprétation incorrecte</option>
+                  </select>
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  <Button
+                    onClick={envoyerCorrection}
+                    className="flex-1 bg-green-600 hover:bg-green-700"
+                    disabled={!correctionData.correctionAuteur.trim()}
+                  >
+                    ✅ Enregistrer la Correction
+                  </Button>
+                  <Button
+                    onClick={() => setShowCorrectionForm(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    Annuler
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {/* Modal LaTeX (si nécessaire) */}
         {showLatex && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
