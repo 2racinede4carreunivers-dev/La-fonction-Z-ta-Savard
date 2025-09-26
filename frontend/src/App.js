@@ -2280,38 +2280,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none font-mono leading-relaxed"
               />
               
-              <div className="mt-3 flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Button
-                    onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
-                    disabled={loading}
-                    className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700"
-                  >
-                    <Brain className="w-4 h-4 mr-2" />
-                    IA : Compléter
-                  </Button>
-                  <Button
-                    onClick={() => collaborateWithAI("Améliore la structure et la clarté de ce texte")}
-                    disabled={loading}
-                    className="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700"
-                  >
-                    <Sparkles className="w-4 h-4 mr-2" />
-                    IA : Améliorer
-                  </Button>
-                </div>
-                
-                <Button
-                  onClick={saveDocument}
-                  className="bg-emerald-600 hover:bg-emerald-700"
-                >
-                  <Save className="w-4 h-4 mr-2" />
-                  Sauvegarder
-                </Button>
-              </div>
-              
-              {saveStatus && (
-                <div className="mt-2 text-sm text-emerald-400">{saveStatus}</div>
-              )}
+              {/* Note : Les boutons IA et Sauvegarder sont maintenant dans la barre d'outils ci-dessus */}
             </CardContent>
           </Card>
 
