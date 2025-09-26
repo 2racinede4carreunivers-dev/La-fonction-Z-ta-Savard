@@ -2119,18 +2119,27 @@ const CollaborationPage = () => {
             </CardContent>
           </Card>
 
-          {/* Éditeur principal */}
-          <div className="lg:col-span-3">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10">
+          {/* ZONE 2: CRÉATION ET ÉDITION */}
+          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
               <CardHeader className="border-b border-white/10">
                 <div className="flex items-center justify-between">
-                  <Input
-                    value={documentTitle}
-                    onChange={(e) => setDocumentTitle(e.target.value)}
-                    className="bg-transparent border-none text-xl font-bold text-white focus:ring-2 focus:ring-cyan-400"
-                    placeholder="Titre du document..."
-                  />
                   <div className="flex items-center gap-2">
+                    <Edit3 className="w-5 h-5 text-cyan-400" />
+                    <Input
+                      value={documentTitle}
+                      onChange={(e) => setDocumentTitle(e.target.value)}
+                      className="bg-transparent border-none text-lg font-bold text-white focus:ring-2 focus:ring-cyan-400"
+                      placeholder="Titre du document..."
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      onClick={createNewDocument}
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      <Plus className="w-4 h-4 mr-2" />
+                      Nouveau
+                    </Button>
                     <Button
                       onClick={saveDocument}
                       className="bg-emerald-600 hover:bg-emerald-700"
