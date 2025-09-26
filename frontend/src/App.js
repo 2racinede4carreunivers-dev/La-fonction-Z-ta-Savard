@@ -2011,11 +2011,7 @@ const CollaborationPage = () => {
             <CardContent>
               <div className="space-y-2">
                 <Button
-                  onClick={() => {
-                    setDocument('');
-                    setDocumentTitle('Nouveau Document');
-                    setCurrentDocId(null);
-                  }}
+                  onClick={createNewDocument}
                   className="w-full bg-cyan-600 hover:bg-cyan-700"
                 >
                   <Plus className="w-4 h-4 mr-2" />
