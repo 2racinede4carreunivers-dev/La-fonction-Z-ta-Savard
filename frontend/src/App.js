@@ -2233,14 +2233,10 @@ const CollaborationPage = () => {
             </Card>
           </div>
         )}
-                    {saveStatus && (
-                      <span className="text-sm text-emerald-400">{saveStatus}</span>
-                    )}
-                  </div>
-                </div>
-              </CardHeader>
-
-              {/* Barre d'outils */}
+      </div>
+    </div>
+  );
+};
               <div className="border-b border-white/10 p-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <div className="flex items-center gap-1 border-r border-white/20 pr-2">
