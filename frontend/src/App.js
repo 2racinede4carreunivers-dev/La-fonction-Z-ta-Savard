@@ -1900,6 +1900,45 @@ const CollaborationPage = () => {
     }, 100);
   };
 
+  // Fonction pour corriger une réponse de l'IA
+  const ouvrirCorrection = (messageIndex, question, reponseIA) => {
+    setCorrectionData({
+      messageIndex: messageIndex,
+      questionOriginale: question,
+      reponseOriginale: reponseIA,
+      correctionAuteur: '',
+      domainesConcernes: '',
+      typeCorrection: 'nuance_manquante'
+    });
+    setShowCorrectionForm(true);
+  };
+
+  const envoyerCorrection = async () => {
+    try {
+      const response = await axios.post(`${API_URL}/api/correction-personnelle`, {
+        session_id: sessionId,
+        question_originale: correctionData.questionOriginale,
+        reponse_ia_originale: correctionData.reponseOriginale,
+        correction_auteur: correctionData.correctionAuteur,
+        contexte_theorique: correctionData.domainesConcernes,
+        domaine_concerne: correctionData.domainesConcernes || 'General',
+        type_correction: correctionData.typeCorrection
+      });
+
+      if (response.data.success) {
+        setShowCorrectionForm(false);
+        // Ajouter un message de confirmation
+        setChatHistory(prev => [...prev, {
+          type: 'system',
+          content: '✅ Correction enregistrée ! L\'IA utilisera cette correction dans les futures réponses.',
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur correction:', error);
+    }
+  };
+
   // Fonction pour envoyer un message dans le chatbot
   const sendChatMessage = async () => {
     if (!chatMessage.trim()) return;
