@@ -2143,28 +2143,6 @@ const CollaborationPage = () => {
               {/* Barre d'outils de formatage */}
               <div className="mb-3 border border-slate-600 rounded-lg p-2 bg-slate-800/50">
                 <div className="flex flex-wrap items-center gap-2">
-                  {/* Options de formatage */}
-                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('bold')}
-                      className="text-white hover:bg-white/10"
-                      title="Gras"
-                    >
-                      <Bold className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('italic')}
-                      className="text-white hover:bg-white/10"
-                      title="Italique"
-                    >
-                      <Italic className="w-4 h-4" />
-                    </Button>
-                  </div>
-
                   {/* Options de structure */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
@@ -2210,15 +2188,40 @@ const CollaborationPage = () => {
                   </div>
 
                   {/* Symboles mathématiques */}
-                  <Button
-                    onClick={() => setShowSymbols(!showSymbols)}
-                    variant="ghost"
-                    size="sm"
-                    className="text-white hover:bg-white/10"
-                    title="Symboles mathématiques"
-                  >
-                    ∑ Symboles
-                  </Button>
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      onClick={() => setShowSymbols(!showSymbols)}
+                      variant="ghost"
+                      size="sm"
+                      className="text-white hover:bg-white/10"
+                      title="Symboles mathématiques"
+                    >
+                      ∑ Symboles
+                    </Button>
+                  </div>
+
+                  {/* Boutons de gestion des documents */}
+                  <div className="flex items-center gap-1">
+                    <Button
+                      onClick={saveDocument}
+                      variant="ghost"
+                      size="sm"
+                      className="text-emerald-400 hover:bg-emerald-600/20"
+                      title="Sauvegarder le document"
+                    >
+                      <Save className="w-4 h-4 mr-1" />
+                      Sauvegarder
+                    </Button>
+                    <Button
+                      onClick={() => loadSavedDocuments()}
+                      variant="ghost"
+                      size="sm"
+                      className="text-blue-400 hover:bg-blue-600/20"
+                      title="Parcourir les documents"
+                    >
+                      📁 Parcourir
+                    </Button>
+                  </div>
                 </div>
 
                 {/* Palette de symboles mathématiques */}
