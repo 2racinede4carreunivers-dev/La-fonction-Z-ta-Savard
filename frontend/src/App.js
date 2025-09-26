@@ -1931,6 +1931,50 @@ const CollaborationPage = () => {
     }
   };
 
+  // Fonction pour uploader des fichiers (documents, images)
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setUploadStatus('Upload en cours...');
+    
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('session_id', sessionId);
+
+      const response = await axios.post(`${API_URL}/api/upload-document`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.data.success) {
+        setUploadStatus('✓ Fichier uploadé avec succès');
+        
+        // Ajouter le contenu analysé au document si c'est un document texte
+        if (response.data.content) {
+          const currentContent = document;
+          const newContent = currentContent + '\n\n' + '## Document uploadé : ' + file.name + '\n\n' + response.data.content;
+          setDocument(newContent);
+        }
+        
+        // Réinitialiser le statut après 3 secondes
+        setTimeout(() => setUploadStatus(''), 3000);
+      } else {
+        setUploadStatus('❌ Erreur d\'upload');
+        setTimeout(() => setUploadStatus(''), 3000);
+      }
+    } catch (error) {
+      console.error('Erreur upload:', error);
+      setUploadStatus('❌ Erreur d\'upload');
+      setTimeout(() => setUploadStatus(''), 3000);
+    }
+
+    // Réinitialiser l'input file
+    event.target.value = '';
+  };
+
   const generateLatex = async () => {
     if (!document.trim()) {
       alert('Aucun contenu à convertir en LaTeX');
