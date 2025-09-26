@@ -2215,6 +2215,9 @@ const CollaborationPage = () => {
                     >
                       📁 Parcourir
                     </Button>
+                    {saveStatus && (
+                      <span className="text-xs text-emerald-400 ml-2">{saveStatus}</span>
+                    )}
                   </div>
                 </div>
 
