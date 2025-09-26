@@ -2282,12 +2282,37 @@ const CollaborationPage = () => {
                       variant="ghost"
                       size="sm"
                       className="text-blue-400 hover:bg-blue-600/20"
-                      title="Parcourir les documents"
+                      title="Parcourir les documents sauvegardés"
                     >
-                      📁 Parcourir
+                      📁 Documents
                     </Button>
-                    {saveStatus && (
-                      <span className="text-xs text-emerald-400 ml-2">{saveStatus}</span>
+                    
+                    {/* Bouton upload de fichiers */}
+                    <label className="cursor-pointer">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-orange-400 hover:bg-orange-600/20"
+                        title="Uploader documents/images de votre appareil"
+                        asChild
+                      >
+                        <span>
+                          📎 Upload
+                        </span>
+                      </Button>
+                      <input
+                        type="file"
+                        onChange={handleFileUpload}
+                        accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif"
+                        className="hidden"
+                      />
+                    </label>
+                    
+                    {(saveStatus || uploadStatus) && (
+                      <span className="text-xs ml-2">
+                        {saveStatus && <span className="text-emerald-400">{saveStatus}</span>}
+                        {uploadStatus && <span className="text-orange-400">{uploadStatus}</span>}
+                      </span>
                     )}
                   </div>
                 </div>
