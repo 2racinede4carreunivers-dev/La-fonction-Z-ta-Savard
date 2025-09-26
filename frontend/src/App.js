@@ -1958,12 +1958,6 @@ const CollaborationPage = () => {
 
   const formatText = (type) => {
     switch (type) {
-      case 'bold':
-        insertText('**', '**');
-        break;
-      case 'italic':
-        insertText('*', '*');
-        break;
       case 'bullet':
         insertText('\n• ');
         break;
