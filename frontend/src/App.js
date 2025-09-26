@@ -1844,8 +1844,8 @@ const CollaborationPage = () => {
       
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
-      const selectedText = textarea.value.substring(start, end);
-      const newText = textarea.value.substring(0, start) + before + selectedText + after + textarea.value.substring(end);
+      const selectedText = document.substring(start, end);
+      const newText = document.substring(0, start) + before + selectedText + after + document.substring(end);
       setDocument(newText);
       
       // Repositionner le curseur
