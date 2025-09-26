@@ -1851,15 +1851,17 @@ const CollaborationPage = () => {
       
       const start = textarea.selectionStart;
       const end = textarea.selectionEnd;
-      const selectedText = document.substring(start, end);
-      const newText = document.substring(0, start) + before + selectedText + after + document.substring(end);
+      const currentText = textarea.value; // Utiliser la valeur actuelle du textarea
+      const selectedText = currentText.substring(start, end);
+      const newText = currentText.substring(0, start) + before + selectedText + after + currentText.substring(end);
       setDocument(newText);
       
       // Repositionner le curseur
       setTimeout(() => {
         if (textarea) {
           textarea.focus();
-          textarea.setSelectionRange(start + before.length, start + before.length + selectedText.length);
+          const newPosition = start + before.length + selectedText.length + after.length;
+          textarea.setSelectionRange(newPosition, newPosition);
         }
       }, 100);
     } catch (error) {
