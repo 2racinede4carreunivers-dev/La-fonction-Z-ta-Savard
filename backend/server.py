@@ -126,6 +126,27 @@ class ConceptEnrichi(BaseModel):
     niveau_complexite: str  # "fondamental", "intermediaire", "avance"
     created_at: str
 
+class CorrectionPersonnelle(BaseModel):
+    id: str
+    session_id: str
+    question_originale: str
+    reponse_ia_originale: str
+    correction_auteur: str
+    contexte_theorique: str
+    domaine_concerne: str
+    type_correction: str  # "erreur_factuelle", "nuance_manquante", "style_auteur", "interpretation"
+    approuve: bool
+    created_at: str
+
+class ProfilAuteur(BaseModel):
+    session_id: str
+    preferences_style: List[str]
+    corrections_approuvees: List[str]
+    expressions_preferees: Dict[str, str]
+    nuances_importantes: List[str]
+    domaines_expertise: List[str]
+    derniere_mise_a_jour: str
+
 # Base de connaissances enrichie de la théorie "L'univers est au carré"
 CONCEPTS_ENRICHIS = [
     # 1. THÉORÈME DE PHILIPPÔT
