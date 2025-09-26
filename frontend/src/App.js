@@ -2055,38 +2055,66 @@ const CollaborationPage = () => {
           {/* ZONE 1: CHATBOT SIMPLE */}
           <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
             <CardHeader className="pb-3">
-              <CardTitle className="text-white text-lg">Documents</CardTitle>
+              <CardTitle className="text-white text-lg flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-cyan-400" />
+                Chat IA Spécialisée
+              </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="space-y-2">
-                <Button
-                  onClick={createNewDocument}
-                  className="w-full bg-cyan-600 hover:bg-cyan-700"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Nouveau
-                </Button>
-                
-                {savedDocuments.map((doc) => (
-                  <Card
-                    key={doc.id}
-                    className="bg-slate-800/50 border-slate-600 cursor-pointer hover:border-cyan-400/30 transition-all"
-                    onClick={() => {
-                      setCurrentDocId(doc.id);
-                      setDocumentTitle(doc.title);
-                      if (doc.content) {
-                        setDocument(doc.content);
-                      }
-                    }}
-                  >
-                    <CardContent className="p-3">
-                      <div className="text-sm text-white font-medium truncate">{doc.title}</div>
-                      <div className="text-xs text-blue-300">
-                        {new Date(doc.date).toLocaleDateString()}
+            <CardContent className="flex-1 flex flex-col">
+              {/* Historique des messages */}
+              <div className="flex-1 bg-slate-900/50 rounded-lg p-3 mb-3 overflow-y-auto max-h-80">
+                {chatHistory.length === 0 ? (
+                  <div className="text-center text-blue-300 text-sm py-8">
+                    Posez vos questions sur la théorie "L'univers est au carré"
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {chatHistory.map((msg, index) => (
+                      <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-[85%] rounded-lg p-2 text-sm ${
+                          msg.type === 'user' 
+                            ? 'bg-cyan-600 text-white' 
+                            : msg.type === 'error'
+                            ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                            : 'bg-indigo-600/30 text-blue-100 border border-indigo-500/30'
+                        }`}>
+                          <div className="whitespace-pre-wrap">{msg.content}</div>
+                          <div className="text-xs opacity-70 mt-1">{msg.timestamp}</div>
+                        </div>
                       </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                    ))}
+                  </div>
+                )}
+                {isChatLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-indigo-600/30 text-blue-100 border border-indigo-500/30 rounded-lg p-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-cyan-400"></div>
+                        L'IA réfléchit...
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              {/* Zone de saisie du chat */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={chatMessage}
+                  onChange={(e) => setChatMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && !isChatLoading && sendChatMessage()}
+                  placeholder="Posez votre question..."
+                  className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
+                  disabled={isChatLoading}
+                />
+                <Button
+                  onClick={sendChatMessage}
+                  disabled={isChatLoading || !chatMessage.trim()}
+                  className="bg-cyan-600 hover:bg-cyan-700 px-4"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
               </div>
             </CardContent>
           </Card>
