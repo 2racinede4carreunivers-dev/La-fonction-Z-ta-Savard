@@ -1871,17 +1871,7 @@ const CollaborationPage = () => {
 
   const insertSymbol = (symbol) => {
     insertText(symbol);
-    // Garder le focus sur le textarea après insertion
-    setTimeout(() => {
-      try {
-        const textarea = window.document.querySelector('#collaboration-editor');
-        if (textarea) {
-          textarea.focus();
-        }
-      } catch (error) {
-        console.warn('Erreur focus textarea:', error);
-      }
-    }, 100);
+    // Le focus est déjà géré dans insertText
   };
 
   const createNewDocument = () => {
