@@ -1791,20 +1791,27 @@ const SYMBOLES_MATHEMATIQUES = {
   'Ensembles': ['ℕ', 'ℤ', 'ℚ', 'ℝ', 'ℂ', '∅', '∀', '∃', '∄']
 };
 
-// Page Collaboration avec éditeur de texte
+// Page Collaboration avec interface à 3 zones
 const CollaborationPage = () => {
+  // États pour la zone d'édition/création
   const [document, setDocument] = useState('');
-  const [sessionId, setSessionId] = useState(null);
-  const [isEditing, setIsEditing] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const [savedDocuments, setSavedDocuments] = useState([]);
-  const [currentDocId, setCurrentDocId] = useState(null);
   const [documentTitle, setDocumentTitle] = useState('Nouveau Document');
+  const [currentDocId, setCurrentDocId] = useState(null);
+  const [savedDocuments, setSavedDocuments] = useState([]);
   const [saveStatus, setSaveStatus] = useState('');
   const [showSymbols, setShowSymbols] = useState(false);
   const [selectedSymbolCategory, setSelectedSymbolCategory] = useState('Grec');
   const [showLatex, setShowLatex] = useState(false);
   const [latexContent, setLatexContent] = useState('');
+  
+  // États pour la zone chatbot
+  const [chatMessage, setChatMessage] = useState('');
+  const [chatHistory, setChatHistory] = useState([]);
+  const [isChatLoading, setIsChatLoading] = useState(false);
+  
+  // États généraux
+  const [sessionId, setSessionId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const newSessionId = `collab_${Date.now()}`;
