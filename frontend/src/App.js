@@ -1839,7 +1839,7 @@ const CollaborationPage = () => {
 
   const insertText = (before, after = '') => {
     try {
-      const textarea = document.querySelector('#collaboration-editor');
+      const textarea = window.document.querySelector('#collaboration-editor');
       if (!textarea) return;
       
       const start = textarea.selectionStart;
