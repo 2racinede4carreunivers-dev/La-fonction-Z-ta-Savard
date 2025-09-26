@@ -2157,10 +2157,27 @@ const CollaborationPage = () => {
                             ? 'bg-cyan-600 text-white' 
                             : msg.type === 'error'
                             ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                            : msg.type === 'system'
+                            ? 'bg-green-600/20 text-green-200 border border-green-500/30'
                             : 'bg-indigo-600/30 text-blue-100 border border-indigo-500/30'
                         }`}>
                           <div className="whitespace-pre-wrap">{msg.content}</div>
-                          <div className="text-xs opacity-70 mt-1">{msg.timestamp}</div>
+                          <div className="flex items-center justify-between mt-1">
+                            <div className="text-xs opacity-70">{msg.timestamp}</div>
+                            {msg.type === 'ai' && (
+                              <Button
+                                onClick={() => {
+                                  const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
+                                  ouvrirCorrection(index, questionPrecedente, msg.content);
+                                }}
+                                variant="ghost"
+                                size="sm"
+                                className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30 ml-2"
+                              >
+                                🔧 Corriger
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}
