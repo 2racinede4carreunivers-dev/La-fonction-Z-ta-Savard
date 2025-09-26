@@ -1896,6 +1896,48 @@ const CollaborationPage = () => {
     }, 100);
   };
 
+  // Fonction pour envoyer un message dans le chatbot
+  const sendChatMessage = async () => {
+    if (!chatMessage.trim()) return;
+
+    const userMessage = chatMessage;
+    setChatMessage('');
+    setIsChatLoading(true);
+
+    // Ajouter le message utilisateur à l'historique
+    setChatHistory(prev => [...prev, {
+      type: 'user',
+      content: userMessage,
+      timestamp: new Date().toLocaleTimeString()
+    }]);
+
+    try {
+      const response = await axios.post(`${API_URL}/api/chat-extended`, {
+        message: userMessage,
+        session_id: sessionId,
+        context_mode: 'extended'
+      });
+
+      if (response.data.response) {
+        // Ajouter la réponse IA à l'historique
+        setChatHistory(prev => [...prev, {
+          type: 'ai',
+          content: response.data.response,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur chat:', error);
+      setChatHistory(prev => [...prev, {
+        type: 'error',
+        content: 'Erreur lors de la communication avec l\'IA',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    } finally {
+      setIsChatLoading(false);
+    }
+  };
+
   const generateLatex = async () => {
     if (!document.trim()) {
       alert('Aucun contenu à convertir en LaTeX');
