@@ -1193,9 +1193,28 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     # Construire le contexte enrichi avec les concepts théoriques spécialisés
     theory_enrichment = enrich_system_message_with_theory()
     
+    # Récupérer les corrections personnelles de l'auteur
+    corrections_personnelles, profil_auteur = await get_corrections_personnelles_pour_session(chat_message.session_id)
+    
+    # Construire l'enrichissement personnel
+    personal_enrichment = ""
+    if corrections_personnelles:
+        personal_enrichment += "\n\n**CORRECTIONS PERSONNELLES DE L'AUTEUR (Philippe Thomas Savard) :**\n"
+        for correction in corrections_personnelles[-10:]:  # Les 10 dernières
+            personal_enrichment += f"- **Question:** {correction['question_originale'][:100]}...\n"
+            personal_enrichment += f"  **Correction de l'auteur:** {correction['correction_auteur']}\n"
+            personal_enrichment += f"  **Domaine:** {correction['domaine_concerne']}\n\n"
+    
+    if profil_auteur and profil_auteur.get('nuances_importantes'):
+        personal_enrichment += "\n**NUANCES IMPORTANTES SELON L'AUTEUR :**\n"
+        for nuance in profil_auteur['nuances_importantes'][-5:]:  # Les 5 dernières
+            personal_enrichment += f"- {nuance}\n"
+    
     enhanced_system_message = f"""{system_message}
     
     {theory_enrichment}
+    
+    {personal_enrichment}
     
     **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
     
