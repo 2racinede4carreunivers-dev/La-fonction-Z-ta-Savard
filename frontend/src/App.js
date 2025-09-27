@@ -2342,13 +2342,13 @@ const CollaborationPage = () => {
                       ∑ Symboles
                     </Button>
                     <Button
-                      onClick={() => insertText('$$', '$$')}
+                      onClick={() => setShowMathEditor(!showMathEditor)}
                       variant="ghost"
                       size="sm"
                       className="text-white hover:bg-white/10"
-                      title="Insérer formule LaTeX"
+                      title="Éditeur de formules mathématiques"
                     >
-                      📐 Formule
+                      📐 Formules
                     </Button>
                     <Button
                       onClick={() => insertText('\n[Transformation géométrique: ', ']\n')}
