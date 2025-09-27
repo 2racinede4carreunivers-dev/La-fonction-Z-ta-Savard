@@ -2127,9 +2127,25 @@ const CollaborationPage = () => {
             <Edit3 className="w-7 h-7 text-cyan-400" />
             Espace de Collaboration - L'univers est au carré
           </h1>
-          <p className="text-blue-200">
-            Trois zones de travail : Chatbot • Création • Affichage des réponses
-          </p>
+          <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-600">
+            <p className="text-blue-200 mb-2">
+              <strong>Interface Structurée pour la Théorie de Philippe Thomas Savard</strong>
+            </p>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <div className="bg-cyan-900/20 p-2 rounded border border-cyan-600/30">
+                <strong className="text-cyan-400">Zone 1 - Chat IA</strong>
+                <p className="text-blue-300">Discussion directe avec l'IA spécialisée</p>
+              </div>
+              <div className="bg-purple-900/20 p-2 rounded border border-purple-600/30">
+                <strong className="text-purple-400">Zone 2 - Création</strong>
+                <p className="text-blue-300">Éditeur avec outils mathématiques et formatage</p>
+              </div>
+              <div className="bg-emerald-900/20 p-2 rounded border border-emerald-600/30">
+                <strong className="text-emerald-400">Zone 3 - Gestion</strong>
+                <p className="text-blue-300">Documents, upload, historique des corrections</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-180px)]">
