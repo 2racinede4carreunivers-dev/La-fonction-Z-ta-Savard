@@ -2460,6 +2460,57 @@ const CollaborationPage = () => {
                     </div>
                   </div>
                 )}
+
+                {/* Éditeur de formules mathématiques */}
+                {showMathEditor && (
+                  <div className="mt-3 border-t border-slate-600 pt-3 bg-slate-900/30 rounded-lg p-3">
+                    <div className="mb-3">
+                      <span className="text-white text-sm font-medium">📐 Éditeur de Formules - Théorie "L'univers est au carré"</span>
+                    </div>
+                    
+                    {Object.keys(FORMULES_PHILIPPOT).map((categorie) => (
+                      <div key={categorie} className="mb-3">
+                        <div className="text-cyan-400 text-xs font-medium mb-1">{categorie} :</div>
+                        <div className="flex flex-wrap gap-1">
+                          {FORMULES_PHILIPPOT[categorie].map((formule, index) => (
+                            <Button
+                              key={index}
+                              onClick={() => insertText(`$$${formule}$$`, '')}
+                              variant="ghost"
+                              size="sm"
+                              className="text-white hover:bg-purple-600/30 text-xs font-mono px-2 py-1"
+                              title={`Insérer: ${formule}`}
+                            >
+                              {formule.length > 20 ? formule.substring(0, 20) + '...' : formule}
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                    
+                    <div className="mt-3 pt-2 border-t border-slate-600">
+                      <input
+                        type="text"
+                        value={currentFormula}
+                        onChange={(e) => setCurrentFormula(e.target.value)}
+                        placeholder="Saisir une formule LaTeX personnalisée..."
+                        className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1 text-white text-sm"
+                      />
+                      <Button
+                        onClick={() => {
+                          if (currentFormula.trim()) {
+                            insertText(`$$${currentFormula}$$`, '');
+                            setCurrentFormula('');
+                          }
+                        }}
+                        className="mt-2 bg-purple-600 hover:bg-purple-700 text-xs"
+                        size="sm"
+                      >
+                        Insérer Formule Personnalisée
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
               
               <textarea
