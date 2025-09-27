@@ -148,6 +148,111 @@ class ProfilAuteur(BaseModel):
     derniere_mise_a_jour: str
 
 # Base de connaissances enrichie de la théorie "L'univers est au carré"
+# BASE DE CONNAISSANCES COMPLÈTE - ACCÈS PRIVILÉGIÉ AUX DOCUMENTS ORIGINAUX
+DOCUMENTS_ORIGINAUX_COMPLETS = {
+    "partie_1": {
+        "titre": "L'univers est au carré - Première Partie", 
+        "concepts_extraits": [
+            "Géométrie du spectre des nombres premiers",
+            "Analyse numérique métrique", 
+            "Fonction Zêta de Philippôt",
+            "Tesseract/Hypercube pour nombres premiers",
+            "Technique du Moulinet",
+            "Pression gravito spectral",
+            "Chaons - ondes fondamentales du chaos discret",
+            "Constante de l'inverse du temps",
+            "Longueur de Philippôt (analogie longueur de Planck)",
+            "Digamma comme outil prédictif",
+            "Méthode substitution fractionnelle récursive"
+        ],
+        "methodes_fondamentales": [
+            "Analyse numérique métrique avec projections géométriques",
+            "Calcul Digamma pour prédiction nombres premiers", 
+            "Projection dans espaces multidimensionnels",
+            "Technique moulinet pour intervalles premiers",
+            "Substitution itérative pour identifier patterns",
+            "Analyse triangulaire avec rapports base/hauteur spécifiques"
+        ],
+        "formules_cles": [
+            "Rapports triangulaires: 1/2, 1/3, 1/4... 1/100",
+            "Fonction Zêta: ζ(s) = Σ(1/n^s)",
+            "Calculs Digamma pour nombres premiers spécifiques",
+            "Relations aires-volumes geometriques"
+        ],
+        "exemples_concrets": [
+            "Application à nombres premiers: 29, 31, 37, 41",
+            "Calculs détaillés fonction Digamma",
+            "Démonstrations technique moulinet",
+            "Analyses rapports base/hauteur multiples"
+        ]
+    },
+    "partie_2": {
+        "titre": "L'univers est au carré - Deuxième Partie",
+        "concepts_extraits": [
+            "Théorème de Philippôt: trois carrés égalent un triangle",
+            "Géométrie de Philippôt basée sur involution",
+            "Espace de Minkowski selon Philippôt", 
+            "Nombres hypercomplexes et diamètres hyperréels",
+            "Cercle Denis avec π = pression atmosphérique",
+            "Fonction Zêta modélisation géométrique",
+            "Carré de Gabriel pour triangles scalènes",
+            "Théorème Gris Bleu espaces infinis",
+            "Neuro-morphisme et évolution formes neuronales",
+            "Hypersurface du présent",
+            "Longueurs d'arcs invariantes"
+        ],
+        "theoremes_avances": [
+            "Théorème Philippôt: équivalence aires carrés/volumes triangles",
+            "Principe involution: réciproque de sa propre réciproque", 
+            "Postulat rectangle élevé au carré = carré",
+            "Invariance longueurs d'arcs sous transformations",
+            "Intrication géométrique volume/surface/courbure"
+        ],
+        "formules_specialisees": [
+            "√10 ≈ π selon Philippôt",
+            "Relations aires-volumes: A₁² + A₂² + A₃² = V_triangle",
+            "Cercle Denis: rayon 0.5, circonférence ≈ 4",
+            "Transformations hypercomplexes géométriques",
+            "Équations rectangle élevé au carré"
+        ]
+    },
+    "methode_philippot_complete": {
+        "titre": "Méthode Complète de Philippôt pour Nombres Premiers",
+        "algorithme_detaille": [
+            "1. Substitution fractionnelle récursive depuis 1",
+            "2. Génération Somme 1ère suite et Somme 2ième suite", 
+            "3. Calcul racines carrées sums of squares positions",
+            "4. Application formule Digamma spécifique",
+            "5. Vérification finale: (√X - √Y) / √5120 = nombre_premier"
+        ],
+        "exemples_verifies": {
+            "premier_29": {
+                "fractions": "1/2 + 1/4 + 1/8 + 1/16 + 1/32 + 1/64 + 1/128 + 1/256 + 1/384 + 1/768",
+                "digamma_calcule": "√3452805 - √81920 = √2471045", 
+                "verification": "(√13300805 - √2471045) / √5120 = 29"
+            },
+            "premier_31": {
+                "digamma_calcule": "√13827845 + 5√81920 = √26519045",
+                "verification": "(√54285125 - √26519045) / √5120 = 31"
+            },
+            "premier_37": {
+                "digamma_calcule": "√13827845 + 9√81920 + 5√184320 = √147913605",
+                "verification": "(√54285125 - √147913605) / √5120 = 37"
+            },
+            "premier_41": {
+                "digamma_calcule": "13√81920 + 9√184320 + 5√737280 = √141086720", 
+                "verification": "(√881659205 - √716045445) / √5120 = 41"
+            }
+        },
+        "tableaux_calculs": [
+            "Positions 1-10 avec racines carrées (2^n)² + (2^(n+1))²",
+            "Facteurs multiplication (X2, X3, X(2-2-1))",
+            "Substitutions positions 6-7 pour fonction Zêta",
+            "Digamma positions 8ième pour nombres premiers spécifiques"
+        ]
+    }
+}
+
 CONCEPTS_ENRICHIS = [
     # 1. THÉORÈME DE PHILIPPÔT
     {
