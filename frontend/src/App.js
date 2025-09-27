@@ -1780,6 +1780,25 @@ const Navigation = () => {
   );
 };
 
+// Formules mathématiques prédéfinies pour la théorie
+const FORMULES_PHILIPPOT = {
+  'Théorème de Base': [
+    'A_1^2 + A_2^2 + A_3^2 = V_{triangle}',
+    '\\sqrt{10} \\approx \\pi',
+    '\\zeta(s) = \\sum_{n=1}^{\\infty} \\frac{1}{n^s}'
+  ],
+  'Géométrie': [
+    'Rectangle(a,b) \\to Rectangle^2(a^2,b^2)',
+    'N(t) \\to Square(N(t))',
+    'G(t) = \\alpha \\times Square_{Généralisé}(R(t))'
+  ],
+  'Méthode Spectrale': [
+    'q - p - 1',
+    'somme_{suite_1} - (somme_{suite_2} - Digamma_{grand_premier})',
+    'Digamma_{Philippôt} = ((somme_{suite_2} / \\sqrt{E}) - N) \\times \\sqrt{E}'
+  ]
+};
+
 // Symboles mathématiques pour l'éditeur
 const SYMBOLES_MATHEMATIQUES = {
   'Grec': ['α', 'β', 'γ', 'δ', 'ε', 'ζ', 'η', 'θ', 'λ', 'μ', 'π', 'ρ', 'σ', 'τ', 'φ', 'χ', 'ψ', 'ω', 'Γ', 'Δ', 'Θ', 'Λ', 'Π', 'Σ', 'Φ', 'Ψ', 'Ω'],
