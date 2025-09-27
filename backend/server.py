@@ -155,6 +155,10 @@ CONCEPTS_ENRICHIS = [
         "titre": "Théorème de Philippôt",
         "description": "Théorème fondamental établissant qu'un ensemble de trois carrés peut être égal géométriquement à un triangle. Analogue géométrique du théorème de Pythagore avec des propriétés d'involution.",
         "domaine_principal": "Géométrie Fondamentale",
+        "tags": ["theoreme", "fondamental", "geometrie", "carre", "triangle", "involution", "pythagore"],
+        "difficulte": "avance",
+        "prerequis": ["geometrie_euclidienne", "theoreme_pythagore"],
+        "applications": ["geometrie_quantique", "intrication"],
         "concepts_cles": [
             "Trois carrés égaux à un triangle",
             "Involution géométrique", 
