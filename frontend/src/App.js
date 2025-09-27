@@ -2329,6 +2329,15 @@ const CollaborationPage = () => {
                     >
                       📐 Formule
                     </Button>
+                    <Button
+                      onClick={() => insertText('\n[Transformation géométrique: ', ']\n')}
+                      variant="ghost"
+                      size="sm"
+                      className="text-white hover:bg-white/10"
+                      title="Marquer transformation géométrique"
+                    >
+                      🔄 Transfo
+                    </Button>
                   </div>
 
                   {/* Boutons IA */}
