@@ -1804,6 +1804,8 @@ const CollaborationPage = () => {
   const [showLatex, setShowLatex] = useState(false);
   const [latexContent, setLatexContent] = useState('');
   const [uploadStatus, setUploadStatus] = useState('');
+  const [showMathEditor, setShowMathEditor] = useState(false);
+  const [currentFormula, setCurrentFormula] = useState('');
   
   // États pour la zone chatbot
   const [chatMessage, setChatMessage] = useState('');
