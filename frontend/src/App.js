@@ -2309,7 +2309,7 @@ const CollaborationPage = () => {
                     </Button>
                   </div>
 
-                  {/* Symboles mathématiques */}
+                  {/* Outils mathématiques */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
                       onClick={() => setShowSymbols(!showSymbols)}
@@ -2319,6 +2319,15 @@ const CollaborationPage = () => {
                       title="Symboles mathématiques"
                     >
                       ∑ Symboles
+                    </Button>
+                    <Button
+                      onClick={() => insertText('$$', '$$')}
+                      variant="ghost"
+                      size="sm"
+                      className="text-white hover:bg-white/10"
+                      title="Insérer formule LaTeX"
+                    >
+                      📐 Formule
                     </Button>
                   </div>
 
