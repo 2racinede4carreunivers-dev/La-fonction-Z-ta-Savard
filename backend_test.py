@@ -478,6 +478,9 @@ def main():
     tester.test_collaboration_endpoints()
     tester.test_collaboration_session_management()
     
+    print("\n🔐 PRIVILEGED ACCESS SYSTEM TESTS")
+    tester.test_privileged_access_system()
+    
     print("\n❌ ERROR HANDLING TESTS")
     tester.test_invalid_endpoints()
     
