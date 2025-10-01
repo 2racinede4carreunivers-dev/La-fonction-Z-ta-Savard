@@ -1599,7 +1599,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
                 attached_docs_context += f"\n\n--- Document: {doc['filename']} ---\n{doc['analysis']}"
     
     # Construire le contexte enrichi avec les concepts théoriques spécialisés
-    theory_enrichment = enrich_system_message_with_theory()
+    theory_enrichment = enrich_system_message_with_privileged_access()
     
     # Récupérer les corrections personnelles de l'auteur
     corrections_personnelles, profil_auteur = await get_corrections_personnelles_pour_session(chat_message.session_id)
@@ -2003,7 +2003,7 @@ async def collaborate_with_ai(request: CollaborationRequest):
     
     try:
         # Contexte spécialisé pour la collaboration avec connaissances enrichies
-        theory_enrichment = enrich_system_message_with_theory()
+        theory_enrichment = enrich_system_message_with_privileged_access()
         
         collaboration_system = f"""{system_message}
         
