@@ -1707,6 +1707,9 @@ const Navigation = () => {
             <Link to="/concepts-enrichis" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Concepts Enrichis
             </Link>
+            <Link to="/acces-privilegie" className="text-blue-200 hover:text-cyan-400 transition-colors">
+              🔐 Accès Privilégié
+            </Link>
           </div>
 
           {/* Navigation mobile compacte */}
