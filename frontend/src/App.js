@@ -2959,6 +2959,7 @@ const App = () => {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/collaboration" element={<CollaborationPage />} />
           <Route path="/concepts-enrichis" element={<ConceptsEnrichisPage />} />
+          <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
         </Routes>
       </div>
     </Router>
