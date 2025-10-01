@@ -30,7 +30,7 @@ app.add_middleware(
 # Configuration MongoDB
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
 DB_NAME = os.environ.get("DB_NAME", "univers_au_carre")
-EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY")
+EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "sk-emergent-c20D27d2bDa5755870")
 
 # Client MongoDB
 client = AsyncIOMotorClient(MONGO_URL)
