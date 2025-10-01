@@ -2165,7 +2165,7 @@ INSTRUCTIONS SPÉCIALES POUR CETTE CONVERSATION:
             system_message=privileged_system
         )
         
-        response = await chat.send_message(UserMessage(content=message))
+        response = await chat.send_message(UserMessage(message))
         
         ai_response = response.get("response", "Désolé, je n'ai pas pu générer une réponse.")
         
