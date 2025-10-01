@@ -2159,13 +2159,14 @@ INSTRUCTIONS SPÉCIALES POUR CETTE CONVERSATION:
 """
         
         # Appel à l'IA avec accès privilégié
-        llm_chat = LlmChat(api_key=EMERGENT_LLM_KEY)
+        llm_chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=privileged_system
+        )
         
         response = llm_chat.chat(
-            messages=[
-                {"role": "system", "content": privileged_system},
-                {"role": "user", "content": message}
-            ],
+            message=UserMessage(content=message),
             model="claude-3.5-sonnet"
         )
         
