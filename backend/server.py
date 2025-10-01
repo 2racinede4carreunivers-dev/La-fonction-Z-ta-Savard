@@ -2104,6 +2104,84 @@ async def save_collaboration(request: SaveCollaborationRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur lors de la sauvegarde: {str(e)}")
 
+@app.get("/api/test-privileged-access")
+async def test_privileged_access():
+    """Test du système d'accès privilégié aux documents"""
+    try:
+        # Générer l'enrichissement avec accès privilégié
+        privileged_content = enrich_system_message_with_privileged_access()
+        
+        # Statistiques
+        stats = {
+            "total_concepts": len(CONCEPTS_ENRICHIS),
+            "domaines": list(set([c["domaine_principal"] for c in CONCEPTS_ENRICHIS])),
+            "documents_sources": list(set([c["document_source"] for c in CONCEPTS_ENRICHIS])),
+            "niveaux_complexite": list(set([c["niveau_complexite"] for c in CONCEPTS_ENRICHIS]))
+        }
+        
+        return {
+            "success": True,
+            "message": "Système d'accès privilégié opérationnel",
+            "statistics": stats,
+            "privileged_system_length": len(privileged_content),
+            "sample_enrichment": privileged_content[:500] + "..." if len(privileged_content) > 500 else privileged_content
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur test accès privilégié: {str(e)}")
+
+@app.post("/api/chat-privileged")
+async def chat_with_privileged_access(request: dict):
+    """Chat avec accès privilégié complet aux documents analysés"""
+    message = request.get("message", "")
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not message:
+        raise HTTPException(status_code=400, detail="Message requis")
+        
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Message système avec accès privilégié complet
+        privileged_system = f"""{system_message}
+
+{enrich_system_message_with_privileged_access()}
+
+INSTRUCTIONS SPÉCIALES POUR CETTE CONVERSATION:
+- Tu disposes de l'ACCÈS PRIVILÉGIÉ TOTAL aux documents analysés
+- Utilise les 14 concepts enrichis et la banque de Q&R pour répondre
+- Structure OBLIGATOIREMENT ta réponse en format bi-partite:
+  🔵 VISION DE PHILIPPE THOMAS SAVARD: [Perspective de l'auteur]
+  ⚪ CONTEXTE SCIENTIFIQUE NEUTRE: [Analyse objective]
+- Cite précisément les sources et documents utilisés
+- Respecte la complexité et nuance de chaque concept théorique
+"""
+        
+        # Appel à l'IA avec accès privilégié
+        llm_chat = LlmChat(api_key=EMERGENT_LLM_KEY)
+        
+        response = llm_chat.chat(
+            messages=[
+                {"role": "system", "content": privileged_system},
+                {"role": "user", "content": message}
+            ],
+            model="claude-3.5-sonnet"
+        )
+        
+        ai_response = response.get("response", "Désolé, je n'ai pas pu générer une réponse.")
+        
+        return {
+            "success": True,
+            "response": ai_response,
+            "session_id": session_id,
+            "privileged_access": True,
+            "concepts_available": len(CONCEPTS_ENRICHIS),
+            "message": "Réponse générée avec accès privilégié complet"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur chat privilégié: {str(e)}")
 @app.get("/api/concepts-enrichis")
 async def get_concepts_enrichis():
     """Récupérer tous les concepts théoriques enrichis"""
