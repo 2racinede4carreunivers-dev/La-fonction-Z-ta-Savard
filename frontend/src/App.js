@@ -2710,6 +2710,242 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
   );
 };
 
+// Page d'Accès Privilégié aux Documents
+const AccesPrivilegiePage = () => {
+  const [privilegedStatus, setPrivilegedStatus] = useState(null);
+  const [testMessage, setTestMessage] = useState("");
+  const [chatResponse, setChatResponse] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [concepts, setConcepts] = useState([]);
+
+  useEffect(() => {
+    testPrivilegedAccess();
+    fetchPrivilegedConcepts();
+  }, []);
+
+  const testPrivilegedAccess = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/test-privileged-access`);
+      setPrivilegedStatus(response.data);
+    } catch (error) {
+      console.error('Erreur test accès privilégié:', error);
+    }
+  };
+
+  const fetchPrivilegedConcepts = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/concepts-enrichis`);
+      setConcepts(response.data.concepts || []);
+    } catch (error) {
+      console.error('Erreur chargement concepts:', error);
+    }
+  };
+
+  const testPrivilegedChat = async () => {
+    if (!testMessage.trim()) return;
+    
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/chat-privileged`, {
+        message: testMessage
+      });
+      setChatResponse(response.data.response);
+    } catch (error) {
+      console.error('Erreur chat privilégié:', error);
+      setChatResponse("Erreur lors de la communication avec l'IA.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const quickTestQuestions = [
+    "Explique-moi la Sphère de Zêta selon Philippôt",
+    "Quelle est la relation entre les Chaons et la Pression Gravito-Spectrale?", 
+    "Comment fonctionne la Technique du Moulinet dans la théorie?",
+    "Détaille le Théorème de Philippôt dans sa version formalisée"
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 relative">
+      {/* Effets de fond */}
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-10"></div>
+      
+      <div className="relative container mx-auto px-4 py-8">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-white mb-4 flex items-center justify-center gap-3">
+            🔐 Système d'Accès Privilégié aux Documents
+          </h1>
+          <p className="text-blue-200 text-lg max-w-4xl mx-auto">
+            Interface avancée pour interagir avec l'IA spécialisée enrichie avec l'accès complet aux 5 documents théoriques analysés, 
+            incluant la banque de 14 Questions-Réponses et les versions corrigées des parties 1 et 2.
+          </p>
+        </div>
+
+        {/* Statut du système privilégié */}
+        {privilegedStatus && (
+          <Card className="mb-8 border-green-500/20 bg-black/30 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-green-400 flex items-center gap-2">
+                ✅ Statut d'Accès Privilégié Confirmé
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-white">
+                <div className="text-center p-4 bg-blue-500/10 rounded-lg">
+                  <div className="text-2xl font-bold text-cyan-400">{privilegedStatus.statistics.total_concepts}</div>
+                  <div className="text-sm text-blue-200">Concepts Enrichis</div>
+                </div>
+                <div className="text-center p-4 bg-purple-500/10 rounded-lg">
+                  <div className="text-2xl font-bold text-purple-400">{privilegedStatus.statistics.documents_sources.length}</div>
+                  <div className="text-sm text-purple-200">Documents Analysés</div>
+                </div>
+                <div className="text-center p-4 bg-green-500/10 rounded-lg">
+                  <div className="text-2xl font-bold text-green-400">{privilegedStatus.statistics.domaines.length}</div>
+                  <div className="text-sm text-green-200">Domaines Spécialisés</div>
+                </div>
+                <div className="text-center p-4 bg-yellow-500/10 rounded-lg">
+                  <div className="text-2xl font-bold text-yellow-400">{(privilegedStatus.privileged_system_length / 1000).toFixed(1)}K</div>
+                  <div className="text-sm text-yellow-200">Caractères Système</div>
+                </div>
+              </div>
+              
+              <div className="mt-4 p-4 bg-slate-800/50 rounded-lg">
+                <h3 className="text-white font-semibold mb-2">Documents Sources Intégrés:</h3>
+                <div className="text-sm text-blue-200 space-y-1">
+                  {privilegedStatus.statistics.documents_sources.map((doc, index) => (
+                    <div key={index} className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-400 rounded-full"></span>
+                      {doc}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Interface de Test Chat Privilégié */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+          <Card className="border-blue-500/20 bg-black/30 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-blue-400 flex items-center gap-2">
+                💬 Test Chat Privilégié
+              </CardTitle>
+              <CardDescription className="text-blue-200">
+                Testez l'IA spécialisée avec accès complet aux documents
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <label className="text-white text-sm font-medium mb-2 block">
+                  Message pour l'IA Spécialisée
+                </label>
+                <textarea
+                  value={testMessage}
+                  onChange={(e) => setTestMessage(e.target.value)}
+                  className="w-full h-32 px-4 py-3 bg-slate-800/50 border border-slate-600 rounded-lg text-white resize-none focus:outline-none focus:border-blue-500"
+                  placeholder="Posez votre question sur la théorie de Philippôt..."
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <label className="text-white text-sm font-medium">Questions Test Rapide:</label>
+                <div className="grid grid-cols-1 gap-2">
+                  {quickTestQuestions.map((question, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setTestMessage(question)}
+                      className="text-left p-3 bg-slate-700/50 hover:bg-slate-600/50 rounded-lg text-blue-200 hover:text-white transition-colors text-sm"
+                    >
+                      {question}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <Button 
+                onClick={testPrivilegedChat}
+                disabled={loading || !testMessage.trim()}
+                className="w-full bg-blue-600 hover:bg-blue-700"
+              >
+                {loading ? "⏳ IA en cours..." : "🚀 Tester avec Accès Privilégié"}
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Réponse de l'IA */}
+          <Card className="border-purple-500/20 bg-black/30 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-purple-400 flex items-center gap-2">
+                🤖 Réponse IA Privilégiée
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {chatResponse ? (
+                <ScrollArea className="h-96">
+                  <div className="text-white whitespace-pre-wrap leading-relaxed text-sm">
+                    {chatResponse}
+                  </div>
+                </ScrollArea>
+              ) : (
+                <div className="h-96 flex items-center justify-center text-slate-400">
+                  Envoyez un message pour voir la réponse de l'IA avec accès privilégié
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Concepts Enrichis Disponibles */}
+        <Card className="border-cyan-500/20 bg-black/30 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle className="text-cyan-400 flex items-center gap-2">
+              📚 Concepts Enrichis Disponibles ({concepts.length})
+            </CardTitle>
+            <CardDescription className="text-cyan-200">
+              Base de connaissances complète accessible par l'IA spécialisée
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {concepts.slice(0, 9).map((concept, index) => (
+                <div key={index} className="p-4 bg-slate-800/50 rounded-lg border border-slate-600">
+                  <div className="flex items-start gap-3">
+                    <Badge className="bg-blue-500/20 text-blue-300 text-xs">
+                      {concept.niveau_complexite}
+                    </Badge>
+                    <div className="flex-1">
+                      <h3 className="text-white font-medium text-sm mb-1">{concept.titre}</h3>
+                      <p className="text-slate-400 text-xs line-clamp-2">{concept.description}</p>
+                      <p className="text-blue-300 text-xs mt-2 font-medium">{concept.domaine_principal}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              {concepts.length > 9 && (
+                <div className="p-4 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-lg border border-dashed border-blue-400/30 flex items-center justify-center">
+                  <div className="text-center text-blue-300">
+                    <div className="font-bold text-lg">+{concepts.length - 9}</div>
+                    <div className="text-sm">Autres Concepts</div>
+                  </div>
+                </div>
+              )}
+            </div>
+            
+            <div className="mt-6 text-center">
+              <Link to="/concepts-enrichis">
+                <Button className="bg-cyan-600 hover:bg-cyan-700">
+                  Voir Tous les Concepts →
+                </Button>
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
 // App principale
 const App = () => {
   return (
