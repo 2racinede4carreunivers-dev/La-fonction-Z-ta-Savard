@@ -291,6 +291,139 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         return success1
 
+    def test_privileged_access_system(self):
+        """Test the privileged access system for specialized AI"""
+        print("\n🔐 PRIVILEGED ACCESS SYSTEM TESTS")
+        
+        # Test 1: /api/test-privileged-access endpoint
+        success1, response1 = self.run_test(
+            "Test Privileged Access - Statistics and Enrichment",
+            "GET",
+            "api/test-privileged-access",
+            200
+        )
+        
+        if success1 and isinstance(response1, dict):
+            # Validate response structure
+            required_fields = ['success', 'message', 'statistics', 'privileged_system_length', 'sample_enrichment']
+            missing_fields = [field for field in required_fields if field not in response1]
+            if missing_fields:
+                print(f"   ⚠️  Missing fields in privileged access response: {missing_fields}")
+            else:
+                print(f"   ✅ Privileged access response structure is valid")
+                
+                # Check statistics
+                stats = response1.get('statistics', {})
+                if 'total_concepts' in stats:
+                    print(f"   📊 Total concepts: {stats['total_concepts']}")
+                if 'domaines' in stats:
+                    print(f"   📊 Domaines: {len(stats['domaines'])} ({', '.join(stats['domaines'][:3])}...)")
+                if 'documents_sources' in stats:
+                    print(f"   📊 Documents sources: {len(stats['documents_sources'])}")
+                
+                # Check enrichment content
+                enrichment_length = response1.get('privileged_system_length', 0)
+                print(f"   📊 Privileged system content length: {enrichment_length} characters")
+                
+                if enrichment_length > 10000:  # Should be substantial content
+                    print(f"   ✅ Enrichment content is substantial")
+                else:
+                    print(f"   ⚠️  Enrichment content seems short")
+        
+        # Test 2: /api/concepts-enrichis endpoint
+        success2, response2 = self.run_test(
+            "Get All Enriched Concepts",
+            "GET",
+            "api/concepts-enrichis",
+            200
+        )
+        
+        if success2 and isinstance(response2, dict):
+            concepts = response2.get('concepts', [])
+            domaines = response2.get('domaines', [])
+            print(f"   📊 Found {len(concepts)} enriched concepts")
+            print(f"   📊 Found {len(domaines)} domains: {', '.join(domaines[:5])}")
+            
+            # Validate concept structure
+            if concepts and len(concepts) > 0:
+                concept = concepts[0]
+                required_concept_fields = ['id', 'titre', 'description', 'domaine_principal', 'concepts_cles', 'formules', 'definitions', 'relations']
+                missing_concept_fields = [field for field in required_concept_fields if field not in concept]
+                if missing_concept_fields:
+                    print(f"   ⚠️  Missing fields in enriched concept: {missing_concept_fields}")
+                else:
+                    print(f"   ✅ Enriched concept structure is valid")
+                    print(f"   📝 Sample concept: {concept['titre']} ({concept['domaine_principal']})")
+        
+        # Test 3: /api/chat-privileged endpoint with Philippôt theory question
+        test_questions = [
+            "Peux-tu m'expliquer la Sphère de Zêta selon Philippôt?",
+            "Quelle est la relation entre le spectre des nombres premiers et l'hypothèse de Riemann dans la théorie?"
+        ]
+        
+        privileged_chat_success = True
+        for i, question in enumerate(test_questions, 1):
+            success3, response3 = self.run_test(
+                f"Privileged Chat - Question {i} (Philippôt Theory)",
+                "POST",
+                "api/chat-privileged",
+                200,
+                data={"message": question, "session_id": f"test_privileged_session_{i}"}
+            )
+            
+            if success3 and isinstance(response3, dict):
+                if 'response' in response3 and 'privileged_access' in response3:
+                    ai_response = response3['response']
+                    privileged_access = response3['privileged_access']
+                    concepts_available = response3.get('concepts_available', 0)
+                    
+                    print(f"   ✅ Privileged chat response received")
+                    print(f"   📊 Response length: {len(ai_response)} characters")
+                    print(f"   🔐 Privileged access: {privileged_access}")
+                    print(f"   📚 Concepts available: {concepts_available}")
+                    
+                    # Check for bi-partite structure
+                    if "🔵" in ai_response and "⚪" in ai_response:
+                        print(f"   ✅ Bi-partite response structure detected")
+                    else:
+                        print(f"   ⚠️  Bi-partite structure not clearly detected")
+                    
+                    # Check for specific concepts mentioned
+                    key_concepts = ["Sphère de Zêta", "Philippôt", "nombres premiers", "Riemann"]
+                    mentioned_concepts = [concept for concept in key_concepts if concept.lower() in ai_response.lower()]
+                    if mentioned_concepts:
+                        print(f"   ✅ Key concepts mentioned: {', '.join(mentioned_concepts)}")
+                    else:
+                        print(f"   ⚠️  Key concepts not clearly mentioned")
+                else:
+                    print(f"   ⚠️  Missing response or privileged_access field")
+                    privileged_chat_success = False
+            else:
+                privileged_chat_success = False
+        
+        # Test 4: Test specific domain access
+        success4, response4 = self.run_test(
+            "Get Concepts by Domain - Géométrie Fondamentale",
+            "GET",
+            "api/concepts-enrichis/Géométrie Fondamentale",
+            200
+        )
+        
+        if success4 and isinstance(response4, dict):
+            domain_concepts = response4.get('concepts', [])
+            domain_name = response4.get('domaine', '')
+            concept_count = response4.get('count', 0)
+            
+            print(f"   ✅ Domain-specific concepts retrieved")
+            print(f"   📊 Domain: {domain_name}")
+            print(f"   📊 Concepts in domain: {concept_count}")
+            
+            if domain_concepts and len(domain_concepts) > 0:
+                sample_concept = domain_concepts[0]
+                print(f"   📝 Sample concept: {sample_concept.get('titre', 'N/A')}")
+        
+        return success1 and success2 and privileged_chat_success and success4
+
     def test_invalid_endpoints(self):
         """Test error handling for invalid endpoints"""
         # Test non-existent concept
