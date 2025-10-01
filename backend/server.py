@@ -253,153 +253,499 @@ DOCUMENTS_ORIGINAUX_COMPLETS = {
     }
 }
 
+# Système d'Accès Privilégié aux Documents pour l'IA Spécialisée
+# Base de connaissances enrichie avec tous les documents analysés
+
+# DOCUMENTS ANALYSÉS ET INTÉGRÉS:
+# 1. Banque_Questions_Réponses_Géométrie_Philippot.pdf
+# 2. version_corrige_partie1_univers_est_au_carre.pdf  
+# 3. version_corrigé_2ième_partie_univers_est_au_carré.pdf
+# 4. univers_au_carre_partie1.pdf (analyse précédente)
+# 5. univers_au_carre_partie2.pdf (analyse précédente)
+
 CONCEPTS_ENRICHIS = [
-    # 1. THÉORÈME DE PHILIPPÔT
+    # === CONCEPTS FONDAMENTAUX ===
+    
+    # 1. SPHÈRE DE ZÊTA (BANQUE Q&R)
     {
-        "id": "theoreme_philippot",
-        "titre": "Théorème de Philippôt",
-        "description": "Théorème fondamental établissant qu'un ensemble de trois carrés peut être égal géométriquement à un triangle. Analogue géométrique du théorème de Pythagore avec des propriétés d'involution.",
+        "id": "sphere_zeta",
+        "titre": "Sphère de Zêta",
+        "description": "Représentation géométrique révolutionnaire démontrant tous les angles possibles en degrés sur une sphère, utilisant des paires de cubes à intervalles de 15° formant des quadruplets à 60°. Ne définit pas un volume classique mais révèle les relations angulaires fondamentales.",
         "domaine_principal": "Géométrie Fondamentale",
-        "tags": ["theoreme", "fondamental", "geometrie", "carre", "triangle", "involution", "pythagore"],
-        "difficulte": "avance",
-        "prerequis": ["geometrie_euclidienne", "theoreme_pythagore"],
-        "applications": ["geometrie_quantique", "intrication"],
         "concepts_cles": [
-            "Trois carrés égaux à un triangle",
-            "Involution géométrique", 
-            "Intrication quantique géométrique",
-            "Rapports communs et diamètres hyperréels",
-            "Invariance des longueurs d'arcs",
-            "Figures jumelles"
+            "Démonstration des angles en degrés sur sphère",
+            "Paires de 5 cubes à 15° d'intervalle", 
+            "Quadruplets à 60 degrés",
+            "24 cubes par 360° (4 cubes par quadruplet)",
+            "Progressions séquentielles et groupement de cubes",
+            "Visualisation géométrique sans volume classique"
         ],
         "formules": [
-            "√10 ≈ π (approximation de Philippôt)",
-            "Relations aires-volumes: A₁² + A₂² + A₃² = V_triangle",
-            "Longueurs d'arcs invariantes sous transformation"
+            "6 × 60° = 360°",
+            "24 cubes par 360°",
+            "Volume sphère diamètre 1: D³ / √3.6 = (4 × √10 × r³) / 3 = 1 / √3.6",
+            "Périmètre arc à 30°: 1 / √3.6",
+            "Arc formé dans 5 cubes à 30°: √3.6",
+            "Arc formé hors 5 cubes à 30°: √3240°",
+            "Longueur arc = diamètre (1) pour sphère circonférence √10"
         ],
         "definitions": [
-            "Involution: Transformation réciproque à sa propre réciproque",
-            "Cercle Denis: Interprétation alternative de π",
-            "Hypersurface du présent: Projection géométrique temporelle"
+            "Sphère de Zêta: Démonstration géométrique des relations angulaires",
+            "Quadruplet: Groupe de 4 cubes organisés à 60°",
+            "Progression séquentielle: Organisation systématique des cubes"
         ],
         "relations": [
-            "Extension du théorème de Pythagore",
-            "Lien avec l'intrication quantique",
-            "Connections aux nombres hyperréels"
+            "Outil de démonstration pour relations angulaires",
+            "Base géométrique pour spectrum nombres premiers",
+            "Fondement de l'analyse métrique numérique"
         ],
-        "document_source": "univers_au_carre_partie2.pdf",
-        "page_reference": "Sections 3.1-3.14",
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf",
+        "page_reference": "Question 1, Figure 1",
+        "niveau_complexite": "fondamental",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 2. SPECTRE DES NOMBRES PREMIERS (BANQUE Q&R)  
+    {
+        "id": "spectre_nombres_premiers",
+        "titre": "Spectre des Nombres Premiers",
+        "description": "Code secret au cœur de la théorie révélant les relations de distance entre nombres premiers. Chaque rapport est associé à un nombre premier spécifique, démontrant une structure sous-jacente et résolvant potentiellement l'énigme de Riemann.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Code secret basé sur positions des nombres premiers",
+            "Relations de distance entre premiers (ex: 1/2)",
+            "Rapports démontrés jusqu'à 1/100", 
+            "Association rapport/nombre premier spécifique",
+            "Structure sous-jacente des nombres premiers",
+            "Résolution impasse énigme de Riemann"
+        ],
+        "formules": [
+            "Rapports de distance: 1/2, 1/3, 1/5, ..., 1/100",
+            "Chaque rapport ↔ nombre premier spécifique",
+            "Aires trapézoïdales avec rapports successifs de 1/2"
+        ],
+        "definitions": [
+            "Spectre: Code géométrique des nombres premiers",
+            "Code secret: Structure révélée par positions des premiers", 
+            "Rapport de distance: Relation numérique entre premiers consécutifs"
+        ],
+        "relations": [
+            "Central à la théorie 'L'univers est au carré'",
+            "Lien direct avec hypothèse de Riemann",
+            "Base de l'analyse granulométrique des premiers"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf",
+        "page_reference": "Questions 2, 6",
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
-    
-    # 2. GÉOMÉTRIE DE PHILIPPÔT
+
+    # 3. TESSERACT REPRÉSENTATION PREMIERS (BANQUE Q&R)
     {
-        "id": "geometrie_philippot",
-        "titre": "Géométrie de Philippôt", 
-        "description": "Système géométrique non-euclidien basé sur l'élévation au carré des figures et leurs transformations dans des espaces multidimensionnels. Géométrie informationnelle à cinq sphères.",
+        "id": "tesseract_premiers",
+        "titre": "Tesseract - Représentation des Nombres Premiers", 
+        "description": "Graphique tesseract intégrant l'analyse numérique métrique, dont le pliage et la rotation expriment le plan cartésien contenant l'infini dans des limites opérationnelles. Structure de 4 pyramides dans 4 cubes avec anneaux diagonaux représentant les surfaces de Riemann.",
         "domaine_principal": "Géométrie Non-Euclidienne",
         "concepts_cles": [
-            "Géométrie à cinq sphères",
-            "Élévation au carré (squaring)",
-            "Espace de Philippôt",
-            "Circuit parallèle à deux phases",
-            "Division de la sphère terrestre en cinq cubes",
-            "Projections hyperplanaires"
+            "Graphique tesseract pour fonction Zêta",
+            "Pliage et rotation exprimant plan cartésien",
+            "Infini contenu dans limites opérationnelles",
+            "4 pyramides dans 4 cubes",
+            "Anneaux diagonaux = surfaces de Riemann", 
+            "Plaques dans cubes = matrice de convolution",
+            "Projections sur diamètre des anneaux"
         ],
         "formules": [
-            "Transformations par élévation: f(x) → f(x)²",
-            "Divisions sphériques en cubes: 5 cubes = 1 sphère",
-            "Circuits parallèles: Phase₁ ⊕ Phase₂"
+            "Structure: 4 pyramides ⊂ 4 cubes → tesseract",
+            "Anneaux diagonaux ↔ surfaces de Riemann",
+            "Matrice convolution pour projections"
         ],
         "definitions": [
-            "Squaring: Opération d'élévation géométrique au carré",
-            "Espace de Philippôt: Espace géométrique multidimensionnel",
-            "Géométrie informationnelle: Géométrie portant de l'information"
+            "Tesseract: Représentation 4D de la fonction Zêta",
+            "Plan cartésien: Espace géométrique incarné par tesseract",
+            "Surface de Riemann: Représentation par anneaux diagonaux",
+            "Matrice convolution: Formation par plaques dans cubes"
         ],
         "relations": [
-            "Extension de la géométrie euclidienne",
-            "Applications à la physique quantique",
-            "Liens avec la théorie de l'information"
+            "Représentation fonction Zêta et nombres premiers",
+            "Expression géométrique plan cartésien",
+            "Connexion analyse numérique métrique"
         ],
-        "document_source": "univers_au_carre_partie2.pdf", 
-        "page_reference": "Sections 6-7",
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf", 
+        "page_reference": "Question 3",
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
-    
-    # 3. RÉSONANCE TERRESTRE
+
+    # 4. CHAONS ET PRESSION GRAVITO-SPECTRALE (BANQUE Q&R)
     {
-        "id": "resonance_terrestre",
-        "titre": "Résonance Terrestre selon Philippôt",
-        "description": "Application de la géométrie de Philippôt à l'étude des fréquences de résonance terrestre, incluant l'analyse des basses fréquences et la détermination de la fréquence fondamentale.",
-        "domaine_principal": "Géophysique Théorique",
-        "concepts_cles": [
-            "Basses fréquences terrestres",
-            "Fréquence fondamentale de la Terre", 
-            "Résonance géométrique",
-            "Lien volumes-circonférences",
-            "Fréquences harmoniques terrestres",
-            "Modélisation géométrique terrestre"
-        ],
-        "formules": [
-            "f_fondamentale = f(V_terre, C_terre)",
-            "Harmoniques: f_n = n × f_fondamentale",
-            "Relations volume-fréquence géométriques"
-        ],
-        "definitions": [
-            "Fréquence fondamentale: Fréquence de base de résonance terrestre",
-            "Harmoniques terrestres: Multiples de la fréquence fondamentale",
-            "Résonance géométrique: Résonance basée sur les propriétés géométriques"
-        ],
-        "relations": [
-            "Connections avec la physique terrestre",
-            "Applications à la sismologie",
-            "Liens avec les propriétés géométriques planétaires"
-        ],
-        "document_source": "univers_au_carre_partie2.pdf",
-        "page_reference": "Section 8",
-        "niveau_complexite": "intermediaire", 
-        "created_at": datetime.now(timezone.utc).isoformat()
-    },
-    
-    # 4. ESPACE DE MINKOWSKI SELON PHILIPPÔT
-    {
-        "id": "minkowski_philippot",
-        "titre": "Espace de Minkowski selon Philippôt",
-        "description": "Réinterprétation de l'espace-temps de Minkowski à travers la géométrie de Philippôt, incluant les groupes de Poincaré et une métrique géométrique originale.",
+        "id": "chaons_pression_gravito_spectrale",
+        "titre": "Chaons et Pression Gravito-Spectrale",
+        "description": "Constantes géométriques fondamentales structurant la dynamique gravito-spectrale. Émergent d'un triangle rectangle avec rapport base/hauteur de 1/2 selon la règle de Philippôt. L'hypoténuse divisée en 8 segments avec rapport harmonique √2.",
         "domaine_principal": "Physique Théorique",
         "concepts_cles": [
-            "Hypersurface du présent",
-            "Groupe de Poincaré géométrique",
-            "Métrique de Minkowski revisitée",
-            "Nombres hypercomplexes",
-            "Aires de l'espace infini", 
-            "Cônes de lumière géométriques",
-            "Équilibre géométrique spatio-temporel"
+            "Chaons: constantes géométriques fondamentales",
+            "Dynamique gravito-spectrale structurée", 
+            "Triangle rectangle base/hauteur = 1/2",
+            "Règle de Philippôt fondamentale",
+            "Hypoténuse divisée en 8 segments",
+            "Rapport harmonique √2",
+            "Point imaginaire attraction/pression atmosphérique",
+            "Capacité d'impédance et hypervolume"
         ],
         "formules": [
-            "ds² = -c²dt² + dx² + dy² + dz² (métrique classique)",
-            "Métrique de Philippôt: intégration géométrique",
-            "Transformations de Lorentz géométriques"
+            "Constante de Philippôt (Φp) = 10.98064402 → pression gravito-spectrale",
+            "ζ(4)·π⁴/90 ≈ 1.082323234", 
+            "ζ(4) de Philippôt = ((√2 + 1)/(2 × 4))⁻¹ = 9.941125497",
+            "(9.941125497)² / 90 = 1.098066402",
+            "(4 – √8) × (√√32 – 4) × √8 × 2 = 10.98066402",
+            "Circonférence deux arcs: 20 000 km",
+            "Diamètre: 10 000 km (réel), 12 000 km (déformé)",
+            "√(40 960 km) = 202.3857703 km",
+            "4 / √10 = √1.6 = 1.264911064 × 10⁴ km",
+            "(√1.6)³ = 2.023857703 → inverse constante temps"
         ],
         "definitions": [
-            "Hypersurface du présent: Interface géométrique temporelle",
-            "Nombres hypercomplexes: Extension des nombres complexes",
-            "Équilibre géométrique: État stable spatio-temporel"
+            "Chaons: Unités géométriques discrètes fondamentales",
+            "Pression gravito-spectrale: Point d'interaction attraction/pression atmosphérique",
+            "Règle de Philippôt: Rapport base/hauteur = 1/2", 
+            "Capacité d'impédance: Propriété du point gravito-spectral",
+            "Hypervolume: Dimension spatiale de la pression gravito-spectrale"
         ],
         "relations": [
-            "Réinterprétation de la relativité restreinte",
-            "Connections avec la géométrie de Philippôt",
-            "Applications à la cosmologie"
+            "Forces chaotiques discrètes structurantes",
+            "Triangle Primordial fondamental",
+            "Constantes géométriques universelles"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf",
+        "page_reference": "Question 6, Tableaux chaons",
+        "niveau_complexite": "avance", 
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 5. DIGAMMA DE PHILIPPÔT (BANQUE Q&R + PARTIE 1)
+    {
+        "id": "digamma_philippot",
+        "titre": "Digamma de Philippôt - Méthode et Calculs",
+        "description": "Méthode fondamentale pour la géométrie des nombres premiers résolvant l'énigme de Riemann. Construction intuitive utilisant un système numéral ancien où Zeta occupait la 7ème position avec valeur 6. Construction de séquences de fractions avec rapports croissants visant un résultat infini de 1/2.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Méthode fondamentale géométrie nombres premiers",
+            "Résolution énigme de Riemann",
+            "Construction intuitive système numéral ancien",
+            "Zeta 7ème position, valeur 6",
+            "Séquences fractions rapports croissants",
+            "Résultat infini visé: 1/2",
+            "Parties réelles conjecture Zêta",
+            "Variable Digamma dans fonction Zêta Philippôt",
+            "8ème donnée séquence 10 racines",
+            "Algorithme détermination nombres premiers"
+        ],
+        "formules": [
+            "Suite 3 fractions: Généralisation (1/4)/(1/2) = 1/2",
+            "Suite 4 fractions: Calculs sommes et valeurs Zêta/Digamma",
+            "Suite 5 fractions: Exemples similaires",
+            "Suite 10 fractions: Calculs détaillés 8ème position (Digamma), 6ème (Zêta)",
+            "Calcul y = 0.5 / sin(60°) ≈ 0.57735",
+            "Algorithme expérimental Digamma: ((√((0.512)^(-1)) × somme_première_suite(2)) / (0.5/sin(60°)))² × √5120 × 1/2 × (-1) = -√43945.3125",
+            "Relation Euler-Mascheroni: ψ(1) = -γ, ψ(2) = 1 - γ",
+            "Équations vérification: dérivation 10ème nombre premier"
+        ],
+        "definitions": [
+            "Digamma calculé: Distinction essentielle vs Digamma standard",
+            "Zeta ancien: Position 7ème, valeur 6 système numéral",
+            "Parties réelles conjecture Zêta: Objectif séquences fractions",
+            "Variable Digamma: Éliminée dans algorithmes détermination premiers",
+            "8ème donnée: Position Digamma dans séquence 10 racines"
+        ],
+        "relations": [
+            "Fondamental pour géométrie nombres premiers", 
+            "Résolution énigme de Riemann",
+            "Connexion constante Euler-Mascheroni",
+            "Algorithme détermination nombres premiers",
+            "Lien fonction Zêta de Philippôt"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf + version_corrige_partie1_univers_est_au_carre.pdf",
+        "page_reference": "Questions 8-9, Sections calculs Digamma", 
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 6. MÉCANIQUE CHAOTIQUE DISCRÈTE (BANQUE Q&R)
+    {
+        "id": "mecanique_chaotique_discrete", 
+        "titre": "Mécanique Chaotique Discrète et Harmonique",
+        "description": "Composante centrale de 'L'univers est au carré' intégrant à la géométrie de Philippôt. Agit comme transformateur modifiant l'espace et objets en métrique active influencée par l'unité harmonique. Cette 'méta-géométrie' construit une matrice unitaire initiale.",
+        "domaine_principal": "Géométrie Non-Euclidienne",
+        "concepts_cles": [
+            "Composante centrale L'univers est au carré",
+            "Intégration géométrie de Philippôt",
+            "Transformateur espace et objets", 
+            "Métrique active unité harmonique",
+            "Méta-géométrie fondamentale",
+            "Construction matrice unitaire initiale",
+            "Unité fondamentale ratio triangulaire (Base/Hauteur + 1)",
+            "Choix unité influence mesure",
+            "Dimension relativiste géométrie"
+        ],
+        "formulas": [
+            "Valeur 25.7196423 comme constante",
+            "Calculs triangle et fonction arcsin", 
+            "Calcul unité: √4.5 × 0.5 / sin(22.84431053) = √3 + 1",
+            "Produit alternatif: 3 × AC = IH × BC",
+            "EG² = 1.3448632082 (Diamètre Équivalent carré)",
+            "Application géométrique: BC × sin(60°) = 2.017294813",
+            "Équation forme constante: 2 × (2 × 0.3860389693) = (3(2 - √2)/2) × (3(2 - √2))"
+        ],
+        "definitions": [
+            "Mécanique chaotique discrète: Système transformateur espace-objets",
+            "Mécanique harmonique: Influence unité harmonique sur métrique", 
+            "Méta-géométrie: Géométrie des transformations spatiales",
+            "Matrice unitaire: Construction géométrique initiale",
+            "Invariance unitaire: Propriété géométrique conservée",
+            "Produit alternatif: Relation géométrique spécialisée",
+            "Diamètre équivalent: Mesure géométrique standardisée"
+        ],
+        "relations": [
+            "Central à L'univers est au carré",
+            "Intégration géométrie de Philippôt",
+            "Connexion mécanique harmonique",
+            "Base matrice à dérive première",
+            "Violation invariance renversement temporel"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot.pdf",
+        "page_reference": "Questions 11-12, Matrices",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # === CONCEPTS DE LA PARTIE 1 CORRIGÉE ===
+
+    # 7. ANALYSE NUMÉRIQUE MÉTRIQUE GÉNÉRALISÉE (PARTIE 1 CORRIGÉE)
+    {
+        "id": "analyse_numerique_metrique_generalisee",
+        "titre": "Analyse Numérique Métrique Généralisée",
+        "description": "Méthode analytique révolutionnaire développée par Philippôt pour visualiser et analyser les nombres premiers à travers des représentations géométriques et des relations numériques spécifiques. Utilise des paramètres géométriques, des calculs itératifs et la fonction Digamma pour révéler la structure géométrique sous-jacente des nombres premiers.",
+        "domaine_principal": "Géométrie du Spectre des Nombres Premiers", 
+        "concepts_cles": [
+            "Méthode visualisation géométrique nombres premiers",
+            "Représentations géométriques spécialisées",
+            "Relations numériques spécifiques révélatrices",
+            "Paramètres géométriques d'analyse",
+            "Calculs itératifs systematiques",
+            "Application fonction Digamma spécialisée",
+            "Révélation structure géométrique sous-jacente",
+            "Progression lignes et triangles",
+            "Angles et rapports spécifiques",
+            "Tesseract, hypercube, sphère comme outils"
+        ],
+        "formules": [
+            "Rapports base/hauteur généralisés: 1/2, 1/3, 1/4, ..., 1/100",
+            "Calculs Digamma pour rapports variables",
+            "Structure calcul: racines carrées imbriquées nombres séquentiels", 
+            "Somme 1ère suite: (n² + (n+1)²)^(1/2) avec multiplicateurs X2, X3, X4",
+            "Somme 2ème suite: adaptations formules différents rapports",
+            "Application constante √5120 comme normalisateur"
+        ],
+        "definitions": [
+            "Analyse numérique métrique: Méthode géométrique analyse nombres premiers",
+            "Paramètres géométriques: Variables contrôlant l'analyse",
+            "Calculs itératifs: Processus répétitifs révélant structure",
+            "Rapports généralisés: Extension systématique ratios géométriques"
+        ],
+        "relations": [
+            "Méthode clé géométrie nombres premiers",
+            "Connexion directe fonction Digamma",
+            "Base révélation code nombres premiers", 
+            "Application tesseract et hypercube"
+        ],
+        "document_source": "version_corrige_partie1_univers_est_au_carre.pdf",
+        "page_reference": "Sections 7, 9, 16",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 8. TECHNIQUE DU MOULINET (PARTIE 1 CORRIGÉE)
+    {
+        "id": "technique_moulinet",
+        "titre": "Technique du Moulinet",
+        "description": "Concept théorique révolutionnaire de compression des distances entre nombres premiers vers l'infini. Représentation dynamique et stratégique différente des approches classiques, considérant chaque nombre premier comme une infinité et explorant leurs aspects ordinaux et cardinaux.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Compression distances nombres premiers vers infini",
+            "Représentation dynamique et stratégique",
+            "Différentiation approches classiques", 
+            "Nombres premiers comme infinités",
+            "Aspects ordinaux et cardinaux infini",
+            "Outil penser infini géométriquement",
+            "Compression distances comme outil conceptuel",
+            "Mouvement nombres premiers analytique"
+        ],
+        "formules": [
+            "Conceptualisation compression vers infini",
+            "Relations ordinales et cardinales",
+            "Aspects géométriques infini"
+        ],
+        "definitions": [
+            "Moulinet: Technique compression conceptuelle distances premiers",
+            "Compression distances: Réduction écarts vers infini",
+            "Infinités premiers: Conception premiers comme entités infinies", 
+            "Aspects ordinaux: Propriétés ordre infini",
+            "Aspects cardinaux: Propriétés magnitude infini"
+        ],
+        "relations": [
+            "Extension conceptuelle analyse métrique",
+            "Connexion philosophique infini mathématique",
+            "Outil compréhension géométrique nombres premiers"
+        ],
+        "document_source": "version_corrige_partie1_univers_est_au_carre.pdf", 
+        "page_reference": "Sections 13, 14",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # === CONCEPTS DE LA PARTIE 2 CORRIGÉE ===
+
+    # 9. THÉORÈME DE PHILIPPÔT FORMALISÉ (PARTIE 2 CORRIGÉE)
+    {
+        "id": "theoreme_philippot_formalise",
+        "titre": "Théorème de Philippôt - Versions Formalisées",
+        "description": "Théorème fondamental établissant l'équivalence géométrique universelle entre différentes formes, maintenant disponible en versions formalisée, formelle avec variables, et avec racines conventionnelles. Démontre des propriétés géométriques universelles à travers des constructions algorithmiques.",
+        "domaine_principal": "Géométrie Fondamentale", 
+        "concepts_cles": [
+            "Équivalence géométrique universelle formalisée",
+            "Versions multiples: formalisée, formelle, conventionnelle",
+            "Variables géométriques généralisées", 
+            "Racines conventionnelles standardisées",
+            "Constructions algorithmiques géométriques",
+            "Propriétés universelles démontrées",
+            "Applications systématiques différentes formes",
+            "Progression formalization spécifique → générale"
+        ],
+        "formules": [
+            "Version formalisée: équivalences géométriques précises",
+            "Version formelle avec variables: généralisation algébrique", 
+            "Version racines conventionnelles: notation standardisée",
+            "Relations aire carré = aire disque = aire triangle = volume cube^(2/3)",
+            "Périmètre carré = circonférence disque = périmètre triangle",
+            "Constructions algorithmiques pour démonstrations"
+        ],
+        "definitions": [
+            "Version formalisée: Formalisation mathématique rigoureuse",
+            "Version formelle variables: Généralisation algébrique abstraite",
+            "Version racines conventionnelles: Notation mathématique standard",
+            "Constructions algorithmiques: Processus géométriques systematiques"
+        ],
+        "relations": [
+            "Base théorique géométrie de Philippôt", 
+            "Fondement analyse spectrale géométrique",
+            "Connexion équivalences dimensionnelles universelles"
+        ],
+        "document_source": "version_corrigé_2ième_partie_univers_est_au_carré.pdf",
+        "page_reference": "Sections 10, 17, 18, 20",
+        "niveau_complexite": "fondamental",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 10. INTRICATION QUANTIQUE GÉOMÉTRIQUE (PARTIE 2 CORRIGÉE)  
+    {
+        "id": "intrication_quantique_geometrique",
+        "titre": "Intrication Quantique Géométrique",
+        "description": "Représentation géométrique révolutionnaire des phénomènes d'intrication quantique à travers le prisme de la géométrie de Philippôt. Intègre les concepts quantiques avec les constructions géométriques spécialisées.",
+        "domaine_principal": "Physique Théorique",
+        "concepts_cles": [
+            "Représentation géométrique intrication quantique",
+            "Intégration concepts quantiques géométrie Philippôt",
+            "Schémas explicatifs spécialisés",
+            "Constructions géométriques quantiques", 
+            "Visualisation phénomènes quantiques",
+            "Applications géométrie aux propriétés quantiques"
+        ],
+        "formules": [
+            "Schémas géométriques intrication",
+            "Relations géométriques propriétés quantiques"
+        ],
+        "definitions": [
+            "Intrication géométrique: Représentation spatiale phénomènes quantiques",
+            "Schémas quantiques: Visualisations géométriques spécialisées"
+        ],
+        "relations": [
+            "Extension géométrie Philippôt au quantique",
+            "Connexion physique théorique et géométrie"
+        ],
+        "document_source": "version_corrigé_2ième_partie_univers_est_au_carré.pdf",
+        "page_reference": "Section 3.2, Schémas intrication", 
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # === CONCEPTS PRÉCÉDENTS ENRICHIS ===
+
+    # 11. RÉSONANCE TERRESTRE
+    {
+        "id": "resonance_terrestre", 
+        "titre": "Résonance Terrestre",
+        "description": "Théorie liant les phénomènes de résonance de la Terre aux propriétés géométriques universelles, incluant les relations avec les constantes astronomiques et les fréquences naturelles.",
+        "domaine_principal": "Géophysique Théorique",
+        "concepts_cles": [
+            "Fréquences de résonance terrestre",
+            "Constantes astronomiques géométriques", 
+            "Harmoniques planétaires",
+            "Géométrie des champs terrestres",
+            "Relations fréquence-géométrie"
+        ],
+        "formules": [
+            "Fréquences de résonance calculées",
+            "Relations diamètre terrestre et résonance",
+            "Constantes harmoniques"
+        ],
+        "definitions": [
+            "Résonance terrestre: Fréquences naturelles de vibration de la Terre",
+            "Harmonique planétaire: Fréquence en accord avec la géométrie terrestre"
+        ],
+        "relations": [
+            "Connexions avec la géophysique",
+            "Applications aux phénomènes naturels"
         ],
         "document_source": "univers_au_carre_partie2.pdf",
-        "page_reference": "Section 9", 
+        "page_reference": "Section 4",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 12. ESPACE DE MINKOWSKI SELON PHILIPPÔT
+    {
+        "id": "minkowski_philippot",
+        "titre": "Espace de Minkowski selon Philippôt", 
+        "description": "Réinterprétation de l'espace-temps de Minkowski à travers le prisme de la géométrie de Philippôt, incluant de nouvelles métriques et relations spatio-temporelles.",
+        "domaine_principal": "Physique Théorique",
+        "concepts_cles": [
+            "Métrique spatio-temporelle modifiée",
+            "Géométrie de l'espace-temps carré",
+            "Transformations de Philippôt",
+            "Invariants géométriques relativistes", 
+            "Côté droit/gauche de l'espace"
+        ],
+        "formules": [
+            "Métrique modifiée ds² = ...",
+            "Transformations géométriques spatio-temporelles",
+            "Invariants selon Philippôt"
+        ],
+        "definitions": [
+            "Espace-temps carré: Extension de Minkowski selon les principes de Philippôt",
+            "Transformation de Philippôt: Nouvelle classe de transformations géométriques"
+        ],
+        "relations": [
+            "Extension de la relativité restreinte",
+            "Applications en cosmologie géométrique"
+        ],
+        "document_source": "univers_au_carre_partie2.pdf",
+        "page_reference": "Section 11",
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
     
-    # 5. FONCTION ZÊTA DE PHILIPPÔT 
+    # 13. FONCTION ZÊTA DE PHILIPPÔT 
     {
         "id": "zeta_philippot",
         "titre": "Fonction Zêta de Philippôt",
@@ -434,7 +780,7 @@ CONCEPTS_ENRICHIS = [
         "created_at": datetime.now(timezone.utc).isoformat()
     },
     
-    # 6. CARRÉ DE GABRIEL
+    # 14. CARRÉ DE GABRIEL
     {
         "id": "carre_gabriel",
         "titre": "Carré de Gabriel",
@@ -464,94 +810,6 @@ CONCEPTS_ENRICHIS = [
         "niveau_complexite": "intermediaire",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
-    
-    # 7. QUANTITÉ DE NOMBRES ENTRE DEUX PREMIERS - MÉTHODE SPECTRALE
-    {
-        "id": "quantite_nombres_premiers",
-        "titre": "Quantité de Nombres entre Deux Premiers - Méthode Spectrale",
-        "description": "Approche spectrale originale pour déterminer la quantité de nombres entiers entre deux nombres premiers consécutifs, utilisant des suites mathématiques, des constantes empiriques et la fonction Digamma de Philippôt.",
-        "domaine_principal": "Géométrie du Spectre des Nombres Premiers",
-        "concepts_cles": [
-            "Méthode spectrale multi-étapes",
-            "Suites mathématiques associées aux premiers", 
-            "Constantes empiriques A, B, C, D, E",
-            "Application de la fonction Digamma",
-            "Calculs par étapes progressives",
-            "Comparaison avec la méthode classique",
-            "Approche géométrique des intervalles premiers"
-        ],
-        "formules": [
-            "Méthode classique: q - p - 1 (où q > p sont premiers consécutifs)",
-            "Étape 1: somme_suite_1 - (somme_suite_2 - Digamma_grand_premier)",
-            "Étape 2: (résultat_étape_1 - Digamma_petit_premier) / √5120",
-            "Somme suite 1: ((√A)/2 × 2^n) - √B",
-            "Somme suite 2: ((√C)/2 × 2^n) - √D", 
-            "Digamma de Philippôt: ((somme_suite_2 / √E) - N) × √E"
-        ],
-        "definitions": [
-            "Méthode spectrale: Approche multi-étapes utilisant des suites et corrections",
-            "Constantes empiriques: Valeurs A,B,C,D,E liées aux propriétés des nombres premiers",
-            "Digamma de Philippôt: Fonction de correction spécialisée pour les intervalles premiers",
-            "Suite associée: Séquence mathématique liée aux positions des nombres premiers"
-        ],
-        "relations": [
-            "Extension de la géométrie du spectre des nombres premiers",
-            "Lien avec la méthode de Philippôt pour la détermination des premiers",
-            "Application des concepts de suites géométriques aux intervalles",
-            "Connexion avec l'approche empirique de la théorie"
-        ],
-        "document_source": "3ieme_prompt_emergent.pdf",
-        "page_reference": "Document complet - Méthode spectrale",
-        "niveau_complexite": "avance",
-        "created_at": datetime.now(timezone.utc).isoformat()
-    },
-    
-    # 8. SQUARING GÉNÉRALISÉ ET NEUROMORPHISME
-    {
-        "id": "squaring_generalise_neuromorphisme",
-        "titre": "Squaring Généralisé et Neuromorphisme",
-        "description": "Forme généralisée du squaring (élévation au carré des rectangles) et ses connexions avec l'évolution neuromorphique. Postulat unique de la théorie reliant géométrie rectangulaire et développement des formes neuronales dans l'univers au carré.",
-        "domaine_principal": "Géométrie Neuromorphique",
-        "concepts_cles": [
-            "Squaring généralisé des rectangles",
-            "Élévation géométrique au carré", 
-            "Neuromorphisme et évolution des formes",
-            "Rectangles élevés au carré (postulat unique)",
-            "Transformation géométrique des neurones",
-            "Évolution adaptative de la forme neuronale",
-            "Géométrie adaptative des structures neurales",
-            "Morphogenèse géométrique rectangulaire",
-            "Patterns rectangulaires dans la croissance neuronale",
-            "Connexion géométrie-biologie"
-        ],
-        "formules": [
-            "Squaring généralisé: Rectangle(a,b) → Rectangle²(a²,b²)",
-            "Transformation neuromorphique: N(t) → Square(N(t))",
-            "Évolution géométrique: dN/dt = f(Square_Généralisé(Rectangle))",
-            "Postulat unique: Rectangle_élevé_au_carré ↔ Forme_Neuronale",
-            "Croissance adaptative: G(t) = α × Square_Généralisé(R(t))",
-            "Morphogenèse: M(x,y) = Square(Rectangle_initial(x,y))"
-        ],
-        "definitions": [
-            "Squaring généralisé: Extension de l'opération d'élévation au carré aux structures rectangulaires complexes et leurs transformations géométriques",
-            "Neuromorphisme: Évolution adaptative et développement de la forme des neurones selon des principes géométriques rectangulaires",
-            "Rectangle élevé au carré: Transformation géométrique fondamentale constituant l'unique postulat de base de la théorie",
-            "Géométrie neuromorphique: Application des transformations rectangulaires aux processus d'évolution et de développement neuronal",
-            "Morphogenèse géométrique: Développement des formes biologiques par applications successives de transformations rectangulaires au carré"
-        ],
-        "relations": [
-            "Extension directe du concept de squaring de la première partie de L'univers est au carré",
-            "Réalisation concrète du postulat unique des rectangles élevés au carré",
-            "Application biologique des principes géométriques fondamentaux",
-            "Pont conceptuel entre géométrie pure et évolution neuronale",
-            "Intégration avec l'ensemble de la théorie de l'univers au carré",
-            "Validation du caractère universel des transformations rectangulaires"
-        ],
-        "document_source": "4ieme_prompt_emergent.pdf",
-        "page_reference": "Document complet - Squaring généralisé et neuromorphisme",
-        "niveau_complexite": "avance",
-        "created_at": datetime.now(timezone.utc).isoformat()
-    }
 ]
 
 def get_concept_enrichi_by_domain(domain=None):
