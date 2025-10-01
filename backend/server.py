@@ -488,7 +488,7 @@ CONCEPTS_ENRICHIS = [
             "Choix unité influence mesure",
             "Dimension relativiste géométrie"
         ],
-        "formulas": [
+        "formules": [
             "Valeur 25.7196423 comme constante",
             "Calculs triangle et fonction arcsin", 
             "Calcul unité: √4.5 × 0.5 / sin(22.84431053) = √3 + 1",
