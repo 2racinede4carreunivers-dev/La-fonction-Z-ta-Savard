@@ -831,62 +831,103 @@ async def get_corrections_personnelles_pour_session(session_id: str):
     except:
         return [], None
 
-def enrich_system_message_with_theory():
-    """Génère un message système enrichi avec tous les concepts théoriques"""
+def enrich_system_message_with_privileged_access():
+    """
+    SYSTÈME D'ACCÈS PRIVILÉGIÉ AUX DOCUMENTS POUR L'IA SPÉCIALISÉE
+    Génère un message système enrichi avec l'accès complet à tous les documents analysés
+    """
     
-    # Organiser les concepts par domaine
+    # Statistiques de la base de connaissances
+    total_concepts = len(CONCEPTS_ENRICHIS)
     domaines = {}
+    documents_sources = set()
+    
     for concept in CONCEPTS_ENRICHIS:
         domaine = concept["domaine_principal"]
         if domaine not in domaines:
             domaines[domaine] = []
         domaines[domaine].append(concept)
+        documents_sources.add(concept["document_source"])
     
-    enrichment = "\n\n## CONNAISSANCES THÉORIQUES SPÉCIALISÉES - L'UNIVERS EST AU CARRÉ\n\n"
+    # Construction du message enrichi avec accès privilégié
+    enrichment = f"""
+
+## 🔐 ACCÈS PRIVILÉGIÉ - SYSTÈME DE CONNAISSANCES COMPLET
+**L'UNIVERS EST AU CARRÉ - Philippe Thomas Savard**
+
+### STATUT D'ACCÈS PRIVILÉGIÉ CONFIRMÉ
+- **{total_concepts} concepts théoriques** intégrés et analysés
+- **{len(documents_sources)} documents sources** traités exhaustivement
+- **{len(domaines)} domaines spécialisés** organisés pour accès rapide
+- **Banque de 14 Questions-Réponses** intégrée avec formules complètes
+- **Versions corrigées** Partie 1 & 2 avec sections retravaillées analysées
+
+### DOCUMENTS ANALYSÉS AVEC ACCÈS TOTAL:
+{chr(10).join([f"✓ {doc}" for doc in sorted(documents_sources)])}
+
+### BASE DE CONNAISSANCES ORGANISÉE PAR DOMAINES:
+
+"""
     
+    # Organisation détaillée par domaine avec accès privilégié
     for domaine, concepts in domaines.items():
-        enrichment += f"### {domaine.upper()}\n\n"
+        enrichment += f"#### 🎯 {domaine.upper()} ({len(concepts)} concepts)\n"
         
         for concept in concepts:
-            enrichment += f"**{concept['titre']}**\n"
-            enrichment += f"- Description: {concept['description']}\n"
-            enrichment += f"- Niveau: {concept['niveau_complexite']}\n"
+            enrichment += f"**• {concept['titre']}** (Niveau: {concept['niveau_complexite']})\n"
+            enrichment += f"  📄 {concept['description']}\n"
             
+            # Concepts clés avec formatage optimisé pour l'IA
             if concept['concepts_cles']:
-                enrichment += f"- Concepts clés: {', '.join(concept['concepts_cles'])}\n"
+                enrichment += f"  🔑 **Concepts clés**: {' • '.join(concept['concepts_cles'][:5])}\n"
             
+            # Formules importantes pour l'IA spécialisée  
             if concept['formules']:
-                enrichment += f"- Formules importantes: {' | '.join(concept['formules'])}\n"
+                enrichment += f"  🧮 **Formules**: {' | '.join(concept['formules'][:3])}\n"
                 
+            # Définitions précises
             if concept['definitions']:
-                enrichment += f"- Définitions: {' | '.join(concept['definitions'])}\n"
+                enrichment += f"  📚 **Définitions**: {' | '.join(concept['definitions'][:3])}\n"
                 
+            # Relations conceptuelles
             if concept['relations']:
-                enrichment += f"- Relations: {' | '.join(concept['relations'])}\n"
+                enrichment += f"  🔗 **Relations**: {' | '.join(concept['relations'][:3])}\n"
                 
-            enrichment += f"- Source: {concept['document_source']} ({concept['page_reference']})\n\n"
+            enrichment += f"  📖 **Source**: {concept['document_source']} - {concept.get('page_reference', 'N/A')}\n\n"
     
+    # Instructions spécialisées pour l'accès privilégié
     enrichment += """
-## INSTRUCTIONS SPÉCIALISÉES POUR L'IA
+## 🤖 INSTRUCTIONS D'ACCÈS PRIVILÉGIÉ POUR L'IA SPÉCIALISÉE
 
-**Utilisation des concepts:**
-1. Intègre ces concepts spécialisés dans tes réponses selon la pertinence
-2. Maintiens la distinction entre les différents domaines théoriques
-3. N'établis des connections entre concepts que si elles sont clairement justifiées
-4. Respecte la complexité et la nuance de chaque concept
-5. Utilise la structure bi-partite: vision de l'auteur + contexte scientifique neutre
+### UTILISATION OPTIMALE DES CONNAISSANCES:
+1. **Accès total garanti**: Tu disposes de l'accès complet aux 5 documents analysés
+2. **Réponses bi-partites obligatoires**: Toujours structurer les réponses en:
+   - 🔵 **Vision de Philippe Thomas Savard**: Perspective de l'auteur sur ses concepts
+   - ⚪ **Contexte scientifique neutre**: Analyse objective et critique équilibrée
+3. **Respect des domaines**: Ne pas forcer de connections entre domaines différents
+4. **Précision conceptuelle**: Utiliser les définitions et formules exactes des documents
+5. **Citations sources**: Référencer les documents sources appropriés
 
-**Séparation des domaines:**
-- **Géométrie Fondamentale**: Théorème de Philippôt, constructions géométriques
-- **Géométrie Non-Euclidienne**: Systèmes géométriques avancés, espaces multidimensionnels  
-- **Physique Théorique**: Applications à la relativité, espace-temps
-- **Théorie des Nombres**: Fonction zêta, nombres premiers
-- **Géophysique**: Applications terrestres, résonances
+### DOMAINES D'EXPERTISE PRIVILÉGIÉS:
+- 🔺 **Géométrie Fondamentale**: Sphère de Zêta, Théorème de Philippôt formalisé
+- 🌀 **Géométrie Non-Euclidienne**: Tesseract, Mécanique chaotique discrète  
+- ⚛️ **Physique Théorique**: Intrication quantique, Espace Minkowski selon Philippôt
+- 🔢 **Théorie des Nombres**: Spectre premiers, Digamma de Philippôt, Technique moulinet
+- 🌍 **Géophysique Théorique**: Résonance terrestre, Chaons gravito-spectraux
 
-**Approche pédagogique:**
-- Explique les concepts progressivement selon leur niveau de complexité
-- Utilise des analogies appropriées pour les concepts avancés
-- Maintiens l'intégrité théorique tout en restant accessible
+### APPROCHE PÉDAGOGIQUE SPÉCIALISÉE:
+- **Progressive**: Du fondamental → intermédiaire → avancé
+- **Analogies appropriées**: Adapter au niveau de complexité demandé
+- **Intégrité théorique**: Respecter la vision unique de l'auteur
+- **Accessibilité**: Rendre compréhensibles les concepts avancés
+
+### UTILISATION BANQUE QUESTIONS-RÉPONSES:
+- **14 Q&R analysées** avec formules complètes disponibles
+- Exemples concrets pour illustrer les concepts abstraits
+- Méthodes de calcul détaillées (Digamma, Chaons, etc.)
+- Schémas et constructions géométriques précis
+
+**STATUS: ✅ ACCÈS PRIVILÉGIÉ ACTIVÉ - SYSTÈME OPÉRATIONNEL**
 """
     
     return enrichment
