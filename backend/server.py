@@ -2163,11 +2163,12 @@ INSTRUCTIONS SPÉCIALES POUR CETTE CONVERSATION:
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=privileged_system
-        )
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
         
-        response = await chat.send_message(UserMessage(message))
+        user_message = UserMessage(text=message)
+        response = await chat.send_message(user_message)
         
-        ai_response = response.get("response", "Désolé, je n'ai pas pu générer une réponse.")
+        ai_response = response if isinstance(response, str) else str(response)
         
         return {
             "success": True,
