@@ -4,7 +4,7 @@ import json
 from datetime import datetime
 
 class UniversAuCarreAPITester:
-    def __init__(self, base_url="https://mathcarreverse.preview.emergentagent.com"):
+    def __init__(self, base_url="https://quantum-square.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
