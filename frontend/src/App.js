@@ -3134,10 +3134,38 @@ const SalonLecturePage = () => {
                 🎯 Objectifs Principaux
               </h3>
               <ul className="text-blue-200 space-y-2">
-                <li>• Révéler le code géométrique des nombres premiers</li>
-                <li>• Démontrer l'hypothèse de Riemann par la géométrie</li> 
-                <li>• Établir des relations universelles entre formes géométriques</li>
-                <li>• Unifier géométrie, physique et théorie des nombres</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Révéler le code géométrique des nombres premiers</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Démontrer l'hypothèse de Riemann par la géométrie</li> 
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Établir des relations universelles entre formes géométriques</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Unifier géométrie, physique et théorie des nombres</li>
               </ul>
             </div>
             
