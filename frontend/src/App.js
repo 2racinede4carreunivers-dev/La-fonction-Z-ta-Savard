@@ -4505,7 +4505,7 @@ Le vingt-quatre mars deux mille vingt-cinq.
       processedText = processedText.replace(regex, (match) => {
         return `<span 
           class="phillippot-term cursor-pointer text-blue-300 hover:text-blue-100 underline decoration-dotted hover:bg-blue-900/30 px-1 rounded transition-all duration-200" 
-          onclick="window.openPhilippotModal('${match}')"
+          data-term="${match}"
           title="Cliquer pour poser une question sur ce terme à l'IA spécialisée"
         >${match}</span>`;
       });
