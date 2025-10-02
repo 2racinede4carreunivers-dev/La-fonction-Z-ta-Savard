@@ -5258,6 +5258,14 @@ Fin 1ère partie, la méthode de Philippôt.`;
             <div 
               className="text-gray-200 whitespace-pre-wrap leading-relaxed text-sm font-mono cursor-text select-text"
               dangerouslySetInnerHTML={{ __html: createTermLinks(section.content) }}
+              onClick={(e) => {
+                if (e.target.classList.contains('phillippot-term')) {
+                  const term = e.target.getAttribute('data-term');
+                  if (term) {
+                    openPhilippotModal(term);
+                  }
+                }
+              }}
             />
           </div>
         ))}
