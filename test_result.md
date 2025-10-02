@@ -300,6 +300,18 @@ test_plan:
           agent: "testing"
           comment: "✅ TESTÉ AVEC SUCCÈS - Statistiques du document enrichi s'affichent correctement: 7225 Mots, 43003 Caractères, 31 Pages, 10 Sections. Interface statistique complète et informative pour le contenu enrichi."
 
+  - task: "Navigation mobile vers Salon de Lecture"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME DÉTECTÉ - Le lien '📚 Salon de Lecture' n'apparaît pas dans le menu hamburger mobile. Menu hamburger fonctionne correctement et s'ouvre, mais le lien Salon de Lecture n'est pas visible parmi les options du menu déroulant mobile. Autres liens présents: Accueil, Méthode Philippôt, Explorer, IA Expert, Collaboration, Concepts Enrichis, Accès Privilégié. Le lien existe dans le code mais n'est pas affiché correctement en mobile."
+
 agent_communication:
     - agent: "testing"
       message: "🎉 SALON DE LECTURE - DOCUMENT INTÉGRAL TESTÉ AVEC SUCCÈS - Test complet de la nouvelle section 'Document Intégral - Partie 1' réalisé avec succès. (1) Navigation vers /salon-lecture: ✅ Parfaite, (2) Section 'Document Intégral - Partie 1' dans navigation gauche: ✅ Présente et cliquable, (3) Affichage des 6 sections requises: ✅ Toutes présentes (Introduction et Présentation, La Méthode de Philippôt, Analyse Numérique Métrique, Digamma et Calculs des Nombres Premiers, Mécanique Harmonique du Chaos Discret, Annexes et Lexique), (4) Statistiques du document: ✅ Parfaites (9372 Mots, 60930 Caractères, 92 Pages, 17 Chapitres), (5) Fonctionnalité d'appui long: ❌ Non testable - contenu du document pas dans le format attendu pour l'interaction. La nouvelle section fonctionne parfaitement pour la navigation et l'affichage des informations."
