@@ -3060,9 +3060,9 @@ const SalonLecturePage = () => {
   };
 
   const closeAssistant = () => {
-    setShowAssistant(false);
+    setShowContextualAssistant(false);
     setSelectedText('');
-    setAssistantResponse('');
+    setContextualResponse('');
     // Effacer la sélection
     window.getSelection().removeAllRanges();
   };
