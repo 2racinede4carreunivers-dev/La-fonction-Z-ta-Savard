@@ -135,6 +135,18 @@ backend:
           agent: "testing"
           comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint /api/save-collaboration fonctionne parfaitement. Tests réalisés: (1) Sauvegarde document collaboratif avec génération UUID automatique, (2) Récupération document sauvé via /api/collaboration-document/{doc_id} avec toutes métadonnées (title, content, created_at, updated_at), (3) Gestion sessions via /api/collaboration-documents/{session_id}, (4) Validation 404 pour documents inexistants. Persistance MongoDB opérationnelle, structure de données complète avec compteurs mots/caractères."
 
+  - task: "API endpoint /api/chat-privileged pour IA spécialisée avec accès privilégié"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint /api/chat-privileged fonctionne parfaitement avec accès complet aux documents de la deuxième partie. Test spécifique réalisé: (1) Question 'Explique-moi le théorème de Philippôt de la deuxième partie' traitée avec succès, (2) Réponse bi-partite détectée avec format 🔵/⚪ comme attendu, (3) Contenu spécifique mentionné: 'trois carrés égalent à un triangle', intrication quantique géométrique, géométrie de Philippôt, (4) Accès privilégié confirmé (privileged_access: true), (5) 14 concepts enrichis disponibles, (6) Réponse substantielle de 2307 caractères avec contenu théorique approprié. L'IA spécialisée a bien accès au nouveau contenu intégré de la deuxième partie et répond selon les attentes du format bi-partite."
+
 frontend:
   - task: "Salon de Lecture - Navigation vers /salon-lecture"
     implemented: true
