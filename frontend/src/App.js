@@ -3174,10 +3174,38 @@ const SalonLecturePage = () => {
                 🔬 Innovations Théoriques
               </h3>
               <ul className="text-purple-200 space-y-2">
-                <li>• Sphère de Zêta avec construction géométrique unique</li>
-                <li>• Digamma de Philippôt pour déterminer les premiers</li>
-                <li>• Chaons comme constantes géométriques fondamentales</li>
-                <li>• Technique du Moulinet pour l'analyse de l'infini</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Sphère de Zêta avec construction géométrique unique</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Digamma de Philippôt pour déterminer les premiers</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Chaons comme constantes géométriques fondamentales</li>
+                <li 
+                  className="cursor-help select-text" 
+                  onMouseDown={handleMouseDown}
+                  onMouseUp={handleMouseUp}
+                  onMouseLeave={handleMouseLeave}
+                  onTouchStart={handleMouseDown}
+                  onTouchEnd={handleMouseUp}
+                >• Technique du Moulinet pour l'analyse de l'infini</li>
               </ul>
             </div>
           </div>
