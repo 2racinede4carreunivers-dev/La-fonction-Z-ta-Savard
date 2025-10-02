@@ -3086,6 +3086,12 @@ const SalonLecturePage = () => {
       icon: '🔬', 
       description: 'Enrichissement et analyse détaillée des relations numériques - Calculs du Digamma et implications pour l\'hypothèse de Riemann'
     },
+    { 
+      id: 'univers-au-carre', 
+      title: 'L\'univers est au carré - Deuxième Partie', 
+      icon: '🌌', 
+      description: 'Théorie complète : Théorème de Philippôt, Géométrie de l\'espace, Intrication quantique, Résonance terrestre'
+    },
     {
       id: 'geometrie-fondamentale', 
       title: 'Géométrie Fondamentale',
