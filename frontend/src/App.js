@@ -5317,6 +5317,7 @@ Fin 1ère partie, la méthode de Philippôt.`;
     if (sectionId === 'introduction') return renderIntroduction();
     if (sectionId === 'document-integral') return renderDocumentIntegral();
     if (sectionId === 'methode-enrichie') return renderMethodeEnrichie();
+    if (sectionId === 'univers-au-carre') return renderUniversAuCarre();
 
     const domainMap = {
       'geometrie-fondamentale': 'Géométrie Fondamentale',
