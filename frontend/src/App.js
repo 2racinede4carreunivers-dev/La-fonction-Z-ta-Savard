@@ -2957,10 +2957,10 @@ const SalonLecturePage = () => {
   const [loading, setLoading] = useState(true);
   
   // États pour l'assistant contextuel
-  const [showAssistant, setShowAssistant] = useState(false);
+  const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
-  const [assistantLoading, setAssistantLoading] = useState(false);
-  const [assistantResponse, setAssistantResponse] = useState('');
+  const [contextualResponse, setContextualResponse] = useState('');
+  const [isContextualLoading, setIsContextualLoading] = useState(false);
   const [longPressTimer, setLongPressTimer] = useState(null);
 
   useEffect(() => {
