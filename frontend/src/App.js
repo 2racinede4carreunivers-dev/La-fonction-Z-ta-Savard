@@ -3066,6 +3066,12 @@ const SalonLecturePage = () => {
       icon: '📖', 
       description: 'Texte complet de "Géométrie du spectre des nombres premiers" - Version corrigée'
     },
+    { 
+      id: 'methode-enrichie', 
+      title: 'Méthode de Philippôt : Développement Approfondi', 
+      icon: '🔬', 
+      description: 'Enrichissement et analyse détaillée des relations numériques - Calculs du Digamma et implications pour l\'hypothèse de Riemann'
+    },
     {
       id: 'geometrie-fondamentale', 
       title: 'Géométrie Fondamentale',
