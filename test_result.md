@@ -280,6 +280,9 @@ test_plan:
         - working: false
           agent: "testing"
           comment: "❌ PROBLÈME DÉTECTÉ - Les hyperliens sur les termes spécialisés ne déclenchent pas l'ouverture de la modal de l'assistant contextuel avec le terme pré-sélectionné. Clic sur les termes détecté mais aucune modal n'apparaît. La fonctionnalité d'appui long n'est pas non plus fonctionnelle (aucun élément avec classe cursor-help trouvé)."
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME CONFIRMÉ - Test approfondi révèle: (1) 179 termes spécialisés trouvés avec classe .phillippot-term, tous soulignés et cliquables, (2) Modal s'ouvre partiellement mais erreur JavaScript: 'setShowContextualAssistant is not defined', (3) Erreur dans openPhilippotModal function empêche le fonctionnement correct de l'assistant contextuel. CAUSE IDENTIFIÉE: Fonction setShowContextualAssistant manquante dans le code React, probablement un état non défini ou mal importé."
 
   - task: "Statistiques du document enrichi"
     implemented: true
