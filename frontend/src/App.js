@@ -3279,7 +3279,15 @@ const SalonLecturePage = () => {
                       {concept.niveau_complexite}
                     </Badge>
                   </CardTitle>
-                  <CardDescription className="text-blue-200">
+                  <CardDescription 
+                    className="text-blue-200 cursor-help select-text"
+                    onMouseDown={handleMouseDown}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
+                    onTouchStart={handleMouseDown}
+                    onTouchEnd={handleMouseUp}
+                    title="Appui long pour poser une question à l'IA spécialisée"
+                  >
                     {concept.description}
                   </CardDescription>
                 </CardHeader>
