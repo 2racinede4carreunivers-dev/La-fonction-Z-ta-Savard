@@ -3040,8 +3040,8 @@ const SalonLecturePage = () => {
   const askAssistant = async (contextualQuestion) => {
     if (!selectedText) return;
     
-    setAssistantLoading(true);
-    setAssistantResponse('');
+    setIsContextualLoading(true);
+    setContextualResponse('');
     
     try {
       const fullQuestion = `${contextualQuestion}\n\nContexte sélectionné: "${selectedText}"`;
@@ -3050,12 +3050,12 @@ const SalonLecturePage = () => {
         message: fullQuestion
       });
       
-      setAssistantResponse(response.data.response);
+      setContextualResponse(response.data.response);
     } catch (error) {
       console.error('Erreur assistant contextuel:', error);
-      setAssistantResponse('Désolé, je n\'ai pas pu traiter votre demande. Veuillez réessayer.');
+      setContextualResponse('Désolé, je n\'ai pas pu traiter votre demande. Veuillez réessayer.');
     } finally {
-      setAssistantLoading(false);
+      setIsContextualLoading(false);
     }
   };
 
