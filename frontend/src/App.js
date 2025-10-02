@@ -3060,6 +3060,12 @@ const SalonLecturePage = () => {
       icon: '📖',
       description: 'Vision d\'ensemble de "L\'univers est au carré"'
     },
+    { 
+      id: 'document-integral', 
+      title: 'Document Intégral - Partie 1', 
+      icon: '📖', 
+      description: 'Texte complet de "Géométrie du spectre des nombres premiers" - Version corrigée'
+    },
     {
       id: 'geometrie-fondamentale', 
       title: 'Géométrie Fondamentale',
