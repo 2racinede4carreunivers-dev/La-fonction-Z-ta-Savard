@@ -5516,28 +5516,28 @@ Fin 1ère partie, la méthode de Philippôt.`;
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <button
                     onClick={() => askAssistant(`Explique-moi en détail ce concept`)}
-                    disabled={assistantLoading}
+                    disabled={isContextualLoading}
                     className="p-3 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg text-left text-blue-200 hover:text-white transition-colors disabled:opacity-50"
                   >
                     🔍 Explique ce concept en détail
                   </button>
                   <button
                     onClick={() => askAssistant(`Quelles sont les formules liées à ceci`)}
-                    disabled={assistantLoading}
+                    disabled={isContextualLoading}
                     className="p-3 bg-purple-600/20 hover:bg-purple-600/30 rounded-lg text-left text-purple-200 hover:text-white transition-colors disabled:opacity-50"
                   >
                     🧮 Formules associées
                   </button>
                   <button
                     onClick={() => askAssistant(`Comment ceci se relie-t-il au reste de la théorie`)}
-                    disabled={assistantLoading}
+                    disabled={isContextualLoading}
                     className="p-3 bg-green-600/20 hover:bg-green-600/30 rounded-lg text-left text-green-200 hover:text-white transition-colors disabled:opacity-50"
                   >
                     🔗 Connexions théoriques
                   </button>
                   <button
                     onClick={() => askAssistant(`Peux-tu donner des exemples pratiques`)}
-                    disabled={assistantLoading}
+                    disabled={isContextualLoading}
                     className="p-3 bg-yellow-600/20 hover:bg-yellow-600/30 rounded-lg text-left text-yellow-200 hover:text-white transition-colors disabled:opacity-50"
                   >
                     ⚡ Exemples pratiques
