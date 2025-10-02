@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Page de collaboration ne s'affiche pas correctement avec les options de traitement texte qui n'apparaissent pas. L'utilisateur ne peut pas vérifier si l'IA spécialisée peut ajouter du contenu à partir de cette page."
+user_problem_statement: "Test de la nouvelle section 'Document Intégral - Partie 1' dans le Salon de Lecture (/salon-lecture). Vérification que la section apparaît dans la navigation, affiche le contenu intégral avec toutes les sections requises, et que la fonctionnalité d'appui long pour l'assistant contextuel fonctionne."
 
 backend:
   - task: "API endpoint /api/collaborate pour collaboration IA"
