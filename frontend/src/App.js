@@ -2950,11 +2950,18 @@ const AccesPrivilegiePage = () => {
   );
 };
 // App principale
-// Salon de Lecture - Présentation intégrale de la théorie
+// Salon de Lecture - Présentation intégrale de la théorie avec IA Contextuelle
 const SalonLecturePage = () => {
   const [selectedSection, setSelectedSection] = useState('introduction');
   const [concepts, setConcepts] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // États pour l'assistant contextuel
+  const [showAssistant, setShowAssistant] = useState(false);
+  const [selectedText, setSelectedText] = useState('');
+  const [assistantLoading, setAssistantLoading] = useState(false);
+  const [assistantResponse, setAssistantResponse] = useState('');
+  const [longPressTimer, setLongPressTimer] = useState(null);
 
   useEffect(() => {
     fetchConceptsEnrichis();
