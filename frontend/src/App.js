@@ -4515,10 +4515,15 @@ Le vingt-quatre mars deux mille vingt-cinq.
   };
 
   // Fonction pour ouvrir la modal avec un terme pré-sélectionné
-  window.openPhilippotModal = (term) => {
+  const openPhilippotModal = (term) => {
     setSelectedText(`Terme spécialisé: "${term}"`);
     setShowContextualAssistant(true);
   };
+  
+  // Exposer la fonction globalement
+  React.useEffect(() => {
+    window.openPhilippotModal = openPhilippotModal;
+  }, []);
 
   const renderMethodeEnrichie = () => {
     const documentContent = `La méthode de Philippôt :
