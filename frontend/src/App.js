@@ -4522,7 +4522,15 @@ Le vingt-quatre mars deux mille vingt-cinq.
       'nombre premier', 'Bernhard Riemann', 'hypothèse de Riemann', 'énigme de Bernhard Riemann',
       'schizophrénie universitaire', 'technique du moulinet', 'constante de l\'inverse du temps',
       'arithmétique transfinie', 'métrique spectrale', 'ordinal', 'cardinal', 'parsec',
-      'analyse granulométrique', 'tamis', 'passant', 'échantillon représentatif de l\'infini'
+      'analyse granulométrique', 'tamis', 'passant', 'échantillon représentatif de l\'infini',
+      // Nouveaux termes de la deuxième partie
+      'théorème de Philippôt', 'intrication quantique', 'univers est au carré', 'géométrie de Philippôt',
+      'rectangle élevé au carré', 'involution', 'diamètre hyperréel', 'longueur de Philippôt',
+      'cercle Denis', 'résonance terrestre', 'espace de Minkowski', 'hypersurface du présent',
+      'théorème gris bleu', 'nombres hypercomplexes', 'spirale de Théodore', 'carré de Gabriel',
+      'sphère de Zêta', 'obligation de Philippôt', 'fréquence fondamentale', 'longueur de Planck',
+      'Zêta Riticuli', 'constante de l\'inverse du temps', 'métrique de Minkowski', 'groupe de Poincaré',
+      'quaternions', 'géométrie épipolaire', 'chaos discret', 'neuro-morphisme'
     ];
 
     let processedText = text;
