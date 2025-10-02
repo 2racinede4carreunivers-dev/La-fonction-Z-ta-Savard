@@ -2978,6 +2978,81 @@ const SalonLecturePage = () => {
     }
   };
 
+  // Fonctions pour l'assistant contextuel
+  const handleMouseDown = (e) => {
+    const timer = setTimeout(() => {
+      const selection = window.getSelection();
+      let text = selection.toString().trim();
+      
+      // Si rien n'est sélectionné, prendre le mot sous le curseur
+      if (!text) {
+        const range = document.caretRangeFromPoint(e.clientX, e.clientY);
+        if (range) {
+          // Étendre la sélection au mot complet
+          range.expand('word');
+          selection.removeAllRanges();
+          selection.addRange(range);
+          text = selection.toString().trim();
+        }
+      }
+      
+      if (text && text.length > 2) {
+        setSelectedText(text);
+        setShowAssistant(true);
+        // Petit effet vibratoire sur mobile
+        if (navigator.vibrate) {
+          navigator.vibrate(50);
+        }
+      }
+    }, 800); // 800ms pour l'appui long
+    
+    setLongPressTimer(timer);
+  };
+
+  const handleMouseUp = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      setLongPressTimer(null);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (longPressTimer) {
+      clearTimeout(longPressTimer);
+      setLongPressTimer(null);
+    }
+  };
+
+  const askAssistant = async (contextualQuestion) => {
+    if (!selectedText) return;
+    
+    setAssistantLoading(true);
+    setAssistantResponse('');
+    
+    try {
+      const fullQuestion = `${contextualQuestion}\n\nContexte sélectionné: "${selectedText}"`;
+      
+      const response = await axios.post(`${API_URL}/api/chat-privileged`, {
+        message: fullQuestion
+      });
+      
+      setAssistantResponse(response.data.response);
+    } catch (error) {
+      console.error('Erreur assistant contextuel:', error);
+      setAssistantResponse('Désolé, je n\'ai pas pu traiter votre demande. Veuillez réessayer.');
+    } finally {
+      setAssistantLoading(false);
+    }
+  };
+
+  const closeAssistant = () => {
+    setShowAssistant(false);
+    setSelectedText('');
+    setAssistantResponse('');
+    // Effacer la sélection
+    window.getSelection().removeAllRanges();
+  };
+
   const sections = [
     {
       id: 'introduction',
