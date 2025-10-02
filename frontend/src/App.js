@@ -5481,7 +5481,7 @@ Fin 1ère partie, la méthode de Philippôt.`;
         </div>
 
         {/* Modal Assistant Contextuel */}
-        {showAssistant && (
+        {showContextualAssistant && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="bg-gradient-to-r from-slate-800 to-blue-800 rounded-xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto border border-blue-500/30">
               <div className="flex items-center justify-between mb-6">
