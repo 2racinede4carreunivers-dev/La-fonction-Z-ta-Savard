@@ -3012,7 +3012,7 @@ const SalonLecturePage = () => {
       
       if (text && text.length > 2) {
         setSelectedText(text);
-        setShowAssistant(true);
+        setShowContextualAssistant(true);
         // Petit effet vibratoire sur mobile
         if (navigator.vibrate) {
           navigator.vibrate(50);
