@@ -207,7 +207,8 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Fonctionnalité d'appui long pour assistant contextuel"
+    - "Navigation mobile vers Salon de Lecture"
+    - "Section Méthode de Philippôt : Développement Approfondi dans navigation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
