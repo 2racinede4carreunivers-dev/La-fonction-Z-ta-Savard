@@ -3113,7 +3113,15 @@ const SalonLecturePage = () => {
         </h2>
         
         <div className="prose prose-invert max-w-none">
-          <p className="text-lg text-blue-200 leading-relaxed mb-6">
+          <p 
+            className="text-lg text-blue-200 leading-relaxed mb-6 cursor-help select-text" 
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleMouseDown}
+            onTouchEnd={handleMouseUp}
+            title="Appui long pour poser une question à l'IA spécialisée"
+          >
             La théorie "L'univers est au carré" de Philippe Thomas Savard représente une approche révolutionnaire 
             de la compréhension des nombres premiers et de leur distribution géométrique. Cette théorie propose 
             que l'univers obéit à des lois géométriques fondées sur des relations carrées, révélant un code secret 
