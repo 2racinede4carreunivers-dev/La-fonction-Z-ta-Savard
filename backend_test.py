@@ -584,6 +584,9 @@ def main():
     print("\n🔐 PRIVILEGED ACCESS SYSTEM TESTS")
     tester.test_privileged_access_system()
     
+    print("\n🔬 THÉORÈME DE PHILIPPÔT - DEUXIÈME PARTIE TEST")
+    tester.test_philippot_theorem_privileged_access()
+    
     print("\n❌ ERROR HANDLING TESTS")
     tester.test_invalid_endpoints()
     
