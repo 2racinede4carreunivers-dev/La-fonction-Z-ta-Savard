@@ -424,6 +424,109 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         return success1 and success2 and privileged_chat_success and success4
 
+    def test_philippot_theorem_privileged_access(self):
+        """Test specific question about Philippôt theorem from second part"""
+        print("\n🔬 THÉORÈME DE PHILIPPÔT - DEUXIÈME PARTIE TEST")
+        
+        # Test the specific question requested in the review
+        test_question = "Explique-moi le théorème de Philippôt de la deuxième partie"
+        
+        success, response = self.run_test(
+            "Privileged Chat - Théorème de Philippôt (Deuxième Partie)",
+            "POST",
+            "api/chat-privileged",
+            200,
+            data={"message": test_question, "session_id": "test_philippot_theorem_session"}
+        )
+        
+        if success and isinstance(response, dict):
+            # Validate response structure
+            required_fields = ['response', 'privileged_access', 'concepts_available']
+            missing_fields = [field for field in required_fields if field not in response]
+            if missing_fields:
+                print(f"   ⚠️  Missing fields in response: {missing_fields}")
+                return False
+            
+            ai_response = response['response']
+            privileged_access = response['privileged_access']
+            concepts_available = response['concepts_available']
+            
+            print(f"   ✅ Response received successfully")
+            print(f"   📊 Response length: {len(ai_response)} characters")
+            print(f"   🔐 Privileged access: {privileged_access}")
+            print(f"   📚 Concepts available: {concepts_available}")
+            
+            # Check for privileged access confirmation
+            if not privileged_access:
+                print(f"   ❌ Privileged access not confirmed")
+                return False
+            
+            # Check for bi-partite structure (🔵 and ⚪)
+            has_bipartite = "🔵" in ai_response and "⚪" in ai_response
+            if has_bipartite:
+                print(f"   ✅ Bi-partite response structure detected")
+            else:
+                print(f"   ⚠️  Bi-partite structure (🔵/⚪) not detected")
+            
+            # Check for specific content from second part
+            key_concepts_second_part = [
+                "trois carrés égalent à un triangle",
+                "trois carrés égalent un triangle", 
+                "intrication quantique",
+                "géométrie de philippôt",
+                "théorème de philippôt"
+            ]
+            
+            mentioned_concepts = []
+            for concept in key_concepts_second_part:
+                if concept.lower() in ai_response.lower():
+                    mentioned_concepts.append(concept)
+            
+            if mentioned_concepts:
+                print(f"   ✅ Key concepts from second part mentioned: {', '.join(mentioned_concepts)}")
+            else:
+                print(f"   ❌ Key concepts from second part NOT mentioned")
+                print(f"   Expected concepts: {', '.join(key_concepts_second_part)}")
+                return False
+            
+            # Check for specific theorem content
+            theorem_indicators = [
+                "trois carrés",
+                "triangle",
+                "intrication",
+                "géométrique"
+            ]
+            
+            found_indicators = [indicator for indicator in theorem_indicators if indicator.lower() in ai_response.lower()]
+            if len(found_indicators) >= 2:
+                print(f"   ✅ Theorem content indicators found: {', '.join(found_indicators)}")
+            else:
+                print(f"   ⚠️  Limited theorem content indicators: {', '.join(found_indicators)}")
+            
+            # Check response quality (should be substantial for this complex topic)
+            if len(ai_response) < 500:
+                print(f"   ⚠️  Response seems short for such a complex topic ({len(ai_response)} chars)")
+            else:
+                print(f"   ✅ Response has substantial content ({len(ai_response)} chars)")
+            
+            # Final validation
+            validation_passed = (
+                privileged_access and
+                len(mentioned_concepts) > 0 and
+                len(found_indicators) >= 2 and
+                len(ai_response) >= 300
+            )
+            
+            if validation_passed:
+                print(f"   🎉 Théorème de Philippôt test PASSED - AI has access to second part content")
+                return True
+            else:
+                print(f"   ❌ Théorème de Philippôt test FAILED - Missing expected content")
+                return False
+        else:
+            print(f"   ❌ Failed to get valid response")
+            return False
+
     def test_invalid_endpoints(self):
         """Test error handling for invalid endpoints"""
         # Test non-existent concept
