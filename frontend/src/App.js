@@ -3279,6 +3279,7 @@ const App = () => {
           <Route path="/collaboration" element={<CollaborationPage />} />
           <Route path="/concepts-enrichis" element={<ConceptsEnrichisPage />} />
           <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
+          <Route path="/salon-lecture" element={<SalonLecturePage />} />
         </Routes>
       </div>
     </Router>
