@@ -3416,6 +3416,117 @@ const SalonLecturePage = () => {
             {renderSection(selectedSection)}
           </div>
         </div>
+
+        {/* Modal Assistant Contextuel */}
+        {showAssistant && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-gradient-to-r from-slate-800 to-blue-800 rounded-xl p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto border border-blue-500/30">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                    🤖
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Assistant Spécialisé Contextuel</h3>
+                    <p className="text-sm text-blue-300">Posez votre question sur: "{selectedText}"</p>
+                  </div>
+                </div>
+                <button
+                  onClick={closeAssistant}
+                  className="w-8 h-8 bg-red-500/20 hover:bg-red-500/30 rounded-lg flex items-center justify-center text-red-300 hover:text-red-200 transition-colors"
+                >
+                  ×
+                </button>
+              </div>
+
+              {/* Zone de texte sélectionné */}
+              <div className="bg-slate-700/50 rounded-lg p-4 mb-6 border border-blue-500/20">
+                <h4 className="text-sm font-semibold text-blue-300 mb-2">📝 Texte sélectionné:</h4>
+                <p className="text-white bg-blue-900/20 rounded p-3 font-mono text-sm">
+                  "{selectedText}"
+                </p>
+              </div>
+
+              {/* Boutons de questions rapides */}
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-cyan-300 mb-3">💡 Questions Contextuelles Rapides:</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <button
+                    onClick={() => askAssistant(`Explique-moi en détail ce concept`)}
+                    disabled={assistantLoading}
+                    className="p-3 bg-blue-600/20 hover:bg-blue-600/30 rounded-lg text-left text-blue-200 hover:text-white transition-colors disabled:opacity-50"
+                  >
+                    🔍 Explique ce concept en détail
+                  </button>
+                  <button
+                    onClick={() => askAssistant(`Quelles sont les formules liées à ceci`)}
+                    disabled={assistantLoading}
+                    className="p-3 bg-purple-600/20 hover:bg-purple-600/30 rounded-lg text-left text-purple-200 hover:text-white transition-colors disabled:opacity-50"
+                  >
+                    🧮 Formules associées
+                  </button>
+                  <button
+                    onClick={() => askAssistant(`Comment ceci se relie-t-il au reste de la théorie`)}
+                    disabled={assistantLoading}
+                    className="p-3 bg-green-600/20 hover:bg-green-600/30 rounded-lg text-left text-green-200 hover:text-white transition-colors disabled:opacity-50"
+                  >
+                    🔗 Connexions théoriques
+                  </button>
+                  <button
+                    onClick={() => askAssistant(`Peux-tu donner des exemples pratiques`)}
+                    disabled={assistantLoading}
+                    className="p-3 bg-yellow-600/20 hover:bg-yellow-600/30 rounded-lg text-left text-yellow-200 hover:text-white transition-colors disabled:opacity-50"
+                  >
+                    ⚡ Exemples pratiques
+                  </button>
+                </div>
+              </div>
+
+              {/* Zone de réponse de l'IA */}
+              <div className="min-h-[200px]">
+                {assistantLoading ? (
+                  <div className="flex items-center justify-center py-12">
+                    <div className="text-center">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-400 mx-auto mb-3"></div>
+                      <p className="text-blue-300">L'IA spécialisée analyse votre question...</p>
+                    </div>
+                  </div>
+                ) : assistantResponse ? (
+                  <div className="bg-slate-900/50 rounded-lg p-4 border border-blue-500/20">
+                    <h4 className="text-sm font-semibold text-blue-300 mb-3 flex items-center gap-2">
+                      🤖 Réponse de l'IA Spécialisée avec Accès Privilégié
+                    </h4>
+                    <ScrollArea className="max-h-96">
+                      <div className="text-white whitespace-pre-wrap leading-relaxed text-sm">
+                        {assistantResponse}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                ) : (
+                  <div className="bg-slate-700/30 rounded-lg p-8 text-center border-2 border-dashed border-blue-500/30">
+                    <div className="text-blue-300 mb-2">🚀</div>
+                    <p className="text-blue-200">
+                      Cliquez sur une question contextuelle pour obtenir une explication détaillée de l'IA spécialisée
+                    </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Instructions d'utilisation */}
+              <div className="mt-6 p-4 bg-cyan-900/20 rounded-lg border border-cyan-500/20">
+                <h4 className="text-sm font-semibold text-cyan-300 mb-2 flex items-center gap-2">
+                  💡 Comment utiliser l'assistant contextuel
+                </h4>
+                <ul className="text-sm text-cyan-200 space-y-1">
+                  <li>• <strong>Appui long</strong> sur n'importe quel texte pour ouvrir cet assistant</li>
+                  <li>• <strong>Questions rapides</strong> pour des explications spécialisées</li>
+                  <li>• <strong>IA avec accès privilégié</strong> aux 14 concepts théoriques</li>
+                  <li>• <strong>Réponses bi-partites</strong> : Vision de l'auteur + Contexte neutre</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
