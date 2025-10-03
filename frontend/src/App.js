@@ -6176,7 +6176,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "1",
       concepts: ["racines carrées", "Digamma", "8ème position"],
-      imageUrl: generatePlaceholder(4, "mathematiques"),
+      imageUrl: getPlaceholderImage(4, "mathematiques"),
       explanation: "Grille représentant la précision mathématique nécessaire au calcul du Digamma à la 8ème position des séquences."
     },
     {
