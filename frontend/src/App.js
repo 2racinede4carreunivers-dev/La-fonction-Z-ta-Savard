@@ -6196,7 +6196,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "2",
       concepts: ["théorème gris bleu", "nombres hypercomplexes", "spirale de Théodore"],
-      imageUrl: generatePlaceholder(6, "mathematiques"),
+      imageUrl: getPlaceholderImage(6, "mathematiques"),
       explanation: "Représentation des calculs avancés nécessaires pour le théorème gris bleu et les nombres hypercomplexes."
     },
     {
