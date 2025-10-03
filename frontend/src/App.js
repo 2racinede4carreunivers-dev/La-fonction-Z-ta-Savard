@@ -6206,7 +6206,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2",
       concepts: ["résonance terrestre", "fréquence fondamentale", "espace de Minkowski"],
-      imageUrl: generatePlaceholder(7, "physique"),
+      imageUrl: getPlaceholderImage(7, "physique"),
       explanation: "Métaphore visuelle des instruments de précision nécessaires pour observer la résonance terrestre et l'espace de Minkowski selon Philippôt."
     },
     {
