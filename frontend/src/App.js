@@ -6127,31 +6127,14 @@ const SalleIllustrationsPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('toutes');
 
-  // Générateur d'images placeholder performant pour éviter les lenteurs
-  const generatePlaceholder = (id, category) => {
-    const colors = {
-      geometrie: 'from-blue-400 to-cyan-500',
-      mathematiques: 'from-purple-400 to-pink-500', 
-      physique: 'from-green-400 to-emerald-500'
+  // Images placeholder simples et rapides
+  const getPlaceholderImage = (id, category) => {
+    const placeholders = {
+      geometrie: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='100%25' height='100%25' fill='%234F46E5'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='Arial' font-size='40' fill='white'%3E📐%3C/text%3E%3C/svg%3E",
+      mathematiques: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='100%25' height='100%25' fill='%237C3AED'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='Arial' font-size='40' fill='white'%3E🧮%3C/text%3E%3C/svg%3E",
+      physique: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='400' viewBox='0 0 600 400'%3E%3Crect width='100%25' height='100%25' fill='%2310B981'/%3E%3Ctext x='50%25' y='50%25' text-anchor='middle' dy='.3em' font-family='Arial' font-size='40' fill='white'%3E⚛️%3C/text%3E%3C/svg%3E"
     };
-    const icons = {
-      geometrie: '📐',
-      mathematiques: '🧮',
-      physique: '⚛️'
-    };
-    return `data:image/svg+xml;base64,${btoa(`
-      <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="grad${id}" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
-          </linearGradient>
-        </defs>
-        <rect width="100%" height="100%" fill="url(#grad${id})"/>
-        <text x="50%" y="45%" text-anchor="middle" font-family="Arial" font-size="60" fill="white">${icons[category]}</text>
-        <text x="50%" y="65%" text-anchor="middle" font-family="Arial" font-size="16" fill="rgba(255,255,255,0.8)">Illustration ${id}</text>
-      </svg>
-    `)}`;
+    return placeholders[category] || placeholders.geometrie;
   };
 
   // Images organisées par catégories thématiques (optimisé pour performance)
