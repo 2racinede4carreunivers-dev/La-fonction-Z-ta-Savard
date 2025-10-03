@@ -6146,7 +6146,7 @@ const SalleIllustrationsPage = () => {
       category: "geometrie",
       partie: "2",
       concepts: ["intrication quantique", "géométrie de Philippôt", "théorème de Philippôt"],
-      imageUrl: generatePlaceholder(1, "geometrie"),
+      imageUrl: getPlaceholderImage(1, "geometrie"),
       explanation: "Cette illustration montre les connexions invisibles entre les éléments géométriques, similaires aux propriétés d'intrication quantique décrites dans la deuxième partie de la théorie."
     },
     {
