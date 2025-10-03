@@ -6156,7 +6156,7 @@ const SalleIllustrationsPage = () => {
       category: "geometrie", 
       partie: "1",
       concepts: ["spectre des nombres premiers", "méthode de Philippôt", "14 tableaux"],
-      imageUrl: generatePlaceholder(2, "geometrie"),
+      imageUrl: getPlaceholderImage(2, "geometrie"),
       explanation: "Les motifs géométriques de base qui sous-tendent la construction des 14 tableaux de la méthode de Philippôt."
     },
     {
