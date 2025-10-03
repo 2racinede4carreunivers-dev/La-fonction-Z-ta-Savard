@@ -6121,6 +6121,373 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
   );
 };
 
+// Page Salle des Illustrations Carrées
+const SalleIllustrationsPage = () => {
+  const navigate = useNavigate();
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('toutes');
+
+  // Images organisées par catégories thématiques
+  const illustrations = [
+    {
+      id: 1,
+      title: "Réseau Géométrique Quantique",
+      description: "Représentation visuelle des connexions géométriques dans la théorie de Philippôt",
+      category: "geometrie",
+      partie: "2",
+      concepts: ["intrication quantique", "géométrie de Philippôt", "théorème de Philippôt"],
+      imageUrl: "https://images.unsplash.com/photo-1655993810480-c15dccf9b3a0?w=600&h=400&fit=crop",
+      explanation: "Cette illustration montre les connexions invisibles entre les éléments géométriques, similaires aux propriétés d'intrication quantique décrites dans la deuxième partie de la théorie."
+    },
+    {
+      id: 2,
+      title: "Motifs Géométriques de Base",
+      description: "Structures fondamentales de la géométrie du spectre des nombres premiers",
+      category: "geometrie", 
+      partie: "1",
+      concepts: ["spectre des nombres premiers", "méthode de Philippôt", "14 tableaux"],
+      imageUrl: "https://images.unsplash.com/photo-1486927181919-3ac1fc3a8082?w=600&h=400&fit=crop",
+      explanation: "Les motifs géométriques de base qui sous-tendent la construction des 14 tableaux de la méthode de Philippôt."
+    },
+    {
+      id: 3,
+      title: "Géométrie Abstraite de l'Espace",
+      description: "Visualisation de l'univers au carré selon la géométrie de Philippôt",
+      category: "physique",
+      partie: "2", 
+      concepts: ["univers au carré", "rectangle élevé au carré", "involution"],
+      imageUrl: "https://images.unsplash.com/photo-1591096866498-6288ad5da7ca?w=600&h=400&fit=crop",
+      explanation: "Représentation abstraite du concept 'rectangle élevé au carré' où toutes les figures deviennent des carrés par transformation involutive."
+    },
+    {
+      id: 4,
+      title: "Grille Mathématique de Précision",
+      description: "Structure de calcul pour les séquences de racines carrées",
+      category: "mathematiques",
+      partie: "1",
+      concepts: ["racines carrées", "Digamma", "8ème position"],
+      imageUrl: "https://images.unsplash.com/photo-1659982182150-b76bb83fdcd5?w=600&h=400&fit=crop",
+      explanation: "Grille représentant la précision mathématique nécessaire au calcul du Digamma à la 8ème position des séquences."
+    },
+    {
+      id: 5,
+      title: "Équations Fondamentales",
+      description: "Formules de base de la théorie L'univers est au carré",
+      category: "mathematiques",
+      partie: "1",
+      concepts: ["formules", "substitution", "zéros triviaux"],
+      imageUrl: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=600&h=400&fit=crop",
+      explanation: "Visualisation des équations fondamentales utilisées dans la méthode de substitution et le calcul des zéros triviaux."
+    },
+    {
+      id: 6,
+      title: "Travaux Mathématiques Avancés",
+      description: "Développements complexes des théorèmes de Philippôt",
+      category: "mathematiques",
+      partie: "2",
+      concepts: ["théorème gris bleu", "nombres hypercomplexes", "spirale de Théodore"],
+      imageUrl: "https://images.unsplash.com/photo-1581089778245-3ce67677f718?w=600&h=400&fit=crop",
+      explanation: "Représentation des calculs avancés nécessaires pour le théorème gris bleu et les nombres hypercomplexes."
+    },
+    {
+      id: 7,
+      title: "Instruments de Précision Scientifique",
+      description: "Outils d'observation pour la géométrie de l'espace",
+      category: "physique",
+      partie: "2",
+      concepts: ["résonance terrestre", "fréquence fondamentale", "espace de Minkowski"],
+      imageUrl: "https://images.unsplash.com/photo-1526930382372-67bf22c0fce2?w=600&h=400&fit=crop",
+      explanation: "Métaphore visuelle des instruments de précision nécessaires pour observer la résonance terrestre et l'espace de Minkowski selon Philippôt."
+    },
+    {
+      id: 8,
+      title: "Visualisation Scientifique Complexe",
+      description: "Représentation de la sphère de la fonction Zêta",
+      category: "physique",
+      partie: "2",
+      concepts: ["sphère de Zêta", "5 cubes", "fonction Zêta de Philippôt"],
+      imageUrl: "https://images.pexels.com/photos/443413/pexels-photo-443413.jpeg?w=600&h=400&fit=crop",
+      explanation: "Visualisation complexe représentant la sphère de la fonction Zêta composée de 5 cubes selon l'interprétation de Philippôt."
+    }
+  ];
+
+  const categories = [
+    { id: 'toutes', name: '🌌 Toutes les Illustrations', count: illustrations.length },
+    { id: 'geometrie', name: '📐 Géométrie', count: illustrations.filter(img => img.category === 'geometrie').length },
+    { id: 'mathematiques', name: '🧮 Mathématiques', count: illustrations.filter(img => img.category === 'mathematiques').length },
+    { id: 'physique', name: '⚛️ Physique Théorique', count: illustrations.filter(img => img.category === 'physique').length }
+  ];
+
+  const filteredImages = selectedCategory === 'toutes' 
+    ? illustrations 
+    : illustrations.filter(img => img.category === selectedCategory);
+
+  const openImageModal = (image) => {
+    setSelectedImage(image);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
+  const askAIAboutConcept = (concept) => {
+    navigate('/chat', { 
+      state: { 
+        initialMessage: `Explique-moi le concept "${concept}" en détail selon la théorie de Philippe Thomas Savard.`,
+        concept: concept 
+      } 
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      {/* Header */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMyIvPjwvZz48L2c+PC9zdmc+')] opacity-20"></div>
+        
+        <div className="relative container mx-auto px-6 py-16">
+          <div className="text-center max-w-4xl mx-auto">
+            <div className="mb-8">
+              <div className="inline-flex items-center gap-2 bg-cyan-900/30 backdrop-blur-sm border border-cyan-400/30 rounded-full px-4 py-2 mb-6">
+                <div className="w-4 h-4 bg-gradient-to-br from-cyan-400 to-blue-600 rounded"></div>
+                <span className="text-cyan-300 text-sm font-medium">Galerie Interactive</span>
+              </div>
+              
+              <h1 className="text-5xl font-bold bg-gradient-to-r from-cyan-400 via-blue-300 to-purple-400 bg-clip-text text-transparent mb-6 leading-tight">
+                🎨 Salle des Illustrations Carrées
+              </h1>
+              
+              <p className="text-xl text-blue-200 mb-8 leading-relaxed">
+                Explorez visuellement les concepts de la théorie "L'univers est au carré" à travers une galerie d'illustrations 
+                organisées par thématiques avec accès direct à l'IA spécialisée.
+              </p>
+              
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                  <div className="text-2xl font-bold text-cyan-400">{illustrations.length}</div>
+                  <div className="text-sm text-blue-200">Illustrations</div>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                  <div className="text-2xl font-bold text-purple-400">3</div>
+                  <div className="text-sm text-blue-200">Catégories</div>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                  <div className="text-2xl font-bold text-indigo-400">2</div>
+                  <div className="text-sm text-blue-200">Parties</div>
+                </div>
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                  <div className="text-2xl font-bold text-emerald-400">∞</div>
+                  <div className="text-sm text-blue-200">Concepts</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filtres par catégories */}
+      <div className="container mx-auto px-6 py-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                selectedCategory === category.id
+                  ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-105'
+                  : 'bg-white/10 text-blue-200 hover:bg-white/20 hover:text-white border border-white/20'
+              }`}
+            >
+              {category.name} ({category.count})
+            </button>
+          ))}
+        </div>
+
+        {/* Galerie d'images */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {filteredImages.map((image) => (
+            <Card
+              key={image.id}
+              className="bg-white/5 backdrop-blur-sm border border-white/10 hover:border-cyan-400/50 transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-xl"
+              onClick={() => openImageModal(image)}
+            >
+              <div className="relative">
+                <img
+                  src={image.imageUrl}
+                  alt={image.title}
+                  className="w-full h-48 object-cover rounded-t-lg"
+                />
+                <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">
+                  Partie {image.partie}
+                </div>
+                <div className={`absolute top-2 left-2 px-2 py-1 rounded-full text-xs font-semibold ${
+                  image.category === 'geometrie' ? 'bg-blue-500/80 text-white' :
+                  image.category === 'mathematiques' ? 'bg-purple-500/80 text-white' :
+                  'bg-green-500/80 text-white'
+                }`}>
+                  {image.category === 'geometrie' ? '📐' :
+                   image.category === 'mathematiques' ? '🧮' : '⚛️'}
+                </div>
+              </div>
+              
+              <CardContent className="p-4">
+                <h3 className="text-lg font-bold text-white mb-2 line-clamp-2">
+                  {image.title}
+                </h3>
+                <p className="text-sm text-blue-200 mb-3 line-clamp-2">
+                  {image.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-1 mb-3">
+                  {image.concepts.slice(0, 2).map((concept, index) => (
+                    <span
+                      key={index}
+                      className="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-1 rounded-full"
+                    >
+                      {concept}
+                    </span>
+                  ))}
+                  {image.concepts.length > 2 && (
+                    <span className="text-xs text-gray-400">
+                      +{image.concepts.length - 2}
+                    </span>
+                  )}
+                </div>
+                
+                <div className="text-xs text-blue-300 flex items-center gap-1">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                  Cliquez pour explorer
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Message si aucune image dans la catégorie */}
+        {filteredImages.length === 0 && (
+          <div className="text-center py-12">
+            <div className="text-6xl mb-4">🎨</div>
+            <h3 className="text-xl text-white mb-2">Aucune illustration dans cette catégorie</h3>
+            <p className="text-blue-200">Sélectionnez une autre catégorie pour voir les illustrations disponibles.</p>
+          </div>
+        )}
+      </div>
+
+      {/* Modal d'image */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+          onClick={closeModal}
+        >
+          <div 
+            className="bg-slate-900/95 backdrop-blur-sm border border-white/20 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="relative">
+              {/* Bouton fermer */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 text-white hover:text-cyan-400 transition-colors z-10 bg-black/50 rounded-full p-2"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+              
+              {/* Image */}
+              <img
+                src={selectedImage.imageUrl}
+                alt={selectedImage.title}
+                className="w-full h-64 md:h-80 object-cover rounded-t-xl"
+              />
+            </div>
+            
+            <div className="p-6">
+              <div className="flex items-center gap-3 mb-4">
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  selectedImage.category === 'geometrie' ? 'bg-blue-500/20 text-blue-300' :
+                  selectedImage.category === 'mathematiques' ? 'bg-purple-500/20 text-purple-300' :
+                  'bg-green-500/20 text-green-300'
+                }`}>
+                  {selectedImage.category === 'geometrie' ? '📐 Géométrie' :
+                   selectedImage.category === 'mathematiques' ? '🧮 Mathématiques' : '⚛️ Physique'}
+                </span>
+                <span className="text-sm text-gray-400">Partie {selectedImage.partie}</span>
+              </div>
+              
+              <h2 className="text-2xl font-bold text-white mb-3">
+                {selectedImage.title}
+              </h2>
+              
+              <p className="text-blue-200 mb-4 leading-relaxed">
+                {selectedImage.explanation}
+              </p>
+              
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-cyan-300 mb-3">
+                  🔗 Concepts associés
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedImage.concepts.map((concept, index) => (
+                    <button
+                      key={index}
+                      onClick={() => askAIAboutConcept(concept)}
+                      className="bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 hover:text-white px-3 py-2 rounded-lg text-sm transition-all duration-200 border border-cyan-500/30 hover:border-cyan-400"
+                    >
+                      {concept} →
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button
+                  onClick={() => navigate('/salon-lecture')}
+                  className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold"
+                >
+                  📚 Lire le texte complet
+                </Button>
+                <Button
+                  onClick={() => askAIAboutConcept(selectedImage.concepts[0])}
+                  className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold"
+                >
+                  🤖 Demander à l'IA
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Section liens rapides */}
+      <div className="container mx-auto px-6 py-16">
+        <div className="bg-gradient-to-r from-indigo-900/50 to-purple-900/50 rounded-xl p-8 border border-indigo-500/20 text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">
+            🌟 Explorez plus loin la théorie
+          </h2>
+          <p className="text-blue-200 mb-6 max-w-2xl mx-auto">
+            Ces illustrations complètent les documents textuels. Plongez dans la théorie complète avec nos autres outils interactifs.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-lg mx-auto">
+            <Button
+              onClick={() => navigate('/salon-lecture')}
+              className="flex-1 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold"
+            >
+              📚 Documents Intégraux
+            </Button>
+            <Button
+              onClick={() => navigate('/chat')}
+              className="flex-1 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-semibold"
+            >
+              🤖 Assistant IA Spécialisé
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const App = () => {
   return (
     <Router>
