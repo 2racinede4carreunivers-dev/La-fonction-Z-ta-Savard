@@ -6166,7 +6166,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2", 
       concepts: ["univers au carré", "rectangle élevé au carré", "involution"],
-      imageUrl: generatePlaceholder(3, "physique"),
+      imageUrl: getPlaceholderImage(3, "physique"),
       explanation: "Représentation abstraite du concept 'rectangle élevé au carré' où toutes les figures deviennent des carrés par transformation involutive."
     },
     {
