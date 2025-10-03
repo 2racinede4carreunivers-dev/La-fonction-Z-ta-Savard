@@ -6343,6 +6343,9 @@ const SalleIllustrationsPage = () => {
                   src={image.imageUrl}
                   alt={image.title}
                   className="w-full h-48 object-cover rounded-t-lg"
+                  loading="lazy"
+                  onLoad={(e) => e.target.style.opacity = '1'}
+                  style={{ opacity: '0.8', transition: 'opacity 0.3s ease' }}
                 />
                 <div className="absolute top-2 right-2 bg-black/70 backdrop-blur-sm rounded-full px-2 py-1 text-xs text-white">
                   Partie {image.partie}
