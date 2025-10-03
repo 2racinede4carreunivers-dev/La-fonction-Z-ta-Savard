@@ -6216,7 +6216,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2",
       concepts: ["sphère de Zêta", "5 cubes", "fonction Zêta de Philippôt"],
-      imageUrl: generatePlaceholder(8, "physique"),
+      imageUrl: getPlaceholderImage(8, "physique"),
       explanation: "Visualisation complexe représentant la sphère de la fonction Zêta composée de 5 cubes selon l'interprétation de Philippôt."
     }
   ];
