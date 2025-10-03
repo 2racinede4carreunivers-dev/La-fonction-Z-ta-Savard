@@ -6186,7 +6186,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "1",
       concepts: ["formules", "substitution", "zéros triviaux"],
-      imageUrl: generatePlaceholder(5, "mathematiques"),
+      imageUrl: getPlaceholderImage(5, "mathematiques"),
       explanation: "Visualisation des équations fondamentales utilisées dans la méthode de substitution et le calcul des zéros triviaux."
     },
     {
