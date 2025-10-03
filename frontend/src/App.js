@@ -1505,6 +1505,9 @@ const Navigation = () => {
             <Link to="/salon-lecture" className="text-blue-200 hover:text-cyan-400 transition-colors">
               📚 Salon de Lecture
             </Link>
+            <Link to="/salle-illustrations" className="text-blue-200 hover:text-cyan-400 transition-colors">
+              🎨 Salle des Illustrations
+            </Link>
           </div>
 
           {/* Navigation mobile compacte */}
