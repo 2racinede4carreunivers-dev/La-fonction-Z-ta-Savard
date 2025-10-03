@@ -6127,7 +6127,34 @@ const SalleIllustrationsPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('toutes');
 
-  // Images organisées par catégories thématiques
+  // Générateur d'images placeholder performant pour éviter les lenteurs
+  const generatePlaceholder = (id, category) => {
+    const colors = {
+      geometrie: 'from-blue-400 to-cyan-500',
+      mathematiques: 'from-purple-400 to-pink-500', 
+      physique: 'from-green-400 to-emerald-500'
+    };
+    const icons = {
+      geometrie: '📐',
+      mathematiques: '🧮',
+      physique: '⚛️'
+    };
+    return `data:image/svg+xml;base64,${btoa(`
+      <svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="grad${id}" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#8B5CF6;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grad${id})"/>
+        <text x="50%" y="45%" text-anchor="middle" font-family="Arial" font-size="60" fill="white">${icons[category]}</text>
+        <text x="50%" y="65%" text-anchor="middle" font-family="Arial" font-size="16" fill="rgba(255,255,255,0.8)">Illustration ${id}</text>
+      </svg>
+    `)}`;
+  };
+
+  // Images organisées par catégories thématiques (optimisé pour performance)
   const illustrations = [
     {
       id: 1,
@@ -6136,17 +6163,17 @@ const SalleIllustrationsPage = () => {
       category: "geometrie",
       partie: "2",
       concepts: ["intrication quantique", "géométrie de Philippôt", "théorème de Philippôt"],
-      imageUrl: "https://images.unsplash.com/photo-1655993810480-c15dccf9b3a0?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(1, "geometrie"),
       explanation: "Cette illustration montre les connexions invisibles entre les éléments géométriques, similaires aux propriétés d'intrication quantique décrites dans la deuxième partie de la théorie."
     },
     {
       id: 2,
-      title: "Motifs Géométriques de Base",
+      title: "Motifs Géométriques de Base", 
       description: "Structures fondamentales de la géométrie du spectre des nombres premiers",
       category: "geometrie", 
       partie: "1",
       concepts: ["spectre des nombres premiers", "méthode de Philippôt", "14 tableaux"],
-      imageUrl: "https://images.unsplash.com/photo-1486927181919-3ac1fc3a8082?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(2, "geometrie"),
       explanation: "Les motifs géométriques de base qui sous-tendent la construction des 14 tableaux de la méthode de Philippôt."
     },
     {
@@ -6156,7 +6183,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2", 
       concepts: ["univers au carré", "rectangle élevé au carré", "involution"],
-      imageUrl: "https://images.unsplash.com/photo-1591096866498-6288ad5da7ca?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(3, "physique"),
       explanation: "Représentation abstraite du concept 'rectangle élevé au carré' où toutes les figures deviennent des carrés par transformation involutive."
     },
     {
@@ -6166,7 +6193,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "1",
       concepts: ["racines carrées", "Digamma", "8ème position"],
-      imageUrl: "https://images.unsplash.com/photo-1659982182150-b76bb83fdcd5?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(4, "mathematiques"),
       explanation: "Grille représentant la précision mathématique nécessaire au calcul du Digamma à la 8ème position des séquences."
     },
     {
@@ -6176,7 +6203,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "1",
       concepts: ["formules", "substitution", "zéros triviaux"],
-      imageUrl: "https://images.unsplash.com/photo-1509228627152-72ae9ae6848d?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(5, "mathematiques"),
       explanation: "Visualisation des équations fondamentales utilisées dans la méthode de substitution et le calcul des zéros triviaux."
     },
     {
@@ -6186,7 +6213,7 @@ const SalleIllustrationsPage = () => {
       category: "mathematiques",
       partie: "2",
       concepts: ["théorème gris bleu", "nombres hypercomplexes", "spirale de Théodore"],
-      imageUrl: "https://images.unsplash.com/photo-1581089778245-3ce67677f718?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(6, "mathematiques"),
       explanation: "Représentation des calculs avancés nécessaires pour le théorème gris bleu et les nombres hypercomplexes."
     },
     {
@@ -6196,7 +6223,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2",
       concepts: ["résonance terrestre", "fréquence fondamentale", "espace de Minkowski"],
-      imageUrl: "https://images.unsplash.com/photo-1526930382372-67bf22c0fce2?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(7, "physique"),
       explanation: "Métaphore visuelle des instruments de précision nécessaires pour observer la résonance terrestre et l'espace de Minkowski selon Philippôt."
     },
     {
@@ -6206,7 +6233,7 @@ const SalleIllustrationsPage = () => {
       category: "physique",
       partie: "2",
       concepts: ["sphère de Zêta", "5 cubes", "fonction Zêta de Philippôt"],
-      imageUrl: "https://images.pexels.com/photos/443413/pexels-photo-443413.jpeg?w=600&h=400&fit=crop",
+      imageUrl: generatePlaceholder(8, "physique"),
       explanation: "Visualisation complexe représentant la sphère de la fonction Zêta composée de 5 cubes selon l'interprétation de Philippôt."
     }
   ];
