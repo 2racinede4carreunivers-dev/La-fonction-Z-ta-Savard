@@ -2471,7 +2471,7 @@ async def generate_latex(request: dict):
         
         return {
             "success": True,
-            "latex_content": latex_response.content,
+            "latex_content": latex_response,
             "title": title,
             "session_id": session_id
         }
