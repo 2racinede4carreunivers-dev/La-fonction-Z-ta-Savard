@@ -2994,7 +2994,7 @@ Identifier les sections de la théorie "L'univers est au carré" qui posent le p
         
         return {
             "success": True,
-            "analyse_sections": response.content,
+            "analyse_sections": response,
             "questions_analysees": len(questions_recentes),
             "periode": "30 derniers jours"
         }
