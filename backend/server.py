@@ -2770,7 +2770,7 @@ Fournis une analyse complète de protection et d'originalité."""
             "session_id": session_id,
             "texte_hash": texte_hash,
             "longueur_texte": len(texte),
-            "analyse": response.content,
+            "analyse": response,
             "mode": mode,
             "timestamp": datetime.now(timezone.utc).isoformat()
         }
@@ -2780,7 +2780,7 @@ Fournis une analyse complète de protection et d'originalité."""
         return {
             "success": True,
             "protection_id": analyse_plagiat["id"],
-            "analyse_plagiat": response.content,
+            "analyse_plagiat": response,
             "texte_hash": texte_hash,
             "recommendations": [
                 "Documentez la date de création de vos concepts",
