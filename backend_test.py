@@ -527,6 +527,157 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
             print(f"   ❌ Failed to get valid response")
             return False
 
+    def test_analyse_texte_endpoint(self):
+        """Test the new /api/analyse-texte endpoint with intelligent correction system"""
+        print("\n📝 SYSTÈME DE CORRECTION INTELLIGENTE TESTS")
+        
+        # Test text with intentional errors as specified in the review request
+        test_text = """Bonjour, je vais tester le systeme de corection intelligent. Il y a plusieurs erreur dans ce texte que l'IA doit detecter et proposer des ameliorations. Par exemple, les mots sans accent comme "systeme" ou "erreur" au pluriel mal accordé. Aussi des phrase mal structuré comme celle-ci qui pourrait etre ameliorer pour la clartés."""
+        
+        # Test payload as specified in the review request
+        test_payload = {
+            "texte": test_text,
+            "options": {
+                "orthographe": True,
+                "grammaire": True,
+                "semantique": True
+            },
+            "session_id": "test_correction_123"
+        }
+        
+        # Test 1: Basic functionality with intentional errors
+        success1, response1 = self.run_test(
+            "Analyse Texte - Correction Intelligente",
+            "POST",
+            "api/analyse-texte",
+            200,
+            data=test_payload
+        )
+        
+        if success1 and isinstance(response1, dict):
+            # Validate response structure
+            required_fields = ['success', 'analyse', 'options_utilisees', 'session_id', 'longueur_texte']
+            missing_fields = [field for field in required_fields if field not in response1]
+            if missing_fields:
+                print(f"   ⚠️  Missing fields in response: {missing_fields}")
+            else:
+                print(f"   ✅ Response structure is valid")
+                
+                # Check analysis content
+                analyse = response1.get('analyse', {})
+                if 'analyse_orthographe' in analyse:
+                    orthographe_errors = analyse['analyse_orthographe']
+                    print(f"   📊 Orthographe errors detected: {len(orthographe_errors) if isinstance(orthographe_errors, list) else 'N/A'}")
+                    
+                    # Check for specific expected corrections
+                    expected_corrections = ["système", "correction", "erreurs", "détecter", "améliorations"]
+                    if isinstance(orthographe_errors, list):
+                        found_corrections = []
+                        for error in orthographe_errors:
+                            if isinstance(error, dict) and 'suggestion' in error:
+                                suggestion = error['suggestion'].lower()
+                                for expected in expected_corrections:
+                                    if expected.lower() in suggestion:
+                                        found_corrections.append(expected)
+                        
+                        if found_corrections:
+                            print(f"   ✅ Expected corrections found: {', '.join(found_corrections)}")
+                        else:
+                            print(f"   ⚠️  Expected corrections not clearly detected")
+                
+                if 'analyse_grammaire' in analyse:
+                    grammaire_errors = analyse['analyse_grammaire']
+                    print(f"   📊 Grammaire errors detected: {len(grammaire_errors) if isinstance(grammaire_errors, list) else 'N/A'}")
+                
+                # Check options used
+                options_used = response1.get('options_utilisees', {})
+                expected_options = ['orthographe', 'grammaire', 'semantique']
+                for option in expected_options:
+                    if options_used.get(option):
+                        print(f"   ✅ Option '{option}' was processed")
+                    else:
+                        print(f"   ⚠️  Option '{option}' was not processed")
+                
+                # Check text length
+                text_length = response1.get('longueur_texte', 0)
+                expected_length = len(test_text)
+                if text_length == expected_length:
+                    print(f"   ✅ Text length correctly calculated: {text_length} characters")
+                else:
+                    print(f"   ⚠️  Text length mismatch: expected {expected_length}, got {text_length}")
+                
+                # Check session ID
+                session_id = response1.get('session_id', '')
+                if session_id == "test_correction_123":
+                    print(f"   ✅ Session ID correctly preserved: {session_id}")
+                else:
+                    print(f"   ⚠️  Session ID mismatch: expected 'test_correction_123', got '{session_id}'")
+        
+        # Test 2: Edge case - empty text
+        success2, response2 = self.run_test(
+            "Analyse Texte - Empty Text (Error Case)",
+            "POST",
+            "api/analyse-texte",
+            400,  # Should return 400 for empty text
+            data={"texte": "", "options": {"orthographe": True}, "session_id": "test_empty"}
+        )
+        
+        # Test 3: Different options configuration
+        test_payload_minimal = {
+            "texte": "Texte simple pour test minimal.",
+            "options": {
+                "orthographe": True,
+                "grammaire": False,
+                "semantique": False
+            },
+            "session_id": "test_minimal_options"
+        }
+        
+        success3, response3 = self.run_test(
+            "Analyse Texte - Minimal Options",
+            "POST",
+            "api/analyse-texte",
+            200,
+            data=test_payload_minimal
+        )
+        
+        if success3 and isinstance(response3, dict):
+            options_used = response3.get('options_utilisees', {})
+            if options_used.get('orthographe') and not options_used.get('grammaire') and not options_used.get('semantique'):
+                print(f"   ✅ Options correctly filtered: only orthographe enabled")
+            else:
+                print(f"   ⚠️  Options filtering not working as expected")
+        
+        # Test 4: French text with mathematical/scientific terms
+        scientific_text = """La fonction Zêta de Riemann ζ(s) est définie par la série ζ(s) = Σ(1/n^s). Cette fonction joue un rôle crucial dans la théorie des nombres premiers selon l'hypothèse de Riemann."""
+        
+        test_payload_scientific = {
+            "texte": scientific_text,
+            "options": {
+                "orthographe": True,
+                "grammaire": True,
+                "semantique": True
+            },
+            "session_id": "test_scientific_text"
+        }
+        
+        success4, response4 = self.run_test(
+            "Analyse Texte - Scientific/Mathematical Text",
+            "POST",
+            "api/analyse-texte",
+            200,
+            data=test_payload_scientific
+        )
+        
+        if success4 and isinstance(response4, dict):
+            print(f"   ✅ Scientific text processed successfully")
+            analyse = response4.get('analyse', {})
+            if 'score_global' in analyse:
+                scores = analyse['score_global']
+                print(f"   📊 Global scores: {scores}")
+        
+        return success1 and success2 and success3 and success4
+
     def test_invalid_endpoints(self):
         """Test error handling for invalid endpoints"""
         # Test non-existent concept
