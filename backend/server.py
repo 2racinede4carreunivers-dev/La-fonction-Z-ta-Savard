@@ -2413,7 +2413,7 @@ async def chat_methode_spectrale(request: dict):
         
         return {
             "success": True,
-            "response": response.content,
+            "response": response,
             "specialisation": "Méthode Spectrale - Intervalles entre Nombres Premiers",
             "session_id": session_id
         }
