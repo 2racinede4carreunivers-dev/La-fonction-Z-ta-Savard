@@ -2325,7 +2325,7 @@ async def chat_with_domain_focus(request: dict):
         
         return {
             "success": True,
-            "response": response.content,
+            "response": response,
             "domaine_focus": domaine,
             "session_id": session_id
         }
