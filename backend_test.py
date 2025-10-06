@@ -738,6 +738,9 @@ def main():
     print("\n🔬 THÉORÈME DE PHILIPPÔT - DEUXIÈME PARTIE TEST")
     tester.test_philippot_theorem_privileged_access()
     
+    print("\n📝 SYSTÈME DE CORRECTION INTELLIGENTE TESTS")
+    tester.test_analyse_texte_endpoint()
+    
     print("\n❌ ERROR HANDLING TESTS")
     tester.test_invalid_endpoints()
     
