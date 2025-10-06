@@ -1714,6 +1714,113 @@ const CollaborationPage = () => {
     }
   };
 
+  // Fonction d'analyse intelligente du texte (discrète et non envahissante)
+  const analyserTexteDiscretement = async (texte) => {
+    if (!texte || texte.length < 10 || texte === lastAnalyzedText || isAnalyzing) {
+      return;
+    }
+
+    setIsAnalyzing(true);
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/analyse-texte`, {
+        texte: texte,
+        options: optionsCorrection,
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        const analyse = response.data.analyse;
+        const nouvelles_corrections = [];
+
+        // Traiter l'analyse orthographique
+        if (analyse.analyse_orthographe) {
+          analyse.analyse_orthographe.forEach(correction => {
+            nouvelles_corrections.push({
+              type: 'orthographe',
+              position: correction.position,
+              erreur: correction.erreur,
+              suggestion: correction.suggestion,
+              confiance: correction.confiance,
+              id: `ortho_${Date.now()}_${Math.random()}`
+            });
+          });
+        }
+
+        // Traiter l'analyse grammaticale
+        if (analyse.analyse_grammaire) {
+          analyse.analyse_grammaire.forEach(correction => {
+            nouvelles_corrections.push({
+              type: 'grammaire',
+              position: correction.position,
+              probleme: correction.probleme,
+              suggestion: correction.suggestion,
+              severite: correction.severite,
+              id: `gram_${Date.now()}_${Math.random()}`
+            });
+          });
+        }
+
+        // Traiter les améliorations sémantiques
+        if (analyse.ameliorations_semantique) {
+          analyse.ameliorations_semantique.forEach(amelioration => {
+            nouvelles_corrections.push({
+              type: 'semantique',
+              position: amelioration.position,
+              original: amelioration.original,
+              ameliore: amelioration.ameliore,
+              raison: amelioration.raison,
+              id: `sem_${Date.now()}_${Math.random()}`
+            });
+          });
+        }
+
+        setCorrectionsActives(nouvelles_corrections);
+        setLastAnalyzedText(texte);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l\'analyse du texte:', error);
+    } finally {
+      setIsAnalyzing(false);
+    }
+  };
+
+  // Fonction pour déclencher l'analyse avec délai (debounce)
+  const declencherAnalyseAvecDelai = (texte) => {
+    if (analysisTimeout) {
+      clearTimeout(analysisTimeout);
+    }
+    
+    const newTimeout = setTimeout(() => {
+      analyserTexteDiscretement(texte);
+    }, 2000); // Attendre 2 secondes après arrêt de frappe
+    
+    setAnalysisTimeout(newTimeout);
+  };
+
+  // Appliquer une correction
+  const appliquerCorrection = (correction) => {
+    const texteActuel = document;
+    const [start, end] = correction.position;
+    
+    let nouveauTexte = '';
+    if (correction.type === 'orthographe') {
+      nouveauTexte = texteActuel.substring(0, start) + correction.suggestion + texteActuel.substring(end);
+    } else if (correction.type === 'grammaire' || correction.type === 'semantique') {
+      nouveauTexte = texteActuel.substring(0, start) + correction.suggestion + texteActuel.substring(end);
+    }
+    
+    setDocument(nouveauTexte);
+    
+    // Retirer cette correction de la liste
+    setCorrectionsActives(prev => prev.filter(c => c.id !== correction.id));
+  };
+
+  // Ignorer une correction
+  const ignorerCorrection = (correctionId) => {
+    setCorrectionsActives(prev => prev.filter(c => c.id !== correctionId));
+  };
+
   const insertText = (before, after = '') => {
     try {
       const textarea = window.document.querySelector('#collaboration-editor');
