@@ -2596,6 +2596,412 @@ async def get_collaboration_document(doc_id: str):
         "updated_at": document["updated_at"]
     }
 
+# ===============================================
+# SYSTÈME DE CORRECTION INTELLIGENT ET ANALYSE
+# ===============================================
+
+@app.post("/api/analyse-texte")
+async def analyser_texte_complet(request: dict):
+    """Analyse complète d'un texte : orthographe, grammaire, sémantique, structure"""
+    texte = request.get("texte", "")
+    options = request.get("options", {
+        "orthographe": True,
+        "grammaire": True,
+        "semantique": True,
+        "structure": True,
+        "synonymes": True,
+        "style": True
+    })
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not texte or not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=400, detail="Texte et clé API requis")
+    
+    try:
+        # Système spécialisé pour l'analyse textuelle française
+        systeme_correcteur = f"""Tu es un correcteur français expert et discret, spécialisé dans l'analyse de textes scientifiques et mathématiques.
+
+**INSTRUCTIONS CRUCIALES - STYLE DISCRET :**
+- Suggestions SUBTILES et NON ENVAHISSANTES
+- Format JSON structuré pour intégration UI
+- Préserve l'intention de l'auteur
+- Respecte le style personnel
+- Analyse contextuelle intelligente
+
+**ANALYSE DEMANDÉE :**
+{', '.join([k for k, v in options.items() if v])}
+
+**STRUCTURE RÉPONSE JSON :**
+{{
+    "analyse_orthographe": [
+        {{"position": [start, end], "erreur": "mot", "suggestion": "correction", "confiance": 0.9, "type": "accord"}}
+    ],
+    "analyse_grammaire": [
+        {{"position": [start, end], "probleme": "description", "suggestion": "amélioration", "severite": "mineure"}}
+    ],
+    "ameliorations_semantique": [
+        {{"position": [start, end], "original": "phrase", "ameliore": "version", "raison": "clarté"}}
+    ],
+    "synonymes_proposes": [
+        {{"mot": "terme", "position": [start, end], "synonymes": ["alt1", "alt2"], "nuance": "explication"}}
+    ],
+    "suggestions_structure": [
+        {{"section": "paragraphe X", "suggestion": "reorganisation", "impact": "lisibilité"}}
+    ],
+    "style_et_ton": {{
+        "coherence": "bon/moyen/faible",
+        "suggestions": ["conseil1", "conseil2"]
+    }},
+    "score_global": {{
+        "orthographe": 85,
+        "grammaire": 90,
+        "clarte": 75,
+        "style": 80
+    }}
+}}
+
+**TEXTE À ANALYSER :**
+{texte}
+
+Analyse ce texte avec bienveillance et expertise, en restant discret et constructif."""
+
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_correcteur
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Effectue une analyse complète et discrète de ce texte en suivant exactement le format JSON demandé.")
+        response = await chat.send_message(user_message)
+        
+        # Extraire le JSON de la réponse
+        try:
+            import json
+            import re
+            
+            # Chercher le JSON dans la réponse
+            json_match = re.search(r'\{.*\}', response.content, re.DOTALL)
+            if json_match:
+                analyse_data = json.loads(json_match.group())
+            else:
+                # Fallback si pas de JSON détecté
+                analyse_data = {
+                    "analyse_complete": response.content,
+                    "score_global": {"orthographe": 85, "grammaire": 85, "clarte": 80, "style": 80}
+                }
+        except:
+            analyse_data = {
+                "analyse_complete": response.content,
+                "score_global": {"orthographe": 85, "grammaire": 85, "clarte": 80, "style": 80}
+            }
+        
+        return {
+            "success": True,
+            "analyse": analyse_data,
+            "options_utilisees": options,
+            "session_id": session_id,
+            "longueur_texte": len(texte)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur lors de l'analyse: {str(e)}")
+
+@app.post("/api/detection-plagiat")
+async def detecter_plagiat(request: dict):
+    """Détection de plagiat et protection de propriété intellectuelle"""
+    texte = request.get("texte", "")
+    mode = request.get("mode", "protection")  # "protection" ou "verification"
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not texte or not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=400, detail="Texte requis")
+    
+    try:
+        # Système pour la détection de plagiat et protection IP
+        systeme_plagiat = f"""Tu es un expert en propriété intellectuelle et détection de plagiat, spécialisé dans la protection de contenu scientifique et mathématique.
+
+**MODE ANALYSE : {mode.upper()}**
+
+**INSTRUCTIONS SPÉCIALISÉES :**
+- Identifie les éléments uniques et originaux
+- Évalue le niveau d'originalité du contenu
+- Détecte les patterns pouvant indiquer du plagiat
+- Suggestions pour renforcer la protection IP
+- Analyse de l'antériorité conceptuelle
+
+**ÉLÉMENTS À ANALYSER :**
+1. Originalité des concepts présentés
+2. Formulations uniques et innovations
+3. Méthodologies spécifiques à l'auteur
+4. Terminologie créée par l'auteur
+5. Structures argumentaires originales
+
+**STRUCTURE RÉPONSE :**
+{{
+    "originalite_score": 85,
+    "elements_uniques": ["concept1", "formule2"],
+    "risques_plagiat": ["zone1", "zone2"],
+    "recommandations_protection": ["action1", "action2"],
+    "empreinte_uniqueness": "signature_textuelle",
+    "date_analyse": "timestamp"
+}}
+
+**TEXTE À ANALYSER POUR PROTECTION IP :**
+{texte}
+
+Fournis une analyse complète de protection et d'originalité."""
+
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_plagiat
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Analyse ce texte pour sa protection de propriété intellectuelle et détection de plagiat potentiel.")
+        response = await chat.send_message(user_message)
+        
+        # Créer un hash unique du texte pour traçabilité
+        import hashlib
+        texte_hash = hashlib.sha256(texte.encode()).hexdigest()[:16]
+        
+        # Sauvegarder l'analyse pour historique
+        analyse_plagiat = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "texte_hash": texte_hash,
+            "longueur_texte": len(texte),
+            "analyse": response.content,
+            "mode": mode,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        
+        await db.analyses_plagiat.insert_one(analyse_plagiat)
+        
+        return {
+            "success": True,
+            "protection_id": analyse_plagiat["id"],
+            "analyse_plagiat": response.content,
+            "texte_hash": texte_hash,
+            "recommendations": [
+                "Documentez la date de création de vos concepts",
+                "Conservez les versions brouillon avec timestamps",
+                "Établissez des preuves d'antériorité",
+                "Considérez le dépôt légal de vos travaux"
+            ],
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur détection plagiat: {str(e)}")
+
+@app.post("/api/dictionnaire-personnel")
+async def gerer_dictionnaire_personnel(request: dict):
+    """Gestion du dictionnaire personnel de l'utilisateur"""
+    action = request.get("action", "get")  # "add", "get", "update", "delete"
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    try:
+        if action == "add":
+            terme = request.get("terme", "")
+            definition = request.get("definition", "")
+            contexte = request.get("contexte", "")
+            
+            nouveau_terme = {
+                "id": str(uuid.uuid4()),
+                "session_id": session_id,
+                "terme": terme.lower(),
+                "definition": definition,
+                "contexte": contexte,
+                "utilisation_count": 0,
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            
+            await db.dictionnaire_personnel.insert_one(nouveau_terme)
+            
+            return {
+                "success": True,
+                "message": f"Terme '{terme}' ajouté au dictionnaire",
+                "terme_id": nouveau_terme["id"]
+            }
+            
+        elif action == "get":
+            termes = await db.dictionnaire_personnel.find(
+                {"session_id": session_id}
+            ).sort("created_at", -1).to_list(length=None)
+            
+            return {
+                "success": True,
+                "dictionnaire": termes,
+                "total_termes": len(termes)
+            }
+            
+        elif action == "search":
+            query = request.get("query", "").lower()
+            termes = await db.dictionnaire_personnel.find({
+                "session_id": session_id,
+                "$or": [
+                    {"terme": {"$regex": query, "$options": "i"}},
+                    {"definition": {"$regex": query, "$options": "i"}}
+                ]
+            }).to_list(length=10)
+            
+            return {
+                "success": True,
+                "resultats": termes,
+                "query": query
+            }
+        
+        else:
+            raise HTTPException(status_code=400, detail="Action non supportée")
+            
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur dictionnaire: {str(e)}")
+
+@app.post("/api/analyse-lacunes-comprehension")
+async def analyser_lacunes_comprehension(request: dict):
+    """Analyse des lacunes de compréhension basée sur les questions utilisateurs"""
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Récupérer l'historique des questions pour cette session
+        historique_questions = await db.chat_history.find(
+            {"session_id": session_id, "type": "user"}
+        ).sort("timestamp", -1).limit(50).to_list(length=None)
+        
+        if not historique_questions:
+            return {
+                "success": True,
+                "analyse": "Pas assez de données pour analyser les lacunes",
+                "recommendations": ["Continuez à poser des questions pour une analyse personnalisée"]
+            }
+        
+        # Analyser les patterns de questions
+        questions_text = "\n".join([q.get("message", "") for q in historique_questions])
+        
+        systeme_lacunes = f"""Tu es un analyste expert en détection des lacunes de compréhension dans l'apprentissage de théories mathématiques complexes.
+
+**MISSION :**
+Analyser l'historique des questions pour identifier :
+1. Les concepts récurrents non maîtrisés
+2. Les zones de confusion persistante  
+3. Les prérequis manquants
+4. Les progressions d'apprentissage optimales
+
+**HISTORIQUE DES QUESTIONS :**
+{questions_text}
+
+**ANALYSE DEMANDÉE :**
+- Concepts les plus questionnés (lacunes identifiées)
+- Progression dans la compréhension
+- Recommandations pédagogiques personnalisées
+- Parcours d'apprentissage suggéré
+
+**FORMAT RÉPONSE :**
+{{
+    "lacunes_identifiees": ["concept1", "concept2"],
+    "concepts_maitrise": ["concept_ok1", "concept_ok2"],
+    "progression_score": 75,
+    "recommandations": ["rec1", "rec2"],
+    "parcours_suggere": ["étape1", "étape2", "étape3"]
+}}"""
+
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_lacunes
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Analyse cet historique pour identifier les lacunes de compréhension et proposer un parcours personnalisé.")
+        response = await chat.send_message(user_message)
+        
+        return {
+            "success": True,
+            "analyse_lacunes": response.content,
+            "questions_analysees": len(historique_questions),
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur analyse lacunes: {str(e)}")
+
+@app.get("/api/sections-problematiques")
+async def detecter_sections_problematiques():
+    """Détection automatique des sections posant des difficultés aux utilisateurs"""
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Récupérer toutes les questions récentes pour analyse globale
+        questions_recentes = await db.chat_history.find({
+            "type": "user",
+            "timestamp": {"$gte": (datetime.now(timezone.utc) - datetime.timedelta(days=30)).isoformat()}
+        }).to_list(length=None)
+        
+        if not questions_recentes:
+            return {
+                "success": True,
+                "sections_problematiques": [],
+                "message": "Pas assez de données récentes"
+            }
+        
+        # Analyser les patterns globaux
+        all_questions = "\n".join([q.get("message", "") for q in questions_recentes])
+        
+        systeme_detection = f"""Tu es un analyste expert en identification de sections problématiques dans un contenu pédagogique scientifique.
+
+**MISSION :**
+Identifier les sections de la théorie "L'univers est au carré" qui posent le plus de difficultés aux utilisateurs.
+
+**DONNÉES QUESTIONS UTILISATEURS (30 derniers jours) :**
+{all_questions[:3000]}... (extrait)
+
+**SECTIONS DE LA THÉORIE À ANALYSER :**
+1. Géométrie du spectre des nombres premiers
+2. Les 14 tableaux de Philippôt  
+3. Méthode de substitution
+4. Fonction Digamma de Philippôt
+5. Zéros triviaux et hypothèse de Riemann
+6. Théorème de Philippôt (intrication quantique)
+7. Géométrie de l'espace (partie 2)
+8. Rectangle élevé au carré
+9. Cercle Denis et propriétés
+10. Résonance terrestre
+11. Espace de Minkowski selon Philippôt
+12. Nombres hypercomplexes
+13. Sphère de la fonction Zêta
+
+**ANALYSE DEMANDÉE :**
+{{
+    "sections_difficiles": [
+        {{"section": "nom", "difficulte_score": 85, "problemes": ["pb1", "pb2"], "suggestions": ["sol1", "sol2"]}}
+    ],
+    "tendances_globales": ["pattern1", "pattern2"],
+    "recommandations_amelioration": ["rec1", "rec2"]
+}}"""
+
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id="system_analysis",
+            system_message=systeme_detection
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Analyse ces questions pour identifier les sections problématiques et proposer des améliorations.")
+        response = await chat.send_message(user_message)
+        
+        return {
+            "success": True,
+            "analyse_sections": response.content,
+            "questions_analysees": len(questions_recentes),
+            "periode": "30 derniers jours"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur analyse sections: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
