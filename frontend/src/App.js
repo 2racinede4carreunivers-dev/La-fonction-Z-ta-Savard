@@ -1664,6 +1664,21 @@ const CollaborationPage = () => {
     typeCorrection: 'nuance_manquante'
   });
   
+  // États pour le système de correction intelligente
+  const [correctionsActives, setCorrectionsActives] = useState([]);
+  const [optionsCorrection, setOptionsCorrection] = useState({
+    orthographe: true,
+    grammaire: true,
+    semantique: true,
+    structure: false,
+    synonymes: false,
+    style: false
+  });
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [showCorrections, setShowCorrections] = useState(true);
+  const [lastAnalyzedText, setLastAnalyzedText] = useState('');
+  const [analysisTimeout, setAnalysisTimeout] = useState(null);
+  
   // États généraux
   const [sessionId, setSessionId] = useState(null);
   const [loading, setLoading] = useState(false);
