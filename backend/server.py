@@ -2919,7 +2919,7 @@ Analyser l'historique des questions pour identifier :
         
         return {
             "success": True,
-            "analyse_lacunes": response.content,
+            "analyse_lacunes": response,
             "questions_analysees": len(historique_questions),
             "session_id": session_id
         }
