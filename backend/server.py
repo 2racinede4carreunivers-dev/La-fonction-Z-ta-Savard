@@ -2680,18 +2680,18 @@ Analyse ce texte avec bienveillance et expertise, en restant discret et construc
             import re
             
             # Chercher le JSON dans la réponse
-            json_match = re.search(r'\{.*\}', response.content, re.DOTALL)
+            json_match = re.search(r'\{.*\}', response, re.DOTALL)
             if json_match:
                 analyse_data = json.loads(json_match.group())
             else:
                 # Fallback si pas de JSON détecté
                 analyse_data = {
-                    "analyse_complete": response.content,
+                    "analyse_complete": response,
                     "score_global": {"orthographe": 85, "grammaire": 85, "clarte": 80, "style": 80}
                 }
         except:
             analyse_data = {
-                "analyse_complete": response.content,
+                "analyse_complete": response,
                 "score_global": {"orthographe": 85, "grammaire": 85, "clarte": 80, "style": 80}
             }
         
