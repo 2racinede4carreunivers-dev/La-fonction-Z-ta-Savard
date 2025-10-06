@@ -147,6 +147,18 @@ backend:
           agent: "testing"
           comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint /api/chat-privileged fonctionne parfaitement avec accès complet aux documents de la deuxième partie. Test spécifique réalisé: (1) Question 'Explique-moi le théorème de Philippôt de la deuxième partie' traitée avec succès, (2) Réponse bi-partite détectée avec format 🔵/⚪ comme attendu, (3) Contenu spécifique mentionné: 'trois carrés égalent à un triangle', intrication quantique géométrique, géométrie de Philippôt, (4) Accès privilégié confirmé (privileged_access: true), (5) 14 concepts enrichis disponibles, (6) Réponse substantielle de 2307 caractères avec contenu théorique approprié. L'IA spécialisée a bien accès au nouveau contenu intégré de la deuxième partie et répond selon les attentes du format bi-partite."
 
+  - task: "API endpoint /api/analyse-texte pour système de correction intelligente"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint /api/analyse-texte fonctionne parfaitement avec le système de correction intelligente. Tests réalisés: (1) Correction intelligente avec texte contenant fautes intentionnelles - 10 erreurs d'orthographe détectées et corrigées (système→système, corection→correction, erreur→erreurs, detecter→détecter, ameliorations→améliorations), (2) 2 erreurs de grammaire identifiées, (3) Options de correction configurables (orthographe, grammaire, sémantique) fonctionnelles, (4) Validation des champs requis (400 error pour texte vide), (5) Traitement de texte scientifique/mathématique avec scores globaux (orthographe: 95, grammaire: 90, clarté: 85, style: 88), (6) Structure JSON correctement formatée pour l'interface frontend, (7) Session ID préservé correctement, (8) Longueur de texte calculée avec précision. L'IA spécialisée traite correctement le français avec analyse contextuelle intelligente."
+
 frontend:
   - task: "Salon de Lecture - Navigation vers /salon-lecture"
     implemented: true
