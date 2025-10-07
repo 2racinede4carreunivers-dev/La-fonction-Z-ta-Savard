@@ -2253,6 +2253,7 @@ const CollaborationPage = () => {
               </div>
             </CardContent>
           </Card>
+          )}
 
           {/* ZONE 2: CRÉATION ET ÉDITION */}
           <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
