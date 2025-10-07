@@ -2256,7 +2256,9 @@ const CollaborationPage = () => {
           )}
 
           {/* ZONE 2: CRÉATION ET ÉDITION */}
-          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
+          <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
+            layoutMode === 'focus' ? 'w-full max-w-6xl mx-auto' : ''
+          }`}>
             <CardHeader className="border-b border-white/10 pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
