@@ -2531,7 +2531,7 @@ const CollaborationPage = () => {
                     
                     <div className="relative group">
                       <button className="text-xs text-gray-400 hover:text-white px-1">⚙️</button>
-                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-2 text-xs hidden group-hover:block min-w-[180px]">
+                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-2 text-xs hidden group-hover:block min-w-[180px] z-50 shadow-xl">
                         <div className="space-y-1">
                           {Object.entries(optionsCorrection).map(([key, value]) => (
                             <label key={key} className="flex items-center justify-between cursor-pointer">
