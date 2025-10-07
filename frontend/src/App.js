@@ -2148,6 +2148,178 @@ const CollaborationPage = () => {
     }
   };
 
+  // ===============================================
+  // FONCTIONS D'INTELLIGENCE AVANCÉE
+  // ===============================================
+
+  // Génération de suggestions de contenu intelligentes
+  const genererSuggestionsContenu = async () => {
+    if (!document.trim()) return;
+    
+    setIsGeneratingSuggestions(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/suggestions-contenu`, {
+        texte_actuel: document,
+        contexte: `Document: ${documentTitle}`,
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        setSuggestions(response.data.suggestions);
+        setShowSuggestions(true);
+        
+        // Notification non envahissante
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'suggestion',
+          title: 'Suggestions générées',
+          message: 'De nouvelles suggestions de contenu sont disponibles',
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur suggestions:', error);
+    } finally {
+      setIsGeneratingSuggestions(false);
+    }
+  };
+
+  // Génération de résumé automatique
+  const genererResumeAutomatique = async (style = 'executif', longueur = 'moyen') => {
+    if (!document.trim()) return;
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/resume-automatique`, {
+        texte_complet: document,
+        style: style,
+        longueur_cible: longueur,
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        setResumeData({
+          resume: response.data.resume,
+          statistiques: response.data.statistiques,
+          style: style,
+          longueur: longueur
+        });
+        setShowResume(true);
+      }
+    } catch (error) {
+      console.error('Erreur résumé:', error);
+    }
+  };
+
+  // Analyse de cohérence des arguments
+  const analyserCoherence = async (niveauDetail = 'standard') => {
+    if (!document.trim()) return;
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/detection-coherence`, {
+        texte_analyse: document,
+        niveau_detail: niveauDetail,
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        setCoherenceAnalysis(response.data.analyse_coherence);
+        setShowCoherence(true);
+        
+        // Notification si problèmes détectés
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'coherence',
+          title: 'Analyse de cohérence terminée',
+          message: 'L\'analyse de cohérence argumentaire est disponible',
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur cohérence:', error);
+    }
+  };
+
+  // Génération de citations automatiques
+  const genererCitationsAutomatiques = async (styleCitation = 'academique') => {
+    if (!document.trim()) return;
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/citations-automatiques`, {
+        contenu_texte: document,
+        style_citation: styleCitation,
+        domaines_focus: [],
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        setCitationsSuggered(response.data.citations);
+        setShowCitations(true);
+      }
+    } catch (error) {
+      console.error('Erreur citations:', error);
+    }
+  };
+
+  // Notifications intelligentes
+  const genererNotificationsIntelligentes = async () => {
+    if (!document.trim()) return;
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/notifications-intelligentes`, {
+        texte_actuel: document,
+        seuil_importance: intelligenceSettings.notificationLevel,
+        types_notifications: ['corrections', 'suggestions', 'coherence'],
+        session_id: sessionId
+      });
+
+      if (response.data.success) {
+        const newNotifications = response.data.notifications;
+        if (newNotifications && newNotifications.length > 0) {
+          setNotifications(prev => [...prev, ...newNotifications]);
+          setShowNotifications(true);
+        }
+      }
+    } catch (error) {
+      console.error('Erreur notifications:', error);
+    }
+  };
+
+  // Déclenchement automatique des analyses selon les paramètres
+  const declencherAnalysesAutomatiques = useCallback(() => {
+    if (!document.trim()) return;
+    
+    // Auto-suggestions si activé
+    if (intelligenceSettings.autoSuggestions && !isGeneratingSuggestions) {
+      genererSuggestionsContenu();
+    }
+    
+    // Auto-cohérence si activé
+    if (intelligenceSettings.autoCoherence) {
+      analyserCoherence();
+    }
+    
+    // Auto-citations si activé
+    if (intelligenceSettings.autoCitations) {
+      genererCitationsAutomatiques();
+    }
+    
+    // Notifications automatiques
+    genererNotificationsIntelligentes();
+  }, [document, intelligenceSettings]);
+
+  // Déclenchement avec délai lors de l'édition
+  useEffect(() => {
+    if (document !== lastAnalyzedText) {
+      const timeout = setTimeout(() => {
+        if (intelligenceSettings.autoSuggestions || intelligenceSettings.autoCoherence) {
+          declencherAnalysesAutomatiques();
+        }
+      }, 3000); // Délai de 3 secondes après l'arrêt de l'édition
+
+      return () => clearTimeout(timeout);
+    }
+  }, [document, declencherAnalysesAutomatiques, lastAnalyzedText, intelligenceSettings]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-6">
