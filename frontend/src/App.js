@@ -2592,8 +2592,8 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 <div className="flex flex-wrap gap-1 mt-2">
                   {[
                     "Explique le théorème de Philippôt",
-                    "Qu'est-ce que la géométrie de l'espace ?", 
-                    "Comment fonctionne l'intrication quantique ?"
+                    "Géométrie de l'espace", 
+                    "Intrication quantique"
                   ].map((suggestion, index) => (
                     <Button
                       key={index}
