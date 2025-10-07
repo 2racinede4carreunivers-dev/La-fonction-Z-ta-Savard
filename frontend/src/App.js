@@ -2473,8 +2473,8 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
-              {/* GRAND ÉCRAN D'AFFICHAGE DES RÉPONSES IA - AGRANDI */}
-              <div className="flex-1 bg-slate-900/50 rounded-lg p-4 mb-3 overflow-y-auto" style={{minHeight: '400px'}}>
+              {/* ÉCRAN DE RÉPONSES IA - PARTIE SUPÉRIEURE (70% de la zone IA) */}
+              <div className="flex-[7] bg-slate-900/50 rounded-lg p-4 mb-3 overflow-y-auto border border-indigo-500/20" style={{minHeight: '350px'}}>
                 {chatHistory.length === 0 ? (
                   <div className="text-center text-blue-300 py-12">
                     <div className="text-4xl mb-4">🤖</div>
