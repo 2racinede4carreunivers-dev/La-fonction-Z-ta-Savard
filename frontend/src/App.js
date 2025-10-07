@@ -1679,6 +1679,10 @@ const CollaborationPage = () => {
   const [lastAnalyzedText, setLastAnalyzedText] = useState('');
   const [analysisTimeout, setAnalysisTimeout] = useState(null);
   
+  // États pour le layout et modes d'affichage
+  const [layoutMode, setLayoutMode] = useState('normal'); // 'normal', 'focus', 'vertical'
+  const [showSidePanels, setShowSidePanels] = useState(true);
+  
   // États généraux
   const [sessionId, setSessionId] = useState(null);
   const [loading, setLoading] = useState(false);
