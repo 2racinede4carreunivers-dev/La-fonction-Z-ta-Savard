@@ -2439,386 +2439,92 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </Card>
           )}
 
-          {/* ZONE 2: CRÉATION ET ÉDITION */}
+          {/* ZONE 2: CHAT IA - MAINTENANT AU CENTRE */}
+          {(layoutMode === 'normal' || layoutMode === 'vertical') && (
           <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
-            layoutMode === 'focus' ? 'w-full max-w-6xl mx-auto' : ''
+            layoutMode === 'vertical' ? 'h-80' : ''
           }`}>
-            <CardHeader className="border-b border-white/10 pb-3">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Edit3 className="w-5 h-5 text-cyan-400" />
-                  <span className="text-white text-lg font-semibold">Création & Édition</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button
-                    onClick={createNewDocument}
-                    className="bg-blue-600 hover:bg-blue-700"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Nouveau
-                  </Button>
-                </div>
-              </div>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-white text-lg flex items-center gap-2">
+                <MessageCircle className="w-5 h-5 text-cyan-400" />
+                Chat IA Spécialisée
+              </CardTitle>
             </CardHeader>
-            <CardContent className="flex-1 flex flex-col p-4">
-              <div className="mb-3">
-                <Input
-                  value={documentTitle}
-                  onChange={(e) => setDocumentTitle(e.target.value)}
-                  className="bg-slate-800 border-slate-600 text-white text-base"
-                  placeholder="Titre du document..."
-                />
-              </div>
-
-              {/* Barre d'outils de formatage */}
-              <div className="mb-3 border border-slate-600 rounded-lg p-2 bg-slate-800/50">
-                <div className="flex flex-wrap items-center gap-2">
-                  {/* Options de structure */}
-                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('heading')}
-                      className="text-white hover:bg-white/10"
-                      title="Titre"
-                    >
-                      <Type className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('paragraph')}
-                      className="text-white hover:bg-white/10"
-                      title="Paragraphe"
-                    >
-                      <AlignLeft className="w-4 h-4" />
-                    </Button>
+            <CardContent className="flex-1 flex flex-col">
+              {/* Historique des messages */}
+              <div className="flex-1 bg-slate-900/50 rounded-lg p-3 mb-3 overflow-y-auto max-h-80">
+                {chatHistory.length === 0 ? (
+                  <div className="text-center text-blue-300 text-sm py-8">
+                    Posez vos questions sur la théorie "L'univers est au carré"
                   </div>
-
-                  {/* Options de listes */}
-                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('bullet')}
-                      className="text-white hover:bg-white/10"
-                      title="Liste à puces"
-                    >
-                      <List className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => formatText('number')}
-                      className="text-white hover:bg-white/10"
-                      title="Liste numérotée"
-                    >
-                      1.
-                    </Button>
-                  </div>
-
-                  {/* Outils mathématiques */}
-                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
-                    <Button
-                      onClick={() => setShowSymbols(!showSymbols)}
-                      variant="ghost"
-                      size="sm"
-                      className="text-white hover:bg-white/10"
-                      title="Symboles mathématiques"
-                    >
-                      ∑ Symboles
-                    </Button>
-                    <Button
-                      onClick={() => setShowMathEditor(!showMathEditor)}
-                      variant="ghost"
-                      size="sm"
-                      className="text-white hover:bg-white/10"
-                      title="Éditeur de formules mathématiques"
-                    >
-                      📐 Formules
-                    </Button>
-                    <Button
-                      onClick={() => insertText('\n[Transformation géométrique: ', ']\n')}
-                      variant="ghost"
-                      size="sm"
-                      className="text-white hover:bg-white/10"
-                      title="Marquer transformation géométrique"
-                    >
-                      🔄 Transfo
-                    </Button>
-                  </div>
-
-                  {/* Boutons IA */}
-                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
-                    <Button
-                      onClick={() => collaborateWithAI("Complète cette section en développant les idées présentées")}
-                      disabled={loading}
-                      variant="ghost"
-                      size="sm"
-                      className="text-purple-400 hover:bg-purple-600/20"
-                      title="IA : Compléter le contenu"
-                    >
-                      <Brain className="w-4 h-4 mr-1" />
-                      IA : Compléter
-                    </Button>
-                    <Button
-                      onClick={() => collaborateWithAI("Améliore la structure et la clarté de ce texte")}
-                      disabled={loading}
-                      variant="ghost"
-                      size="sm"
-                      className="text-cyan-400 hover:bg-cyan-600/20"
-                      title="IA : Améliorer le texte"
-                    >
-                      <Sparkles className="w-4 h-4 mr-1" />
-                      IA : Améliorer
-                    </Button>
-                  </div>
-
-                  {/* Boutons de gestion des documents */}
-                  <div className="flex items-center gap-1">
-                    <Button
-                      onClick={saveDocument}
-                      variant="ghost"
-                      size="sm"
-                      className="text-emerald-400 hover:bg-emerald-600/20"
-                      title="Sauvegarder le document"
-                    >
-                      <Save className="w-4 h-4 mr-1" />
-                      Sauvegarder
-                    </Button>
-                    <Button
-                      onClick={() => loadSavedDocuments()}
-                      variant="ghost"
-                      size="sm"
-                      className="text-blue-400 hover:bg-blue-600/20"
-                      title="Parcourir les documents sauvegardés"
-                    >
-                      📁 Documents
-                    </Button>
-                    
-                    {/* Bouton upload retiré d'ici, déplacé vers Zone 3 */}
-                    
-                    {(saveStatus || uploadStatus) && (
-                      <span className="text-xs ml-2">
-                        {saveStatus && <span className="text-emerald-400">{saveStatus}</span>}
-                        {uploadStatus && <span className="text-orange-400">{uploadStatus}</span>}
-                      </span>
-                    )}
-                  </div>
-                </div>
-
-                {/* Palette de symboles mathématiques */}
-                {showSymbols && (
-                  <div className="mt-3 border-t border-slate-600 pt-3">
-                    <div className="mb-2">
-                      <span className="text-white text-xs font-medium mr-3">Catégories :</span>
-                      <div className="flex flex-wrap gap-1">
-                        {Object.keys(SYMBOLES_MATHEMATIQUES).map((category) => (
-                          <Button
-                            key={category}
-                            onClick={() => setSelectedSymbolCategory(category)}
-                            variant={selectedSymbolCategory === category ? "default" : "ghost"}
-                            size="sm"
-                            className={`text-xs ${
-                              selectedSymbolCategory === category 
-                                ? 'bg-cyan-600 hover:bg-cyan-700' 
-                                : 'text-blue-200 hover:bg-white/10'
-                            }`}
-                          >
-                            {category}
-                          </Button>
-                        ))}
-                      </div>
-                    </div>
-                    
-                    <div className="flex flex-wrap gap-1">
-                      {SYMBOLES_MATHEMATIQUES[selectedSymbolCategory].map((symbol, index) => (
-                        <Button
-                          key={index}
-                          onClick={() => insertSymbol(symbol)}
-                          variant="ghost"
-                          size="sm"
-                          className="text-white hover:bg-cyan-600/30 min-w-[2rem] h-7 text-sm font-mono"
-                          title={`Insérer ${symbol}`}
-                        >
-                          {symbol}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Éditeur de formules mathématiques */}
-                {showMathEditor && (
-                  <div className="mt-3 border-t border-slate-600 pt-3 bg-slate-900/30 rounded-lg p-3">
-                    <div className="mb-3">
-                      <span className="text-white text-sm font-medium">📐 Éditeur de Formules - Théorie "L'univers est au carré"</span>
-                    </div>
-                    
-                    {Object.keys(FORMULES_PHILIPPOT).map((categorie) => (
-                      <div key={categorie} className="mb-3">
-                        <div className="text-cyan-400 text-xs font-medium mb-1">{categorie} :</div>
-                        <div className="flex flex-wrap gap-1">
-                          {FORMULES_PHILIPPOT[categorie].map((formule, index) => (
-                            <Button
-                              key={index}
-                              onClick={() => insertText(`$$${formule}$$`, '')}
-                              variant="ghost"
-                              size="sm"
-                              className="text-white hover:bg-purple-600/30 text-xs font-mono px-2 py-1"
-                              title={`Insérer: ${formule}`}
-                            >
-                              {formule.length > 20 ? formule.substring(0, 20) + '...' : formule}
-                            </Button>
-                          ))}
+                ) : (
+                  <div className="space-y-3">
+                    {chatHistory.map((msg, index) => (
+                      <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+                        <div className={`max-w-[85%] rounded-lg p-2 text-sm ${
+                          msg.type === 'user' 
+                            ? 'bg-cyan-600 text-white' 
+                            : msg.type === 'error'
+                            ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                            : msg.type === 'system'
+                            ? 'bg-green-600/20 text-green-200 border border-green-500/30'
+                            : 'bg-indigo-600/30 text-blue-100 border border-indigo-500/30'
+                        }`}>
+                          <div className="whitespace-pre-wrap">{msg.content}</div>
+                          <div className="flex items-center justify-between mt-1">
+                            <div className="text-xs opacity-70">{msg.timestamp}</div>
+                            {msg.type === 'ai' && (
+                              <Button
+                                onClick={() => {
+                                  const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
+                                  ouvrirCorrection(index, questionPrecedente, msg.content);
+                                }}
+                                variant="ghost"
+                                size="sm"
+                                className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30 ml-2"
+                              >
+                                🔧 Corriger
+                              </Button>
+                            )}
+                          </div>
                         </div>
                       </div>
                     ))}
-                    
-                    <div className="mt-3 pt-2 border-t border-slate-600">
-                      <input
-                        type="text"
-                        value={currentFormula}
-                        onChange={(e) => setCurrentFormula(e.target.value)}
-                        placeholder="Saisir une formule LaTeX personnalisée..."
-                        className="w-full bg-slate-800 border border-slate-600 rounded px-2 py-1 text-white text-sm"
-                      />
-                      <Button
-                        onClick={() => {
-                          if (currentFormula.trim()) {
-                            insertText(`$$${currentFormula}$$`, '');
-                            setCurrentFormula('');
-                          }
-                        }}
-                        className="mt-2 bg-purple-600 hover:bg-purple-700 text-xs"
-                        size="sm"
-                      >
-                        Insérer Formule Personnalisée
-                      </Button>
-                    </div>
                   </div>
                 )}
-              </div>
-              
-              {/* Zone d'édition avec corrections intelligentes */}
-              <div className="flex-1 relative">
-                {/* Options de correction discrètes */}
-                <div className="absolute top-2 right-2 z-10">
-                  <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-sm rounded-lg px-2 py-1">
-                    <button
-                      onClick={() => setShowCorrections(!showCorrections)}
-                      className={`text-xs px-2 py-1 rounded ${showCorrections ? 'bg-green-600 text-white' : 'bg-slate-600 text-gray-300'}`}
-                      title="Activer/Désactiver les suggestions de correction"
-                    >
-                      {isAnalyzing ? '⏳' : '✓'} Corrections
-                    </button>
-                    
-                    <div className="relative group">
-                      <button className="text-xs text-gray-400 hover:text-white px-1">⚙️</button>
-                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-2 text-xs hidden group-hover:block min-w-[180px] z-50 shadow-xl">
-                        <div className="space-y-1">
-                          {Object.entries(optionsCorrection).map(([key, value]) => (
-                            <label key={key} className="flex items-center justify-between cursor-pointer">
-                              <span className="text-gray-300 capitalize">{key}</span>
-                              <input
-                                type="checkbox"
-                                checked={value}
-                                onChange={(e) => setOptionsCorrection(prev => ({...prev, [key]: e.target.checked}))}
-                                className="ml-2"
-                              />
-                            </label>
-                          ))}
-                        </div>
+                {isChatLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-indigo-600/30 text-blue-100 border border-indigo-500/30 rounded-lg p-2 text-sm">
+                      <div className="flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-cyan-400"></div>
+                        L'IA réfléchit...
                       </div>
                     </div>
                   </div>
-                </div>
-
-                {/* Suggestions de correction discrètes */}
-                {showCorrections && correctionsActives.length > 0 && (
-                  <div className="absolute left-2 top-2 max-w-[300px] bg-slate-900/95 backdrop-blur-sm border border-slate-600 rounded-lg p-2 text-xs z-10">
-                    <div className="text-cyan-400 font-semibold mb-1 flex items-center justify-between">
-                      <span>💡 Suggestions ({correctionsActives.length})</span>
-                      <button
-                        onClick={() => setShowCorrections(false)}
-                        className="text-gray-400 hover:text-white ml-2"
-                      >
-                        ×
-                      </button>
-                    </div>
-                    <div className="max-h-[200px] overflow-y-auto space-y-1">
-                      {correctionsActives.slice(0, 3).map((correction) => (
-                        <div key={correction.id} className="bg-slate-800/50 rounded p-1">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <span className={`text-xs px-1 rounded ${
-                                correction.type === 'orthographe' ? 'bg-red-600/20 text-red-300' :
-                                correction.type === 'grammaire' ? 'bg-yellow-600/20 text-yellow-300' :
-                                'bg-blue-600/20 text-blue-300'
-                              }`}>
-                                {correction.type}
-                              </span>
-                              <div className="text-gray-300 mt-1">
-                                <div className="line-through text-gray-500">{correction.erreur || correction.original}</div>
-                                <div className="text-green-300">→ {correction.suggestion || correction.ameliore}</div>
-                              </div>
-                            </div>
-                            <div className="flex gap-1 ml-2">
-                              <button
-                                onClick={() => appliquerCorrection(correction)}
-                                className="text-green-400 hover:text-green-300"
-                                title="Appliquer"
-                              >
-                                ✓
-                              </button>
-                              <button
-                                onClick={() => ignorerCorrection(correction.id)}
-                                className="text-gray-400 hover:text-gray-300"
-                                title="Ignorer"
-                              >
-                                ×
-                              </button>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                      {correctionsActives.length > 3 && (
-                        <div className="text-gray-400 text-center">
-                          +{correctionsActives.length - 3} autres suggestions
-                        </div>
-                      )}
-                    </div>
-                  </div>
                 )}
-
-                <textarea
-                  id="collaboration-editor"
-                  value={document}
-                  onChange={(e) => {
-                    setDocument(e.target.value);
-                    if (showCorrections) {
-                      declencherAnalyseAvecDelai(e.target.value);
-                    }
-                  }}
-                  placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'...
-
-🔍 Correction intelligente activée - Les suggestions apparaîtront automatiquement
-
-Utilisez les outils de formatage ci-dessus :
-• Boutons de formatage : gras, italique
-• Structures : titres, paragraphes  
-• Listes : puces, numérotées
-• Symboles mathématiques : ∑ Symboles
-
-Exemple avec symboles mathématiques :
-La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
-                  className="w-full h-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none font-mono leading-relaxed"
-                />
               </div>
-              
-              {/* Note : Les boutons IA et Sauvegarder sont maintenant dans la barre d'outils ci-dessus */}
+
+              {/* Zone de saisie chat */}
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={chatMessage}
+                  onChange={(e) => setChatMessage(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                  placeholder="Posez votre question à l'IA spécialisée..."
+                  className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
+                />
+                <Button
+                  onClick={sendChatMessage}
+                  disabled={isChatLoading || !chatMessage.trim()}
+                  className="bg-cyan-600 hover:bg-cyan-700 px-4"
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
+          )}
 
           {/* ZONE 3: AFFICHAGE ET HISTORIQUE */}
           {(layoutMode === 'normal' || layoutMode === 'vertical') && (
