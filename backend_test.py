@@ -706,6 +706,296 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         return success1 and success3
 
+    def test_advanced_intelligence_endpoints(self):
+        """Test the new advanced intelligence endpoints as requested in review"""
+        print("\n🧠 ADVANCED INTELLIGENCE ENDPOINTS TESTS")
+        print("Testing new AI-powered endpoints with Philippôt theory context")
+        
+        all_tests_passed = True
+        
+        # Test data based on Philippôt theory as suggested in review request
+        philippot_text = """La théorie de l'univers au carré développée par Philippe Thomas Savard révèle des relations géométriques fondamentales entre les nombres premiers. La méthode de Philippôt utilise des rapports triangulaires spécifiques (1/2, 1/3, 1/4...) pour déterminer directement les nombres premiers selon leur position dans la suite. Cette approche révolutionnaire s'appuie sur le calcul du Digamma à la 8ème position des séquences de racines carrées, permettant une prédiction géométrique des nombres premiers. Les 14 tableaux de Philippôt démontrent cette méthode avec des exemples concrets : rapport 1/2 → 29 (10ème premier), rapport 1/3 → 227 (49ème premier). Cette géométrie du spectre des nombres premiers ouvre de nouvelles perspectives pour résoudre l'hypothèse de Riemann."""
+        
+        # Test 1: POST /api/suggestions-contenu
+        print("\n1️⃣ Testing /api/suggestions-contenu - Contextual Content Suggestions")
+        success1, response1 = self.run_test(
+            "Suggestions Contenu - Philippôt Theory Context",
+            "POST",
+            "api/suggestions-contenu",
+            200,
+            data={
+                "texte_actuel": philippot_text,
+                "contexte": "Développement théorique sur la méthode de Philippôt",
+                "session_id": "test_suggestions_philippot_123"
+            }
+        )
+        
+        if success1 and isinstance(response1, dict):
+            if 'success' in response1 and response1['success']:
+                print(f"   ✅ Content suggestions generated successfully")
+                if 'suggestions' in response1:
+                    print(f"   📝 AI suggestions received")
+                if 'concepts_disponibles' in response1:
+                    concepts_count = response1['concepts_disponibles']
+                    print(f"   📚 Concepts available: {concepts_count}")
+                    if concepts_count > 10:  # Should have substantial concept base
+                        print(f"   ✅ Rich concept base available for suggestions")
+                    else:
+                        print(f"   ⚠️  Limited concept base")
+            else:
+                print(f"   ❌ Suggestions generation failed")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 2: POST /api/resume-automatique with different styles
+        print("\n2️⃣ Testing /api/resume-automatique - Automatic Summaries")
+        
+        # Test executive style
+        success2a, response2a = self.run_test(
+            "Resume Automatique - Executive Style",
+            "POST",
+            "api/resume-automatique",
+            200,
+            data={
+                "texte_complet": philippot_text,
+                "style": "executif",
+                "longueur_cible": "moyen",
+                "session_id": "test_resume_executif_456"
+            }
+        )
+        
+        # Test technical style
+        success2b, response2b = self.run_test(
+            "Resume Automatique - Technical Style",
+            "POST",
+            "api/resume-automatique",
+            200,
+            data={
+                "texte_complet": philippot_text,
+                "style": "technique",
+                "longueur_cible": "detaille",
+                "session_id": "test_resume_technique_789"
+            }
+        )
+        
+        # Test conceptual style
+        success2c, response2c = self.run_test(
+            "Resume Automatique - Conceptual Style",
+            "POST",
+            "api/resume-automatique",
+            200,
+            data={
+                "texte_complet": philippot_text,
+                "style": "conceptuel",
+                "longueur_cible": "court",
+                "session_id": "test_resume_conceptuel_101"
+            }
+        )
+        
+        # Validate compression statistics
+        if success2a and isinstance(response2a, dict):
+            if 'statistiques' in response2a:
+                stats = response2a['statistiques']
+                if 'taux_compression' in stats:
+                    compression = stats['taux_compression']
+                    print(f"   📊 Compression rate: {compression}%")
+                    if compression > 0:
+                        print(f"   ✅ Text successfully compressed")
+                    else:
+                        print(f"   ⚠️  No compression achieved")
+                if 'mots_original' in stats and 'mots_resume' in stats:
+                    original_words = stats['mots_original']
+                    summary_words = stats['mots_resume']
+                    print(f"   📊 Words: {original_words} → {summary_words}")
+        
+        # Test 3: POST /api/detection-coherence with different detail levels
+        print("\n3️⃣ Testing /api/detection-coherence - Coherence Analysis")
+        
+        # Test with logical arguments text
+        logical_text = """La méthode de Philippôt démontre que les nombres premiers suivent une géométrie précise. Premièrement, les rapports triangulaires 1/2, 1/3, 1/4 génèrent des séquences spécifiques. Deuxièmement, le calcul du Digamma à la 8ème position permet de déterminer le nombre premier correspondant. Troisièmement, cette approche géométrique révèle la structure sous-jacente du spectre des nombres premiers. Par conséquent, l'hypothèse de Riemann peut être résolue par cette méthode géométrique révolutionnaire."""
+        
+        # Test basic level
+        success3a, response3a = self.run_test(
+            "Detection Coherence - Basic Level",
+            "POST",
+            "api/detection-coherence",
+            200,
+            data={
+                "texte_analyse": logical_text,
+                "niveau_detail": "basic",
+                "session_id": "test_coherence_basic_111"
+            }
+        )
+        
+        # Test standard level
+        success3b, response3b = self.run_test(
+            "Detection Coherence - Standard Level",
+            "POST",
+            "api/detection-coherence",
+            200,
+            data={
+                "texte_analyse": logical_text,
+                "niveau_detail": "standard",
+                "session_id": "test_coherence_standard_222"
+            }
+        )
+        
+        # Test advanced level
+        success3c, response3c = self.run_test(
+            "Detection Coherence - Advanced Level",
+            "POST",
+            "api/detection-coherence",
+            200,
+            data={
+                "texte_analyse": logical_text,
+                "niveau_detail": "approfondi",
+                "session_id": "test_coherence_advanced_333"
+            }
+        )
+        
+        if success3b and isinstance(response3b, dict):
+            if 'analyse_coherence' in response3b:
+                print(f"   ✅ Coherence analysis completed")
+                if 'niveau_analyse' in response3b:
+                    level = response3b['niveau_analyse']
+                    print(f"   📊 Analysis level: {level}")
+        
+        # Test 4: POST /api/citations-automatiques with different styles
+        print("\n4️⃣ Testing /api/citations-automatiques - Automatic Citations")
+        
+        citation_text = """Cette recherche s'appuie sur les travaux révolutionnaires concernant la géométrie des nombres premiers. Les concepts de Digamma et de rapports triangulaires sont centraux à cette approche. L'intrication quantique géométrique et le théorème fondamental établissent les bases théoriques."""
+        
+        # Test academic style
+        success4a, response4a = self.run_test(
+            "Citations Automatiques - Academic Style",
+            "POST",
+            "api/citations-automatiques",
+            200,
+            data={
+                "contenu_texte": citation_text,
+                "style_citation": "academique",
+                "domaines_focus": ["Géométrie Fondamentale", "Théorie des Nombres"],
+                "session_id": "test_citations_academic_444"
+            }
+        )
+        
+        # Test technical style
+        success4b, response4b = self.run_test(
+            "Citations Automatiques - Technical Style",
+            "POST",
+            "api/citations-automatiques",
+            200,
+            data={
+                "contenu_texte": citation_text,
+                "style_citation": "technique",
+                "session_id": "test_citations_technical_555"
+            }
+        )
+        
+        # Test informal style
+        success4c, response4c = self.run_test(
+            "Citations Automatiques - Informal Style",
+            "POST",
+            "api/citations-automatiques",
+            200,
+            data={
+                "contenu_texte": citation_text,
+                "style_citation": "informel",
+                "session_id": "test_citations_informal_666"
+            }
+        )
+        
+        if success4a and isinstance(response4a, dict):
+            if 'citations' in response4a:
+                print(f"   ✅ Citations generated successfully")
+                if 'concepts_sources' in response4a:
+                    sources = response4a['concepts_sources']
+                    print(f"   📚 Concept sources used: {sources}")
+        
+        # Test 5: POST /api/notifications-intelligentes with different importance levels
+        print("\n5️⃣ Testing /api/notifications-intelligentes - Intelligent Notifications")
+        
+        notification_text = """La théorie de l'univers au carré utilise des méthodes géométriques pour analyser les nombres premiers. Cette approche révolutionnaire permet de prédire directement les nombres premiers selon leur position. Les calculs du Digamma sont essentiels pour cette détermination."""
+        
+        # Test low importance
+        success5a, response5a = self.run_test(
+            "Notifications Intelligentes - Low Importance",
+            "POST",
+            "api/notifications-intelligentes",
+            200,
+            data={
+                "texte_actuel": notification_text,
+                "seuil_importance": "low",
+                "types_notifications": ["corrections", "suggestions"],
+                "session_id": "test_notifications_low_777"
+            }
+        )
+        
+        # Test medium importance
+        success5b, response5b = self.run_test(
+            "Notifications Intelligentes - Medium Importance",
+            "POST",
+            "api/notifications-intelligentes",
+            200,
+            data={
+                "texte_actuel": notification_text,
+                "seuil_importance": "medium",
+                "types_notifications": ["corrections", "suggestions", "coherence"],
+                "session_id": "test_notifications_medium_888"
+            }
+        )
+        
+        # Test high importance
+        success5c, response5c = self.run_test(
+            "Notifications Intelligentes - High Importance",
+            "POST",
+            "api/notifications-intelligentes",
+            200,
+            data={
+                "texte_actuel": notification_text,
+                "seuil_importance": "high",
+                "types_notifications": ["corrections", "coherence"],
+                "session_id": "test_notifications_high_999"
+            }
+        )
+        
+        if success5b and isinstance(response5b, dict):
+            if 'notifications' in response5b:
+                print(f"   ✅ Intelligent notifications generated")
+                if 'seuil_utilise' in response5b:
+                    threshold = response5b['seuil_utilise']
+                    print(f"   📊 Importance threshold: {threshold}")
+                if 'types_actifs' in response5b:
+                    types = response5b['types_actifs']
+                    print(f"   📋 Active notification types: {', '.join(types)}")
+        
+        # Combine all test results
+        all_advanced_tests = [
+            success1,
+            success2a and success2b and success2c,
+            success3a and success3b and success3c,
+            success4a and success4b and success4c,
+            success5a and success5b and success5c
+        ]
+        
+        all_tests_passed = all(all_advanced_tests)
+        
+        if all_tests_passed:
+            print(f"\n🎉 ALL ADVANCED INTELLIGENCE ENDPOINTS PASSED")
+            print(f"✅ All 5 new AI endpoints working with Philippôt theory context")
+        else:
+            print(f"\n⚠️  Some advanced intelligence tests failed")
+            failed_tests = []
+            if not success1: failed_tests.append("suggestions-contenu")
+            if not (success2a and success2b and success2c): failed_tests.append("resume-automatique")
+            if not (success3a and success3b and success3c): failed_tests.append("detection-coherence")
+            if not (success4a and success4b and success4c): failed_tests.append("citations-automatiques")
+            if not (success5a and success5b and success5c): failed_tests.append("notifications-intelligentes")
+            print(f"❌ Failed endpoints: {', '.join(failed_tests)}")
+        
+        return all_tests_passed
+
     def test_collaboration_page_restructured_endpoints(self):
         """Test the specific endpoints for CollaborationPage after 4-quadrant restructuring"""
         print("\n🎯 COLLABORATION PAGE - RESTRUCTURED 4-QUADRANTS TESTS")
