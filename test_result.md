@@ -430,6 +430,18 @@ test_plan:
           agent: "testing"
           comment: "❌ PROBLÈME DÉTECTÉ - Le lien '📚 Salon de Lecture' n'apparaît pas dans le menu hamburger mobile. Menu hamburger fonctionne correctement et s'ouvre, mais le lien Salon de Lecture n'est pas visible parmi les options du menu déroulant mobile. Autres liens présents: Accueil, Méthode Philippôt, Explorer, IA Expert, Collaboration, Concepts Enrichis, Accès Privilégié. Le lien existe dans le code mais n'est pas affiché correctement en mobile."
 
+  - task: "Corrections Intelligence Avancée CollaborationPage"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Corrections apportées aux fonctionnalités d'intelligence avancée: (1) Position notifications corrigée (top-20), (2) Notifications cliquables avec actions appropriées, (3) Fermeture modales par overlay, (4) Fonctionnalités intelligence avancée (💡 Suggestions, 🧠 menu). Besoin de tests complets pour validation."
+
   - task: "Système de correction intelligente intégré dans /collaboration"
     implemented: true
     working: true
