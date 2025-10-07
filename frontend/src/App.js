@@ -2229,6 +2229,28 @@ const CollaborationPage = () => {
               {/* Barre d'outils de formatage */}
               <div className="border-b border-white/10 pb-3 mb-3">
                 <div className="flex flex-wrap gap-1 mb-2">
+                  {/* Boutons de document */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      onClick={createNewDocument}
+                      variant="ghost"
+                      size="sm"
+                      className="text-green-200 hover:bg-white/10"
+                      title="Nouveau document"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      onClick={saveDocument}
+                      variant="ghost"
+                      size="sm"
+                      className="text-blue-200 hover:bg-white/10"
+                      title="Sauvegarder"
+                    >
+                      <Save className="w-4 h-4" />
+                    </Button>
+                  </div>
+                  
                   {/* Boutons de formatage */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
