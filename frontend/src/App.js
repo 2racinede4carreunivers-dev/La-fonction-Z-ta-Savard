@@ -2955,6 +2955,260 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
             </Card>
           </div>
         )}
+
+        {/* Modal Suggestions de Contenu */}
+        {showSuggestions && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">💡</span>
+                    Suggestions de Contenu Intelligentes
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowSuggestions(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4">
+                  <div className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                    {suggestions}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => setShowSuggestions(false)}
+                    className="bg-cyan-600 hover:bg-cyan-700"
+                  >
+                    Appliquer Suggestions
+                  </Button>
+                  <Button
+                    onClick={() => genererSuggestionsContenu()}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                    disabled={isGeneratingSuggestions}
+                  >
+                    🔄 Nouvelles Suggestions
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Résumé Automatique */}
+        {showResume && resumeData && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">📄</span>
+                    Résumé Automatique ({resumeData.style} - {resumeData.longueur})
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowResume(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4">
+                  <div className="text-blue-200 text-sm whitespace-pre-wrap">
+                    {resumeData.resume}
+                  </div>
+                </div>
+                {resumeData.statistiques && (
+                  <div className="bg-cyan-900/20 border border-cyan-600/30 rounded-lg p-3">
+                    <div className="text-cyan-400 font-semibold mb-2">Statistiques</div>
+                    <div className="grid grid-cols-3 gap-4 text-sm">
+                      <div>
+                        <div className="text-gray-400">Original</div>
+                        <div className="text-white">{resumeData.statistiques.mots_original} mots</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400">Résumé</div>
+                        <div className="text-white">{resumeData.statistiques.mots_resume} mots</div>
+                      </div>
+                      <div>
+                        <div className="text-gray-400">Compression</div>
+                        <div className="text-green-400">{resumeData.statistiques.taux_compression}%</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => genererResumeAutomatique('executif', 'court')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Exécutif Court
+                  </Button>
+                  <Button
+                    onClick={() => genererResumeAutomatique('technique', 'detaille')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Technique Détaillé
+                  </Button>
+                  <Button
+                    onClick={() => genererResumeAutomatique('conceptuel', 'moyen')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Conceptuel Moyen
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Analyse de Cohérence */}
+        {showCoherence && coherenceAnalysis && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">🔍</span>
+                    Analyse de Cohérence Argumentaire
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowCoherence(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4">
+                  <div className="text-yellow-200 text-sm whitespace-pre-wrap">
+                    {coherenceAnalysis}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => analyserCoherence('basic')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Analyse Basic
+                  </Button>
+                  <Button
+                    onClick={() => analyserCoherence('approfondi')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Analyse Approfondie
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Citations Automatiques */}
+        {showCitations && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">📚</span>
+                    Citations Théoriques Automatiques
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowCitations(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg p-4">
+                  <div className="text-green-200 text-sm whitespace-pre-wrap">
+                    {citationsSuggered}
+                  </div>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    onClick={() => genererCitationsAutomatiques('academique')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Style Académique
+                  </Button>
+                  <Button
+                    onClick={() => genererCitationsAutomatiques('technique')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Style Technique
+                  </Button>
+                  <Button
+                    onClick={() => genererCitationsAutomatiques('informel')}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10 text-xs"
+                  >
+                    Style Informel
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notifications Intelligentes (Overlay non-intrusif) */}
+        {showNotifications && notifications.length > 0 && (
+          <div className="fixed top-4 right-4 z-40 max-w-sm">
+            {notifications.slice(-3).map((notification, index) => (
+              <div
+                key={notification.id || index}
+                className="bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-lg p-3 mb-2 shadow-xl animate-slide-in"
+              >
+                <div className="flex items-center justify-between mb-1">
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg">
+                      {notification.type === 'suggestion' ? '💡' :
+                       notification.type === 'coherence' ? '🔍' :
+                       notification.type === 'correction' ? '✏️' : '📢'}
+                    </span>
+                    <span className="text-cyan-400 font-semibold text-sm">
+                      {notification.title || 'Notification'}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setNotifications(prev => prev.filter(n => n.id !== notification.id))}
+                    className="text-gray-400 hover:text-white text-xs"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="text-gray-300 text-xs">
+                  {notification.message}
+                </div>
+                <div className="text-gray-500 text-xs mt-1">
+                  {notification.timestamp}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
