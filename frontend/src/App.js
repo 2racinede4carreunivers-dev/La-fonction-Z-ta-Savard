@@ -2480,18 +2480,18 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-2xl w-full">
               <CardHeader>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Edit3 className="w-5 h-5 text-cyan-400" />
-                  <CardTitle className="text-white text-lg">Éditeur Intelligent</CardTitle>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl">🔧 Correction Personnelle</CardTitle>
+                  <Button
+                    onClick={() => setShowCorrectionForm(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
                 </div>
-                <div className="text-xs text-blue-300 flex items-center gap-2">
-                  <span>Corrections automatiques</span>
-                  <div className={`w-2 h-2 rounded-full ${isAnalyzing ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}></div>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col">
+              </CardHeader>
+              <CardContent className="space-y-4">
               {/* Barre d'outils de formatage */}
               <div className="border-b border-white/10 pb-3 mb-3">
                 <div className="flex flex-wrap gap-1 mb-2">
