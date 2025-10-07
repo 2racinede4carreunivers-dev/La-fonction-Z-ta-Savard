@@ -2637,7 +2637,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </Card>
 
           {/* ZONE 3: AFFICHAGE ET HISTORIQUE */}
-          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
+          {(layoutMode === 'normal' || layoutMode === 'vertical') && (
+          <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
+            layoutMode === 'vertical' ? 'h-80' : ''
+          }`}>
             <CardHeader className="pb-3">
               <CardTitle className="text-white text-lg flex items-center gap-2">
                 <List className="w-5 h-5 text-cyan-400" />
