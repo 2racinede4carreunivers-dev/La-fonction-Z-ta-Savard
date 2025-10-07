@@ -1855,6 +1855,48 @@ const CollaborationPage = () => {
     // Le focus est déjà géré dans insertText
   };
 
+  const insertAtNewLine = (prefix) => {
+    try {
+      const textarea = window.document.querySelector('#collaboration-editor');
+      if (!textarea) return;
+      
+      const start = textarea.selectionStart;
+      const currentText = textarea.value;
+      
+      // Trouver le début de la ligne actuelle
+      let lineStart = start;
+      while (lineStart > 0 && currentText[lineStart - 1] !== '\n') {
+        lineStart--;
+      }
+      
+      // Insérer le préfixe au début de la ligne ou créer une nouvelle ligne
+      let newText;
+      let newPosition;
+      
+      if (lineStart === start && (start === 0 || currentText[start - 1] === '\n')) {
+        // Curseur au début d'une ligne vide
+        newText = currentText.substring(0, start) + prefix + currentText.substring(start);
+        newPosition = start + prefix.length;
+      } else {
+        // Créer une nouvelle ligne avec le préfixe
+        newText = currentText.substring(0, start) + '\n' + prefix + currentText.substring(start);
+        newPosition = start + 1 + prefix.length;
+      }
+      
+      setDocument(newText);
+      
+      // Repositionner le curseur
+      setTimeout(() => {
+        if (textarea) {
+          textarea.focus();
+          textarea.setSelectionRange(newPosition, newPosition);
+        }
+      }, 100);
+    } catch (error) {
+      console.warn('Erreur insertAtNewLine:', error);
+    }
+  };
+
   const createNewDocument = () => {
     setDocument('');
     setDocumentTitle('Nouveau Document');
