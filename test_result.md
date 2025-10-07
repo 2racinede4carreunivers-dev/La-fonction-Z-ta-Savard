@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Tester les fonctionnalités du CollaborationPage après restructuration de l'interface en 4-quadrants. Tests à effectuer : (1) /api/chat-extended pour le chat avec l'IA spécialisée, (2) /api/analyse-texte pour les corrections intelligentes, (3) /api/save-collaboration pour sauvegarder les documents, (4) /api/collaboration-documents/{session_id} pour charger les documents. Vérifier le chat IA avec accès privilégié aux documents théoriques, le système de correction intelligente pour le français, la sauvegarde avec session ID, et les réponses structurées bi-partites (🔵/⚪) pour la théorie de Philippôt."
+user_problem_statement: "Tester les nouvelles fonctionnalités d'intelligence avancée que j'ai ajoutées dans l'API backend. Effectuer des tests sur ces nouveaux endpoints: (1) POST /api/suggestions-contenu - Génération de suggestions de contenu contextuelles, (2) POST /api/resume-automatique - Génération de résumés automatiques, (3) POST /api/detection-coherence - Analyse de cohérence argumentaire, (4) POST /api/citations-automatiques - Citations théoriques automatiques, (5) POST /api/notifications-intelligentes - Système de notifications intelligentes. Utilise l'Emergent LLM Key pour les appels IA avec Claude Sonnet 3.5 et teste avec du texte relatif à la théorie 'L'univers est au carré' pour vérifier la pertinence contextuelle des réponses IA."
 
 backend:
   - task: "API endpoint /api/collaborate pour collaboration IA"
