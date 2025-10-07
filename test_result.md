@@ -158,6 +158,21 @@ backend:
         - working: true
           agent: "testing"
           comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint /api/analyse-texte fonctionne parfaitement avec le système de correction intelligente. Tests réalisés: (1) Correction intelligente avec texte contenant fautes intentionnelles - 10 erreurs d'orthographe détectées et corrigées (système→système, corection→correction, erreur→erreurs, detecter→détecter, ameliorations→améliorations), (2) 2 erreurs de grammaire identifiées, (3) Options de correction configurables (orthographe, grammaire, sémantique) fonctionnelles, (4) Validation des champs requis (400 error pour texte vide), (5) Traitement de texte scientifique/mathématique avec scores globaux (orthographe: 95, grammaire: 90, clarté: 85, style: 88), (6) Structure JSON correctement formatée pour l'interface frontend, (7) Session ID préservé correctement, (8) Longueur de texte calculée avec précision. L'IA spécialisée traite correctement le français avec analyse contextuelle intelligente."
+        - working: true
+          agent: "testing"
+          comment: "✅ RE-TESTÉ AVEC SUCCÈS COMPLET - CollaborationPage restructuration 4-quadrants. Tests exhaustifs réalisés: (1) Correction intelligente texte français avec fautes intentionnelles - 7 erreurs orthographe détectées (système, correction, erreurs, détecter, mots), 1-2 erreurs grammaire identifiées, (2) Options configurables validées (orthographe, grammaire, sémantique), (3) Cas limites testés: texte vide (400 error), options minimales, texte scientifique/mathématique, (4) Scores globaux précis (orthographe: 95, grammaire: 90, clarté: 85, style: 88), (5) Session ID préservé correctement, longueur texte calculée avec précision. Système de correction intelligente entièrement opérationnel pour l'interface restructurée."
+
+  - task: "API endpoint /api/chat-extended pour IA spécialisée avec contexte étendu"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS COMPLET - CollaborationPage restructuration 4-quadrants. Endpoint /api/chat-extended fonctionne parfaitement avec accès aux documents théoriques. Tests réalisés: (1) Chat spécialisé avec question sur théorème de Philippôt - réponse substantielle de 2339 caractères, (2) Contenu théorique détecté: 'philippôt', 'théorème', 'géométrie', 'nombres premiers', (3) Concepts clés de la deuxième partie mentionnés: 'trois carrés', 'triangle', 'théorème', (4) Structure de réponse organisée avec sections PARTIE 1/PARTIE 2, (5) Accès privilégié aux documents confirmé avec contenu spécialisé, (6) Context_mode 'extended' fonctionnel, (7) Session ID géré correctement. L'IA spécialisée a accès complet aux documents théoriques et fournit des réponses de qualité pour l'interface restructurée."
 
 frontend:
   - task: "Salon de Lecture - Navigation vers /salon-lecture"
