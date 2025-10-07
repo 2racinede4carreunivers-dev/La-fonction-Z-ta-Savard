@@ -2519,7 +2519,7 @@ const CollaborationPage = () => {
                   </div>
 
                   {/* Options de correction */}
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <button
                       onClick={() => setShowCorrections(!showCorrections)}
                       className={`text-xs px-2 py-1 rounded ${showCorrections ? 'bg-green-600 text-white' : 'bg-slate-600 text-gray-300'}`}
@@ -2543,6 +2543,75 @@ const CollaborationPage = () => {
                               />
                             </label>
                           ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Intelligence Avancée */}
+                  <div className="flex items-center gap-1">
+                    <Button
+                      onClick={genererSuggestionsContenu}
+                      variant="ghost"
+                      size="sm"
+                      className="text-yellow-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Suggestions de contenu"
+                      disabled={isGeneratingSuggestions}
+                    >
+                      {isGeneratingSuggestions ? '⏳' : '💡'} 
+                    </Button>
+                    
+                    <div className="relative group">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                        title="Outils d'intelligence avancée"
+                      >
+                        🧠
+                      </Button>
+                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-3 text-xs hidden group-hover:block min-w-[220px] z-50 shadow-xl">
+                        <div className="space-y-2">
+                          <div className="text-cyan-400 font-semibold mb-2">Intelligence Avancée</div>
+                          <button
+                            onClick={() => genererResumeAutomatique()}
+                            className="w-full text-left text-gray-300 hover:text-white p-1 rounded hover:bg-slate-700 transition-colors"
+                          >
+                            📄 Résumé automatique
+                          </button>
+                          <button
+                            onClick={() => analyserCoherence()}
+                            className="w-full text-left text-gray-300 hover:text-white p-1 rounded hover:bg-slate-700 transition-colors"
+                          >
+                            🔍 Analyse cohérence
+                          </button>
+                          <button
+                            onClick={() => genererCitationsAutomatiques()}
+                            className="w-full text-left text-gray-300 hover:text-white p-1 rounded hover:bg-slate-700 transition-colors"
+                          >
+                            📚 Citations auto
+                          </button>
+                          <div className="border-t border-slate-600 mt-2 pt-2">
+                            <div className="text-xs text-gray-400 mb-1">Paramètres auto:</div>
+                            <label className="flex items-center justify-between cursor-pointer">
+                              <span className="text-gray-300">Suggestions</span>
+                              <input
+                                type="checkbox"
+                                checked={intelligenceSettings.autoSuggestions}
+                                onChange={(e) => setIntelligenceSettings(prev => ({...prev, autoSuggestions: e.target.checked}))}
+                                className="ml-2"
+                              />
+                            </label>
+                            <label className="flex items-center justify-between cursor-pointer">
+                              <span className="text-gray-300">Cohérence</span>
+                              <input
+                                type="checkbox"
+                                checked={intelligenceSettings.autoCoherence}
+                                onChange={(e) => setIntelligenceSettings(prev => ({...prev, autoCoherence: e.target.checked}))}
+                                className="ml-2"
+                              />
+                            </label>
+                          </div>
                         </div>
                       </div>
                     </div>
