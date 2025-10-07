@@ -2165,10 +2165,10 @@ const CollaborationPage = () => {
 
         {/* Nouvelle structure 50/50 avec subdivisions internes */}
         <div className="grid grid-cols-2 gap-4 h-[calc(100vh-180px)]">
-          {/* ZONE 1: CRÉATION ET ÉDITION - MAINTENANT À GAUCHE (PLUS LARGE) */}
-          <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
-            layoutMode === 'focus' ? 'w-full max-w-6xl mx-auto' : ''
-          }`}>
+          {/* PARTIE GAUCHE - 50% : ÉDITION AVEC SUBDIVISION 20/80 */}
+          <div className="flex flex-col h-full">
+            {/* TOP-LEFT - Options de traitement texte (20%) */}
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 mb-4" style={{ height: '20%' }}>
             <CardHeader className="border-b border-white/10 pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
