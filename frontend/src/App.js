@@ -2891,32 +2891,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
             <CardContent className="flex-1 flex flex-col">
               {/* Boutons d'actions pour les documents */}
               <div className="space-y-3 mb-4">
-                <Button
-                  onClick={createNewDocument}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  <Plus className="w-4 h-4 mr-2" />
-                  Nouveau Document
-                </Button>
-                
-                {/* Bouton trombone pour upload */}
-                <label className="w-full cursor-pointer">
-                  <Button
-                    className="w-full bg-orange-600 hover:bg-orange-700 text-white"
-                    asChild
-                  >
-                    <span>
-                      📎 Uploader Fichier
-                    </span>
-                  </Button>
-                  <input
-                    type="file"
-                    onChange={handleFileUpload}
-                    accept=".pdf,.doc,.docx,.txt,.png,.jpg,.jpeg,.gif"
-                    className="hidden"
-                  />
-                </label>
-                
+        {/* Modal de Correction Personnelle */}
         </div>
 
         {/* Modal de Correction Personnelle */}
