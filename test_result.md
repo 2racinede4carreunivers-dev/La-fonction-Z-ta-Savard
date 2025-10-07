@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Test de la nouvelle section 'Document Intégral - Partie 1' dans le Salon de Lecture (/salon-lecture). Vérification que la section apparaît dans la navigation, affiche le contenu intégral avec toutes les sections requises, et que la fonctionnalité d'appui long pour l'assistant contextuel fonctionne."
+user_problem_statement: "Tester les fonctionnalités du CollaborationPage après restructuration de l'interface en 4-quadrants. Tests à effectuer : (1) /api/chat-extended pour le chat avec l'IA spécialisée, (2) /api/analyse-texte pour les corrections intelligentes, (3) /api/save-collaboration pour sauvegarder les documents, (4) /api/collaboration-documents/{session_id} pour charger les documents. Vérifier le chat IA avec accès privilégié aux documents théoriques, le système de correction intelligente pour le français, la sauvegarde avec session ID, et les réponses structurées bi-partites (🔵/⚪) pour la théorie de Philippôt."
 
 backend:
   - task: "API endpoint /api/collaborate pour collaboration IA"
