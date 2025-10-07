@@ -2168,7 +2168,10 @@ const CollaborationPage = () => {
           'grid grid-cols-1 lg:grid-cols-3'
         } ${layoutMode === 'focus' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-180px)]'}`}>
           {/* ZONE 1: CHATBOT SIMPLE */}
-          <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
+          {(layoutMode === 'normal' || layoutMode === 'vertical') && (
+          <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
+            layoutMode === 'vertical' ? 'h-80' : ''
+          }`}>
             <CardHeader className="pb-3">
               <CardTitle className="text-white text-lg flex items-center gap-2">
                 <MessageCircle className="w-5 h-5 text-cyan-400" />
