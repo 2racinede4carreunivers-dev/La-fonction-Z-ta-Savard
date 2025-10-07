@@ -2220,6 +2220,113 @@ const CollaborationPage = () => {
                     </Button>
                   </div>
                   
+                  {/* Boutons de structure */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('\n## ', '')}
+                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Titre"
+                    >
+                      H
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('\n\n', '')}
+                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Nouveau paragraphe"
+                    >
+                      ¶
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('\n• ', '')}
+                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Puce"
+                    >
+                      •
+                    </Button>
+                  </div>
+
+                  {/* Symboles mathématiques */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('∑', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Somme"
+                    >
+                      ∑
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('∫', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Intégrale"
+                    >
+                      ∫
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('√', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Racine"
+                    >
+                      √
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('π', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Pi"
+                    >
+                      π
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('∞', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Infini"
+                    >
+                      ∞
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('ζ', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Zeta"
+                    >
+                      ζ
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('φ', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Phi"
+                    >
+                      φ
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('θ', '')}
+                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
+                      title="Theta"
+                    >
+                      θ
+                    </Button>
+                  </div>
+
                   {/* Options de correction */}
                   <div className="flex items-center gap-1">
                     <button
