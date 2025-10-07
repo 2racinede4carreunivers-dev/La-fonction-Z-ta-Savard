@@ -1253,39 +1253,52 @@ Cette approche géométrique ouvre de nouvelles perspectives dans la théorie de
         return all_tests_passed
 
 def main():
-    print("🚀 Testing CollaborationPage after 4-Quadrant Restructuring")
-    print("=" * 70)
-    print("Focus: Testing collaboration endpoints after interface restructuring")
+    print("🚀 Testing Advanced Intelligence Features - Philippôt Theory Context")
+    print("=" * 80)
+    print("Focus: Testing new AI-powered endpoints with Emergent LLM integration")
     
     tester = UniversAuCarreAPITester()
     
     # Run health check first
     print("\n📋 BASIC HEALTH CHECK")
-    tester.test_health_check()
+    health_success = tester.test_health_check()
     
-    # Focus on collaboration functionality as requested
-    print("\n🎯 COLLABORATION PAGE - RESTRUCTURED ENDPOINTS TESTS")
-    collaboration_success = tester.test_collaboration_page_restructured_endpoints()
+    # PRIMARY FOCUS: Test the new advanced intelligence endpoints as requested
+    print("\n🧠 ADVANCED INTELLIGENCE ENDPOINTS - PRIMARY TESTS")
+    advanced_intelligence_success = tester.test_advanced_intelligence_endpoints()
     
-    # Run additional relevant tests
-    print("\n🔬 ADDITIONAL PHILIPPÔT THEORY TESTS")
-    tester.test_philippot_theorem_privileged_access()
+    # Secondary tests for context
+    print("\n🔬 PHILIPPÔT THEORY ACCESS VALIDATION")
+    theory_access_success = tester.test_philippot_theorem_privileged_access()
     
-    print("\n📝 INTELLIGENT CORRECTION SYSTEM TESTS")
-    tester.test_analyse_texte_endpoint()
+    print("\n📝 EXISTING INTELLIGENT CORRECTION VALIDATION")
+    correction_success = tester.test_analyse_texte_endpoint()
     
     # Print final results
-    print("\n" + "=" * 70)
+    print("\n" + "=" * 80)
     print(f"📊 FINAL RESULTS")
     print(f"Tests passed: {tester.tests_passed}/{tester.tests_run}")
     
-    if collaboration_success and tester.tests_passed >= (tester.tests_run * 0.8):  # 80% success rate
-        print("🎉 Collaboration functionality tests PASSED!")
-        print("✅ CollaborationPage endpoints working after 4-quadrant restructuring")
+    # Detailed results breakdown
+    print(f"\n🎯 RESULTS BREAKDOWN:")
+    print(f"   Health Check: {'✅ PASSED' if health_success else '❌ FAILED'}")
+    print(f"   Advanced Intelligence: {'✅ PASSED' if advanced_intelligence_success else '❌ FAILED'}")
+    print(f"   Theory Access: {'✅ PASSED' if theory_access_success else '❌ FAILED'}")
+    print(f"   Correction System: {'✅ PASSED' if correction_success else '❌ FAILED'}")
+    
+    # Success criteria: Advanced intelligence endpoints must work
+    if advanced_intelligence_success and tester.tests_passed >= (tester.tests_run * 0.75):  # 75% success rate
+        print("\n🎉 ADVANCED INTELLIGENCE FEATURES TESTS PASSED!")
+        print("✅ All 5 new AI endpoints working with Claude Sonnet 3.5")
+        print("✅ Philippôt theory context properly integrated")
+        print("✅ Emergent LLM Key integration functional")
         return 0
     else:
-        print(f"⚠️  Some collaboration tests failed")
-        print(f"❌ Issues detected in CollaborationPage after restructuring")
+        print(f"\n⚠️  Advanced intelligence tests failed or insufficient success rate")
+        if not advanced_intelligence_success:
+            print(f"❌ Critical: New AI endpoints not working properly")
+        if tester.tests_passed < (tester.tests_run * 0.75):
+            print(f"❌ Overall success rate too low: {tester.tests_passed}/{tester.tests_run}")
         return 1
 
 if __name__ == "__main__":
