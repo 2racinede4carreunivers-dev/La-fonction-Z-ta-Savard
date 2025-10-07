@@ -3002,6 +3002,489 @@ Identifier les sections de la théorie "L'univers est au carré" qui posent le p
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur analyse sections: {str(e)}")
 
+# ===============================================
+# FONCTIONNALITÉS D'INTELLIGENCE AVANCÉE
+# ===============================================
+
+@app.post("/api/suggestions-contenu")
+async def generer_suggestions_contenu(request: dict):
+    """Génère des suggestions de contenu contextuelles basées sur le texte actuel"""
+    texte_actuel = request.get("texte_actuel", "")
+    contexte = request.get("contexte", "")
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Enrichissement avec la théorie pour suggestions contextuelles
+        theory_enrichment = enrich_system_message_with_privileged_access()
+        
+        systeme_suggestions = f"""{system_message}
+        
+        {theory_enrichment}
+        
+        **MODE SUGGESTIONS INTELLIGENTES DE CONTENU**
+        
+        Tu es un assistant éditorial spécialisé dans la théorie 'L'univers est au carré'. 
+        Ta mission : proposer des développements pertinents basés sur le contexte actuel.
+        
+        **INSTRUCTIONS :**
+        - Analyse le texte actuel pour comprendre la direction
+        - Propose 3-5 suggestions de développement naturel
+        - Utilise les concepts enrichis appropriés selon le domaine
+        - Maintiens la cohérence avec le style de l'auteur
+        - Respecte la structure bi-partite si applicable
+        
+        **TEXTE ACTUEL :**
+        {texte_actuel}
+        
+        **CONTEXTE ADDITIONNEL :**
+        {contexte}
+        
+        **FORMAT RÉPONSE :**
+        {{
+            "suggestions": [
+                {{
+                    "titre": "Développement suggéré",
+                    "contenu": "Texte proposé à ajouter",
+                    "position": "après/avant/insertion",
+                    "domaine": "géométrie/nombres_premiers/mécanique",
+                    "pertinence": 85
+                }}
+            ],
+            "concepts_lies": ["concept1", "concept2"],
+            "direction_recommandee": "Description de la direction suggérée"
+        }}
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_suggestions
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Génère des suggestions intelligentes pour développer ce texte selon la théorie de Philippe Thomas Savard.")
+        response = await chat.send_message(user_message)
+        
+        # Sauvegarder les suggestions générées
+        suggestion_log = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "texte_source": texte_actuel[:500],  # Limiter la taille
+            "suggestions": response,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.suggestions_contenu.insert_one(suggestion_log)
+        
+        return {
+            "success": True,
+            "suggestions": response,
+            "session_id": session_id,
+            "concepts_disponibles": len(CONCEPTS_ENRICHIS)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur suggestions contenu: {str(e)}")
+
+@app.post("/api/resume-automatique")
+async def generer_resume_automatique(request: dict):
+    """Génère un résumé automatique d'un texte long"""
+    texte_complet = request.get("texte_complet", "")
+    style_resume = request.get("style", "executif")  # "executif", "technique", "conceptuel"
+    longueur_cible = request.get("longueur_cible", "moyen")  # "court", "moyen", "detaille"
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not texte_complet or not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=400, detail="Texte requis")
+    
+    try:
+        # Système spécialisé pour résumé intelligent
+        systeme_resume = f"""{system_message}
+        
+        **MODE RÉSUMÉ AUTOMATIQUE INTELLIGENT**
+        
+        Tu es un expert en synthèse documentaire spécialisé dans la théorie 'L'univers est au carré'.
+        
+        **PARAMÈTRES DE RÉSUMÉ :**
+        - Style : {style_resume}
+        - Longueur : {longueur_cible}
+        
+        **INSTRUCTIONS SPÉCIALISÉES :**
+        - Identifie les concepts clés de la théorie mentionnés
+        - Préserve les formules et calculs importants
+        - Maintiens la logique argumentaire de l'auteur
+        - Respecte la terminologie spécialisée
+        - Structure selon l'importance conceptuelle
+        
+        **STYLES DE RÉSUMÉ :**
+        - **Exécutif** : Points clés, conclusions, applications
+        - **Technique** : Formules, méthodes, démonstrations
+        - **Conceptuel** : Idées principales, théorèmes, innovations
+        
+        **LONGUEURS CIBLES :**
+        - **Court** : 100-200 mots (points essentiels)
+        - **Moyen** : 300-500 mots (développement structuré)
+        - **Détaillé** : 600-1000 mots (analyse approfondie)
+        
+        **TEXTE À RÉSUMER :**
+        {texte_complet}
+        
+        Génère un résumé {style_resume} de longueur {longueur_cible} qui capture l'essence du document.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_resume
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Crée un résumé {style_resume} de longueur {longueur_cible} de ce texte.")
+        resume = await chat.send_message(user_message)
+        
+        # Statistiques du résumé
+        mots_original = len(texte_complet.split())
+        mots_resume = len(resume.split())
+        taux_compression = round((1 - mots_resume / mots_original) * 100, 1) if mots_original > 0 else 0
+        
+        # Sauvegarder le résumé
+        resume_log = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "texte_original_hash": str(hash(texte_complet))[:16],
+            "resume": resume,
+            "style": style_resume,
+            "longueur_cible": longueur_cible,
+            "statistiques": {
+                "mots_original": mots_original,
+                "mots_resume": mots_resume,
+                "taux_compression": taux_compression
+            },
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.resumes_automatiques.insert_one(resume_log)
+        
+        return {
+            "success": True,
+            "resume": resume,
+            "statistiques": resume_log["statistiques"],
+            "style_utilise": style_resume,
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur résumé automatique: {str(e)}")
+
+@app.post("/api/detection-coherence")
+async def detecter_coherence_arguments(request: dict):
+    """Détecte les problèmes de cohérence dans l'argumentation"""
+    texte_analyse = request.get("texte_analyse", "")
+    niveau_detail = request.get("niveau_detail", "standard")  # "basic", "standard", "approfondi"
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not texte_analyse or not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=400, detail="Texte requis")
+    
+    try:
+        # Système expert pour analyse de cohérence
+        systeme_coherence = f"""{system_message}
+        
+        **MODE DÉTECTION DE COHÉRENCE ARGUMENTAIRE**
+        
+        Tu es un expert en logique argumentaire et validation de théories mathématiques.
+        Spécialisé dans l'analyse de cohérence pour la théorie 'L'univers est au carré'.
+        
+        **NIVEAU D'ANALYSE : {niveau_detail.upper()}**
+        
+        **ÉLÉMENTS À ANALYSER :**
+        1. **Cohérence logique** : Enchaînement des arguments
+        2. **Consistance terminologique** : Utilisation uniforme des termes
+        3. **Validation des assertions** : Vérification des affirmations
+        4. **Transitions argumentaires** : Fluidité entre les idées
+        5. **Prémisses et conclusions** : Solidité du raisonnement
+        6. **Cohérence avec la théorie** : Alignement avec les concepts établis
+        
+        **NIVEAUX D'ANALYSE :**
+        - **Basic** : Problèmes majeurs uniquement
+        - **Standard** : Analyse complète standard
+        - **Approfondi** : Examen minutieux + suggestions d'amélioration
+        
+        **FORMAT RÉPONSE :**
+        {{
+            "score_coherence_global": 75,
+            "problemes_detectes": [
+                {{
+                    "position": [start, end],
+                    "type": "incohérence logique",
+                    "description": "Explication du problème",
+                    "severite": "majeure/mineure",
+                    "suggestion": "Comment corriger"
+                }}
+            ],
+            "points_forts": ["argumentation solide section X"],
+            "recommandations": ["amélioration 1", "amélioration 2"],
+            "coherence_terminologique": 85,
+            "fluidite_argumentaire": 70
+        }}
+        
+        **TEXTE À ANALYSER POUR COHÉRENCE :**
+        {texte_analyse}
+        
+        Effectue une analyse {niveau_detail} de la cohérence argumentaire.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_coherence
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Analyse la cohérence argumentaire de ce texte avec un niveau {niveau_detail}.")
+        analyse = await chat.send_message(user_message)
+        
+        # Sauvegarder l'analyse
+        coherence_log = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "texte_hash": str(hash(texte_analyse))[:16],
+            "analyse_coherence": analyse,
+            "niveau_detail": niveau_detail,
+            "longueur_texte": len(texte_analyse),
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.analyses_coherence.insert_one(coherence_log)
+        
+        return {
+            "success": True,
+            "analyse_coherence": analyse,
+            "niveau_analyse": niveau_detail,
+            "session_id": session_id,
+            "texte_longueur": len(texte_analyse)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur détection cohérence: {str(e)}")
+
+@app.post("/api/citations-automatiques")
+async def generer_citations_automatiques(request: dict):
+    """Génère des citations théoriques automatiques basées sur le contenu"""
+    contenu_texte = request.get("contenu_texte", "")
+    style_citation = request.get("style_citation", "academique")  # "academique", "informel", "technique"
+    domaines_focus = request.get("domaines_focus", [])  # Filtrer par domaines spécifiques
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not contenu_texte or not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=400, detail="Contenu requis")
+    
+    try:
+        # Enrichissement avec les concepts pour citations pertinentes
+        theory_enrichment = enrich_system_message_with_privileged_access()
+        
+        # Filtrer par domaines si spécifié
+        concepts_disponibles = CONCEPTS_ENRICHIS
+        if domaines_focus:
+            concepts_disponibles = [c for c in CONCEPTS_ENRICHIS if c["domaine_principal"] in domaines_focus]
+        
+        systeme_citations = f"""{system_message}
+        
+        {theory_enrichment}
+        
+        **MODE GÉNÉRATION DE CITATIONS THÉORIQUES AUTOMATIQUES**
+        
+        Tu es un bibliothécaire expert spécialisé dans la théorie 'L'univers est au carré'.
+        Ta mission : identifier et suggérer des citations théoriques pertinentes.
+        
+        **STYLE DE CITATION : {style_citation.upper()}**
+        
+        **DOMAINES DE FOCUS :** {', '.join(domaines_focus) if domaines_focus else 'Tous les domaines'}
+        
+        **SOURCES DISPONIBLES :**
+        - Documents de la théorie analysés
+        - Concepts enrichis de Philippe Thomas Savard
+        - Références aux travaux et démonstrations
+        
+        **STYLES DE CITATION :**
+        - **Académique** : Format formel avec références précises
+        - **Informel** : Mentions naturelles dans le texte
+        - **Technique** : Citations de formules et méthodes spécifiques
+        
+        **CONTENU À ANALYSER :**
+        {contenu_texte}
+        
+        **FORMAT RÉPONSE :**
+        {{
+            "citations_suggerees": [
+                {{
+                    "concept_cite": "Théorème de Philippôt",
+                    "position_suggere": 245,
+                    "citation_formelle": "Selon Philippe Thomas Savard (L'univers est au carré, Partie 2)...",
+                    "contexte": "Pertinente car le texte mentionne l'intrication quantique",
+                    "domaine": "physique_theorique",
+                    "pertinence": 90
+                }}
+            ],
+            "concepts_mentionnes": ["concept1", "concept2"],
+            "references_manquantes": ["référence suggérée"],
+            "style_utilise": "{style_citation}"
+        }}
+        
+        Identifie les concepts mentionnés et propose des citations appropriées.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_citations
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Analyse ce contenu et suggère des citations théoriques appropriées en style {style_citation}.")
+        citations = await chat.send_message(user_message)
+        
+        # Sauvegarder les citations générées
+        citations_log = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "contenu_source": contenu_texte[:300],  # Extrait pour contexte
+            "citations_generees": citations,
+            "style_citation": style_citation,
+            "domaines_focus": domaines_focus,
+            "concepts_disponibles": len(concepts_disponibles),
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.citations_automatiques.insert_one(citations_log)
+        
+        return {
+            "success": True,
+            "citations": citations,
+            "style_utilise": style_citation,
+            "concepts_sources": len(concepts_disponibles),
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur citations automatiques: {str(e)}")
+
+@app.post("/api/notifications-intelligentes")
+async def generer_notifications_intelligentes(request: dict):
+    """Génère des notifications intelligentes pour corrections ou suggestions"""
+    texte_actuel = request.get("texte_actuel", "")
+    seuil_importance = request.get("seuil_importance", "medium")  # "low", "medium", "high"
+    types_notifications = request.get("types_notifications", ["corrections", "suggestions", "coherence"])
+    session_id = request.get("session_id", str(uuid.uuid4()))
+    
+    if not EMERGENT_LLM_KEY:
+        raise HTTPException(status_code=500, detail="Clé API manquante")
+    
+    try:
+        # Système de notification intelligent
+        systeme_notifications = f"""{system_message}
+        
+        **MODE NOTIFICATIONS INTELLIGENTES**
+        
+        Tu es un système de notification intelligent pour l'assistance à l'écriture scientifique.
+        Spécialisé dans la théorie 'L'univers est au carré'.
+        
+        **SEUIL D'IMPORTANCE : {seuil_importance.upper()}**
+        **TYPES ACTIVÉS : {', '.join(types_notifications)}**
+        
+        **CRITÈRES DE NOTIFICATION :**
+        - **HIGH** : Erreurs critiques, incohérences majeures
+        - **MEDIUM** : Améliorations importantes, suggestions pertinentes  
+        - **LOW** : Optimisations mineures, suggestions stylistiques
+        
+        **TYPES DE NOTIFICATIONS :**
+        - **corrections** : Erreurs détectées nécessitant action
+        - **suggestions** : Améliorations recommandées
+        - **coherence** : Problèmes de logique argumentaire
+        
+        **TEXTE À ANALYSER :**
+        {texte_actuel}
+        
+        **FORMAT RÉPONSE :**
+        {{
+            "notifications": [
+                {{
+                    "id": "notif_001",
+                    "type": "correction",
+                    "importance": "high",
+                    "titre": "Titre court de la notification",
+                    "message": "Description détaillée",
+                    "action_suggeree": "Action à effectuer",
+                    "position": [start, end],
+                    "timestamp": "now"
+                }}
+            ],
+            "resume_session": {{
+                "total_notifications": 3,
+                "critiques": 1,
+                "suggestions": 2
+            }}
+        }}
+        
+        Génère des notifications pertinentes selon les critères définis.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=session_id,
+            system_message=systeme_notifications
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text=f"Analyse ce texte et génère des notifications avec seuil {seuil_importance}.")
+        notifications = await chat.send_message(user_message)
+        
+        # Sauvegarder les notifications
+        notifications_log = {
+            "id": str(uuid.uuid4()),
+            "session_id": session_id,
+            "texte_source": texte_actuel[:200],  # Extrait
+            "notifications": notifications,
+            "seuil_importance": seuil_importance,
+            "types_actifs": types_notifications,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.notifications_intelligentes.insert_one(notifications_log)
+        
+        return {
+            "success": True,
+            "notifications": notifications,
+            "seuil_utilise": seuil_importance,
+            "types_actifs": types_notifications,
+            "session_id": session_id
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur notifications intelligentes: {str(e)}")
+
+# Modèles Pydantic pour les nouvelles fonctionnalités
+class SuggestionsRequest(BaseModel):
+    texte_actuel: str
+    contexte: Optional[str] = ""
+    session_id: Optional[str] = None
+
+class ResumeRequest(BaseModel):
+    texte_complet: str
+    style: Optional[str] = "executif"
+    longueur_cible: Optional[str] = "moyen"
+    session_id: Optional[str] = None
+
+class CoherenceRequest(BaseModel):
+    texte_analyse: str
+    niveau_detail: Optional[str] = "standard"
+    session_id: Optional[str] = None
+
+class CitationsRequest(BaseModel):
+    contenu_texte: str
+    style_citation: Optional[str] = "academique"
+    domaines_focus: Optional[List[str]] = []
+    session_id: Optional[str] = None
+
+class NotificationsRequest(BaseModel):
+    texte_actuel: str
+    seuil_importance: Optional[str] = "medium"
+    types_notifications: Optional[List[str]] = ["corrections", "suggestions", "coherence"]
+    session_id: Optional[str] = None
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
