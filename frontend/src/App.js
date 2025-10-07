@@ -2184,77 +2184,214 @@ const CollaborationPage = () => {
               </div>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
-              {/* Historique des messages */}
-              <div className="flex-1 bg-slate-900/50 rounded-lg p-3 mb-3 overflow-y-auto max-h-80">
-                {chatHistory.length === 0 ? (
-                  <div className="text-center text-blue-300 text-sm py-8">
-                    Posez vos questions sur la théorie "L'univers est au carré"
+              {/* Barre d'outils de formatage */}
+              <div className="border-b border-white/10 pb-3 mb-3">
+                <div className="flex flex-wrap gap-1 mb-2">
+                  {/* Boutons de formatage */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('**', '**')}
+                      className="text-blue-200 hover:bg-white/10"
+                      title="Gras"
+                    >
+                      <Bold className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('*', '*')}
+                      className="text-blue-200 hover:bg-white/10"
+                      title="Italique"
+                    >
+                      <Italic className="w-4 h-4" />
+                    </Button>
                   </div>
-                ) : (
-                  <div className="space-y-3">
-                    {chatHistory.map((msg, index) => (
-                      <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[85%] rounded-lg p-2 text-sm ${
-                          msg.type === 'user' 
-                            ? 'bg-cyan-600 text-white' 
-                            : msg.type === 'error'
-                            ? 'bg-red-600/20 text-red-200 border border-red-500/30'
-                            : msg.type === 'system'
-                            ? 'bg-green-600/20 text-green-200 border border-green-500/30'
-                            : 'bg-indigo-600/30 text-blue-100 border border-indigo-500/30'
-                        }`}>
-                          <div className="whitespace-pre-wrap">{msg.content}</div>
-                          <div className="flex items-center justify-between mt-1">
-                            <div className="text-xs opacity-70">{msg.timestamp}</div>
-                            {msg.type === 'ai' && (
-                              <Button
-                                onClick={() => {
-                                  const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
-                                  ouvrirCorrection(index, questionPrecedente, msg.content);
-                                }}
-                                variant="ghost"
-                                size="sm"
-                                className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30 ml-2"
-                              >
-                                🔧 Corriger
-                              </Button>
-                            )}
-                          </div>
-                        </div>
-                      </div>
+                  
+                  {/* Boutons de structure */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    {['# ', '## ', '### '].map((prefix, index) => (
+                      <Button
+                        key={index}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => insertAtNewLine(prefix)}
+                        className="text-purple-200 hover:bg-white/10"
+                        title={`Titre niveau ${index + 1}`}
+                      >
+                        H{index + 1}
+                      </Button>
                     ))}
                   </div>
-                )}
-                {isChatLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-indigo-600/30 text-blue-100 border border-indigo-500/30 rounded-lg p-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-cyan-400"></div>
-                        L'IA réfléchit...
+                  
+                  {/* Boutons de listes */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertAtNewLine('- ')}
+                      className="text-green-200 hover:bg-white/10"
+                      title="Liste à puces"
+                    >
+                      •
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertAtNewLine('1. ')}
+                      className="text-green-200 hover:bg-white/10"
+                      title="Liste numérotée"
+                    >
+                      1.
+                    </Button>
+                  </div>
+                  
+                  {/* Symboles mathématiques */}
+                  <div className="flex items-center gap-1">
+                    {[
+                      { symbol: '∑', name: 'Somme' },
+                      { symbol: '∫', name: 'Intégrale' },
+                      { symbol: '√', name: 'Racine' },
+                      { symbol: 'π', name: 'Pi' },
+                      { symbol: '∞', name: 'Infini' },
+                      { symbol: '≈', name: 'Environ égal' },
+                      { symbol: '≠', name: 'Différent' },
+                      { symbol: '≤', name: 'Inférieur ou égal' },
+                      { symbol: '≥', name: 'Supérieur ou égal' },
+                      { symbol: 'ζ', name: 'Zêta' },
+                      { symbol: 'φ', name: 'Phi' },
+                      { symbol: 'θ', name: 'Thêta' }
+                    ].map((item, index) => (
+                      <Button
+                        key={index}
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => insertText(item.symbol)}
+                        className="text-yellow-200 hover:bg-white/10 min-w-[32px]"
+                        title={`Insérer ${item.name}`}
+                      >
+                        {item.symbol}
+                      </Button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Zone d'édition avec corrections intelligentes */}
+              <div className="flex-1 relative">
+                {/* Options de correction discrètes */}
+                <div className="absolute top-2 right-2 z-10">
+                  <div className="flex items-center gap-1 bg-slate-900/90 backdrop-blur-sm rounded-lg px-2 py-1">
+                    <button
+                      onClick={() => setShowCorrections(!showCorrections)}
+                      className={`text-xs px-2 py-1 rounded ${showCorrections ? 'bg-green-600 text-white' : 'bg-slate-600 text-gray-300'}`}
+                      title="Activer/Désactiver les suggestions de correction"
+                    >
+                      {isAnalyzing ? '⏳' : '✓'} Corrections
+                    </button>
+                    
+                    <div className="relative group">
+                      <button className="text-xs text-gray-400 hover:text-white px-1">⚙️</button>
+                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-2 text-xs hidden group-hover:block min-w-[180px] z-50 shadow-xl">
+                        <div className="space-y-1">
+                          {Object.entries(optionsCorrection).map(([key, value]) => (
+                            <label key={key} className="flex items-center justify-between cursor-pointer">
+                              <span className="text-gray-300 capitalize">{key}</span>
+                              <input
+                                type="checkbox"
+                                checked={value}
+                                onChange={(e) => setOptionsCorrection(prev => ({...prev, [key]: e.target.checked}))}
+                                className="ml-2"
+                              />
+                            </label>
+                          ))}
+                        </div>
                       </div>
                     </div>
                   </div>
+                </div>
+
+                {/* Suggestions de correction discrètes */}
+                {showCorrections && correctionsActives.length > 0 && (
+                  <div className="absolute left-2 top-2 max-w-[300px] bg-slate-900/95 backdrop-blur-sm border border-slate-600 rounded-lg p-2 text-xs z-10">
+                    <div className="text-cyan-400 font-semibold mb-1 flex items-center justify-between">
+                      <span>💡 Suggestions ({correctionsActives.length})</span>
+                      <button
+                        onClick={() => setShowCorrections(false)}
+                        className="text-gray-400 hover:text-white ml-2"
+                      >
+                        ×
+                      </button>
+                    </div>
+                    <div className="max-h-[200px] overflow-y-auto space-y-1">
+                      {correctionsActives.slice(0, 3).map((correction) => (
+                        <div key={correction.id} className="bg-slate-800/50 rounded p-1">
+                          <div className="flex items-center justify-between">
+                            <div className="flex-1">
+                              <span className={`text-xs px-1 rounded ${
+                                correction.type === 'orthographe' ? 'bg-red-600/20 text-red-300' :
+                                correction.type === 'grammaire' ? 'bg-yellow-600/20 text-yellow-300' :
+                                'bg-blue-600/20 text-blue-300'
+                              }`}>
+                                {correction.type}
+                              </span>
+                              <div className="text-gray-300 mt-1">
+                                <div className="line-through text-gray-500">{correction.erreur || correction.original}</div>
+                                <div className="text-green-300">→ {correction.suggestion || correction.ameliore}</div>
+                              </div>
+                            </div>
+                            <div className="flex gap-1 ml-2">
+                              <button
+                                onClick={() => appliquerCorrection(correction)}
+                                className="text-green-400 hover:text-green-300"
+                                title="Appliquer"
+                              >
+                                ✓
+                              </button>
+                              <button
+                                onClick={() => ignorerCorrection(correction.id)}
+                                className="text-gray-400 hover:text-gray-300"
+                                title="Ignorer"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                      {correctionsActives.length > 3 && (
+                        <div className="text-gray-400 text-center">
+                          +{correctionsActives.length - 3} autres suggestions
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 )}
-              </div>
-              
-              {/* Zone de saisie du chat */}
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={chatMessage}
-                  onChange={(e) => setChatMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && !isChatLoading && sendChatMessage()}
-                  placeholder="Posez votre question..."
-                  className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
-                  disabled={isChatLoading}
+
+                <textarea
+                  id="collaboration-editor"
+                  value={document}
+                  onChange={(e) => {
+                    setDocument(e.target.value);
+                    if (showCorrections) {
+                      declencherAnalyseAvecDelai(e.target.value);
+                    }
+                  }}
+                  placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'...
+
+🔍 Correction intelligente activée - Les suggestions apparaîtront automatiquement
+
+Utilisez les outils de formatage ci-dessus :
+• Boutons de formatage : gras, italique
+• Structures : titres, paragraphes  
+• Listes : puces, numérotées
+• Symboles mathématiques : ∑ Symboles
+
+Exemple avec symboles mathématiques :
+La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
+                  className="w-full h-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none font-mono leading-relaxed"
                 />
-                <Button
-                  onClick={sendChatMessage}
-                  disabled={isChatLoading || !chatMessage.trim()}
-                  className="bg-cyan-600 hover:bg-cyan-700 px-4"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
               </div>
             </CardContent>
           </Card>
