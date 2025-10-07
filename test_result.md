@@ -321,9 +321,7 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Advanced Intelligence Endpoints - Tests complets des 5 nouveaux endpoints IA"
-    - "Intégration Claude Sonnet 3.5 avec Emergent LLM Key"
-    - "Contexte théorique Philippôt pour suggestions intelligentes"
+    - "Corrections Intelligence Avancée CollaborationPage"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
