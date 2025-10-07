@@ -2932,7 +2932,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
         {/* Modal LaTeX (si nécessaire) */}
         {showLatex && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white text-2xl">Version LaTeX Générée</CardTitle>
@@ -2962,7 +2965,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
             onClick={() => setShowSuggestions(false)}
           >
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white text-xl flex items-center gap-2">
@@ -3008,7 +3014,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
         {/* Modal Résumé Automatique */}
         {showResume && resumeData && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white text-xl flex items-center gap-2">
@@ -3080,7 +3089,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
         {/* Modal Analyse de Cohérence */}
         {showCoherence && coherenceAnalysis && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white text-xl flex items-center gap-2">
@@ -3126,7 +3138,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
         {/* Modal Citations Automatiques */}
         {showCitations && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden">
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
               <CardHeader>
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-white text-xl flex items-center gap-2">
