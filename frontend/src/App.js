@@ -2091,30 +2091,75 @@ const CollaborationPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-white mb-2 flex items-center gap-2">
-            <Edit3 className="w-7 h-7 text-cyan-400" />
+        <div className="text-center mb-6">
+          <h1 className="text-4xl font-bold text-white mb-4">
             Espace de Collaboration - L'univers est au carré
           </h1>
-          <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-600">
-            <p className="text-blue-200 mb-2">
-              <strong>Interface Structurée pour la Théorie de Philippe Thomas Savard</strong>
-            </p>
-            <div className="grid grid-cols-3 gap-4 text-sm">
-              <div className="bg-cyan-900/20 p-2 rounded border border-cyan-600/30">
-                <strong className="text-cyan-400">Zone 1 - Chat IA</strong>
-                <p className="text-blue-300">Discussion directe avec l'IA spécialisée</p>
-              </div>
-              <div className="bg-purple-900/20 p-2 rounded border border-purple-600/30">
-                <strong className="text-purple-400">Zone 2 - Création</strong>
-                <p className="text-blue-300">Éditeur avec outils mathématiques et formatage</p>
-              </div>
-              <div className="bg-emerald-900/20 p-2 rounded border border-emerald-600/30">
-                <strong className="text-emerald-400">Zone 3 - Gestion</strong>
-                <p className="text-blue-300">Documents, upload, historique des corrections</p>
+          <p className="text-blue-200 mb-4">
+            Interface avancée pour développer, écrire et collaborer avec l'IA spécialisée sur la théorie de Philippôt
+          </p>
+          
+          {/* Contrôles de layout */}
+          <div className="flex justify-center gap-3 mb-6">
+            <Button
+              onClick={() => setLayoutMode('normal')}
+              variant={layoutMode === 'normal' ? 'default' : 'ghost'}
+              size="sm"
+              className={`${layoutMode === 'normal' ? 'bg-cyan-600' : 'text-gray-300'}`}
+            >
+              📊 Vue Normale
+            </Button>
+            <Button
+              onClick={() => setLayoutMode('focus')}
+              variant={layoutMode === 'focus' ? 'default' : 'ghost'}
+              size="sm"
+              className={`${layoutMode === 'focus' ? 'bg-purple-600' : 'text-gray-300'}`}
+            >
+              ✍️ Mode Focus Écriture
+            </Button>
+            <Button
+              onClick={() => setLayoutMode('vertical')}
+              variant={layoutMode === 'vertical' ? 'default' : 'ghost'}
+              size="sm"
+              className={`${layoutMode === 'vertical' ? 'bg-green-600' : 'text-gray-300'}`}
+            >
+              📑 Layout Vertical
+            </Button>
+          </div>
+          
+          {layoutMode === 'normal' && (
+            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 max-w-4xl mx-auto">
+              <h3 className="text-lg font-semibold text-cyan-400 mb-3">Architecture de l'Interface</h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                <div className="bg-cyan-900/20 p-2 rounded border border-cyan-600/30">
+                  <strong className="text-cyan-400">Zone 1 - Interaction</strong>
+                  <p className="text-blue-300">Chat IA avec accès privilégié aux documents</p>
+                </div>
+                <div className="bg-purple-900/20 p-2 rounded border border-purple-600/30">
+                  <strong className="text-purple-400">Zone 2 - Création</strong>
+                  <p className="text-blue-300">Éditeur avec outils mathématiques et formatage</p>
+                </div>
+                <div className="bg-emerald-900/20 p-2 rounded border border-emerald-600/30">
+                  <strong className="text-emerald-400">Zone 3 - Gestion</strong>
+                  <p className="text-blue-300">Documents, upload, historique des corrections</p>
+                </div>
               </div>
             </div>
-          </div>
+          )}
+          
+          {layoutMode === 'focus' && (
+            <div className="bg-purple-900/20 backdrop-blur-sm rounded-xl p-4 max-w-2xl mx-auto">
+              <h3 className="text-lg font-semibold text-purple-400 mb-2">🎯 Mode Focus Écriture</h3>
+              <p className="text-purple-200 text-sm">Espace d'écriture maximisé avec corrections intelligentes</p>
+            </div>
+          )}
+          
+          {layoutMode === 'vertical' && (
+            <div className="bg-green-900/20 backdrop-blur-sm rounded-xl p-4 max-w-2xl mx-auto">
+              <h3 className="text-lg font-semibold text-green-400 mb-2">📑 Layout Vertical</h3>
+              <p className="text-green-200 text-sm">Sections empilées pour une lecture fluide sur mobile</p>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-180px)]">
