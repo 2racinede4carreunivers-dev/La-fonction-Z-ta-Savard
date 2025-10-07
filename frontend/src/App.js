@@ -2167,10 +2167,9 @@ const CollaborationPage = () => {
           layoutMode === 'vertical' ? 'flex flex-col space-y-4' :
           'grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr]'  /* Zone d'écriture plus large à gauche */
         } ${layoutMode === 'focus' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-180px)]'}`}>
-          {/* ZONE 1: CHATBOT SIMPLE */}
-          {(layoutMode === 'normal' || layoutMode === 'vertical') && (
+          {/* ZONE 1: CRÉATION ET ÉDITION - MAINTENANT À GAUCHE (PLUS LARGE) */}
           <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
-            layoutMode === 'vertical' ? 'h-80' : ''
+            layoutMode === 'focus' ? 'w-full max-w-6xl mx-auto' : ''
           }`}>
             <CardHeader className="pb-3">
               <CardTitle className="text-white text-lg flex items-center gap-2">
