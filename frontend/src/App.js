@@ -2474,7 +2474,13 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
               </CardContent>
             </Card>
           </div>
-            <CardHeader className="border-b border-white/10 pb-3">
+        </div>
+
+        {/* Modal de Correction Personnelle */}
+        {showCorrectionForm && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-2xl w-full">
+              <CardHeader>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Edit3 className="w-5 h-5 text-cyan-400" />
