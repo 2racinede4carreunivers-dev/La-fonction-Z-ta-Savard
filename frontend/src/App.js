@@ -2165,7 +2165,7 @@ const CollaborationPage = () => {
         <div className={`gap-4 ${
           layoutMode === 'focus' ? 'flex justify-center' :
           layoutMode === 'vertical' ? 'flex flex-col space-y-4' :
-          'grid grid-cols-1 lg:grid-cols-3'
+          'grid grid-cols-1 lg:grid-cols-[2fr_1fr_1fr]'  /* Zone d'écriture plus large à gauche */
         } ${layoutMode === 'focus' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-180px)]'}`}>
           {/* ZONE 1: CHATBOT SIMPLE */}
           {(layoutMode === 'normal' || layoutMode === 'vertical') && (
