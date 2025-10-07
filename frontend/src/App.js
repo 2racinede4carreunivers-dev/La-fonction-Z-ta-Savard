@@ -3173,13 +3173,25 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Notifications Intelligentes (Overlay non-intrusif) */}
+        {/* Notifications Intelligentes (Overlay non-intrusif) - Position corrigée */}
         {showNotifications && notifications.length > 0 && (
-          <div className="fixed top-4 right-4 z-40 max-w-sm">
+          <div className="fixed top-20 right-4 z-50 max-w-sm">
             {notifications.slice(-3).map((notification, index) => (
               <div
                 key={notification.id || index}
-                className="bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-lg p-3 mb-2 shadow-xl animate-slide-in"
+                className="bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-lg p-3 mb-2 shadow-xl cursor-pointer hover:bg-slate-700/95 transition-colors"
+                onClick={() => {
+                  // Action selon le type de notification
+                  if (notification.type === 'suggestion') {
+                    setShowSuggestions(true);
+                  } else if (notification.type === 'coherence') {
+                    setShowCoherence(true);
+                  } else if (notification.type === 'correction') {
+                    setShowCorrections(true);
+                  }
+                  // Marquer la notification comme lue
+                  setNotifications(prev => prev.filter(n => n.id !== notification.id));
+                }}
               >
                 <div className="flex items-center justify-between mb-1">
                   <div className="flex items-center gap-2">
@@ -3193,8 +3205,12 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                     </span>
                   </div>
                   <button
-                    onClick={() => setNotifications(prev => prev.filter(n => n.id !== notification.id))}
-                    className="text-gray-400 hover:text-white text-xs"
+                    onClick={(e) => {
+                      e.stopPropagation(); // Empêcher la propagation du clic
+                      setNotifications(prev => prev.filter(n => n.id !== notification.id));
+                    }}
+                    className="text-gray-400 hover:text-white text-xs hover:bg-red-600/30 rounded px-1"
+                    title="Fermer cette notification"
                   >
                     ✕
                   </button>
@@ -3202,8 +3218,9 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 <div className="text-gray-300 text-xs">
                   {notification.message}
                 </div>
-                <div className="text-gray-500 text-xs mt-1">
-                  {notification.timestamp}
+                <div className="text-gray-500 text-xs mt-1 flex items-center justify-between">
+                  <span>{notification.timestamp}</span>
+                  <span className="text-blue-400 text-xs">← Cliquer pour ouvrir</span>
                 </div>
               </div>
             ))}
