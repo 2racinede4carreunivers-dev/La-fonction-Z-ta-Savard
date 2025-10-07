@@ -2162,7 +2162,11 @@ const CollaborationPage = () => {
           )}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 h-[calc(100vh-180px)]">
+        <div className={`gap-4 ${
+          layoutMode === 'focus' ? 'flex justify-center' :
+          layoutMode === 'vertical' ? 'flex flex-col space-y-4' :
+          'grid grid-cols-1 lg:grid-cols-3'
+        } ${layoutMode === 'focus' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-180px)]'}`}>
           {/* ZONE 1: CHATBOT SIMPLE */}
           <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col">
             <CardHeader className="pb-3">
