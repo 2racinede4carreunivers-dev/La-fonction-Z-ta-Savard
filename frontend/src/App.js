@@ -2207,7 +2207,7 @@ const CollaborationPage = () => {
         <div className={`gap-4 ${
           layoutMode === 'focus' ? 'flex justify-center' :
           layoutMode === 'vertical' ? 'flex flex-col space-y-4' :
-          'grid grid-cols-1 lg:grid-cols-2'  /* Partage 50-50 parfait */
+          'grid grid-cols-1 lg:grid-cols-[65fr_35fr]'  /* 65% Éditeur, 35% IA */
         } ${layoutMode === 'focus' ? 'h-[calc(100vh-140px)]' : 'h-[calc(100vh-180px)]'}`}>
           {/* ZONE 1: CRÉATION ET ÉDITION - MAINTENANT À GAUCHE (PLUS LARGE) */}
           <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
