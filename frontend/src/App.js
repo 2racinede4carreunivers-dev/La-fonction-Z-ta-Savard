@@ -2169,6 +2169,93 @@ const CollaborationPage = () => {
           <div className="flex flex-col h-full">
             {/* TOP-LEFT - Options de traitement texte (20%) */}
             <Card className="bg-white/5 backdrop-blur-sm border border-white/10 mb-4" style={{ height: '20%' }}>
+              <CardHeader className="py-2">
+                <CardTitle className="text-white text-sm flex items-center gap-2">
+                  <Type className="w-4 h-4 text-orange-400" />
+                  Options de Traitement
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="py-2">
+                <div className="flex flex-wrap gap-1">
+                  {/* Boutons de document */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      onClick={createNewDocument}
+                      variant="ghost"
+                      size="sm"
+                      className="text-green-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Nouveau document"
+                    >
+                      <Plus className="w-3 h-3" />
+                    </Button>
+                    <Button
+                      onClick={saveDocument}
+                      variant="ghost"
+                      size="sm"
+                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Sauvegarder"
+                    >
+                      <Save className="w-3 h-3" />
+                    </Button>
+                  </div>
+                  
+                  {/* Boutons de formatage */}
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('**', '**')}
+                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Gras"
+                    >
+                      <Bold className="w-3 h-3" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => insertText('*', '*')}
+                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      title="Italique"
+                    >
+                      <Italic className="w-3 h-3" />
+                    </Button>
+                  </div>
+                  
+                  {/* Options de correction */}
+                  <div className="flex items-center gap-1">
+                    <button
+                      onClick={() => setShowCorrections(!showCorrections)}
+                      className={`text-xs px-2 py-1 rounded ${showCorrections ? 'bg-green-600 text-white' : 'bg-slate-600 text-gray-300'}`}
+                      title="Activer/Désactiver les suggestions de correction"
+                    >
+                      {isAnalyzing ? '⏳' : '✓'} Corrections
+                    </button>
+                    
+                    <div className="relative group">
+                      <button className="text-xs text-gray-400 hover:text-white px-1">⚙️</button>
+                      <div className="absolute right-0 top-6 bg-slate-800 border border-slate-600 rounded-lg p-2 text-xs hidden group-hover:block min-w-[180px] z-50 shadow-xl">
+                        <div className="space-y-1">
+                          {Object.entries(optionsCorrection).map(([key, value]) => (
+                            <label key={key} className="flex items-center justify-between cursor-pointer">
+                              <span className="text-gray-300 capitalize">{key}</span>
+                              <input
+                                type="checkbox"
+                                checked={value}
+                                onChange={(e) => setOptionsCorrection(prev => ({...prev, [key]: e.target.checked}))}
+                                className="ml-2"
+                              />
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* BOTTOM-LEFT - Éditeur principal (80%) */}
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col" style={{ height: '80%' }}>
             <CardHeader className="border-b border-white/10 pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
