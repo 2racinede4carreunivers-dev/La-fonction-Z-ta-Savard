@@ -2358,6 +2358,122 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
 
           {/* PARTIE DROITE - 50% : IA AVEC SUBDIVISION 90/10 */}
           <div className="flex flex-col h-full">
+            {/* TOP-RIGHT - Réponses IA (90%) */}
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10 mb-4 flex flex-col" style={{ height: '90%' }}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-white text-sm flex items-center gap-2">
+                  <Brain className="w-4 h-4 text-cyan-400" />
+                  Réponses de l'IA Spécialisée
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex-1 p-3">
+                <div className="h-full bg-slate-900/50 rounded-lg p-4 overflow-y-auto border border-indigo-500/20">
+                  {chatHistory.length === 0 ? (
+                    <div className="text-center text-blue-300 py-12">
+                      <div className="text-4xl mb-4">🤖</div>
+                      <h3 className="text-lg font-semibold mb-2">Assistant IA Spécialisé</h3>
+                      <p className="text-sm opacity-80 max-w-md mx-auto">
+                        Posez vos questions sur la théorie "L'univers est au carré" de Philippe Thomas Savard.
+                        L'IA a un accès privilégié aux documents complets.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {chatHistory.map((msg, index) => (
+                        <div key={index} className="w-full">
+                          {msg.type === 'user' ? (
+                            <div className="flex justify-end mb-4">
+                              <div className="bg-cyan-600/80 text-white rounded-lg p-3 max-w-[70%]">
+                                <div className="font-medium mb-1">Votre question :</div>
+                                <div className="whitespace-pre-wrap text-sm">{msg.content}</div>
+                                <div className="text-xs opacity-70 mt-2">{msg.timestamp}</div>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="w-full mb-4">
+                              <div className={`w-full rounded-lg p-4 ${
+                                msg.type === 'error'
+                                  ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                                  : msg.type === 'system'
+                                  ? 'bg-green-600/20 text-green-200 border border-green-500/30'
+                                  : 'bg-indigo-600/20 text-blue-100 border border-indigo-500/30'
+                              }`}>
+                                <div className="flex items-center justify-between mb-2">
+                                  <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                    <span className="font-medium text-cyan-300 text-sm">Réponse de l'IA Spécialisée</span>
+                                  </div>
+                                  <div className="text-xs opacity-70">{msg.timestamp}</div>
+                                </div>
+                                <div className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</div>
+                                {msg.type === 'ai' && (
+                                  <div className="flex gap-2 mt-3 pt-3 border-t border-white/10">
+                                    <Button
+                                      onClick={() => {
+                                        const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
+                                        ouvrirCorrection(index, questionPrecedente, msg.content);
+                                      }}
+                                      variant="ghost"
+                                      size="sm"
+                                      className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30 px-2 py-1"
+                                    >
+                                      🔧 Corriger
+                                    </Button>
+                                    <Button
+                                      onClick={() => setChatMessage("Peux-tu développer davantage ce point ?")}
+                                      variant="ghost"
+                                      size="sm"
+                                      className="text-xs text-green-300 hover:text-white hover:bg-green-600/30 px-2 py-1"
+                                    >
+                                      📝 Développer
+                                    </Button>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {isChatLoading && (
+                    <div className="w-full">
+                      <div className="bg-indigo-600/20 text-blue-100 border border-indigo-500/30 rounded-lg p-4">
+                        <div className="flex items-center gap-3">
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cyan-400"></div>
+                          <span className="font-medium text-sm">L'IA spécialisée analyse votre question...</span>
+                        </div>
+                        <div className="text-xs opacity-70 mt-1">Accès aux documents privilégiés en cours</div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* BOTTOM-RIGHT - Interface chat (10%) */}
+            <Card className="bg-white/5 backdrop-blur-sm border border-white/10" style={{ height: '10%' }}>
+              <CardContent className="p-3 h-full">
+                <div className="flex gap-2 h-full items-center">
+                  <input
+                    type="text"
+                    value={chatMessage}
+                    onChange={(e) => setChatMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                    placeholder="💬 Posez votre question à l'IA spécialisée..."
+                    className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
+                  />
+                  <Button
+                    onClick={sendChatMessage}
+                    disabled={isChatLoading || !chatMessage.trim()}
+                    className="bg-cyan-600 hover:bg-cyan-700 px-4 py-2"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
             <CardHeader className="border-b border-white/10 pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
