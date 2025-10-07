@@ -2256,6 +2256,108 @@ const CollaborationPage = () => {
 
             {/* BOTTOM-LEFT - Éditeur principal (80%) */}
             <Card className="bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col" style={{ height: '80%' }}>
+              <CardHeader className="border-b border-white/10 pb-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Edit3 className="w-4 h-4 text-cyan-400" />
+                    <CardTitle className="text-white text-sm">Éditeur Principal</CardTitle>
+                  </div>
+                  <div className="text-xs text-blue-300 flex items-center gap-2">
+                    <span>Analyse intelligente</span>
+                    <div className={`w-2 h-2 rounded-full ${isAnalyzing ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}></div>
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent className="flex-1 flex flex-col p-3">
+                {/* Zone d'édition avec corrections intelligentes */}
+                <div className="flex-1 relative">
+                  {/* Suggestions de correction discrètes */}
+                  {showCorrections && correctionsActives.length > 0 && (
+                    <div className="absolute left-2 top-2 max-w-[300px] bg-slate-900/95 backdrop-blur-sm border border-slate-600 rounded-lg p-2 text-xs z-10">
+                      <div className="text-cyan-400 font-semibold mb-1 flex items-center justify-between">
+                        <span>💡 Suggestions ({correctionsActives.length})</span>
+                        <button
+                          onClick={() => setShowCorrections(false)}
+                          className="text-gray-400 hover:text-white ml-2"
+                        >
+                          ×
+                        </button>
+                      </div>
+                      <div className="max-h-[200px] overflow-y-auto space-y-1">
+                        {correctionsActives.slice(0, 3).map((correction) => (
+                          <div key={correction.id} className="bg-slate-800/50 rounded p-1">
+                            <div className="flex items-center justify-between">
+                              <div className="flex-1">
+                                <span className={`text-xs px-1 rounded ${
+                                  correction.type === 'orthographe' ? 'bg-red-600/20 text-red-300' :
+                                  correction.type === 'grammaire' ? 'bg-yellow-600/20 text-yellow-300' :
+                                  'bg-blue-600/20 text-blue-300'
+                                }`}>
+                                  {correction.type}
+                                </span>
+                                <div className="text-gray-300 mt-1">
+                                  <div className="line-through text-gray-500">{correction.erreur || correction.original}</div>
+                                  <div className="text-green-300">→ {correction.suggestion || correction.ameliore}</div>
+                                </div>
+                              </div>
+                              <div className="flex gap-1 ml-2">
+                                <button
+                                  onClick={() => appliquerCorrection(correction)}
+                                  className="text-green-400 hover:text-green-300"
+                                  title="Appliquer"
+                                >
+                                  ✓
+                                </button>
+                                <button
+                                  onClick={() => ignorerCorrection(correction.id)}
+                                  className="text-gray-400 hover:text-gray-300"
+                                  title="Ignorer"
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {correctionsActives.length > 3 && (
+                          <div className="text-gray-400 text-center">
+                            +{correctionsActives.length - 3} autres suggestions
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  <textarea
+                    id="collaboration-editor"
+                    value={document}
+                    onChange={(e) => {
+                      setDocument(e.target.value);
+                      if (showCorrections) {
+                        declencherAnalyseAvecDelai(e.target.value);
+                      }
+                    }}
+                    placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'...
+
+🔍 Correction intelligente activée - Les suggestions apparaîtront automatiquement
+
+Utilisez les outils de formatage ci-dessus :
+• Boutons de formatage : gras, italique
+• Structures : titres, paragraphes  
+• Listes : puces, numérotées
+• Symboles mathématiques : ∑ ∫ √ π ∞ ζ φ θ
+
+Exemple avec symboles mathématiques :
+La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
+                    className="w-full h-full bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm resize-none focus:border-cyan-400 focus:outline-none font-mono leading-relaxed"
+                  />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* PARTIE DROITE - 50% : IA AVEC SUBDIVISION 90/10 */}
+          <div className="flex flex-col h-full">
             <CardHeader className="border-b border-white/10 pb-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
