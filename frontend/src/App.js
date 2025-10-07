@@ -2141,67 +2141,26 @@ const CollaborationPage = () => {
             Interface avancée pour développer, écrire et collaborer avec l'IA spécialisée sur la théorie de Philippôt
           </p>
           
-          {/* Contrôles de layout */}
-          <div className="flex justify-center gap-3 mb-6">
-            <Button
-              onClick={() => setLayoutMode('normal')}
-              variant={layoutMode === 'normal' ? 'default' : 'ghost'}
-              size="sm"
-              className={`${layoutMode === 'normal' ? 'bg-cyan-600' : 'text-gray-300'}`}
-            >
-              📊 Vue Normale
-            </Button>
-            <Button
-              onClick={() => setLayoutMode('focus')}
-              variant={layoutMode === 'focus' ? 'default' : 'ghost'}
-              size="sm"
-              className={`${layoutMode === 'focus' ? 'bg-purple-600' : 'text-gray-300'}`}
-            >
-              ✍️ Mode Focus Écriture
-            </Button>
-            <Button
-              onClick={() => setLayoutMode('vertical')}
-              variant={layoutMode === 'vertical' ? 'default' : 'ghost'}
-              size="sm"
-              className={`${layoutMode === 'vertical' ? 'bg-green-600' : 'text-gray-300'}`}
-            >
-              📑 Layout Vertical
-            </Button>
-          </div>
-          
-          {layoutMode === 'normal' && (
-            <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 max-w-4xl mx-auto">
-              <h3 className="text-lg font-semibold text-cyan-400 mb-3">Architecture de l'Interface</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                <div className="bg-cyan-900/20 p-2 rounded border border-cyan-600/30">
-                  <strong className="text-cyan-400">Zone 1 - Interaction</strong>
-                  <p className="text-blue-300">Chat IA avec accès privilégié aux documents</p>
+          {/* Indicateur de la nouvelle structure */}
+          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 max-w-4xl mx-auto mb-6">
+            <h3 className="text-lg font-semibold text-cyan-400 mb-3">Architecture 4-Quadrants</h3>
+            <div className="grid grid-cols-2 gap-4 text-sm">
+              <div className="bg-purple-900/20 p-3 rounded border border-purple-600/30">
+                <strong className="text-purple-400">Gauche - Édition (50%)</strong>
+                <div className="mt-2 space-y-1">
+                  <div className="text-orange-300">• Options traitement (20%)</div>
+                  <div className="text-green-300">• Éditeur principal (80%)</div>
                 </div>
-                <div className="bg-purple-900/20 p-2 rounded border border-purple-600/30">
-                  <strong className="text-purple-400">Zone 2 - Création</strong>
-                  <p className="text-blue-300">Éditeur avec outils mathématiques et formatage</p>
-                </div>
-                <div className="bg-emerald-900/20 p-2 rounded border border-emerald-600/30">
-                  <strong className="text-emerald-400">Zone 3 - Gestion</strong>
-                  <p className="text-blue-300">Documents, upload, historique des corrections</p>
+              </div>
+              <div className="bg-cyan-900/20 p-3 rounded border border-cyan-600/30">
+                <strong className="text-cyan-400">Droite - IA (50%)</strong>
+                <div className="mt-2 space-y-1">
+                  <div className="text-blue-300">• Réponses IA (90%)</div>
+                  <div className="text-yellow-300">• Interface chat (10%)</div>
                 </div>
               </div>
             </div>
-          )}
-          
-          {layoutMode === 'focus' && (
-            <div className="bg-purple-900/20 backdrop-blur-sm rounded-xl p-4 max-w-2xl mx-auto">
-              <h3 className="text-lg font-semibold text-purple-400 mb-2">🎯 Mode Focus Écriture</h3>
-              <p className="text-purple-200 text-sm">Espace d'écriture maximisé avec corrections intelligentes</p>
-            </div>
-          )}
-          
-          {layoutMode === 'vertical' && (
-            <div className="bg-green-900/20 backdrop-blur-sm rounded-xl p-4 max-w-2xl mx-auto">
-              <h3 className="text-lg font-semibold text-green-400 mb-2">📑 Layout Vertical</h3>
-              <p className="text-green-200 text-sm">Sections empilées pour une lecture fluide sur mobile</p>
-            </div>
-          )}
+          </div>
         </div>
 
         {/* Nouvelle structure 50/50 avec subdivisions internes */}
