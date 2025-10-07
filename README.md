@@ -64,7 +64,7 @@ Application web personnalisée développée pour **Philippe Thomas Savard** comm
 ## URLs et Configuration
 
 ### Environnement de Production
-- **URL Frontend**: https://square-universe.preview.emergentagent.com
+- **URL Frontend**: https://theory-hub-1.preview.emergentagent.com
 - **API Backend**: /api/* (routes automatiquement mappées)
 
 ### Variables d'Environnement Critiques
@@ -75,7 +75,7 @@ DB_NAME="univers_au_carre"
 EMERGENT_LLM_KEY=sk-emergent-*****
 
 # Frontend (.env)  
-REACT_APP_BACKEND_URL=https://square-universe.preview.emergentagent.com
+REACT_APP_BACKEND_URL=https://theory-hub-1.preview.emergentagent.com
 ```
 
 ## Commandes de Déploiement
