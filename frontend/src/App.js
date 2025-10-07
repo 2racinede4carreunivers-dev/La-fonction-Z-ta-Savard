@@ -2171,11 +2171,17 @@ const CollaborationPage = () => {
           <Card className={`bg-white/5 backdrop-blur-sm border border-white/10 flex flex-col ${
             layoutMode === 'focus' ? 'w-full max-w-6xl mx-auto' : ''
           }`}>
-            <CardHeader className="pb-3">
-              <CardTitle className="text-white text-lg flex items-center gap-2">
-                <MessageCircle className="w-5 h-5 text-cyan-400" />
-                Chat IA Spécialisée
-              </CardTitle>
+            <CardHeader className="border-b border-white/10 pb-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Edit3 className="w-5 h-5 text-cyan-400" />
+                  <CardTitle className="text-white text-lg">Éditeur Intelligent</CardTitle>
+                </div>
+                <div className="text-xs text-blue-300 flex items-center gap-2">
+                  <span>Corrections automatiques</span>
+                  <div className={`w-2 h-2 rounded-full ${isAnalyzing ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}></div>
+                </div>
+              </div>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
               {/* Historique des messages */}
