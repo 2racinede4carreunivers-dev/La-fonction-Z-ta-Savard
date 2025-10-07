@@ -1679,8 +1679,7 @@ const CollaborationPage = () => {
   const [lastAnalyzedText, setLastAnalyzedText] = useState('');
   const [analysisTimeout, setAnalysisTimeout] = useState(null);
   
-  // États pour le layout et modes d'affichage
-  const [layoutMode, setLayoutMode] = useState('normal'); // 'normal', 'focus', 'vertical'
+  // États pour le layout - Nouvelle structure fixe 4-quadrants
   const [showSidePanels, setShowSidePanels] = useState(true);
   
   // États généraux
