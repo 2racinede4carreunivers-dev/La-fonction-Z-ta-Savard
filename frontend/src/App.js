@@ -2451,76 +2451,135 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
               </CardTitle>
             </CardHeader>
             <CardContent className="flex-1 flex flex-col">
-              {/* Historique des messages */}
-              <div className="flex-1 bg-slate-900/50 rounded-lg p-3 mb-3 overflow-y-auto max-h-80">
+              {/* GRAND ÉCRAN D'AFFICHAGE DES RÉPONSES IA - AGRANDI */}
+              <div className="flex-1 bg-slate-900/50 rounded-lg p-4 mb-3 overflow-y-auto" style={{minHeight: '400px'}}>
                 {chatHistory.length === 0 ? (
-                  <div className="text-center text-blue-300 text-sm py-8">
-                    Posez vos questions sur la théorie "L'univers est au carré"
+                  <div className="text-center text-blue-300 py-12">
+                    <div className="text-4xl mb-4">🤖</div>
+                    <h3 className="text-lg font-semibold mb-2">Assistant IA Spécialisé</h3>
+                    <p className="text-sm opacity-80 max-w-md mx-auto">
+                      Posez vos questions sur la théorie "L'univers est au carré" de Philippe Thomas Savard.
+                      L'IA a un accès privilégié aux documents complets.
+                    </p>
                   </div>
                 ) : (
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {chatHistory.map((msg, index) => (
-                      <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                        <div className={`max-w-[85%] rounded-lg p-2 text-sm ${
-                          msg.type === 'user' 
-                            ? 'bg-cyan-600 text-white' 
-                            : msg.type === 'error'
-                            ? 'bg-red-600/20 text-red-200 border border-red-500/30'
-                            : msg.type === 'system'
-                            ? 'bg-green-600/20 text-green-200 border border-green-500/30'
-                            : 'bg-indigo-600/30 text-blue-100 border border-indigo-500/30'
-                        }`}>
-                          <div className="whitespace-pre-wrap">{msg.content}</div>
-                          <div className="flex items-center justify-between mt-1">
-                            <div className="text-xs opacity-70">{msg.timestamp}</div>
-                            {msg.type === 'ai' && (
-                              <Button
-                                onClick={() => {
-                                  const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
-                                  ouvrirCorrection(index, questionPrecedente, msg.content);
-                                }}
-                                variant="ghost"
-                                size="sm"
-                                className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30 ml-2"
-                              >
-                                🔧 Corriger
-                              </Button>
-                            )}
+                      <div key={index} className="w-full">
+                        {msg.type === 'user' ? (
+                          <div className="flex justify-end mb-4">
+                            <div className="bg-cyan-600/80 text-white rounded-lg p-3 max-w-[70%]">
+                              <div className="font-medium mb-1">Votre question :</div>
+                              <div className="whitespace-pre-wrap">{msg.content}</div>
+                              <div className="text-xs opacity-70 mt-2">{msg.timestamp}</div>
+                            </div>
                           </div>
-                        </div>
+                        ) : (
+                          <div className="w-full mb-4">
+                            <div className={`w-full rounded-lg p-4 ${
+                              msg.type === 'error'
+                                ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                                : msg.type === 'system'
+                                ? 'bg-green-600/20 text-green-200 border border-green-500/30'
+                                : 'bg-indigo-600/20 text-blue-100 border border-indigo-500/30'
+                            }`}>
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-2 h-2 bg-cyan-400 rounded-full"></div>
+                                  <span className="font-medium text-cyan-300">Réponse de l'IA Spécialisée</span>
+                                </div>
+                                <div className="text-xs opacity-70">{msg.timestamp}</div>
+                              </div>
+                              <div className="whitespace-pre-wrap text-sm leading-relaxed">{msg.content}</div>
+                              {msg.type === 'ai' && (
+                                <div className="flex gap-2 mt-3 pt-3 border-t border-white/10">
+                                  <Button
+                                    onClick={() => {
+                                      const questionPrecedente = index > 0 ? chatHistory[index-1].content : '';
+                                      ouvrirCorrection(index, questionPrecedente, msg.content);
+                                    }}
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-xs text-blue-300 hover:text-white hover:bg-blue-600/30"
+                                  >
+                                    🔧 Corriger cette réponse
+                                  </Button>
+                                  <Button
+                                    onClick={() => setChatMessage("Peux-tu développer davantage ce point ?")}
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-xs text-green-300 hover:text-white hover:bg-green-600/30"
+                                  >
+                                    📝 Développer
+                                  </Button>
+                                  <Button
+                                    onClick={() => setChatMessage("Peux-tu donner un exemple concret ?")}
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-xs text-purple-300 hover:text-white hover:bg-purple-600/30"
+                                  >
+                                    💡 Exemple
+                                  </Button>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                   </div>
                 )}
                 {isChatLoading && (
-                  <div className="flex justify-start">
-                    <div className="bg-indigo-600/30 text-blue-100 border border-indigo-500/30 rounded-lg p-2 text-sm">
-                      <div className="flex items-center gap-2">
-                        <div className="animate-spin rounded-full h-3 w-3 border-b-2 border-cyan-400"></div>
-                        L'IA réfléchit...
+                  <div className="w-full">
+                    <div className="bg-indigo-600/20 text-blue-100 border border-indigo-500/30 rounded-lg p-4">
+                      <div className="flex items-center gap-3">
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-cyan-400"></div>
+                        <span className="font-medium">L'IA spécialisée analyse votre question...</span>
                       </div>
+                      <div className="text-xs opacity-70 mt-1">Accès aux documents privilégiés en cours</div>
                     </div>
                   </div>
                 )}
               </div>
 
-              {/* Zone de saisie chat */}
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={chatMessage}
-                  onChange={(e) => setChatMessage(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
-                  placeholder="Posez votre question à l'IA spécialisée..."
-                  className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
-                />
-                <Button
-                  onClick={sendChatMessage}
-                  disabled={isChatLoading || !chatMessage.trim()}
-                  className="bg-cyan-600 hover:bg-cyan-700 px-4"
-                >
-                  <Send className="w-4 h-4" />
-                </Button>
+              {/* ZONE DE CHAT COMPACTE EN BAS */}
+              <div className="border-t border-white/10 pt-3">
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={chatMessage}
+                    onChange={(e) => setChatMessage(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && sendChatMessage()}
+                    placeholder="💬 Posez votre question à l'IA spécialisée sur la théorie..."
+                    className="flex-1 bg-slate-800 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:border-cyan-400 focus:outline-none"
+                  />
+                  <Button
+                    onClick={sendChatMessage}
+                    disabled={isChatLoading || !chatMessage.trim()}
+                    className="bg-cyan-600 hover:bg-cyan-700 px-4"
+                  >
+                    <Send className="w-4 h-4" />
+                  </Button>
+                </div>
+                
+                {/* Suggestions rapides */}
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {[
+                    "Explique le théorème de Philippôt",
+                    "Qu'est-ce que la géométrie de l'espace ?", 
+                    "Comment fonctionne l'intrication quantique ?"
+                  ].map((suggestion, index) => (
+                    <Button
+                      key={index}
+                      onClick={() => setChatMessage(suggestion)}
+                      variant="ghost"
+                      size="sm"
+                      className="text-xs text-gray-400 hover:text-white hover:bg-slate-700 rounded-full px-2 py-1"
+                    >
+                      {suggestion}
+                    </Button>
+                  ))}
+                </div>
               </div>
             </CardContent>
           </Card>
