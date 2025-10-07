@@ -261,8 +261,8 @@ metadata:
 
 test_plan:
   current_focus: 
-    - "Navigation mobile vers Salon de Lecture"
-    - "Section Méthode de Philippôt : Développement Approfondi dans navigation"
+    - "CollaborationPage restructuration 4-quadrants - Tests complets"
+    - "Endpoints collaboration après restructuration interface"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
