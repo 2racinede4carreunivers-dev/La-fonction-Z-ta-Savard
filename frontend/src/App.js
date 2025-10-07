@@ -2564,8 +2564,12 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 )}
               </div>
 
-              {/* ZONE DE CHAT COMPACTE EN BAS */}
-              <div className="border-t border-white/10 pt-3">
+              {/* ZONE DE CHAT COMPACTE EN BAS (30% de la zone IA) */}
+              <div className="flex-[3] bg-slate-800/50 rounded-lg p-3 border border-cyan-500/20">
+                <div className="text-cyan-300 text-sm font-semibold mb-2 flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4" />
+                  Discussion avec l'IA Spécialisée
+                </div>
                 <div className="flex gap-2">
                   <input
                     type="text"
