@@ -1679,6 +1679,25 @@ const CollaborationPage = () => {
   const [lastAnalyzedText, setLastAnalyzedText] = useState('');
   const [analysisTimeout, setAnalysisTimeout] = useState(null);
   
+  // États pour l'intelligence avancée
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isGeneratingSuggestions, setIsGeneratingSuggestions] = useState(false);
+  const [resumeData, setResumeData] = useState(null);
+  const [showResume, setShowResume] = useState(false);
+  const [coherenceAnalysis, setCoherenceAnalysis] = useState(null);
+  const [showCoherence, setShowCoherence] = useState(false);
+  const [citationsSuggered, setCitationsSuggered] = useState([]);
+  const [showCitations, setShowCitations] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [intelligenceSettings, setIntelligenceSettings] = useState({
+    autoSuggestions: true,
+    autoCoherence: true,
+    autoCitations: false,
+    notificationLevel: 'medium'
+  });
+  
   // États pour le layout - Nouvelle structure fixe 4-quadrants
   const [showSidePanels, setShowSidePanels] = useState(true);
   
