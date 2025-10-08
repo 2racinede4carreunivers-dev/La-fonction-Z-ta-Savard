@@ -3608,6 +3608,9 @@ async def lister_concepts(
         
         concepts = await db.concepts.find(query).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        concepts = convert_objectid(concepts)
+        
         return {
             "success": True,
             "concepts": concepts,
