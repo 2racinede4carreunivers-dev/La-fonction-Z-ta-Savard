@@ -874,7 +874,7 @@ const ExplorerPage = () => {
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
       </div>
     </div>
   );
@@ -1461,7 +1461,7 @@ const ConceptsEnrichisPage = () => {
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
       </div>
     </div>
   );
@@ -1602,7 +1602,7 @@ const Navigation = () => {
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
       </div>
     </nav>
   );
@@ -3267,7 +3267,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal LaTeX (si nécessaire) */}
         {showLatex && (
@@ -3302,7 +3302,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Suggestions de Contenu */}
         {showSuggestions && (
@@ -3356,7 +3356,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Résumé Automatique */}
         {showResume && resumeData && (
@@ -3436,7 +3436,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Analyse de Cohérence */}
         {showCoherence && coherenceAnalysis && (
@@ -3490,7 +3490,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Citations Automatiques */}
         {showCitations && (
@@ -3551,7 +3551,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Notifications Intelligentes (Overlay non-intrusif) - Position corrigée */}
         {showNotifications && notifications.length > 0 && (
@@ -3607,7 +3607,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
       </div>
     </div>
   );
@@ -7243,7 +7243,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Panel d'Administration des Concepts et Formules */}
         {showAdminPanel && (
@@ -7419,7 +7419,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Création Concept */}
         {showConceptForm && (
@@ -7515,7 +7515,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Modal Création Formule */}
         {showFormuleForm && (
@@ -7622,7 +7622,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
 
         {/* Panel d'Extraction Automatique */}
         {showExtractionPanel && extractionResults && (
@@ -8038,7 +8038,7 @@ const SalleIllustrationsPage = () => {
           </div>
         )}
 
-        {/* Tooltip removed - only in SalonLecturePage */}
+        {/* Tooltip only in SalonLecturePage */}
       </div>
 
       {/* Modal d'image */}
