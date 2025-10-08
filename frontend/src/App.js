@@ -3073,7 +3073,7 @@ const CollaborationPage = () => {
 
     // Détecter et formatter les équations (lignes contenant des = ou des formules)
     latexContent = latexContent.replace(
-      /^(.*(=|√|\+|\-|\*|/|\\sum|\\int|\\psi|\\zeta|\\pi).*)$/gm,
+      /^(.*(=|\\u221A|\+|\-|\*|\/|\\sum|\\int|\\psi|\\zeta|\\pi).*)$/gm,
       '\\begin{equation}\n$1\n\\end{equation}'
     );
 
