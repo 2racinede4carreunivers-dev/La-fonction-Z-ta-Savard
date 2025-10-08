@@ -873,6 +873,99 @@ const ExplorerPage = () => {
             <p className="text-blue-200 text-lg">Aucun concept trouvé pour cette recherche.</p>
           </div>
         )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1458,6 +1551,99 @@ const ConceptsEnrichisPage = () => {
             </div>
           </div>
         )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -1594,6 +1780,99 @@ const Navigation = () => {
               >
                 🎨 Salle des Illustrations
               </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -3261,6 +3540,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Modal LaTeX (si nécessaire) */}
         {showLatex && (
           <div 
@@ -3291,6 +3663,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -3343,6 +3808,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -3424,6 +3982,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Modal Analyse de Cohérence */}
         {showCoherence && coherenceAnalysis && (
           <div 
@@ -3473,6 +4124,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -3535,6 +4279,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Notifications Intelligentes (Overlay non-intrusif) - Position corrigée */}
         {showNotifications && notifications.length > 0 && (
           <div className="fixed top-20 right-4 z-50 max-w-sm">
@@ -3586,6 +4423,99 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -7223,6 +8153,99 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Panel d'Administration des Concepts et Formules */}
         {showAdminPanel && (
           <div 
@@ -7397,6 +8420,99 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Modal Création Concept */}
         {showConceptForm && (
           <div 
@@ -7488,6 +8604,99 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 
@@ -7596,6 +8805,99 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </div>
         )}
 
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Panel d'Extraction Automatique */}
         {showExtractionPanel && extractionResults && (
           <div 
@@ -7646,6 +8948,99 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                 </div>
               </CardContent>
             </Card>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
@@ -7914,6 +9309,99 @@ const SalleIllustrationsPage = () => {
             <div className="text-6xl mb-4">🎨</div>
             <h3 className="text-xl text-white mb-2">Aucune illustration dans cette catégorie</h3>
             <p className="text-blue-200">Sélectionnez une autre catégorie pour voir les illustrations disponibles.</p>
+          </div>
+        )}
+
+        {/* Tooltip Détection Formules en Temps Réel */}
+        {showFormulaTooltip && tooltipFormula && (
+          <div className="fixed top-24 right-4 z-40 max-w-sm">
+            <Card className="bg-blue-900/90 backdrop-blur-sm border border-blue-600 shadow-xl">
+              <CardHeader className="pb-2">
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-sm flex items-center gap-2">
+                    <span className="text-lg">🧮</span>
+                    Formule Détectée
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFormulaTooltip(false)}
+                    variant="ghost"
+                    size="sm"
+                    className="text-blue-200 hover:bg-blue-800/30 text-xs px-1"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-2 pt-0">
+                <div>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="px-2 py-1 bg-blue-600 rounded text-xs font-mono text-white">
+                      {tooltipFormula.code}
+                    </span>
+                    <span className="text-blue-200 font-semibold text-sm">
+                      {tooltipFormula.nom}
+                    </span>
+                  </div>
+                  
+                  <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                    <code className="text-green-400 font-mono text-xs">
+                      {tooltipFormula.formule}
+                    </code>
+                  </div>
+                  
+                  <div className="text-gray-300 text-xs mb-2">
+                    {tooltipFormula.description}
+                  </div>
+                  
+                  <div className="text-gray-400 text-xs">
+                    <strong>Variables:</strong> {tooltipFormula.variables}
+                  </div>
+                  
+                  <div className="flex items-center justify-between mt-2">
+                    <span className={`px-2 py-1 rounded text-xs ${
+                      tooltipFormula.domaine === 'Géométrie' ? 'bg-blue-600' :
+                      tooltipFormula.domaine === 'Théorie des Nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                    }`}>
+                      {tooltipFormula.domaine}
+                    </span>
+                    
+                    {formulesDetectees.length > 1 && (
+                      <Button
+                        onClick={() => {
+                          const currentIndex = formulesDetectees.findIndex(f => f.code === tooltipFormula.code);
+                          const nextIndex = (currentIndex + 1) % formulesDetectees.length;
+                          setTooltipFormula(formulesDetectees[nextIndex]);
+                        }}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        Suivant ({formulesDetectees.length})
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Notification flottante pour nouvelle formule détectée */}
+        {formulesDetectees.length > 0 && showFormulaTooltip && (
+          <div className="fixed bottom-4 right-4 z-30">
+            <div className="bg-green-800/90 backdrop-blur-sm border border-green-600 rounded-lg p-3 shadow-xl animate-pulse">
+              <div className="flex items-center gap-2">
+                <span className="text-green-400 text-lg">✨</span>
+                <div>
+                  <div className="text-green-200 font-semibold text-sm">
+                    Détection Active
+                  </div>
+                  <div className="text-green-300 text-xs">
+                    {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de votre théorie reconnue{formulesDetectees.length > 1 ? 's' : ''} !
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </div>
