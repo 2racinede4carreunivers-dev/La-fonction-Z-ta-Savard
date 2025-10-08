@@ -1922,6 +1922,14 @@ const CollaborationPage = ({ folderProps = {} }) => {
   const [isGeneratingLatex, setIsGeneratingLatex] = useState(false);
   const [latexTemplate, setLatexTemplate] = useState('article'); // article, report, book
   const [includeFormulas, setIncludeFormulas] = useState(true);
+  
+  // États Calculatrice TI-83 Style
+  const [showCalculatrice, setShowCalculatrice] = useState(false);
+  const [calcDisplay, setCalcDisplay] = useState(['', '']); // 2 lignes comme TI-83
+  const [calcMemoire, setCalcMemoire] = useState('');
+  const [calcOperation, setCalcOperation] = useState('');
+  const [calcHistory, setCalcHistory] = useState([]);
+  const [calcMode, setCalcMode] = useState('normal'); // normal, philippot, riemann
   const [conceptForm, setConceptForm] = useState({
     titre: '',
     description: '',
