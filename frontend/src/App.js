@@ -1714,6 +1714,10 @@ const CollaborationPage = () => {
   const [showFormuleForm, setShowFormuleForm] = useState(false);
   const [extractionResults, setExtractionResults] = useState(null);
   const [showExtractionPanel, setShowExtractionPanel] = useState(false);
+  
+  // États pour les améliorations UI Phase 1
+  const [fontSize, setFontSize] = useState(16); // Taille police par défaut
+  const [showFontSizePanel, setShowFontSizePanel] = useState(false);
   const [conceptForm, setConceptForm] = useState({
     titre: '',
     description: '',
