@@ -706,6 +706,559 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         return success1 and success3
 
+    def test_concept_formula_management_system(self):
+        """Test the complete concept and formula administration system"""
+        print("\n🔬 CONCEPT AND FORMULA MANAGEMENT SYSTEM TESTS")
+        print("Testing new concept/formula administration with auto-generation and AI integration")
+        
+        all_tests_passed = True
+        
+        # Test 1: POST /api/concepts - Create new concept
+        print("\n1️⃣ Testing POST /api/concepts - Create New Concept")
+        test_concept_data = {
+            "titre": "Digamma Test",
+            "description": "Concept de test pour la fonction Digamma dans la théorie de Philippôt",
+            "domaine": "nombres",
+            "complexite": 3,
+            "mots_cles": ["digamma", "test", "nombres premiers", "philippôt"],
+            "formules_associees": ["ψ(n) = -γ + Σ(1/k - 1/(k+n-1))"],
+            "relations": ["Lié à la fonction Zêta de Riemann", "Utilisé dans les calculs de nombres premiers"]
+        }
+        
+        success1, response1 = self.run_test(
+            "Create New Concept - Digamma Test",
+            "POST",
+            "api/concepts",
+            200,
+            data=test_concept_data
+        )
+        
+        created_concept_id = None
+        if success1 and isinstance(response1, dict):
+            if 'id' in response1 and 'success' in response1:
+                created_concept_id = response1['id']
+                print(f"   ✅ Concept created successfully with ID: {created_concept_id}")
+                print(f"   📊 Domain: {response1.get('domaine', 'N/A')}")
+                print(f"   📊 Complexity: {response1.get('complexite', 'N/A')}")
+            else:
+                print(f"   ❌ Missing id or success field in create response")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 2: GET /api/concepts - List concepts with filters
+        print("\n2️⃣ Testing GET /api/concepts - List Concepts with Filters")
+        
+        # Test without filter
+        success2a, response2a = self.run_test(
+            "Get All Concepts",
+            "GET",
+            "api/concepts",
+            200
+        )
+        
+        # Test with domain filter
+        success2b, response2b = self.run_test(
+            "Get Concepts - Domain Filter (nombres)",
+            "GET",
+            "api/concepts?domaine=nombres",
+            200
+        )
+        
+        if success2a and isinstance(response2a, list):
+            print(f"   ✅ All concepts retrieved: {len(response2a)} concepts found")
+        
+        if success2b and isinstance(response2b, list):
+            print(f"   ✅ Filtered concepts retrieved: {len(response2b)} concepts in 'nombres' domain")
+            
+            # Check if our created concept is in the filtered results
+            if created_concept_id:
+                found_concept = any(concept.get('id') == created_concept_id for concept in response2b)
+                if found_concept:
+                    print(f"   ✅ Created concept found in filtered results")
+                else:
+                    print(f"   ⚠️  Created concept not found in filtered results")
+        
+        # Test 3: GET /api/concepts/{concept_id} - Get concept with relations
+        if created_concept_id:
+            print("\n3️⃣ Testing GET /api/concepts/{concept_id} - Get Concept with Relations")
+            success3, response3 = self.run_test(
+                "Get Specific Concept with Relations",
+                "GET",
+                f"api/concepts/{created_concept_id}",
+                200
+            )
+            
+            if success3 and isinstance(response3, dict):
+                required_fields = ['id', 'titre', 'description', 'domaine', 'complexite']
+                missing_fields = [field for field in required_fields if field not in response3]
+                if missing_fields:
+                    print(f"   ⚠️  Missing fields in concept: {missing_fields}")
+                    all_tests_passed = False
+                else:
+                    print(f"   ✅ Concept structure is valid")
+                    print(f"   📝 Title: {response3['titre']}")
+                    print(f"   🔢 Domain: {response3['domaine']}")
+                    print(f"   📊 Complexity: {response3['complexite']}")
+            else:
+                all_tests_passed = False
+        
+        # Test 4: POST /api/formules - Create new formula with auto-generated code
+        print("\n4️⃣ Testing POST /api/formules - Create Formula with Auto-Generated Code")
+        test_formula_data = {
+            "nom": "Calcul Digamma Test",
+            "description": "Formule de test pour le calcul du Digamma",
+            "domaine": "NUM",  # Should generate NUM001, NUM002, etc.
+            "formule_latex": "\\psi(n) = -\\gamma + \\sum_{k=1}^{n-1} \\frac{1}{k}",
+            "variables": ["n", "γ"],
+            "conditions": ["n > 0", "n ∈ ℕ"],
+            "exemples": [
+                {"input": "n=1", "output": "ψ(1) = -γ ≈ -0.5772"},
+                {"input": "n=2", "output": "ψ(2) = 1 - γ ≈ 0.4228"}
+            ]
+        }
+        
+        success4, response4 = self.run_test(
+            "Create Formula with Auto-Generated Code",
+            "POST",
+            "api/formules",
+            200,
+            data=test_formula_data
+        )
+        
+        created_formula_code = None
+        if success4 and isinstance(response4, dict):
+            if 'code_formule' in response4 and 'success' in response4:
+                created_formula_code = response4['code_formule']
+                print(f"   ✅ Formula created successfully with code: {created_formula_code}")
+                
+                # Verify auto-generated code format
+                if created_formula_code.startswith('NUM') and len(created_formula_code) == 6:
+                    print(f"   ✅ Auto-generated code format is correct (NUM###)")
+                else:
+                    print(f"   ⚠️  Auto-generated code format unexpected: {created_formula_code}")
+                    all_tests_passed = False
+            else:
+                print(f"   ❌ Missing code_formule or success field in create response")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 5: GET /api/formules - List all formulas by domain
+        print("\n5️⃣ Testing GET /api/formules - List Formulas by Domain")
+        
+        # Test all formulas
+        success5a, response5a = self.run_test(
+            "Get All Formulas",
+            "GET",
+            "api/formules",
+            200
+        )
+        
+        # Test by domain
+        success5b, response5b = self.run_test(
+            "Get Formulas by Domain (NUM)",
+            "GET",
+            "api/formules?domaine=NUM",
+            200
+        )
+        
+        if success5a and isinstance(response5a, list):
+            print(f"   ✅ All formulas retrieved: {len(response5a)} formulas found")
+        
+        if success5b and isinstance(response5b, list):
+            print(f"   ✅ Domain-filtered formulas retrieved: {len(response5b)} NUM formulas found")
+            
+            # Check if our created formula is in the results
+            if created_formula_code:
+                found_formula = any(formula.get('code_formule') == created_formula_code for formula in response5b)
+                if found_formula:
+                    print(f"   ✅ Created formula found in domain results")
+                else:
+                    print(f"   ⚠️  Created formula not found in domain results")
+        
+        # Test 6: GET /api/formules/{code_formule} - Get formula with validations
+        if created_formula_code:
+            print("\n6️⃣ Testing GET /api/formules/{code_formule} - Get Formula with Validations")
+            success6, response6 = self.run_test(
+                "Get Specific Formula with Validations",
+                "GET",
+                f"api/formules/{created_formula_code}",
+                200
+            )
+            
+            if success6 and isinstance(response6, dict):
+                required_fields = ['code_formule', 'nom', 'description', 'domaine', 'formule_latex']
+                missing_fields = [field for field in required_fields if field not in response6]
+                if missing_fields:
+                    print(f"   ⚠️  Missing fields in formula: {missing_fields}")
+                    all_tests_passed = False
+                else:
+                    print(f"   ✅ Formula structure is valid")
+                    print(f"   📝 Name: {response6['nom']}")
+                    print(f"   🔢 Code: {response6['code_formule']}")
+                    print(f"   🏷️  Domain: {response6['domaine']}")
+            else:
+                all_tests_passed = False
+        
+        return all_tests_passed
+    
+    def test_automatic_indexing_system(self):
+        """Test the automatic indexing system for formula extraction"""
+        print("\n🤖 AUTOMATIC INDEXING SYSTEM TESTS")
+        print("Testing AI-powered formula extraction and validation")
+        
+        all_tests_passed = True
+        
+        # Test 1: POST /api/indexation/analyser-document - Analyze text for formulas
+        print("\n1️⃣ Testing POST /api/indexation/analyser-document - Formula Extraction")
+        
+        # Text with mathematical formulas as suggested in review request
+        mathematical_text = """
+        Dans la théorie de Philippôt, nous utilisons plusieurs formules fondamentales:
+        
+        1. La fonction Digamma: ψ(n) = -γ + Σ(k=1 to n-1) 1/k
+        2. La fonction Zêta de Riemann: ζ(s) = Σ(n=1 to ∞) 1/n^s
+        3. Le théorème de Philippôt: A² + B² + C² = V_triangle
+        4. La constante de l'inverse du temps: (√1.6)³ = 2.023857703
+        5. Rapport triangulaire: base/hauteur = 1/2, 1/3, 1/4, ..., 1/100
+        
+        Ces formules permettent de calculer directement les nombres premiers selon leur position.
+        La méthode utilise également √((n+7)² + (n+8)²) pour le calcul du Digamma à la 8ème position.
+        """
+        
+        success1, response1 = self.run_test(
+            "Analyze Document - Extract Mathematical Formulas",
+            "POST",
+            "api/indexation/analyser-document",
+            200,
+            data={
+                "texte_document": mathematical_text,
+                "type_analyse": "formules_mathematiques",
+                "session_id": "test_indexation_extraction_123"
+            }
+        )
+        
+        extracted_formulas = []
+        if success1 and isinstance(response1, dict):
+            if 'formules_extraites' in response1 and 'success' in response1:
+                extracted_formulas = response1['formules_extraites']
+                print(f"   ✅ Formula extraction completed: {len(extracted_formulas)} formulas found")
+                
+                # Check for expected formulas
+                expected_patterns = ["ψ(n)", "ζ(s)", "A² + B² + C²", "√1.6", "1/k"]
+                found_patterns = []
+                
+                for formula in extracted_formulas:
+                    if isinstance(formula, dict) and 'formule' in formula:
+                        formula_text = formula['formule']
+                        for pattern in expected_patterns:
+                            if pattern in formula_text:
+                                found_patterns.append(pattern)
+                
+                if found_patterns:
+                    print(f"   ✅ Expected formula patterns found: {', '.join(set(found_patterns))}")
+                else:
+                    print(f"   ⚠️  Expected formula patterns not clearly detected")
+                    all_tests_passed = False
+                
+                # Check for domain classification
+                if len(extracted_formulas) > 0:
+                    first_formula = extracted_formulas[0]
+                    if 'domaine_suggere' in first_formula:
+                        print(f"   ✅ Domain classification working: {first_formula['domaine_suggere']}")
+                    else:
+                        print(f"   ⚠️  Domain classification not present")
+            else:
+                print(f"   ❌ Missing formules_extraites or success field")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 2: POST /api/indexation/valider-extraction - Validate and save extracted formulas
+        if extracted_formulas and len(extracted_formulas) > 0:
+            print("\n2️⃣ Testing POST /api/indexation/valider-extraction - Validate Extracted Formulas")
+            
+            # Select first extracted formula for validation
+            formula_to_validate = extracted_formulas[0]
+            validation_data = {
+                "formules_validees": [
+                    {
+                        "formule_extraite": formula_to_validate,
+                        "validation_utilisateur": True,
+                        "corrections": {
+                            "nom": "Fonction Digamma Validée",
+                            "description": "Fonction Digamma utilisée dans la méthode de Philippôt"
+                        }
+                    }
+                ],
+                "session_id": "test_validation_extraction_456"
+            }
+            
+            success2, response2 = self.run_test(
+                "Validate and Save Extracted Formulas",
+                "POST",
+                "api/indexation/valider-extraction",
+                200,
+                data=validation_data
+            )
+            
+            if success2 and isinstance(response2, dict):
+                if 'formules_sauvegardees' in response2 and 'success' in response2:
+                    saved_formulas = response2['formules_sauvegardees']
+                    print(f"   ✅ Formula validation completed: {len(saved_formulas)} formulas saved")
+                    
+                    # Check for auto-generated codes
+                    for saved_formula in saved_formulas:
+                        if 'code_formule' in saved_formula:
+                            code = saved_formula['code_formule']
+                            print(f"   ✅ Auto-generated code assigned: {code}")
+                            
+                            # Verify code format (should be like NUM001, GEO001, etc.)
+                            if len(code) == 6 and code[3:].isdigit():
+                                print(f"   ✅ Code format is correct")
+                            else:
+                                print(f"   ⚠️  Code format unexpected: {code}")
+                                all_tests_passed = False
+                else:
+                    print(f"   ❌ Missing formules_sauvegardees or success field")
+                    all_tests_passed = False
+            else:
+                all_tests_passed = False
+        else:
+            print("\n2️⃣ Skipping validation test - no formulas extracted")
+            all_tests_passed = False
+        
+        return all_tests_passed
+    
+    def test_privileged_ai_access_system(self):
+        """Test the privileged AI access system for specialized queries"""
+        print("\n🔐 PRIVILEGED AI ACCESS SYSTEM TESTS")
+        print("Testing specialized AI access with complete data organized by domains")
+        
+        all_tests_passed = True
+        
+        # Test 1: GET /api/acces-privilegie/concepts-complets - Privileged access for specialized AI
+        print("\n1️⃣ Testing GET /api/acces-privilegie/concepts-complets - Complete Concepts Access")
+        
+        success1, response1 = self.run_test(
+            "Privileged Access - Complete Concepts",
+            "GET",
+            "api/acces-privilegie/concepts-complets",
+            200
+        )
+        
+        if success1 and isinstance(response1, dict):
+            if 'concepts_complets' in response1 and 'statistiques' in response1:
+                concepts = response1['concepts_complets']
+                stats = response1['statistiques']
+                
+                print(f"   ✅ Privileged access granted successfully")
+                print(f"   📊 Total concepts: {stats.get('total_concepts', 'N/A')}")
+                print(f"   📊 Domains: {len(stats.get('domaines', []))}")
+                print(f"   📊 Documents sources: {len(stats.get('documents_sources', []))}")
+                
+                # Check domain organization
+                if 'domaines' in stats:
+                    domains = stats['domaines']
+                    expected_domains = ['Géométrie Fondamentale', 'Théorie des Nombres', 'Physique Théorique']
+                    found_domains = [domain for domain in expected_domains if domain in domains]
+                    if found_domains:
+                        print(f"   ✅ Expected domains found: {', '.join(found_domains)}")
+                    else:
+                        print(f"   ⚠️  Expected domains not found in: {', '.join(domains[:5])}")
+                
+                # Check concept structure
+                if len(concepts) > 0:
+                    sample_concept = concepts[0]
+                    required_fields = ['id', 'titre', 'domaine_principal', 'concepts_cles', 'formules']
+                    missing_fields = [field for field in required_fields if field not in sample_concept]
+                    if missing_fields:
+                        print(f"   ⚠️  Missing fields in concept: {missing_fields}")
+                        all_tests_passed = False
+                    else:
+                        print(f"   ✅ Concept structure is complete")
+                        print(f"   📝 Sample: {sample_concept['titre']} ({sample_concept['domaine_principal']})")
+            else:
+                print(f"   ❌ Missing concepts_complets or statistiques field")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 2: POST /api/acces-privilegie/requete-contextuelle - Contextual queries by domain
+        print("\n2️⃣ Testing POST /api/acces-privilegie/requete-contextuelle - Contextual Domain Queries")
+        
+        # Test queries for different domains
+        domain_queries = [
+            {
+                "domaine": "Géométrie Fondamentale",
+                "question": "Explique-moi la Sphère de Zêta et ses propriétés géométriques",
+                "session_id": "test_contextuel_geo_123"
+            },
+            {
+                "domaine": "Théorie des Nombres", 
+                "question": "Comment fonctionne le calcul du Digamma dans la méthode de Philippôt?",
+                "session_id": "test_contextuel_num_456"
+            },
+            {
+                "domaine": "Physique Théorique",
+                "question": "Quelle est la relation entre l'intrication quantique géométrique et l'espace de Minkowski selon Philippôt?",
+                "session_id": "test_contextuel_phys_789"
+            }
+        ]
+        
+        contextual_success = True
+        for i, query_data in enumerate(domain_queries, 1):
+            success_query, response_query = self.run_test(
+                f"Contextual Query - {query_data['domaine']}",
+                "POST",
+                "api/acces-privilegie/requete-contextuelle",
+                200,
+                data=query_data
+            )
+            
+            if success_query and isinstance(response_query, dict):
+                if 'reponse_contextuelle' in response_query and 'domaine_utilise' in response_query:
+                    ai_response = response_query['reponse_contextuelle']
+                    domain_used = response_query['domaine_utilise']
+                    concepts_used = response_query.get('concepts_utilises', 0)
+                    
+                    print(f"   ✅ Contextual query {i} successful")
+                    print(f"   🏷️  Domain: {domain_used}")
+                    print(f"   📚 Concepts used: {concepts_used}")
+                    print(f"   📝 Response length: {len(ai_response)} characters")
+                    
+                    # Check for domain-specific content
+                    domain_keywords = {
+                        "Géométrie Fondamentale": ["sphère", "zêta", "géométrique", "cubes"],
+                        "Théorie des Nombres": ["digamma", "nombres premiers", "calcul", "philippôt"],
+                        "Physique Théorique": ["intrication", "quantique", "minkowski", "espace-temps"]
+                    }
+                    
+                    expected_keywords = domain_keywords.get(query_data['domaine'], [])
+                    found_keywords = [kw for kw in expected_keywords if kw.lower() in ai_response.lower()]
+                    
+                    if found_keywords:
+                        print(f"   ✅ Domain-specific keywords found: {', '.join(found_keywords)}")
+                    else:
+                        print(f"   ⚠️  Domain-specific keywords not clearly present")
+                        contextual_success = False
+                    
+                    # Check response quality
+                    if len(ai_response) < 200:
+                        print(f"   ⚠️  Response seems short for complex query")
+                        contextual_success = False
+                else:
+                    print(f"   ❌ Missing reponse_contextuelle or domaine_utilise field")
+                    contextual_success = False
+            else:
+                contextual_success = False
+        
+        if not contextual_success:
+            all_tests_passed = False
+        
+        return all_tests_passed
+    
+    def test_empirical_validations_system(self):
+        """Test the empirical validations system for formulas"""
+        print("\n📊 EMPIRICAL VALIDATIONS SYSTEM TESTS")
+        print("Testing formula validation recording and tracking")
+        
+        all_tests_passed = True
+        
+        # Test 1: POST /api/validations - Record formula validations
+        print("\n1️⃣ Testing POST /api/validations - Record Formula Validations")
+        
+        # Test validation data
+        validation_data = {
+            "code_formule": "NUM001",  # Assuming this exists from previous tests
+            "type_validation": "empirique",
+            "resultats_tests": [
+                {
+                    "test_case": "n=1",
+                    "valeur_attendue": "-0.5772",
+                    "valeur_obtenue": "-0.5772156649",
+                    "precision": 0.0000156649,
+                    "statut": "valide"
+                },
+                {
+                    "test_case": "n=2", 
+                    "valeur_attendue": "0.4228",
+                    "valeur_obtenue": "0.4227843351",
+                    "precision": 0.0000156649,
+                    "statut": "valide"
+                },
+                {
+                    "test_case": "n=10",
+                    "valeur_attendue": "2.2517",
+                    "valeur_obtenue": "2.2517525890",
+                    "precision": 0.0000525890,
+                    "statut": "valide"
+                }
+            ],
+            "methode_validation": "Calcul numérique avec précision double",
+            "validateur": "Système de test automatisé",
+            "commentaires": "Validation empirique de la fonction Digamma pour les premiers entiers positifs",
+            "session_id": "test_validation_empirique_999"
+        }
+        
+        success1, response1 = self.run_test(
+            "Record Empirical Validation",
+            "POST",
+            "api/validations",
+            200,
+            data=validation_data
+        )
+        
+        validation_id = None
+        if success1 and isinstance(response1, dict):
+            if 'validation_id' in response1 and 'success' in response1:
+                validation_id = response1['validation_id']
+                print(f"   ✅ Validation recorded successfully with ID: {validation_id}")
+                
+                # Check validation statistics
+                if 'statistiques' in response1:
+                    stats = response1['statistiques']
+                    print(f"   📊 Tests passed: {stats.get('tests_valides', 'N/A')}/{stats.get('total_tests', 'N/A')}")
+                    print(f"   📊 Average precision: {stats.get('precision_moyenne', 'N/A')}")
+                    print(f"   📊 Validation status: {stats.get('statut_global', 'N/A')}")
+            else:
+                print(f"   ❌ Missing validation_id or success field")
+                all_tests_passed = False
+        else:
+            all_tests_passed = False
+        
+        # Test 2: GET /api/validations/{code_formule} - Retrieve validations for a formula
+        if validation_id:
+            print("\n2️⃣ Testing GET /api/validations/{code_formule} - Retrieve Formula Validations")
+            
+            success2, response2 = self.run_test(
+                "Get Formula Validations",
+                "GET",
+                "api/validations/NUM001",
+                200
+            )
+            
+            if success2 and isinstance(response2, dict):
+                if 'validations' in response2:
+                    validations = response2['validations']
+                    print(f"   ✅ Validations retrieved: {len(validations)} validation records found")
+                    
+                    # Check if our validation is in the results
+                    found_validation = any(val.get('validation_id') == validation_id for val in validations)
+                    if found_validation:
+                        print(f"   ✅ Created validation found in results")
+                    else:
+                        print(f"   ⚠️  Created validation not found in results")
+                        all_tests_passed = False
+                else:
+                    print(f"   ❌ Missing validations field")
+                    all_tests_passed = False
+            else:
+                all_tests_passed = False
+        
+        return all_tests_passed
+
     def test_advanced_intelligence_endpoints(self):
         """Test the new advanced intelligence endpoints as requested in review"""
         print("\n🧠 ADVANCED INTELLIGENCE ENDPOINTS TESTS")
