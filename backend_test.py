@@ -807,16 +807,17 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         # Test 4: POST /api/formules - Create new formula with auto-generated code
         print("\n4️⃣ Testing POST /api/formules - Create Formula with Auto-Generated Code")
         test_formula_data = {
-            "nom": "Calcul Digamma Test",
-            "description": "Formule de test pour le calcul du Digamma",
-            "domaine": "NUM",  # Should generate NUM001, NUM002, etc.
-            "formule_latex": "\\psi(n) = -\\gamma + \\sum_{k=1}^{n-1} \\frac{1}{k}",
-            "variables": ["n", "γ"],
-            "conditions": ["n > 0", "n ∈ ℕ"],
-            "exemples": [
-                {"input": "n=1", "output": "ψ(1) = -γ ≈ -0.5772"},
-                {"input": "n=2", "output": "ψ(2) = 1 - γ ≈ 0.4228"}
-            ]
+            "nom_formule": "Calcul Digamma Test",
+            "formule_mathematique": "ψ(n) = -γ + Σ(k=1 to n-1) 1/k",
+            "domaine": "nombres",  # Should generate NUM001, NUM002, etc.
+            "description": "Formule de test pour le calcul du Digamma dans la méthode de Philippôt",
+            "variables": {"n": "position dans la séquence", "γ": "constante d'Euler-Mascheroni"},
+            "concepts_lies": [],
+            "formules_dependantes": [],
+            "exemple_calcul": "Pour n=2: ψ(2) = -γ + 1 = 1 - γ",
+            "resultat_exemple": "ψ(2) ≈ 0.4228",
+            "niveau_complexite": 3,
+            "document_source": "Test automatisé - Système de gestion des formules"
         }
         
         success4, response4 = self.run_test(
