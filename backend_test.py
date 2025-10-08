@@ -719,10 +719,12 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
             "titre": "Digamma Test",
             "description": "Concept de test pour la fonction Digamma dans la théorie de Philippôt",
             "domaine": "nombres",
-            "complexite": 3,
+            "sous_domaine": "fonction_speciale",
             "mots_cles": ["digamma", "test", "nombres premiers", "philippôt"],
-            "formules_associees": ["ψ(n) = -γ + Σ(1/k - 1/(k+n-1))"],
-            "relations": ["Lié à la fonction Zêta de Riemann", "Utilisé dans les calculs de nombres premiers"]
+            "niveau_complexite": 3,
+            "document_source": "Test automatisé - Système de gestion des concepts",
+            "page_reference": "Test Page 1",
+            "created_by": "Système de test automatisé"
         }
         
         success1, response1 = self.run_test(
