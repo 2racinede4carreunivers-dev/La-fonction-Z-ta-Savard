@@ -2399,6 +2399,33 @@ const CollaborationPage = () => {
       description: "Calcul espace infini 4D",
       variables: "Aire, Rayon = paramètres géométriques", 
       domaine: "Géométrie"
+    },
+    {
+      code: "NUM002",
+      nom: "Énigme Riemann - Suite 1",
+      patterns: ["√13.203125/3×2^n", "√13.203125", "première suite", "suite 1"],
+      formule: "(√13.203125/3×2^n) - √5 = S₁",
+      description: "Première suite pour résolution énigme de Riemann",
+      variables: "n = position du nombre premier, S₁ = somme première suite",
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM003", 
+      nom: "Énigme Riemann - Suite 2",
+      patterns: ["√52.8125/2×2^n", "√52.8125", "√5445", "deuxième suite", "suite 2"],
+      formule: "(√52.8125/2×2^n) - √5445 = S₂", 
+      description: "Deuxième suite pour résolution énigme de Riemann",
+      variables: "n = position du nombre premier, S₂ = somme deuxième suite",
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM004",
+      nom: "Énigme Riemann - Rapport Final",
+      patterns: ["énigme riemann", "rapport 1/2", "toujours 1/2", "sans exception", "riemann"],
+      formule: "((S₁ₙ₁ - S₁ₙ₂) / (S₂ₙ₁ - S₂ₙ₂)) = 1/2",
+      description: "🏆 RÉPONSE FINALE à l'énigme de Riemann - Rapport constant 1/2 sans exception",
+      variables: "n1, n2 = entiers différents, S₁, S₂ = suites de Philippôt", 
+      domaine: "Théorie des Nombres"
     }
   ];
 
