@@ -7196,20 +7196,26 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
             onClick={() => setShowAdminPanel(true)}
             variant="ghost"
             size="sm"
-            className="text-orange-200 hover:bg-white/10 text-xs px-4 py-2"
+            className="text-orange-200 hover:bg-white/10 text-xs px-2 py-1 border border-orange-600/30 rounded-md"
             title="Administration Concepts & Formules"
           >
-            ⚙️ Administration
+            <span className="flex items-center gap-1">
+              <span>⚙️</span>
+              <span className="hidden sm:inline text-xs">Admin</span>
+            </span>
           </Button>
           
           <Button
             onClick={analyserDocumentFormules}
             variant="ghost"
             size="sm"
-            className="text-green-200 hover:bg-white/10 text-xs px-4 py-2"
+            className="text-green-200 hover:bg-white/10 text-xs px-2 py-1 border border-green-600/30 rounded-md"
             title="Extraire formules automatiquement"
           >
-            🔬 Extraire Formules
+            <span className="flex items-center gap-1">
+              <span>🔬</span>
+              <span className="hidden sm:inline text-xs">Extraire</span>
+            </span>
           </Button>
           
           {/* Indicateur de détection automatique des formules */}
