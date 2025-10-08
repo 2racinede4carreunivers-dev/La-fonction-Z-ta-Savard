@@ -7620,6 +7620,20 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
             </span>
           </Button>
           
+          <Button
+            onClick={genererLatex}
+            variant="ghost"
+            size="sm"
+            className="text-pink-200 hover:bg-pink-800/30 text-xs px-2 py-1 border border-pink-600/30 rounded-md"
+            title="Exporter en LaTeX pour Overleaf"
+            disabled={!document.trim() || isGeneratingLatex}
+          >
+            <span className="flex items-center gap-1">
+              <span>{isGeneratingLatex ? '⏳' : '📝'}</span>
+              <span className="hidden sm:inline text-xs">LaTeX</span>
+            </span>
+          </Button>
+          
           {/* Indicateur de détection automatique des formules */}
           {formulesDetectees.length > 0 && (
             <div className="flex items-center gap-2 bg-blue-900/30 border border-blue-600/50 rounded px-3 py-1">
