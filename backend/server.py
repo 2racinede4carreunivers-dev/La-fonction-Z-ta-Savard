@@ -3611,10 +3611,17 @@ async def lister_concepts(
         # Convertir les ObjectId pour la sérialisation JSON
         concepts = convert_objectid(concepts)
         
+        # Filtrer seulement les concepts avec structure complète (créés par le nouveau système)
+        concepts_valides = []
+        for concept in concepts:
+            if (concept.get("titre") and concept.get("description") and 
+                concept.get("domaine") and "niveau_complexite" in concept):
+                concepts_valides.append(concept)
+        
         return {
             "success": True,
-            "concepts": concepts,
-            "total": len(concepts)
+            "concepts": concepts_valides,
+            "total": len(concepts_valides)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération concepts: {str(e)}")
