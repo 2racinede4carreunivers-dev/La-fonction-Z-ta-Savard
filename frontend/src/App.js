@@ -874,6 +874,188 @@ const ExplorerPage = () => {
           </div>
         )}
 
+        {/* Modal Export LaTeX pour Overleaf */}
+        {showLatexExport && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowLatexExport(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-6xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">📝</span>
+                    Export LaTeX pour Overleaf
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowLatexExport(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+                
+                <div className="flex items-center gap-4 mt-4">
+                  <div className="flex items-center gap-2">
+                    <label className="text-gray-300 text-sm">Template:</label>
+                    <select
+                      value={latexTemplate}
+                      onChange={(e) => {
+                        setLatexTemplate(e.target.value);
+                        const nouveauLatex = convertirVersLatex(
+                          `# ${documentTitle || 'Document L\\'Univers est au Carré'}\n\n${document}`, 
+                          e.target.value
+                        );
+                        setLatexCode(nouveauLatex);
+                      }}
+                      className="bg-slate-700 text-white text-sm rounded px-3 py-1"
+                    >
+                      <option value="article">Article (Simple)</option>
+                      <option value="report">Report (avec TOC)</option>
+                      <option value="book">Book (Complet)</option>
+                    </select>
+                  </div>
+                  
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      id="includeFormulas"
+                      checked={includeFormulas}
+                      onChange={(e) => setIncludeFormulas(e.target.checked)}
+                      className="accent-pink-500"
+                    />
+                    <label htmlFor="includeFormulas" className="text-gray-300 text-sm">
+                      Formules Philippôt optimisées
+                    </label>
+                  </div>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4">
+                <div className="bg-gradient-to-r from-pink-900/20 to-purple-900/20 border border-pink-600/30 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">🎓</span>
+                    <h3 className="text-pink-200 font-semibold">Code LaTeX Optimisé Overleaf</h3>
+                  </div>
+                  <div className="text-gray-300 text-sm mb-3">
+                    Document formaté avec support complet des formules de votre théorie "L'Univers est au Carré"
+                  </div>
+                  
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+                    <div>
+                      <div className="text-pink-400 font-semibold">Template</div>
+                      <div className="text-gray-300 capitalize">{latexTemplate}</div>
+                    </div>
+                    <div>
+                      <div className="text-pink-400 font-semibold">Lignes</div>
+                      <div className="text-gray-300">{latexCode.split('\n').length}</div>
+                    </div>
+                    <div>
+                      <div className="text-pink-400 font-semibold">Formules</div>
+                      <div className="text-gray-300">{(latexCode.match(/\\begin{equation}/g) || []).length}</div>
+                    </div>
+                    <div>
+                      <div className="text-pink-400 font-semibold">Taille</div>
+                      <div className="text-gray-300">{(latexCode.length / 1024).toFixed(1)} KB</div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-slate-900/50 border border-slate-600 rounded-lg overflow-hidden">
+                  <div className="bg-slate-800 px-4 py-2 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-400 font-mono text-sm">●</span>
+                      <span className="text-gray-300 text-sm font-mono">{documentTitle || 'universeaucarre'}.tex</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        onClick={copierLatex}
+                        variant="ghost"
+                        size="sm"
+                        className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                      >
+                        📋 Copier
+                      </Button>
+                      <Button
+                        onClick={telechargerLatex}
+                        variant="ghost"
+                        size="sm"
+                        className="text-green-200 hover:bg-green-800/30 text-xs px-2 py-1"
+                      >
+                        💾 Télécharger
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 max-h-80 overflow-y-auto">
+                    <pre className="text-green-400 font-mono text-xs whitespace-pre-wrap">
+                      {latexCode}
+                    </pre>
+                  </div>
+                </div>
+                
+                <div className="bg-cyan-900/20 border border-cyan-600/30 rounded-lg p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-lg">🚀</span>
+                    <h4 className="text-cyan-400 font-semibold">Instructions Overleaf</h4>
+                  </div>
+                  
+                  <div className="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <div className="text-cyan-300 font-semibold mb-1">1. Import dans Overleaf :</div>
+                      <ul className="text-gray-300 space-y-1 text-xs">
+                        <li>• Créer nouveau projet Overleaf</li>
+                        <li>• Upload du fichier .tex téléchargé</li>
+                        <li>• Compiler avec pdfLaTeX</li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <div className="text-cyan-300 font-semibold mb-1">2. Packages inclus :</div>
+                      <ul className="text-gray-300 space-y-1 text-xs">
+                        <li>• amsmath, amsfonts (maths)</li>
+                        <li>• babel[french] (français)</li>
+                        <li>• geometry (mise en page)</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-3 p-2 bg-green-900/20 border border-green-600/30 rounded text-xs">
+                    <strong className="text-green-400">✨ Optimisations Philippôt :</strong>
+                    <span className="text-green-200"> Toutes vos formules (Digamma, Riemann, Cercle Denis) sont automatiquement converties en LaTeX mathématique !</span>
+                  </div>
+                </div>
+                
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    onClick={() => setShowLatexExport(false)}
+                    variant="ghost"
+                    className="text-gray-300"
+                  >
+                    Fermer
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      telechargerLatex();
+                      setShowLatexExport(false);
+                    }}
+                    className="bg-pink-600 hover:bg-pink-700"
+                  >
+                    <span className="flex items-center gap-2">
+                      <span>🚀</span>
+                      <span>Télécharger pour Overleaf</span>
+                    </span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
         {/* Tooltip only in SalonLecturePage */}
       </div>
     </div>
