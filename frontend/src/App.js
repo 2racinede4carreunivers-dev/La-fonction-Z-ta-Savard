@@ -2729,6 +2729,97 @@ const CollaborationPage = () => {
     }
   }, [showAdminPanel]);
 
+  // ===============================================
+  // FONCTIONS PHASE 2 : SYSTÈME DE DOSSIERS
+  // ===============================================
+
+  // Charger les dossiers depuis le localStorage
+  const chargerDossiers = useCallback(() => {
+    try {
+      const savedFolders = localStorage.getItem('collaboration_folders');
+      const savedDocsByFolder = localStorage.getItem('documents_by_folder');
+      
+      if (savedFolders) {
+        setFolders(JSON.parse(savedFolders));
+      } else {
+        // Créer dossiers par défaut
+        const defaultFolders = [
+          { id: 'root', nom: 'Documents Racine', description: 'Dossier principal', couleur: 'blue' },
+          { id: 'riemann', nom: 'Énigme de Riemann', description: 'Travaux sur l\'énigme de Riemann', couleur: 'purple' },
+          { id: 'geometrie', nom: 'Géométrie Carrée', description: 'Théorèmes géométriques', couleur: 'green' },
+          { id: 'philippot', nom: 'Méthode Philippôt', description: 'Développements de la méthode', couleur: 'orange' }
+        ];
+        setFolders(defaultFolders);
+        localStorage.setItem('collaboration_folders', JSON.stringify(defaultFolders));
+      }
+      
+      if (savedDocsByFolder) {
+        setDocumentsByFolder(JSON.parse(savedDocsByFolder));
+      }
+    } catch (error) {
+      console.error('Erreur chargement dossiers:', error);
+    }
+  }, []);
+
+  // Créer un nouveau dossier
+  const creerDossier = () => {
+    if (!newFolderName.trim()) return;
+    
+    const nouveauDossier = {
+      id: Date.now().toString(),
+      nom: newFolderName.trim(),
+      description: newFolderDescription.trim() || 'Nouveau dossier',
+      couleur: ['blue', 'green', 'purple', 'orange', 'red', 'teal'][Math.floor(Math.random() * 6)],
+      createdAt: new Date().toISOString()
+    };
+    
+    const nouveauxDossiers = [...folders, nouveauDossier];
+    setFolders(nouveauxDossiers);
+    localStorage.setItem('collaboration_folders', JSON.stringify(nouveauxDossiers));
+    
+    setNewFolderName('');
+    setNewFolderDescription('');
+    setShowNewFolderForm(false);
+    
+    setNotifications(prev => [...prev, {
+      id: Date.now(),
+      type: 'success',
+      title: 'Dossier créé',
+      message: `Le dossier "${nouveauDossier.nom}" a été créé`,
+      timestamp: new Date().toLocaleTimeString()
+    }]);
+  };
+
+  // Déplacer document vers dossier
+  const deplacerDocument = (documentId, nouveauDossier) => {
+    const docsParDossier = { ...documentsByFolder };
+    
+    // Retirer des anciens dossiers
+    Object.keys(docsParDossier).forEach(folderId => {
+      docsParDossier[folderId] = docsParDossier[folderId]?.filter(id => id !== documentId) || [];
+    });
+    
+    // Ajouter au nouveau dossier
+    if (!docsParDossier[nouveauDossier]) {
+      docsParDossier[nouveauDossier] = [];
+    }
+    docsParDossier[nouveauDossier].push(documentId);
+    
+    setDocumentsByFolder(docsParDossier);
+    localStorage.setItem('documents_by_folder', JSON.stringify(docsParDossier));
+  };
+
+  // Obtenir les documents du dossier actuel
+  const getDocumentsDossierActuel = () => {
+    const docsIds = documentsByFolder[currentFolder] || [];
+    return savedDocuments.filter(doc => docsIds.includes(doc.document_id) || currentFolder === 'root');
+  };
+
+  // Charger les dossiers au démarrage
+  useEffect(() => {
+    chargerDossiers();
+  }, [chargerDossiers]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-6">
