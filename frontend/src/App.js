@@ -3175,6 +3175,7 @@ const CollaborationPage = () => {
                         declencherAnalyseAvecDelai(e.target.value);
                       }
                     }}
+                    style={{ fontSize: `${fontSize}px` }}
                     placeholder="Commencez à écrire votre document sur la théorie 'L'univers est au carré'...
 
 🔍 Correction intelligente activée - Les suggestions apparaîtront automatiquement
