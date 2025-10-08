@@ -833,6 +833,7 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
             if 'code_formule' in response4 and 'success' in response4:
                 created_formula_code = response4['code_formule']
                 print(f"   ✅ Formula created successfully with code: {created_formula_code}")
+                print(f"   📝 Message: {response4.get('message', 'N/A')}")
                 
                 # Verify auto-generated code format
                 if created_formula_code.startswith('NUM') and len(created_formula_code) == 6:
