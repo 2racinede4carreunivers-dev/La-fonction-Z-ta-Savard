@@ -2788,26 +2788,99 @@ const CollaborationPage = () => {
                     </Button>
                   </div>
                   
-                  {/* Boutons de formatage */}
+                  {/* Formatage */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('**', '**')}
-                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
                       title="Gras"
                     >
-                      <Bold className="w-3 h-3" />
+                      <span className="font-bold">B</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('*', '*')}
-                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
                       title="Italique"
                     >
-                      <Italic className="w-3 h-3" />
+                      <span className="italic">I</span>
                     </Button>
+                    
+                    {/* Contrôle taille de police */}
+                    <div className="relative group">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                        title="Taille de police"
+                        onClick={() => setShowFontSizePanel(!showFontSizePanel)}
+                      >
+                        🔤
+                      </Button>
+                      
+                      {showFontSizePanel && (
+                        <div className="absolute top-8 left-0 bg-slate-800 border border-slate-600 rounded-lg p-3 min-w-[200px] z-50 shadow-xl">
+                          <div className="text-cyan-400 font-semibold mb-2 text-xs">Taille Police</div>
+                          
+                          <div className="flex items-center gap-2 mb-2">
+                            <Button
+                              onClick={() => setFontSize(Math.max(10, fontSize - 2))}
+                              variant="ghost"
+                              size="sm"
+                              className="text-gray-300 hover:bg-slate-700 text-xs px-2 py-1"
+                            >
+                              A-
+                            </Button>
+                            
+                            <input
+                              type="range"
+                              min="10"
+                              max="30"
+                              value={fontSize}
+                              onChange={(e) => setFontSize(parseInt(e.target.value))}
+                              className="flex-1 accent-purple-500"
+                            />
+                            
+                            <Button
+                              onClick={() => setFontSize(Math.min(30, fontSize + 2))}
+                              variant="ghost"
+                              size="sm"
+                              className="text-gray-300 hover:bg-slate-700 text-xs px-2 py-1"
+                            >
+                              A+
+                            </Button>
+                          </div>
+                          
+                          <div className="text-center text-gray-300 text-xs mb-2">
+                            {fontSize}px
+                          </div>
+                          
+                          <div className="grid grid-cols-3 gap-1">
+                            <button
+                              onClick={() => setFontSize(12)}
+                              className="text-xs bg-slate-700 hover:bg-slate-600 rounded px-2 py-1 text-gray-300"
+                            >
+                              Petit
+                            </button>
+                            <button
+                              onClick={() => setFontSize(16)}
+                              className="text-xs bg-slate-700 hover:bg-slate-600 rounded px-2 py-1 text-gray-300"
+                            >
+                              Normal
+                            </button>
+                            <button
+                              onClick={() => setFontSize(20)}
+                              className="text-xs bg-slate-700 hover:bg-slate-600 rounded px-2 py-1 text-gray-300"
+                            >
+                              Grand
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                   
                   {/* Boutons de structure */}
