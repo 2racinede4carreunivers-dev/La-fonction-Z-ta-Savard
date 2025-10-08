@@ -2894,34 +2894,40 @@ const CollaborationPage = () => {
                     </div>
                   </div>
                   
-                  {/* Boutons de structure */}
+                  {/* Structure */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('\n## ', '')}
-                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
-                      title="Titre"
+                      className="text-purple-200 hover:bg-purple-800/30 text-xs px-2 py-1 border border-purple-600/20 rounded transition-colors"
+                      title="Insérer titre (Markdown H2)"
                     >
-                      H
+                      <span className="flex items-center gap-1">
+                        <span className="font-bold text-lg">H</span>
+                        <span className="text-xs">₂</span>
+                      </span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('\n\n', '')}
-                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
+                      className="text-purple-200 hover:bg-purple-800/30 text-xs px-2 py-1 border border-purple-600/20 rounded transition-colors"
                       title="Nouveau paragraphe"
                     >
-                      ¶
+                      <span className="text-lg">¶</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('\n• ', '')}
-                      className="text-purple-200 hover:bg-white/10 text-xs px-2 py-1"
-                      title="Puce"
+                      className="text-purple-200 hover:bg-purple-800/30 text-xs px-2 py-1 border border-purple-600/20 rounded transition-colors"
+                      title="Liste à puces"
                     >
-                      •
+                      <span className="flex items-center">
+                        <span className="text-lg">•</span>
+                        <span className="text-xs ml-1">₊</span>
+                      </span>
                     </Button>
                   </div>
 
