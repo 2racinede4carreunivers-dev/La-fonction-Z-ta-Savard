@@ -1821,7 +1821,14 @@ const SYMBOLES_MATHEMATIQUES = {
 };
 
 // Page Collaboration avec interface à 3 zones
-const CollaborationPage = () => {
+const CollaborationPage = ({ folderProps = {} }) => {
+  // Destructurer les props des dossiers avec valeurs par défaut
+  const { 
+    folders = [], 
+    setFolders = () => {}, 
+    currentFolder = 'root', 
+    setCurrentFolder = () => {} 
+  } = folderProps;
   // États pour la zone d'édition/création
   const [document, setDocument] = useState('');
   const [documentTitle, setDocumentTitle] = useState('Nouveau Document');
