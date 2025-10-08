@@ -9106,7 +9106,7 @@ function App() {
           <Route path="/methode-philippot" element={<MethodePhilippotPage />} />
           <Route path="/explorer" element={<ExplorerPage />} />
           <Route path="/chat" element={<ChatPage />} />
-          <Route path="/collaboration" element={<CollaborationPage />} />
+          <Route path="/collaboration" element={<CollaborationPage folderProps={folderProps} />} />
           <Route path="/concepts-enrichis" element={<ConceptsEnrichisPage />} />
           <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
           <Route path="/salon-lecture" element={<SalonLecturePage />} />
