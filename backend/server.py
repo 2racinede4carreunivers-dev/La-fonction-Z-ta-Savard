@@ -12,6 +12,10 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 import math
 import base64
 import json
+# CORRECTIF OBJECTID SERIALIZATION
+import pydantic.json
+from bson import ObjectId
+pydantic.json.ENCODERS_BY_TYPE[ObjectId] = str
 
 # Charger les variables d'environnement
 load_dotenv()
