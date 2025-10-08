@@ -2405,8 +2405,8 @@ const CollaborationPage = () => {
       nom: "Riemann Suite 1 - Positifs (CORRIGÉ)",
       patterns: ["√13.203125/2×2^n", "√13.203125/2", "suite 1 positifs", "nombres premiers positifs"],
       formule: "(√13.203125/2×2^n) - √5 = S₁⁺",
-      description: "Suite 1 pour nombres premiers POSITIFS - Version corrigée (/2 au lieu de /3)",
-      variables: "n = entier positif = position du nombre premier",
+      description: "Suite 1 pour nombres premiers POSITIFS - n=1→2, n=2→3, n=3→5... (Version corrigée /2)",
+      variables: "n = position positive (n=1 pour le premier 2, n=2 pour 3, n=3 pour 5...)",
       domaine: "Théorie des Nombres"
     },
     {
@@ -2414,8 +2414,8 @@ const CollaborationPage = () => {
       nom: "Riemann Suite 1 - Négatifs",
       patterns: ["√13.203125×2^n", "nombres premiers négatifs", "suite 1 négatifs"],
       formule: "(√13.203125×2^n) - √5 = S₁⁻", 
-      description: "🚀 Suite 1 pour nombres premiers NÉGATIFS - Extension révolutionnaire",
-      variables: "n = entier négatif = position du nombre premier négatif",
+      description: "🚀 Suite 1 pour nombres premiers NÉGATIFS - n=-1→-2, n=-2→-3, n=-3→-5... Extension révolutionnaire",
+      variables: "n = position négative (n=-1 pour -2, n=-2 pour -3, n=-3 pour -5...)",
       domaine: "Théorie des Nombres"
     },
     {
@@ -2423,8 +2423,8 @@ const CollaborationPage = () => {
       nom: "Riemann Suite 2 - Négatifs",
       patterns: ["√52.8125×2^n", "suite 2 négatifs"],
       formule: "(√52.8125×2^n) - √5445 = S₂⁻",
-      description: "🚀 Suite 2 pour nombres premiers NÉGATIFS - Extension révolutionnaire",
-      variables: "n = entier négatif = position du nombre premier négatif", 
+      description: "🚀 Suite 2 pour nombres premiers NÉGATIFS - n=-1→-2, n=-2→-3, n=-3→-5... Extension révolutionnaire",
+      variables: "n = position négative (n=-1 pour -2, n=-2 pour -3, n=-3 pour -5...)", 
       domaine: "Théorie des Nombres"
     },
     {
