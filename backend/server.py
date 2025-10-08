@@ -4014,6 +4014,10 @@ async def requete_contextuelle_ia(request: dict):
             "concepts_lies": {"$in": concept_ids}
         }).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        concepts_filtres = convert_objectid(concepts_filtres)
+        formules_associees = convert_objectid(formules_associees)
+        
         return {
             "success": True,
             "contexte_privilegie": {
