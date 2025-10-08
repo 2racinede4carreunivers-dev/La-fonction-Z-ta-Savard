@@ -2766,25 +2766,36 @@ const CollaborationPage = () => {
               </CardHeader>
               <CardContent className="py-2">
                 <div className="flex flex-wrap gap-1">
-                  {/* Boutons de document */}
+                  {/* Document */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
-                      onClick={createNewDocument}
                       variant="ghost"
                       size="sm"
-                      className="text-green-200 hover:bg-white/10 text-xs px-2 py-1"
+                      onClick={createNewDocument}
+                      className="text-green-200 hover:bg-green-800/30 text-xs px-2 py-1 transition-colors border border-green-600/20 rounded"
                       title="Nouveau document"
                     >
-                      <Plus className="w-3 h-3" />
+                      <span className="flex items-center gap-1">
+                        <span className="text-lg">📄</span>
+                        <span className="text-xs font-semibold">+</span>
+                      </span>
                     </Button>
                     <Button
-                      onClick={saveDocument}
                       variant="ghost"
                       size="sm"
-                      className="text-blue-200 hover:bg-white/10 text-xs px-2 py-1"
+                      onClick={saveDocument}
+                      className={`text-xs px-2 py-1 transition-colors border rounded ${
+                        document.trim() 
+                          ? 'text-blue-200 hover:bg-blue-800/30 border-blue-600/20' 
+                          : 'text-gray-500 border-gray-600/20 cursor-not-allowed'
+                      }`}
                       title="Sauvegarder"
+                      disabled={!document.trim()}
                     >
-                      <Save className="w-3 h-3" />
+                      <span className="flex items-center gap-1">
+                        <span className="text-lg">{saveStatus.includes('✓') ? '✅' : '💾'}</span>
+                        <span className="text-xs">{saveStatus || 'Sauver'}</span>
+                      </span>
                     </Button>
                   </div>
                   
