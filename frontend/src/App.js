@@ -7076,6 +7076,432 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
             </div>
           </div>
         )}
+
+        {/* Panel d'Administration des Concepts et Formules */}
+        {showAdminPanel && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowAdminPanel(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-6xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">⚙️</span>
+                    Administration - Concepts & Formules
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowAdminPanel(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+                
+                {/* Onglets d'administration */}
+                <div className="flex gap-4 mt-4">
+                  <button
+                    onClick={() => setActiveAdminTab('concepts')}
+                    className={`px-4 py-2 rounded text-sm ${activeAdminTab === 'concepts' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-gray-300'}`}
+                  >
+                    📝 Concepts ({concepts.length})
+                  </button>
+                  <button
+                    onClick={() => setActiveAdminTab('formules')}
+                    className={`px-4 py-2 rounded text-sm ${activeAdminTab === 'formules' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-gray-300'}`}
+                  >
+                    🧮 Formules ({formules.length})
+                  </button>
+                  <button
+                    onClick={() => setActiveAdminTab('statistiques')}
+                    className={`px-4 py-2 rounded text-sm ${activeAdminTab === 'statistiques' ? 'bg-blue-600 text-white' : 'bg-slate-700 text-gray-300'}`}
+                  >
+                    📊 Statistiques
+                  </button>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+                {/* Onglet Concepts */}
+                {activeAdminTab === 'concepts' && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-cyan-400 font-semibold">Gestion des Concepts</h3>
+                      <Button
+                        onClick={() => setShowConceptForm(true)}
+                        className="bg-green-600 hover:bg-green-700 text-xs"
+                      >
+                        + Nouveau Concept
+                      </Button>
+                    </div>
+                    
+                    <div className="grid gap-4">
+                      {concepts.map(concept => (
+                        <div key={concept.id} className="bg-slate-800/50 border border-slate-600 rounded p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <h4 className="text-white font-semibold">{concept.titre}</h4>
+                            <div className="flex gap-2">
+                              <span className={`px-2 py-1 rounded text-xs ${
+                                concept.domaine === 'geometrie' ? 'bg-blue-600' :
+                                concept.domaine === 'nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                              }`}>
+                                {concept.domaine}
+                              </span>
+                              <span className="px-2 py-1 bg-slate-600 rounded text-xs">
+                                Niveau {concept.niveau_complexite}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-gray-300 text-sm">{concept.description}</p>
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {concept.mots_cles?.map(mot => (
+                              <span key={mot} className="px-2 py-1 bg-cyan-900/30 text-cyan-200 rounded text-xs">
+                                {mot}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Onglet Formules */}
+                {activeAdminTab === 'formules' && (
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-cyan-400 font-semibold">Gestion des Formules</h3>
+                      <Button
+                        onClick={() => setShowFormuleForm(true)}
+                        className="bg-green-600 hover:bg-green-700 text-xs"
+                      >
+                        + Nouvelle Formule
+                      </Button>
+                    </div>
+                    
+                    <div className="grid gap-4">
+                      {formules.map(formule => (
+                        <div key={formule.id} className="bg-slate-800/50 border border-slate-600 rounded p-3">
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2">
+                              <span className="px-2 py-1 bg-green-600 rounded text-xs font-mono">
+                                {formule.code_formule}
+                              </span>
+                              <h4 className="text-white font-semibold">{formule.nom_formule}</h4>
+                            </div>
+                            <span className={`px-2 py-1 rounded text-xs ${
+                              formule.domaine === 'geometrie' ? 'bg-blue-600' :
+                              formule.domaine === 'nombres' ? 'bg-purple-600' : 'bg-orange-600'
+                            }`}>
+                              {formule.domaine}
+                            </span>
+                          </div>
+                          <div className="bg-slate-900/50 border border-slate-600 rounded p-2 mb-2">
+                            <code className="text-green-400 font-mono text-sm">
+                              {formule.formule_mathematique}
+                            </code>
+                          </div>
+                          <p className="text-gray-300 text-sm">{formule.description}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Onglet Statistiques */}
+                {activeAdminTab === 'statistiques' && (
+                  <div className="space-y-4">
+                    <h3 className="text-cyan-400 font-semibold">Statistiques de la Base</h3>
+                    <div className="grid grid-cols-3 gap-4">
+                      <div className="bg-blue-900/20 border border-blue-600/30 rounded p-4 text-center">
+                        <div className="text-2xl font-bold text-blue-400">{concepts.length}</div>
+                        <div className="text-sm text-gray-300">Concepts</div>
+                      </div>
+                      <div className="bg-green-900/20 border border-green-600/30 rounded p-4 text-center">
+                        <div className="text-2xl font-bold text-green-400">{formules.length}</div>
+                        <div className="text-sm text-gray-300">Formules</div>
+                      </div>
+                      <div className="bg-purple-900/20 border border-purple-600/30 rounded p-4 text-center">
+                        <div className="text-2xl font-bold text-purple-400">{relations.length}</div>
+                        <div className="text-sm text-gray-300">Relations</div>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <h4 className="text-white font-semibold">Par Domaine:</h4>
+                      {['geometrie', 'nombres', 'physique'].map(domaine => {
+                        const conceptsDomaine = concepts.filter(c => c.domaine === domaine).length;
+                        const formulesDomaine = formules.filter(f => f.domaine === domaine).length;
+                        return (
+                          <div key={domaine} className="flex items-center justify-between bg-slate-800/30 rounded p-2">
+                            <span className="text-gray-300 capitalize">{domaine}</span>
+                            <span className="text-white">{conceptsDomaine} concepts, {formulesDomaine} formules</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Création Concept */}
+        {showConceptForm && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowConceptForm(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-2xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <CardTitle className="text-white text-lg">📝 Créer un Nouveau Concept</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-gray-300 text-sm">Titre *</label>
+                    <input
+                      type="text"
+                      value={conceptForm.titre}
+                      onChange={(e) => setConceptForm(prev => ({...prev, titre: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                      placeholder="Ex: Digamma de Philippôt"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-gray-300 text-sm">Domaine *</label>
+                    <select
+                      value={conceptForm.domaine}
+                      onChange={(e) => setConceptForm(prev => ({...prev, domaine: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    >
+                      <option value="geometrie">Géométrie</option>
+                      <option value="nombres">Théorie des Nombres</option>
+                      <option value="physique">Physique Théorique</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-gray-300 text-sm">Description *</label>
+                  <textarea
+                    value={conceptForm.description}
+                    onChange={(e) => setConceptForm(prev => ({...prev, description: e.target.value}))}
+                    className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white h-24"
+                    placeholder="Description détaillée du concept..."
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-gray-300 text-sm">Mots-clés (séparés par ,)</label>
+                    <input
+                      type="text"
+                      value={conceptForm.mots_cles}
+                      onChange={(e) => setConceptForm(prev => ({...prev, mots_cles: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                      placeholder="digamma, nombres premiers, calcul"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-gray-300 text-sm">Niveau (1-5)</label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      value={conceptForm.niveau_complexite}
+                      onChange={(e) => setConceptForm(prev => ({...prev, niveau_complexite: parseInt(e.target.value)}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    onClick={() => setShowConceptForm(false)}
+                    variant="ghost"
+                    className="text-gray-300"
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={creerConcept}
+                    className="bg-blue-600 hover:bg-blue-700"
+                    disabled={!conceptForm.titre || !conceptForm.description}
+                  >
+                    Créer Concept
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Création Formule */}
+        {showFormuleForm && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowFormuleForm(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-2xl w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <CardTitle className="text-white text-lg">🧮 Créer une Nouvelle Formule</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-gray-300 text-sm">Nom de la formule *</label>
+                    <input
+                      type="text"
+                      value={formuleForm.nom_formule}
+                      onChange={(e) => setFormuleForm(prev => ({...prev, nom_formule: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                      placeholder="Ex: Calcul Digamma position 8"
+                    />
+                  </div>
+                  <div>
+                    <label className="text-gray-300 text-sm">Domaine *</label>
+                    <select
+                      value={formuleForm.domaine}
+                      onChange={(e) => setFormuleForm(prev => ({...prev, domaine: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    >
+                      <option value="geometrie">Géométrie</option>
+                      <option value="nombres">Théorie des Nombres</option>
+                      <option value="physique">Physique Théorique</option>
+                    </select>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="text-gray-300 text-sm">Formule mathématique *</label>
+                  <input
+                    type="text"
+                    value={formuleForm.formule_mathematique}
+                    onChange={(e) => setFormuleForm(prev => ({...prev, formule_mathematique: e.target.value}))}
+                    className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white font-mono"
+                    placeholder="Ex: √((n+7)² + (n+8)²)"
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-gray-300 text-sm">Description *</label>
+                  <textarea
+                    value={formuleForm.description}
+                    onChange={(e) => setFormuleForm(prev => ({...prev, description: e.target.value}))}
+                    className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white h-20"
+                    placeholder="Description de l'usage et du contexte de la formule..."
+                  />
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-gray-300 text-sm">Variables (JSON)</label>
+                    <input
+                      type="text"
+                      value={formuleForm.variables}
+                      onChange={(e) => setFormuleForm(prev => ({...prev, variables: e.target.value}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white font-mono text-sm"
+                      placeholder='{"n": "position", "h": "hauteur"}'
+                    />
+                  </div>
+                  <div>
+                    <label className="text-gray-300 text-sm">Niveau (1-5)</label>
+                    <input
+                      type="number"
+                      min="1"
+                      max="5"
+                      value={formuleForm.niveau_complexite}
+                      onChange={(e) => setFormuleForm(prev => ({...prev, niveau_complexite: parseInt(e.target.value)}))}
+                      className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    />
+                  </div>
+                </div>
+                
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    onClick={() => setShowFormuleForm(false)}
+                    variant="ghost"
+                    className="text-gray-300"
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={creerFormule}
+                    className="bg-blue-600 hover:bg-blue-700"
+                    disabled={!formuleForm.nom_formule || !formuleForm.formule_mathematique}
+                  >
+                    Créer Formule
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Panel d'Extraction Automatique */}
+        {showExtractionPanel && extractionResults && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowExtractionPanel(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-5xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">🔬</span>
+                    Résultats d'Extraction Automatique
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowExtractionPanel(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4 max-h-96 overflow-y-auto">
+                <div className="bg-slate-900/50 border border-slate-600 rounded p-4">
+                  <div className="text-green-400 text-sm whitespace-pre-wrap">
+                    {typeof extractionResults === 'string' ? extractionResults : JSON.stringify(extractionResults, null, 2)}
+                  </div>
+                </div>
+                
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    onClick={() => setShowExtractionPanel(false)}
+                    variant="ghost"
+                    className="text-gray-300"
+                  >
+                    Fermer
+                  </Button>
+                  <Button
+                    onClick={validerExtraction}
+                    className="bg-green-600 hover:bg-green-700"
+                  >
+                    ✓ Valider et Enregistrer
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
