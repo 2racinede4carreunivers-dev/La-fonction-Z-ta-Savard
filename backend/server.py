@@ -3953,6 +3953,11 @@ async def acces_concepts_complets():
         # Récupérer toutes les relations
         relations = await db.relations.find({}).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        concepts = convert_objectid(concepts)
+        formules = convert_objectid(formules)
+        relations = convert_objectid(relations)
+        
         # Organiser par domaines
         donnees_privilegiees = {
             "domaines": {
