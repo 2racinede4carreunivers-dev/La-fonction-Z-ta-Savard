@@ -2748,7 +2748,7 @@ const CollaborationPage = () => {
                   </div>
 
                   {/* Intelligence Avancée */}
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
                       onClick={genererSuggestionsContenu}
                       variant="ghost"
