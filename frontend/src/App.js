@@ -1728,6 +1728,13 @@ const CollaborationPage = () => {
   const [newFolderDescription, setNewFolderDescription] = useState('');
   const [documentsByFolder, setDocumentsByFolder] = useState({});
   const [showDocumentOrganizer, setShowDocumentOrganizer] = useState(false);
+  
+  // États Phase 3 : Export LaTeX pour Overleaf
+  const [showLatexExport, setShowLatexExport] = useState(false);
+  const [latexCode, setLatexCode] = useState('');
+  const [isGeneratingLatex, setIsGeneratingLatex] = useState(false);
+  const [latexTemplate, setLatexTemplate] = useState('article'); // article, report, book
+  const [includeFormulas, setIncludeFormulas] = useState(true);
   const [conceptForm, setConceptForm] = useState({
     titre: '',
     description: '',
