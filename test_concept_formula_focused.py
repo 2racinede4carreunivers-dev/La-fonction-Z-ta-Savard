@@ -44,6 +44,7 @@ def test_concept_formula_system():
     # Test 2: Create a formula
     print("\n2️⃣ Testing POST /api/formules")
     formula_data = {
+        "code_formule": "",  # Should be auto-generated
         "nom_formule": "Calcul Digamma Test",
         "formule_mathematique": "ψ(n) = -γ + Σ(k=1 to n-1) 1/k",
         "domaine": "nombres",
