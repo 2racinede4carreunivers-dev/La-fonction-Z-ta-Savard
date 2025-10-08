@@ -869,8 +869,9 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         if success5a and isinstance(response5a, list):
             print(f"   ✅ All formulas retrieved: {len(response5a)} formulas found")
         
-        if success5b and isinstance(response5b, list):
-            print(f"   ✅ Domain-filtered formulas retrieved: {len(response5b)} NUM formulas found")
+        if success5b and isinstance(response5b, dict):
+            formules = response5b.get('formules', [])
+            print(f"   ✅ Domain-filtered formulas retrieved: {len(formules)} nombres formulas found")
             
             # Check if our created formula is in the results
             if created_formula_code:
