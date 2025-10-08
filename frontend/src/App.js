@@ -9083,6 +9083,17 @@ const SalleIllustrationsPage = () => {
 };
 
 const App = () => {
+  // États de navigation et de contenu
+  const [selectedConcept, setSelectedConcept] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [tableauExpanded, setTableauExpanded] = useState({});
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+  
+  // États globaux pour les dossiers (disponibles dans toute l'app)
+  const [folders, setFolders] = useState([]);
+  const [currentFolder, setCurrentFolder] = useState('root');
+
   return (
     <Router>
       <div className="App">
