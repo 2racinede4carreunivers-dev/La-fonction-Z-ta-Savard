@@ -4048,6 +4048,31 @@ async def requete_contextuelle_ia(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur requête contextuelle: {str(e)}")
 
+@app.get("/api/test-concepts")
+async def test_concepts():
+    """Test simple pour debug ObjectId"""
+    try:
+        # Compter les documents dans la collection
+        count = await db.concepts.count_documents({})
+        
+        # Récupérer un exemple minimal
+        sample = await db.concepts.find_one()
+        if sample:
+            sample = convert_objectid(sample)
+            
+        return {
+            "success": True,
+            "total_documents": count,
+            "sample_document": sample,
+            "message": "Test de la collection concepts"
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": str(e),
+            "message": "Erreur lors du test"
+        }
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
