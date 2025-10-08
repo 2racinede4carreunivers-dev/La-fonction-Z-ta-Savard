@@ -2352,6 +2352,173 @@ const CollaborationPage = () => {
     }
   }, [document, declencherAnalysesAutomatiques, lastAnalyzedText, intelligenceSettings]);
 
+  // ===============================================
+  // FONCTIONS D'ADMINISTRATION DES CONCEPTS
+  // ===============================================
+
+  // Charger les concepts depuis la base
+  const chargerConcepts = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/concepts`);
+      if (response.data.success) {
+        setConcepts(response.data.concepts);
+      }
+    } catch (error) {
+      console.error('Erreur chargement concepts:', error);
+    }
+  };
+
+  // Charger les formules depuis la base
+  const chargerFormules = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/formules`);
+      if (response.data.success) {
+        setFormules(response.data.formules);
+      }
+    } catch (error) {
+      console.error('Erreur chargement formules:', error);
+    }
+  };
+
+  // Créer un nouveau concept
+  const creerConcept = async () => {
+    try {
+      const conceptData = {
+        ...conceptForm,
+        mots_cles: conceptForm.mots_cles.split(',').map(m => m.trim()).filter(Boolean)
+      };
+
+      const response = await axios.post(`${API_URL}/api/concepts`, conceptData);
+      
+      if (response.data.success) {
+        await chargerConcepts();
+        setShowConceptForm(false);
+        setConceptForm({
+          titre: '', description: '', domaine: 'geometrie', sous_domaine: '',
+          mots_cles: '', niveau_complexite: 3, document_source: '', page_reference: ''
+        });
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Concept créé',
+          message: `Le concept "${conceptForm.titre}" a été créé avec succès`,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur création concept:', error);
+    }
+  };
+
+  // Créer une nouvelle formule
+  const creerFormule = async () => {
+    try {
+      const formuleData = {
+        ...formuleForm,
+        variables: formuleForm.variables ? JSON.parse(formuleForm.variables) : {},
+        concepts_lies: [],
+        formules_dependantes: []
+      };
+
+      const response = await axios.post(`${API_URL}/api/formules`, formuleData);
+      
+      if (response.data.success) {
+        await chargerFormules();
+        setShowFormuleForm(false);
+        setFormuleForm({
+          nom_formule: '', formule_mathematique: '', domaine: 'geometrie',
+          description: '', variables: '', niveau_complexite: 3,
+          document_source: '', exemple_calcul: '', resultat_exemple: ''
+        });
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Formule créée',
+          message: `La formule "${response.data.code_formule}" a été créée avec succès`,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur création formule:', error);
+    }
+  };
+
+  // Analyser le document actuel pour extraire les formules
+  const analyserDocumentFormules = async () => {
+    if (!document.trim()) {
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'warning',
+        title: 'Document vide',
+        message: 'Aucun contenu à analyser dans l\'éditeur',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${API_URL}/api/indexation/analyser-document`, {
+        texte_document: document,
+        domaine_principal: 'geometrie'
+      });
+
+      if (response.data.success) {
+        setExtractionResults(response.data.extraction);
+        setShowExtractionPanel(true);
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Analyse terminée',
+          message: 'Extraction automatique des formules terminée',
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur analyse document:', error);
+    }
+  };
+
+  // Valider et enregistrer l'extraction automatique
+  const validerExtraction = async () => {
+    if (!extractionResults) return;
+
+    try {
+      const response = await axios.post(`${API_URL}/api/indexation/valider-extraction`, {
+        formules_validees: extractionResults.formules_extraites || [],
+        concepts_valides: extractionResults.concepts_identifies || [],
+        relations_validees: extractionResults.relations_detectees || []
+      });
+
+      if (response.data.success) {
+        await chargerConcepts();
+        await chargerFormules();
+        setShowExtractionPanel(false);
+        setExtractionResults(null);
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Extraction validée',
+          message: `${response.data.resultats.formules_creees} formules et ${response.data.resultats.concepts_crees} concepts créés`,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur validation extraction:', error);
+    }
+  };
+
+  // Charger les données au montage du panneau admin
+  useEffect(() => {
+    if (showAdminPanel) {
+      chargerConcepts();
+      chargerFormules();
+    }
+  }, [showAdminPanel]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-6">
