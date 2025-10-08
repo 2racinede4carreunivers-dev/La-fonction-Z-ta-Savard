@@ -2401,30 +2401,39 @@ const CollaborationPage = () => {
       domaine: "Géométrie"
     },
     {
-      code: "NUM002",
-      nom: "Énigme Riemann - Suite 1",
-      patterns: ["√13.203125/3×2^n", "√13.203125", "première suite", "suite 1"],
-      formule: "(√13.203125/3×2^n) - √5 = S₁",
-      description: "Première suite pour résolution énigme de Riemann",
-      variables: "n = position du nombre premier, S₁ = somme première suite",
+      code: "NUM005",
+      nom: "Riemann Suite 1 - Positifs (CORRIGÉ)",
+      patterns: ["√13.203125/2×2^n", "√13.203125/2", "suite 1 positifs", "nombres premiers positifs"],
+      formule: "(√13.203125/2×2^n) - √5 = S₁⁺",
+      description: "Suite 1 pour nombres premiers POSITIFS - Version corrigée (/2 au lieu de /3)",
+      variables: "n = entier positif = position du nombre premier",
       domaine: "Théorie des Nombres"
     },
     {
-      code: "NUM003", 
-      nom: "Énigme Riemann - Suite 2",
-      patterns: ["√52.8125/2×2^n", "√52.8125", "√5445", "deuxième suite", "suite 2"],
-      formule: "(√52.8125/2×2^n) - √5445 = S₂", 
-      description: "Deuxième suite pour résolution énigme de Riemann",
-      variables: "n = position du nombre premier, S₂ = somme deuxième suite",
+      code: "NUM006", 
+      nom: "Riemann Suite 1 - Négatifs",
+      patterns: ["√13.203125×2^n", "nombres premiers négatifs", "suite 1 négatifs"],
+      formule: "(√13.203125×2^n) - √5 = S₁⁻", 
+      description: "🚀 Suite 1 pour nombres premiers NÉGATIFS - Extension révolutionnaire",
+      variables: "n = entier négatif = position du nombre premier négatif",
       domaine: "Théorie des Nombres"
     },
     {
-      code: "NUM004",
-      nom: "Énigme Riemann - Rapport Final",
-      patterns: ["énigme riemann", "rapport 1/2", "toujours 1/2", "sans exception", "riemann"],
+      code: "NUM007",
+      nom: "Riemann Suite 2 - Négatifs",
+      patterns: ["√52.8125×2^n", "suite 2 négatifs"],
+      formule: "(√52.8125×2^n) - √5445 = S₂⁻",
+      description: "🚀 Suite 2 pour nombres premiers NÉGATIFS - Extension révolutionnaire",
+      variables: "n = entier négatif = position du nombre premier négatif", 
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM008",
+      nom: "Riemann - Rapport Universel 1/2",
+      patterns: ["énigme riemann", "rapport universel", "toujours 1/2", "sans exception", "croissant décroissant", "positif négatif combiné"],
       formule: "((S₁ₙ₁ - S₁ₙ₂) / (S₂ₙ₁ - S₂ₙ₂)) = 1/2",
-      description: "🏆 RÉPONSE FINALE à l'énigme de Riemann - Rapport constant 1/2 sans exception",
-      variables: "n1, n2 = entiers différents, S₁, S₂ = suites de Philippôt", 
+      description: "🏆 RAPPORT UNIVERSEL 1/2 - Fonctionne avec TOUTES combinaisons positifs/négatifs, ordre croissant/décroissant",
+      variables: "n1, n2 = entiers positifs OU négatifs différents", 
       domaine: "Théorie des Nombres"
     }
   ];
