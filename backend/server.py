@@ -3698,23 +3698,26 @@ async def creer_formule(formule: FormuleModel):
 async def lister_formules(domaine: Optional[str] = None):
     """Lister toutes les formules par domaine"""
     try:
-        query = {"domaine": domaine} if domaine else {}
+        # Query seulement les formules avec structure complète
+        query = {
+            "code_formule": {"$exists": True, "$ne": ""},
+            "nom_formule": {"$exists": True, "$ne": ""},
+            "formule_mathematique": {"$exists": True, "$ne": ""},
+            "domaine": {"$exists": True, "$ne": ""}
+        }
+        
+        if domaine:
+            query["domaine"] = domaine
+            
         formules = await db.formules.find(query).to_list(length=None)
         
         # Convertir les ObjectId pour la sérialisation JSON
         formules = convert_objectid(formules)
         
-        # Filtrer seulement les formules avec structure complète
-        formules_valides = []
-        for formule in formules:
-            if (formule.get("code_formule") and formule.get("nom_formule") and 
-                formule.get("formule_mathematique") and formule.get("domaine")):
-                formules_valides.append(formule)
-        
         return {
             "success": True,
-            "formules": formules_valides,
-            "total": len(formules_valides)
+            "formules": formules,
+            "total": len(formules)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération formules: {str(e)}")
