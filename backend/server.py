@@ -3637,6 +3637,11 @@ async def obtenir_concept(concept_id: str):
             "concepts_lies": {"$in": [concept_id]}
         }).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        concept = convert_objectid(concept)
+        relations = convert_objectid(relations)
+        formules = convert_objectid(formules)
+        
         return {
             "success": True,
             "concept": concept,
