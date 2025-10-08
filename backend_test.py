@@ -1175,35 +1175,21 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         # Test validation data
         validation_data = {
-            "code_formule": "NUM001",  # Assuming this exists from previous tests
-            "type_validation": "empirique",
-            "resultats_tests": [
-                {
-                    "test_case": "n=1",
-                    "valeur_attendue": "-0.5772",
-                    "valeur_obtenue": "-0.5772156649",
-                    "precision": 0.0000156649,
-                    "statut": "valide"
-                },
-                {
-                    "test_case": "n=2", 
-                    "valeur_attendue": "0.4228",
-                    "valeur_obtenue": "0.4227843351",
-                    "precision": 0.0000156649,
-                    "statut": "valide"
-                },
-                {
-                    "test_case": "n=10",
-                    "valeur_attendue": "2.2517",
-                    "valeur_obtenue": "2.2517525890",
-                    "precision": 0.0000525890,
-                    "statut": "valide"
-                }
-            ],
-            "methode_validation": "Calcul numérique avec précision double",
-            "validateur": "Système de test automatisé",
+            "formule_id": created_formula_code or "NUM001",  # Use created formula or fallback
+            "type_validation": "test_numerique",
+            "donnees_test": {
+                "test_cases": [
+                    {"input": "n=1", "expected": "-0.5772", "obtained": "-0.5772156649"},
+                    {"input": "n=2", "expected": "0.4228", "obtained": "0.4227843351"},
+                    {"input": "n=10", "expected": "2.2517", "obtained": "2.2517525890"}
+                ]
+            },
+            "resultat_attendu": "Fonction Digamma calculée correctement",
+            "resultat_obtenu": "Tous les tests passés avec précision acceptable",
+            "statut": "validee",
             "commentaires": "Validation empirique de la fonction Digamma pour les premiers entiers positifs",
-            "session_id": "test_validation_empirique_999"
+            "testeur": "Système de test automatisé",
+            "precision_resultat": 0.0001
         }
         
         success1, response1 = self.run_test(
