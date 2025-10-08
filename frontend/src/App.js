@@ -1697,6 +1697,38 @@ const CollaborationPage = () => {
     autoCitations: false,
     notificationLevel: 'medium'
   });
+
+  // États pour l'administration des concepts et formules
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [concepts, setConcepts] = useState([]);
+  const [formules, setFormules] = useState([]);
+  const [relations, setRelations] = useState([]);
+  const [activeAdminTab, setActiveAdminTab] = useState('concepts');
+  const [showConceptForm, setShowConceptForm] = useState(false);
+  const [showFormuleForm, setShowFormuleForm] = useState(false);
+  const [extractionResults, setExtractionResults] = useState(null);
+  const [showExtractionPanel, setShowExtractionPanel] = useState(false);
+  const [conceptForm, setConceptForm] = useState({
+    titre: '',
+    description: '',
+    domaine: 'geometrie',
+    sous_domaine: '',
+    mots_cles: '',
+    niveau_complexite: 3,
+    document_source: '',
+    page_reference: ''
+  });
+  const [formuleForm, setFormuleForm] = useState({
+    nom_formule: '',
+    formule_mathematique: '',
+    domaine: 'geometrie',
+    description: '',
+    variables: '',
+    niveau_complexite: 3,
+    document_source: '',
+    exemple_calcul: '',
+    resultat_exemple: ''
+  });
   
   // États pour le layout - Nouvelle structure fixe 4-quadrants
   const [showSidePanels, setShowSidePanels] = useState(true);
