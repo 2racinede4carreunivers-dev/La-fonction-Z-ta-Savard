@@ -3594,11 +3594,18 @@ async def lister_concepts(
 ):
     """Lister les concepts avec filtres optionnels"""
     try:
-        query = {}
+        # Query seulement les concepts créés par le nouveau système (avec structure complète)
+        query = {
+            "titre": {"$exists": True, "$ne": ""},
+            "description": {"$exists": True, "$ne": ""},
+            "domaine": {"$exists": True, "$ne": ""},
+            "niveau_complexite": {"$exists": True}
+        }
+        
         if domaine:
             query["domaine"] = domaine
         if niveau_max:
-            query["niveau_complexite"] = {"$lte": niveau_max}
+            query["niveau_complexite"]["$lte"] = niveau_max
         if search:
             query["$or"] = [
                 {"titre": {"$regex": search, "$options": "i"}},
@@ -3611,17 +3618,10 @@ async def lister_concepts(
         # Convertir les ObjectId pour la sérialisation JSON
         concepts = convert_objectid(concepts)
         
-        # Filtrer seulement les concepts avec structure complète (créés par le nouveau système)
-        concepts_valides = []
-        for concept in concepts:
-            if (concept.get("titre") and concept.get("description") and 
-                concept.get("domaine") and "niveau_complexite" in concept):
-                concepts_valides.append(concept)
-        
         return {
             "success": True,
-            "concepts": concepts_valides,
-            "total": len(concepts_valides)
+            "concepts": concepts,
+            "total": len(concepts)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération concepts: {str(e)}")
