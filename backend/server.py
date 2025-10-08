@@ -3694,6 +3694,9 @@ async def lister_formules(domaine: Optional[str] = None):
         query = {"domaine": domaine} if domaine else {}
         formules = await db.formules.find(query).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        formules = convert_objectid(formules)
+        
         return {
             "success": True,
             "formules": formules,
