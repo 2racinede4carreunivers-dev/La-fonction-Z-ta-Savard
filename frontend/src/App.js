@@ -7308,6 +7308,56 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </p>
         </div>
 
+        {/* Gestion des Dossiers */}
+        <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
+          <Button
+            onClick={() => setShowFolderManager(true)}
+            variant="ghost"
+            size="sm"
+            className="text-indigo-200 hover:bg-indigo-800/30 text-xs px-2 py-1 border border-indigo-600/20 rounded transition-colors"
+            title="Gestionnaire de dossiers"
+          >
+            <span className="flex items-center gap-1">
+              <span className="text-lg">📁</span>
+              <span className="hidden sm:inline text-xs">Dossiers</span>
+            </span>
+          </Button>
+          
+          <div className="relative group">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-indigo-200 hover:bg-indigo-800/30 text-xs px-2 py-1 border border-indigo-600/20 rounded transition-colors"
+              title="Dossier actuel"
+            >
+              <span className="flex items-center gap-1">
+                <span className="text-sm">📂</span>
+                <span className="text-xs max-w-20 truncate">
+                  {folders.find(f => f.id === currentFolder)?.nom || 'Racine'}
+                </span>
+              </span>
+            </Button>
+            
+            <div className="absolute top-8 left-0 bg-slate-800 border border-slate-600 rounded-lg p-2 min-w-[180px] z-50 shadow-xl hidden group-hover:block">
+              <div className="text-cyan-400 font-semibold mb-2 text-xs">Changer de dossier</div>
+              {folders.map(folder => (
+                <button
+                  key={folder.id}
+                  onClick={() => setCurrentFolder(folder.id)}
+                  className={`w-full text-left text-gray-300 hover:text-white p-1 rounded hover:bg-slate-700 transition-colors text-xs ${
+                    currentFolder === folder.id ? 'bg-slate-700 text-cyan-400' : ''
+                  }`}
+                >
+                  <span className="flex items-center gap-2">
+                    <span className={`w-3 h-3 rounded-full bg-${folder.couleur}-500`}></span>
+                    {folder.nom}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
         {/* Administration des Concepts et Formules */}
         <div className="flex items-center justify-center gap-4 mb-8">
           <Button
