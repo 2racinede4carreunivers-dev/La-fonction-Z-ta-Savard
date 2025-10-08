@@ -3188,7 +3188,7 @@ ${latexContent}
     setIsGeneratingLatex(true);
     
     try {
-      const contenuAvecTitre = `# ${documentTitle || 'Document L\\'Univers est au Carré'}\n\n${document}`;
+      const contenuAvecTitre = `# ${documentTitle || "Document L'Univers est au Carré"}\n\n${document}`;
       const latexGenere = convertirVersLatex(contenuAvecTitre, latexTemplate);
       setLatexCode(latexGenere);
       setShowLatexExport(true);
