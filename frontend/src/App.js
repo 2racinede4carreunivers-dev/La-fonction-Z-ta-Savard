@@ -2435,6 +2435,15 @@ const CollaborationPage = () => {
       description: "🏆 RAPPORT UNIVERSEL 1/2 - Fonctionne avec TOUTES combinaisons positifs/négatifs, ordre croissant/décroissant",
       variables: "n1, n2 = entiers positifs OU négatifs différents", 
       domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM009",
+      nom: "Positions des Nombres Premiers",
+      patterns: ["n=1→2", "n=2→3", "n=3→5", "premier nombre premier", "position des nombres premiers", "-2 est le -1er", "-3 est le -2ième", "jusqu'à l'infini"],
+      formule: "n=1→2, n=2→3, n=3→5, n=4→7... | n=-1→-2, n=-2→-3, n=-3→-5...",
+      description: "📍 DÉFINITION FONDAMENTALE : 2 est le 1er premier, 3 le 2ème, 5 le 3ème... | -2 est le -1er premier, -3 le -2ème, -5 le -3ème... Extension infinie ±∞",
+      variables: "n = position (entier ≠ 0), → = correspond au nombre premier à cette position",
+      domaine: "Théorie des Nombres"
     }
   ];
 
