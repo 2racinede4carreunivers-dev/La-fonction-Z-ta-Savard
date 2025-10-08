@@ -2316,6 +2316,133 @@ const CollaborationPage = () => {
     }
   };
 
+  // ===============================================
+  // SYSTÈME DE DÉTECTION AUTOMATIQUE DES FORMULES
+  // ===============================================
+
+  // Base de formules de Philippôt pour reconnaissance automatique
+  const formulesPhilippot = [
+    {
+      code: "DIG001",
+      nom: "Digamma de Philippôt", 
+      patterns: ["ψ(n)", "√((n+7)²", "√((n+8)²", "digamma"],
+      formule: "ψ(n) = √((n+7)² + (n+8)²)",
+      description: "Formule fondamentale pour calcul nombres premiers",
+      variables: "n = position dans la séquence",
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "PHI001", 
+      nom: "Théorème de Philippôt",
+      patterns: ["C² = A² + B²", "trois carrés", "triangle"],
+      formule: "C² = A² + B²",
+      description: "Extension du théorème de Pythagore",
+      variables: "A, B, C = côtés du triangle",
+      domaine: "Géométrie"
+    },
+    {
+      code: "CIR001",
+      nom: "Cercle Denis",
+      patterns: ["rayon 0.5", "circonférence ≈ 4", "457.8792021", "cercle denis"],
+      formule: "R = 0.5, C ≈ 4",
+      description: "Cercle spécial avec π = Pascal",
+      variables: "R = rayon, C = circonférence", 
+      domaine: "Géométrie"
+    },
+    {
+      code: "PHI002",
+      nom: "Longueur de Philippôt",
+      patterns: ["0.512 × √10", "L_Philippôt", "longueur planck"],
+      formule: "L = 0.512 × √10", 
+      description: "Équivalent longueur de Planck",
+      variables: "L = longueur caractéristique",
+      domaine: "Physique"
+    },
+    {
+      code: "RES001",
+      nom: "Constante temporelle",
+      patterns: ["(√1.6)³", "2.023857703", "hectopascals", "inverse du temps"],
+      formule: "(√1.6)³ = 2.023857703",
+      description: "Constante de l'inverse du temps", 
+      variables: "Résultat en hectopascals",
+      domaine: "Physique"
+    },
+    {
+      code: "RES002", 
+      nom: "Résonances terrestres",
+      patterns: ["7.83 Hz", "14.142 Hz", "20.00104 Hz", "résonance terrestre"],
+      formule: "f₁ = 7.83 Hz, f₂ = 14.142 Hz, f₃ = 20.00104 Hz",
+      description: "Fréquences de résonance terrestre",
+      variables: "f = fréquences harmoniques",
+      domaine: "Physique"
+    },
+    {
+      code: "MIN001",
+      nom: "Espace Minkowski Philippôt",
+      patterns: ["2√10", "√40 - √20", "minkowski", "périmètre"],
+      formule: "P = 2(√40 - √20) + 2(√20 - √10) = 2√10",
+      description: "Périmètre espace-temps selon Philippôt",
+      variables: "P = périmètre caractéristique",
+      domaine: "Physique"
+    },
+    {
+      code: "HYP001",
+      nom: "Formule hypercomplexe",
+      patterns: ["(2×Aire + 2×Aire×√10", "Rayon²)^(1/2)", "hypercomplexe"],
+      formule: "(2×Aire + 2×Aire×√10 + Rayon²)^(1/2)",
+      description: "Calcul espace infini 4D",
+      variables: "Aire, Rayon = paramètres géométriques", 
+      domaine: "Géométrie"
+    }
+  ];
+
+  // États pour la détection automatique
+  const [formulesDetectees, setFormulesDetectees] = useState([]);
+  const [showFormulaTooltip, setShowFormulaTooltip] = useState(false);
+  const [tooltipFormula, setTooltipFormula] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+
+  // Fonction de détection des formules en temps réel
+  const detecterFormules = useCallback((texte) => {
+    if (!texte || texte.length < 3) {
+      setFormulesDetectees([]);
+      setShowFormulaTooltip(false);
+      return;
+    }
+
+    const texteMinuscule = texte.toLowerCase();
+    const formulesDetectees = [];
+
+    formulesPhilippot.forEach(formule => {
+      const detected = formule.patterns.some(pattern => {
+        const patternMinuscule = pattern.toLowerCase();
+        return texteMinuscule.includes(patternMinuscule);
+      });
+
+      if (detected) {
+        formulesDetectees.push(formule);
+      }
+    });
+
+    setFormulesDetectees(formulesDetectees);
+
+    // Afficher tooltip pour la première formule détectée
+    if (formulesDetectees.length > 0 && !showFormulaTooltip) {
+      setTooltipFormula(formulesDetectees[0]);
+      setShowFormulaTooltip(true);
+      
+      // Masquer automatiquement après 5 secondes
+      setTimeout(() => {
+        setShowFormulaTooltip(false);
+      }, 5000);
+    }
+  }, [showFormulaTooltip]);
+
+  // Surveillance des changements de texte pour détection
+  useEffect(() => {
+    detecterFormules(document);
+  }, [document, detecterFormules]);
+
   // Déclenchement automatique des analyses selon les paramètres
   const declencherAnalysesAutomatiques = useCallback(() => {
     if (!document.trim()) return;
