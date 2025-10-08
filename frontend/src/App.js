@@ -8084,6 +8084,187 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
             </div>
           </div>
         )}
+
+        {/* Modal Gestionnaire de Dossiers */}
+        {showFolderManager && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowFolderManager(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-4xl w-full max-h-[90vh] overflow-hidden"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white text-xl flex items-center gap-2">
+                    <span className="text-2xl">📁</span>
+                    Gestionnaire de Dossiers
+                  </CardTitle>
+                  <Button
+                    onClick={() => setShowFolderManager(false)}
+                    variant="ghost"
+                    className="text-blue-200 hover:bg-white/10"
+                  >
+                    ✕
+                  </Button>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-cyan-400 font-semibold">Organisation des Documents</h3>
+                  <Button
+                    onClick={() => setShowNewFolderForm(true)}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-xs"
+                  >
+                    <span className="flex items-center gap-1">
+                      <span>📁</span>
+                      <span>+ Nouveau Dossier</span>
+                    </span>
+                  </Button>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {folders.map(folder => {
+                    const docsCount = (documentsByFolder[folder.id] || []).length;
+                    return (
+                      <div key={folder.id} className="bg-slate-800/50 border border-slate-600 rounded-lg p-4 hover:bg-slate-700/50 transition-colors">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <span className={`w-4 h-4 rounded-full bg-${folder.couleur}-500`}></span>
+                            <h4 className="text-white font-semibold text-sm">{folder.nom}</h4>
+                          </div>
+                          <div className="flex gap-1">
+                            <Button
+                              onClick={() => setCurrentFolder(folder.id)}
+                              variant="ghost"
+                              size="sm"
+                              className={`text-xs px-2 py-1 ${
+                                currentFolder === folder.id 
+                                  ? 'bg-indigo-600 text-white' 
+                                  : 'text-gray-300 hover:bg-slate-600'
+                              }`}
+                            >
+                              {currentFolder === folder.id ? '✓ Actuel' : 'Ouvrir'}
+                            </Button>
+                          </div>
+                        </div>
+                        
+                        <p className="text-gray-300 text-xs mb-2">{folder.description}</p>
+                        
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-gray-400">
+                            {docsCount} document{docsCount !== 1 ? 's' : ''}
+                          </span>
+                          <span className="text-gray-500">
+                            {folder.createdAt ? new Date(folder.createdAt).toLocaleDateString() : 'Défaut'}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                
+                <div className="border-t border-slate-600 pt-4">
+                  <h4 className="text-cyan-400 font-semibold mb-3">Documents dans "{folders.find(f => f.id === currentFolder)?.nom || 'Racine'}"</h4>
+                  <div className="grid gap-2 max-h-40 overflow-y-auto">
+                    {getDocumentsDossierActuel().map(doc => (
+                      <div key={doc.document_id} className="flex items-center justify-between bg-slate-900/30 rounded p-2">
+                        <div>
+                          <span className="text-white text-sm">{doc.title || 'Document sans titre'}</span>
+                          <span className="text-gray-400 text-xs block">
+                            {new Date(doc.created_at).toLocaleDateString()}
+                          </span>
+                        </div>
+                        
+                        <div className="flex gap-1">
+                          <select
+                            onChange={(e) => deplacerDocument(doc.document_id, e.target.value)}
+                            className="bg-slate-700 text-white text-xs rounded px-2 py-1"
+                            defaultValue=""
+                          >
+                            <option value="" disabled>Déplacer vers...</option>
+                            {folders.map(folder => (
+                              <option key={folder.id} value={folder.id}>
+                                {folder.nom}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Modal Nouveau Dossier */}
+        {showNewFolderForm && (
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            onClick={() => setShowNewFolderForm(false)}
+          >
+            <Card 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <CardHeader>
+                <CardTitle className="text-white text-lg flex items-center gap-2">
+                  <span>📁</span>
+                  Créer un Nouveau Dossier
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <label className="text-gray-300 text-sm">Nom du dossier *</label>
+                  <input
+                    type="text"
+                    value={newFolderName}
+                    onChange={(e) => setNewFolderName(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    placeholder="Ex: Travaux Riemann"
+                    maxLength={50}
+                  />
+                </div>
+                
+                <div>
+                  <label className="text-gray-300 text-sm">Description</label>
+                  <input
+                    type="text"
+                    value={newFolderDescription}
+                    onChange={(e) => setNewFolderDescription(e.target.value)}
+                    className="w-full bg-slate-800 border border-slate-600 rounded px-3 py-2 text-white"
+                    placeholder="Description du contenu du dossier"
+                    maxLength={100}
+                  />
+                </div>
+                
+                <div className="flex gap-2 justify-end">
+                  <Button
+                    onClick={() => setShowNewFolderForm(false)}
+                    variant="ghost"
+                    className="text-gray-300"
+                  >
+                    Annuler
+                  </Button>
+                  <Button
+                    onClick={creerDossier}
+                    className="bg-indigo-600 hover:bg-indigo-700"
+                    disabled={!newFolderName.trim()}
+                  >
+                    <span className="flex items-center gap-1">
+                      <span>📁</span>
+                      <span>Créer</span>
+                    </span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
