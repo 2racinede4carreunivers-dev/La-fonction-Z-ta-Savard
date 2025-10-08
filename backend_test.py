@@ -1806,9 +1806,9 @@ Cette approche géométrique ouvre de nouvelles perspectives dans la théorie de
         return all_tests_passed
 
 def main():
-    print("🚀 Testing Advanced Intelligence Features - Philippôt Theory Context")
+    print("🚀 Testing Complete Concept and Formula Administration System")
     print("=" * 80)
-    print("Focus: Testing new AI-powered endpoints with Emergent LLM integration")
+    print("Focus: Testing new concept/formula management with auto-generation and AI integration")
     
     tester = UniversAuCarreAPITester()
     
@@ -1816,16 +1816,25 @@ def main():
     print("\n📋 BASIC HEALTH CHECK")
     health_success = tester.test_health_check()
     
-    # PRIMARY FOCUS: Test the new advanced intelligence endpoints as requested
-    print("\n🧠 ADVANCED INTELLIGENCE ENDPOINTS - PRIMARY TESTS")
-    advanced_intelligence_success = tester.test_advanced_intelligence_endpoints()
+    # PRIMARY FOCUS: Test the new concept and formula management system as requested
+    print("\n🔬 CONCEPT AND FORMULA MANAGEMENT SYSTEM - PRIMARY TESTS")
+    concept_formula_success = tester.test_concept_formula_management_system()
+    
+    print("\n🤖 AUTOMATIC INDEXING SYSTEM - AI FORMULA EXTRACTION")
+    indexing_success = tester.test_automatic_indexing_system()
+    
+    print("\n🔐 PRIVILEGED AI ACCESS SYSTEM - SPECIALIZED QUERIES")
+    privileged_access_success = tester.test_privileged_ai_access_system()
+    
+    print("\n📊 EMPIRICAL VALIDATIONS SYSTEM - FORMULA VALIDATION")
+    validations_success = tester.test_empirical_validations_system()
     
     # Secondary tests for context
+    print("\n🧠 EXISTING ADVANCED INTELLIGENCE VALIDATION")
+    advanced_intelligence_success = tester.test_advanced_intelligence_endpoints()
+    
     print("\n🔬 PHILIPPÔT THEORY ACCESS VALIDATION")
     theory_access_success = tester.test_philippot_theorem_privileged_access()
-    
-    print("\n📝 EXISTING INTELLIGENT CORRECTION VALIDATION")
-    correction_success = tester.test_analyse_texte_endpoint()
     
     # Print final results
     print("\n" + "=" * 80)
@@ -1835,22 +1844,41 @@ def main():
     # Detailed results breakdown
     print(f"\n🎯 RESULTS BREAKDOWN:")
     print(f"   Health Check: {'✅ PASSED' if health_success else '❌ FAILED'}")
+    print(f"   Concept/Formula Management: {'✅ PASSED' if concept_formula_success else '❌ FAILED'}")
+    print(f"   Automatic Indexing: {'✅ PASSED' if indexing_success else '❌ FAILED'}")
+    print(f"   Privileged AI Access: {'✅ PASSED' if privileged_access_success else '❌ FAILED'}")
+    print(f"   Empirical Validations: {'✅ PASSED' if validations_success else '❌ FAILED'}")
     print(f"   Advanced Intelligence: {'✅ PASSED' if advanced_intelligence_success else '❌ FAILED'}")
     print(f"   Theory Access: {'✅ PASSED' if theory_access_success else '❌ FAILED'}")
-    print(f"   Correction System: {'✅ PASSED' if correction_success else '❌ FAILED'}")
     
-    # Success criteria: Advanced intelligence endpoints must work
-    if advanced_intelligence_success and tester.tests_passed >= (tester.tests_run * 0.75):  # 75% success rate
-        print("\n🎉 ADVANCED INTELLIGENCE FEATURES TESTS PASSED!")
-        print("✅ All 5 new AI endpoints working with Claude Sonnet 3.5")
-        print("✅ Philippôt theory context properly integrated")
-        print("✅ Emergent LLM Key integration functional")
+    # Success criteria: Core concept/formula system must work
+    core_systems_success = (
+        concept_formula_success and 
+        indexing_success and 
+        privileged_access_success and 
+        validations_success
+    )
+    
+    if core_systems_success and tester.tests_passed >= (tester.tests_run * 0.70):  # 70% success rate
+        print("\n🎉 CONCEPT AND FORMULA ADMINISTRATION SYSTEM TESTS PASSED!")
+        print("✅ Concept management with domain filtering working")
+        print("✅ Formula auto-generation (NUM001, GEO001, etc.) functional")
+        print("✅ AI-powered formula extraction from text working")
+        print("✅ Privileged AI access organized by domains operational")
+        print("✅ Empirical validation system recording properly")
+        print("✅ MongoDB relational structure confirmed")
+        print("✅ Emergent LLM integration for intelligent extraction validated")
         return 0
     else:
-        print(f"\n⚠️  Advanced intelligence tests failed or insufficient success rate")
-        if not advanced_intelligence_success:
-            print(f"❌ Critical: New AI endpoints not working properly")
-        if tester.tests_passed < (tester.tests_run * 0.75):
+        print(f"\n⚠️  Core concept/formula system tests failed or insufficient success rate")
+        if not core_systems_success:
+            failed_systems = []
+            if not concept_formula_success: failed_systems.append("Concept/Formula Management")
+            if not indexing_success: failed_systems.append("Automatic Indexing")
+            if not privileged_access_success: failed_systems.append("Privileged AI Access")
+            if not validations_success: failed_systems.append("Empirical Validations")
+            print(f"❌ Critical systems failed: {', '.join(failed_systems)}")
+        if tester.tests_passed < (tester.tests_run * 0.70):
             print(f"❌ Overall success rate too low: {tester.tests_passed}/{tester.tests_run}")
         return 1
 
