@@ -3485,6 +3485,508 @@ class NotificationsRequest(BaseModel):
     types_notifications: Optional[List[str]] = ["corrections", "suggestions", "coherence"]
     session_id: Optional[str] = None
 
+# ===============================================
+# SYSTÈME DE GESTION DES CONCEPTS ET FORMULES
+# ===============================================
+
+# Modèles de données pour la base relationnelle
+class ConceptModel(BaseModel):
+    id: Optional[str] = None
+    titre: str
+    description: str
+    domaine: str  # "nombres", "geometrie", "physique"
+    sous_domaine: Optional[str] = None
+    mots_cles: List[str]
+    niveau_complexite: int  # 1-5
+    document_source: str
+    page_reference: Optional[str] = None
+    created_by: str = "Philippe Thomas Savard"
+    created_at: Optional[str] = None
+    updated_at: Optional[str] = None
+
+class FormuleModel(BaseModel):
+    id: Optional[str] = None
+    code_formule: str  # DIG001, PHI001, etc.
+    nom_formule: str
+    formule_mathematique: str
+    domaine: str
+    description: str
+    variables: Dict[str, str]  # {"n": "position", "h": "hauteur"}
+    concepts_lies: List[str]  # IDs des concepts liés
+    formules_dependantes: List[str]  # Autres formules nécessaires
+    exemple_calcul: Optional[str] = None
+    resultat_exemple: Optional[str] = None
+    niveau_complexite: int
+    document_source: str
+    created_at: Optional[str] = None
+
+class RelationModel(BaseModel):
+    id: Optional[str] = None
+    concept_1_id: str
+    concept_2_id: str
+    type_relation: str  # "derive_de", "applique_a", "oppose_a", "generalise"
+    description_relation: str
+    force_relation: int  # 1-5 (faible à très forte)
+    formules_impliquees: List[str]
+    created_at: Optional[str] = None
+
+class ValidationEmpiriqueModel(BaseModel):
+    id: Optional[str] = None
+    formule_id: str
+    type_validation: str  # "calcul_manuel", "verification_ia", "test_numerique", "application_physique"
+    donnees_test: Dict
+    resultat_attendu: str
+    resultat_obtenu: str
+    statut: str  # "validee", "echec", "partielle", "en_cours"
+    commentaires: str
+    testeur: str
+    date_test: str
+    precision_resultat: Optional[float] = None
+
+# ===============================================
+# API ENDPOINTS - GESTION DES CONCEPTS
+# ===============================================
+
+@app.post("/api/concepts", response_model=dict)
+async def creer_concept(concept: ConceptModel):
+    """Créer un nouveau concept dans la base"""
+    try:
+        concept_data = concept.dict()
+        concept_data["id"] = str(uuid.uuid4())
+        concept_data["created_at"] = datetime.now(timezone.utc).isoformat()
+        concept_data["updated_at"] = concept_data["created_at"]
+        
+        result = await db.concepts.insert_one(concept_data)
+        
+        return {
+            "success": True,
+            "concept_id": concept_data["id"],
+            "message": f"Concept '{concept.titre}' créé avec succès"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur création concept: {str(e)}")
+
+@app.get("/api/concepts")
+async def lister_concepts(
+    domaine: Optional[str] = None,
+    niveau_max: Optional[int] = None,
+    search: Optional[str] = None
+):
+    """Lister les concepts avec filtres optionnels"""
+    try:
+        query = {}
+        if domaine:
+            query["domaine"] = domaine
+        if niveau_max:
+            query["niveau_complexite"] = {"$lte": niveau_max}
+        if search:
+            query["$or"] = [
+                {"titre": {"$regex": search, "$options": "i"}},
+                {"description": {"$regex": search, "$options": "i"}},
+                {"mots_cles": {"$in": [search]}}
+            ]
+        
+        concepts = await db.concepts.find(query).to_list(length=None)
+        
+        return {
+            "success": True,
+            "concepts": concepts,
+            "total": len(concepts)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération concepts: {str(e)}")
+
+@app.get("/api/concepts/{concept_id}")
+async def obtenir_concept(concept_id: str):
+    """Obtenir un concept spécifique avec ses relations"""
+    try:
+        concept = await db.concepts.find_one({"id": concept_id})
+        if not concept:
+            raise HTTPException(status_code=404, detail="Concept non trouvé")
+        
+        # Récupérer les relations
+        relations = await db.relations.find({
+            "$or": [{"concept_1_id": concept_id}, {"concept_2_id": concept_id}]
+        }).to_list(length=None)
+        
+        # Récupérer les formules liées
+        formules = await db.formules.find({
+            "concepts_lies": {"$in": [concept_id]}
+        }).to_list(length=None)
+        
+        return {
+            "success": True,
+            "concept": concept,
+            "relations": relations,
+            "formules_liees": formules
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération concept: {str(e)}")
+
+# ===============================================
+# API ENDPOINTS - GESTION DES FORMULES
+# ===============================================
+
+@app.post("/api/formules", response_model=dict)
+async def creer_formule(formule: FormuleModel):
+    """Créer une nouvelle formule avec code auto-généré"""
+    try:
+        formule_data = formule.dict()
+        
+        # Générer le code si pas fourni
+        if not formule_data.get("code_formule"):
+            prefix = {
+                "nombres": "NUM",
+                "geometrie": "GEO", 
+                "physique": "PHY"
+            }.get(formule.domaine, "GEN")
+            
+            # Compter les formules existantes dans ce domaine
+            count = await db.formules.count_documents({"domaine": formule.domaine})
+            formule_data["code_formule"] = f"{prefix}{count+1:03d}"
+        
+        formule_data["id"] = str(uuid.uuid4())
+        formule_data["created_at"] = datetime.now(timezone.utc).isoformat()
+        
+        await db.formules.insert_one(formule_data)
+        
+        return {
+            "success": True,
+            "formule_id": formule_data["id"],
+            "code_formule": formule_data["code_formule"],
+            "message": f"Formule {formule_data['code_formule']} créée avec succès"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur création formule: {str(e)}")
+
+@app.get("/api/formules")
+async def lister_formules(domaine: Optional[str] = None):
+    """Lister toutes les formules par domaine"""
+    try:
+        query = {"domaine": domaine} if domaine else {}
+        formules = await db.formules.find(query).to_list(length=None)
+        
+        return {
+            "success": True,
+            "formules": formules,
+            "total": len(formules)
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération formules: {str(e)}")
+
+@app.get("/api/formules/{code_formule}")
+async def obtenir_formule(code_formule: str):
+    """Obtenir une formule par son code avec validations"""
+    try:
+        formule = await db.formules.find_one({"code_formule": code_formule})
+        if not formule:
+            raise HTTPException(status_code=404, detail="Formule non trouvée")
+        
+        # Récupérer les validations empiriques
+        validations = await db.validations_empiriques.find({
+            "formule_id": formule["id"]
+        }).to_list(length=None)
+        
+        return {
+            "success": True,
+            "formule": formule,
+            "validations": validations
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération formule: {str(e)}")
+
+# ===============================================
+# API ENDPOINTS - GESTION DES RELATIONS
+# ===============================================
+
+@app.post("/api/relations", response_model=dict)
+async def creer_relation(relation: RelationModel):
+    """Créer une relation entre deux concepts"""
+    try:
+        relation_data = relation.dict()
+        relation_data["id"] = str(uuid.uuid4())
+        relation_data["created_at"] = datetime.now(timezone.utc).isoformat()
+        
+        await db.relations.insert_one(relation_data)
+        
+        return {
+            "success": True,
+            "relation_id": relation_data["id"],
+            "message": "Relation créée avec succès"
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur création relation: {str(e)}")
+
+# ===============================================
+# API ENDPOINTS - VALIDATIONS EMPIRIQUES
+# ===============================================
+
+@app.post("/api/validations", response_model=dict)
+async def creer_validation(validation: ValidationEmpiriqueModel):
+    """Enregistrer une validation empirique"""
+    try:
+        validation_data = validation.dict()
+        validation_data["id"] = str(uuid.uuid4())
+        validation_data["date_test"] = datetime.now(timezone.utc).isoformat()
+        
+        await db.validations_empiriques.insert_one(validation_data)
+        
+        return {
+            "success": True,
+            "validation_id": validation_data["id"],
+            "statut": validation.statut
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur validation: {str(e)}")
+
+# ===============================================
+# API SYSTÈME D'INDEXATION AUTOMATIQUE
+# ===============================================
+
+@app.post("/api/indexation/analyser-document")
+async def analyser_document_formules(request: dict):
+    """Analyser un document pour extraire automatiquement les formules"""
+    try:
+        texte_document = request.get("texte_document", "")
+        domaine_principal = request.get("domaine_principal", "geometrie")
+        
+        if not texte_document or not EMERGENT_LLM_KEY:
+            raise HTTPException(status_code=400, detail="Texte et clé API requis")
+        
+        systeme_extraction = f"""{system_message}
+        
+        **MODE EXTRACTION ET INDEXATION DE FORMULES**
+        
+        Tu es un expert en analyse de documents mathématiques spécialisé dans l'extraction de formules.
+        Ta mission : identifier et codifier toutes les formules mathématiques du document.
+        
+        **DOMAINE PRINCIPAL :** {domaine_principal}
+        
+        **INSTRUCTIONS D'EXTRACTION :**
+        1. Identifier toutes les formules mathématiques explicites
+        2. Extraire les définitions conceptuelles
+        3. Repérer les relations entre variables
+        4. Générer des codes d'identification uniques
+        5. Classer par niveau de complexité (1-5)
+        
+        **PREFIXES DE CODIFICATION :**
+        - **DIG** : Digamma de Philippôt et calculs associés
+        - **PHI** : Théorème de Philippôt et géométrie
+        - **CIR** : Cercle Denis et relations circulaires
+        - **RES** : Résonance terrestre et harmoniques
+        - **MIN** : Espace Minkowski selon Philippôt
+        - **HYP** : Nombres hypercomplexes
+        - **INV** : Involutions et transformations
+        
+        **FORMAT DE RÉPONSE :**
+        {{
+            "formules_extraites": [
+                {{
+                    "code_propose": "DIG001",
+                    "nom_formule": "Calcul Digamma position 8",
+                    "formule_mathematique": "√((n+7)² + (n+8)²)",
+                    "description": "Calcul du Digamma à la 8ème position",
+                    "variables": {{"n": "position dans la séquence"}},
+                    "niveau_complexite": 3,
+                    "exemple_application": "Pour n=1: √(64+81) = √145"
+                }}
+            ],
+            "concepts_identifies": [
+                {{
+                    "nom": "Digamma de Philippôt",
+                    "domaine": "nombres",
+                    "description": "Concept central pour calcul nombres premiers"
+                }}
+            ],
+            "relations_detectees": [
+                {{
+                    "formule_1": "DIG001",
+                    "formule_2": "DIG002",
+                    "type_relation": "sequence",
+                    "description": "Formules consécutives dans tableau"
+                }}
+            ]
+        }}
+        
+        **DOCUMENT À ANALYSER :**
+        {texte_document}
+        
+        Effectue une extraction complète et systématique des formules mathématiques.
+        """
+        
+        chat = LlmChat(
+            api_key=EMERGENT_LLM_KEY,
+            session_id=str(uuid.uuid4()),
+            system_message=systeme_extraction
+        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        
+        user_message = UserMessage(text="Analyse ce document et extrait toutes les formules avec leur indexation.")
+        extraction = await chat.send_message(user_message)
+        
+        # Sauvegarder l'analyse
+        analyse_log = {
+            "id": str(uuid.uuid4()),
+            "document_hash": str(hash(texte_document))[:16],
+            "extraction_ia": extraction,
+            "domaine_principal": domaine_principal,
+            "timestamp": datetime.now(timezone.utc).isoformat()
+        }
+        await db.analyses_indexation.insert_one(analyse_log)
+        
+        return {
+            "success": True,
+            "extraction": extraction,
+            "analyse_id": analyse_log["id"]
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur indexation automatique: {str(e)}")
+
+@app.post("/api/indexation/valider-extraction")
+async def valider_extraction(request: dict):
+    """Valider et enregistrer les formules extraites automatiquement"""
+    try:
+        formules_validees = request.get("formules_validees", [])
+        concepts_valides = request.get("concepts_valides", [])
+        relations_validees = request.get("relations_validees", [])
+        
+        resultats = {
+            "formules_creees": 0,
+            "concepts_crees": 0,
+            "relations_creees": 0
+        }
+        
+        # Enregistrer les formules validées
+        for formule in formules_validees:
+            formule_data = {
+                "id": str(uuid.uuid4()),
+                "code_formule": formule["code_propose"],
+                "nom_formule": formule["nom_formule"],
+                "formule_mathematique": formule["formule_mathematique"],
+                "domaine": "geometrie",  # Adapté selon context
+                "description": formule["description"],
+                "variables": formule.get("variables", {}),
+                "concepts_lies": [],
+                "formules_dependantes": [],
+                "niveau_complexite": formule.get("niveau_complexite", 3),
+                "document_source": "Extraction automatique IA",
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.formules.insert_one(formule_data)
+            resultats["formules_creees"] += 1
+        
+        # Enregistrer les concepts validés
+        for concept in concepts_valides:
+            concept_data = {
+                "id": str(uuid.uuid4()),
+                "titre": concept["nom"],
+                "description": concept["description"],
+                "domaine": concept["domaine"],
+                "sous_domaine": None,
+                "mots_cles": [],
+                "niveau_complexite": 3,
+                "document_source": "Extraction automatique IA",
+                "created_by": "Système d'indexation",
+                "created_at": datetime.now(timezone.utc).isoformat()
+            }
+            await db.concepts.insert_one(concept_data)
+            resultats["concepts_crees"] += 1
+        
+        return {
+            "success": True,
+            "resultats": resultats,
+            "message": "Extraction validée et enregistrée avec succès"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur validation extraction: {str(e)}")
+
+# ===============================================
+# API ACCÈS PRIVILÉGIÉ POUR IA SPÉCIALISÉE
+# ===============================================
+
+@app.get("/api/acces-privilegie/concepts-complets")
+async def acces_concepts_complets():
+    """Accès privilégié complet aux concepts pour l'IA spécialisée"""
+    try:
+        # Récupérer tous les concepts
+        concepts = await db.concepts.find({}).to_list(length=None)
+        
+        # Récupérer toutes les formules
+        formules = await db.formules.find({}).to_list(length=None)
+        
+        # Récupérer toutes les relations
+        relations = await db.relations.find({}).to_list(length=None)
+        
+        # Organiser par domaines
+        donnees_privilegiees = {
+            "domaines": {
+                "nombres": {
+                    "concepts": [c for c in concepts if c.get("domaine") == "nombres"],
+                    "formules": [f for f in formules if f.get("domaine") == "nombres"]
+                },
+                "geometrie": {
+                    "concepts": [c for c in concepts if c.get("domaine") == "geometrie"],
+                    "formules": [f for f in formules if f.get("domaine") == "geometrie"]
+                },
+                "physique": {
+                    "concepts": [c for c in concepts if c.get("domaine") == "physique"],
+                    "formules": [f for f in formules if f.get("domaine") == "physique"]
+                }
+            },
+            "relations_globales": relations,
+            "statistiques": {
+                "total_concepts": len(concepts),
+                "total_formules": len(formules),
+                "total_relations": len(relations)
+            },
+            "acces_type": "privilegie_complet",
+            "derniere_mise_a_jour": datetime.now(timezone.utc).isoformat()
+        }
+        
+        return {
+            "success": True,
+            "acces_privilegie": donnees_privilegiees
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur accès privilégié: {str(e)}")
+
+@app.post("/api/acces-privilegie/requete-contextuelle")
+async def requete_contextuelle_ia(request: dict):
+    """Requête contextuelle avec accès privilégié pour l'IA spécialisée"""
+    try:
+        domaine_focus = request.get("domaine_focus", "all")
+        concepts_recherches = request.get("concepts_recherches", [])
+        niveau_detail = request.get("niveau_detail", "complet")
+        
+        query_concepts = {}
+        if domaine_focus != "all":
+            query_concepts["domaine"] = domaine_focus
+        if concepts_recherches:
+            query_concepts["titre"] = {"$in": concepts_recherches}
+        
+        concepts_filtres = await db.concepts.find(query_concepts).to_list(length=None)
+        
+        # Récupérer les formules associées
+        concept_ids = [c["id"] for c in concepts_filtres]
+        formules_associees = await db.formules.find({
+            "concepts_lies": {"$in": concept_ids}
+        }).to_list(length=None)
+        
+        return {
+            "success": True,
+            "contexte_privilegie": {
+                "concepts_pertinents": concepts_filtres,
+                "formules_associees": formules_associees,
+                "domaine_focus": domaine_focus,
+                "niveau_detail": niveau_detail
+            }
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur requête contextuelle: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
