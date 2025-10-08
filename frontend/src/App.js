@@ -2444,6 +2444,24 @@ const CollaborationPage = () => {
       description: "📍 DÉFINITION FONDAMENTALE : 2 est le 1er premier, 3 le 2ème, 5 le 3ème... | -2 est le -1er premier, -3 le -2ème, -5 le -3ème... Extension infinie ±∞",
       variables: "n = position (entier ≠ 0), → = correspond au nombre premier à cette position",
       domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM010",
+      nom: "Extension Couples n×n",
+      patterns: ["couples (2×2)", "(3×3)", "(4×4)", "n×n", "x1×2^n1", "y1×2^n1", "demie entre nombres premiers", "couples de nombres premiers"],
+      formule: "((x1×2^n1-x2×2^n2)-(x3×2^n3-x4×2^n4))/((y1×2^n1-y2×2^n2)-(y3×2^n3-y4×2^n4))=1/2",
+      description: "🔬 EXTENSION COUPLES : Généralisation (2×2), (3×3), (4×4)...n×n. Démontre qu'il peut toujours y avoir une demie entre nombres premiers",
+      variables: "x = somme 1ère suite, y = somme 2ème suite, exposant = position nombre premier",
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "NUM011", 
+      nom: "Couples Asymétriques - Ordinal",
+      patterns: ["couples asymétriques", "cardinal des infinis", "ordinal des infinis", "ω+1=1+ω", "1+ω≠ω+1", "cantor", "≠1/2", "égale 1/6", "désordre", "0.5+reste"],
+      formule: "((x1×2^n1)-(x1×2^n2-x1×2^n3))/((y1×2^n1)-(y2×2^n2-y3×2^n3))≠1/2",
+      description: "⚠️ COUPLES ASYMÉTRIQUES : Ordre≠croissant → ratio≠1/2 (ex: 1/6). Dû à ordinal infinis. Désordre → 0.5+reste<0.5",
+      variables: "ordinal = position dans ordre, cardinal = quantité, ω = infini Cantor", 
+      domaine: "Théorie des Nombres"
     }
   ];
 
