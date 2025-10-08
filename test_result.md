@@ -452,8 +452,13 @@ metadata:
   run_ui: false
 
 test_plan:
-  current_focus: []
-  stuck_tasks: []
+  current_focus:
+    - "API endpoint GET /api/concepts - Lister concepts avec filtres"
+    - "API endpoint GET /api/formules - Lister formules par domaine"
+    - "API endpoint GET /api/acces-privilegie/concepts-complets - Accès privilégié IA spécialisée"
+    - "API endpoint POST /api/acces-privilegie/requete-contextuelle - Requêtes contextuelles par domaine"
+  stuck_tasks:
+    - "Problème sérialisation MongoDB ObjectId dans FastAPI"
   test_all: false
   test_priority: "high_first"
 
