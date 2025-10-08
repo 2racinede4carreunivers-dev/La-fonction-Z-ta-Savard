@@ -2825,7 +2825,234 @@ const CollaborationPage = () => {
   // Charger les dossiers au démarrage
   useEffect(() => {
     chargerDossiers();
-  }, [chargerDossiers]);
+  }, [chargerDossieurs]);
+
+  // ===============================================
+  // FONCTIONS PHASE 3 : EXPORT LaTeX OVERLEAF
+  // ===============================================
+
+  // Convertir texte vers LaTeX avec support formules Philippôt
+  const convertirVersLatex = (texte, template = 'article') => {
+    let latexContent = texte;
+
+    // Remplacements spécifiques aux formules de Philippôt
+    const formulesPhilippot = {
+      // Symboles mathématiques
+      'ψ': '\\psi',
+      'ζ': '\\zeta',
+      'φ': '\\phi',
+      'θ': '\\theta',
+      '∑': '\\sum',
+      '∫': '\\int',
+      '√': '\\sqrt',
+      'π': '\\pi',
+      '∞': '\\infty',
+      '±': '\\pm',
+      '≈': '\\approx',
+      '≠': '\\neq',
+      '≤': '\\leq',
+      '≥': '\\geq',
+      '²': '^2',
+      '³': '^3',
+      'ⁿ': '^n',
+      '₁': '_1',
+      '₂': '_2',
+      '₃': '_3',
+      
+      // Formules spécifiques Riemann-Philippôt
+      'ψ(n) = √((n+7)² + (n+8)²)': '\\psi(n) = \\sqrt{(n+7)^2 + (n+8)^2}',
+      '√13.203125': '\\sqrt{13.203125}',
+      '√52.8125': '\\sqrt{52.8125}',
+      '√5445': '\\sqrt{5445}',
+      '2^n': '2^n',
+      '2^n1': '2^{n_1}',
+      '2^n2': '2^{n_2}',
+      
+      // Expressions complexes
+      'C² = A² + B²': 'C^2 = A^2 + B^2',
+      'V₁ = V₂ = V₃': 'V_1 = V_2 = V_3',
+      '7.83 Hz': '7.83\\text{ Hz}',
+      '14.142 Hz': '14.142\\text{ Hz}',
+      '20.00104 Hz': '20.00104\\text{ Hz}',
+      
+      // Ratios et équations Riemann
+      '= 1/2': ' = \\frac{1}{2}',
+      '= 1/6': ' = \\frac{1}{6}',
+      '≠1/2': ' \\neq \\frac{1}{2}',
+      'ω+1=1+ω': '\\omega + 1 = 1 + \\omega',
+      '1+ω≠ω+1': '1 + \\omega \\neq \\omega + 1'
+    };
+
+    // Application des remplacements
+    Object.entries(formulesPhilippot).forEach(([symbole, latex]) => {
+      const regex = new RegExp(symbole.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+      latexContent = latexContent.replace(regex, latex);
+    });
+
+    // Détecter et formatter les équations (lignes contenant des = ou des formules)
+    latexContent = latexContent.replace(
+      /^(.*(=|√|\+|\-|\*|/|\\sum|\\int|\\psi|\\zeta|\\pi).*)$/gm,
+      '\\begin{equation}\n$1\n\\end{equation}'
+    );
+
+    // Formatter les titres markdown en sections LaTeX
+    latexContent = latexContent.replace(/^### (.*$)/gm, '\\subsubsection{$1}');
+    latexContent = latexContent.replace(/^## (.*$)/gm, '\\subsection{$1}');
+    latexContent = latexContent.replace(/^# (.*$)/gm, '\\section{$1}');
+
+    // Formatter le gras et l'italique
+    latexContent = latexContent.replace(/\*\*(.*?)\*\*/g, '\\textbf{$1}');
+    latexContent = latexContent.replace(/\*(.*?)\*/g, '\\textit{$1}');
+
+    // Formatter les listes à puces
+    latexContent = latexContent.replace(/^\• (.*)$/gm, '\\item $1');
+    latexContent = latexContent.replace(/(\\item .*\n)+/g, (match) => {
+      return '\\begin{itemize}\n' + match + '\\end{itemize}\n';
+    });
+
+    // Créer le document LaTeX complet selon le template
+    const templates = {
+      article: `\\documentclass[12pt,a4paper]{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath,amsfonts,amssymb}
+\\usepackage{geometry}
+\\usepackage{setspace}
+\\geometry{margin=2.5cm}
+\\onehalfspacing
+
+\\title{L'Univers est au Carré - Théorie de Philippe Thomas Savard}
+\\author{Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+
+${latexContent}
+
+\\end{document}`,
+      
+      report: `\\documentclass[12pt,a4paper]{report}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath,amsfonts,amssymb}
+\\usepackage{geometry}
+\\usepackage{setspace}
+\\usepackage{fancyhdr}
+\\geometry{margin=2.5cm}
+\\onehalfspacing
+\\pagestyle{fancy}
+
+\\title{L'Univers est au Carré\\\\Théorie Mathématique Révolutionnaire}
+\\author{Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+\\tableofcontents
+\\newpage
+
+${latexContent}
+
+\\end{document}`,
+      
+      book: `\\documentclass[12pt,a4paper]{book}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath,amsfonts,amssymb}
+\\usepackage{geometry}
+\\usepackage{setspace}
+\\usepackage{fancyhdr}
+\\usepackage{graphicx}
+\\geometry{margin=2.5cm}
+\\onehalfspacing
+
+\\title{L'Univers est au Carré\\\\Résolution de l'Énigme de Riemann\\\\et Théorie Géométrique Fondamentale}
+\\author{Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\frontmatter
+\\maketitle
+\\tableofcontents
+\\listoffigures
+\\mainmatter
+
+${latexContent}
+
+\\backmatter
+\\bibliographystyle{plain}
+\\bibliography{references}
+
+\\end{document}`
+    };
+
+    return templates[template] || templates.article;
+  };
+
+  // Générer le code LaTeX
+  const genererLatex = () => {
+    if (!document.trim()) {
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'warning',
+        title: 'Document vide',
+        message: 'Aucun contenu à exporter en LaTeX',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      return;
+    }
+
+    setIsGeneratingLatex(true);
+    
+    try {
+      const contenuAvecTitre = `# ${documentTitle || 'Document L\\'Univers est au Carré'}\n\n${document}`;
+      const latexGenere = convertirVersLatex(contenuAvecTitre, latexTemplate);
+      setLatexCode(latexGenere);
+      setShowLatexExport(true);
+      
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'success',
+        title: 'LaTeX généré',
+        message: `Code LaTeX prêt pour Overleaf (template: ${latexTemplate})`,
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    } catch (error) {
+      console.error('Erreur génération LaTeX:', error);
+    } finally {
+      setIsGeneratingLatex(false);
+    }
+  };
+
+  // Télécharger le fichier .tex
+  const telechargerLatex = () => {
+    const blob = new Blob([latexCode], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${documentTitle || 'universeaucarre'}.tex`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Copier vers le presse-papier
+  const copierLatex = async () => {
+    try {
+      await navigator.clipboard.writeText(latexCode);
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'success',
+        title: 'Copié !',
+        message: 'Code LaTeX copié dans le presse-papier',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    } catch (error) {
+      console.error('Erreur copie:', error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
