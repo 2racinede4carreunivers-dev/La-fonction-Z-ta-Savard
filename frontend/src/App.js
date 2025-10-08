@@ -9080,7 +9080,7 @@ const SalleIllustrationsPage = () => {
   );
 };
 
-const App = () => {
+function App() {
   // États de navigation et de contenu
   const [selectedConcept, setSelectedConcept] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -9091,6 +9091,11 @@ const App = () => {
   // États globaux pour les dossiers (disponibles dans toute l'app)
   const [folders, setFolders] = useState([]);
   const [currentFolder, setCurrentFolder] = useState('root');
+
+  // Objet props pour partager les états des dossiers
+  const folderProps = {
+    folders, setFolders, currentFolder, setCurrentFolder
+  };
 
   return (
     <Router>
