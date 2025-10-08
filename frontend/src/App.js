@@ -6902,6 +6902,29 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           </p>
         </div>
 
+        {/* Administration des Concepts et Formules */}
+        <div className="flex items-center justify-center gap-4 mb-8">
+          <Button
+            onClick={() => setShowAdminPanel(true)}
+            variant="ghost"
+            size="sm"
+            className="text-orange-200 hover:bg-white/10 text-xs px-4 py-2"
+            title="Administration Concepts & Formules"
+          >
+            ⚙️ Administration
+          </Button>
+          
+          <Button
+            onClick={analyserDocumentFormules}
+            variant="ghost"
+            size="sm"
+            className="text-green-200 hover:bg-white/10 text-xs px-4 py-2"
+            title="Extraire formules automatiquement"
+          >
+            🔬 Extraire Formules
+          </Button>
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
           {/* Navigation des sections */}
           <div className="lg:col-span-1">
