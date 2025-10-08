@@ -1718,6 +1718,16 @@ const CollaborationPage = () => {
   // États pour les améliorations UI Phase 1
   const [fontSize, setFontSize] = useState(16); // Taille police par défaut
   const [showFontSizePanel, setShowFontSizePanel] = useState(false);
+  
+  // États Phase 2 : Système de dossiers et organisation
+  const [folders, setFolders] = useState([]);
+  const [currentFolder, setCurrentFolder] = useState('root');
+  const [showFolderManager, setShowFolderManager] = useState(false);
+  const [showNewFolderForm, setShowNewFolderForm] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [newFolderDescription, setNewFolderDescription] = useState('');
+  const [documentsByFolder, setDocumentsByFolder] = useState({});
+  const [showDocumentOrganizer, setShowDocumentOrganizer] = useState(false);
   const [conceptForm, setConceptForm] = useState({
     titre: '',
     description: '',
