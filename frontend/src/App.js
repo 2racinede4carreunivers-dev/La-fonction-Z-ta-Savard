@@ -2825,7 +2825,7 @@ const CollaborationPage = () => {
   // Charger les dossiers au démarrage
   useEffect(() => {
     chargerDossiers();
-  }, [chargerDossieurs]);
+  }, [chargerDossiers]);
 
   // ===============================================
   // FONCTIONS PHASE 3 : EXPORT LaTeX OVERLEAF
