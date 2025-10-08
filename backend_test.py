@@ -737,13 +737,12 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         created_concept_id = None
         if success1 and isinstance(response1, dict):
-            if 'id' in response1 and 'success' in response1:
-                created_concept_id = response1['id']
+            if 'concept_id' in response1 and 'success' in response1:
+                created_concept_id = response1['concept_id']
                 print(f"   ✅ Concept created successfully with ID: {created_concept_id}")
-                print(f"   📊 Domain: {response1.get('domaine', 'N/A')}")
-                print(f"   📊 Complexity: {response1.get('complexite', 'N/A')}")
+                print(f"   📝 Message: {response1.get('message', 'N/A')}")
             else:
-                print(f"   ❌ Missing id or success field in create response")
+                print(f"   ❌ Missing concept_id or success field in create response")
                 all_tests_passed = False
         else:
             all_tests_passed = False
