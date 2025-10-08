@@ -2931,79 +2931,79 @@ const CollaborationPage = () => {
                     </Button>
                   </div>
 
-                  {/* Symboles mathématiques */}
+                  {/* Symboles Mathématiques */}
                   <div className="flex items-center gap-1 border-r border-slate-600 pr-2">
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('∑', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Somme"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Symbole Somme (∑)"
                     >
-                      ∑
+                      <span className="text-lg">∑</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('∫', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Intégrale"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Symbole Intégrale (∫)"
                     >
-                      ∫
+                      <span className="text-lg">∫</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('√', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Racine"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Symbole Racine carrée (√)"
                     >
-                      √
+                      <span className="text-lg">√</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('π', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Pi"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Pi (π) ≈ 3.14159..."
                     >
-                      π
+                      <span className="text-lg font-bold">π</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('∞', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Infini"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Symbole Infini (∞)"
                     >
-                      ∞
+                      <span className="text-lg">∞</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('ζ', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Zeta"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Fonction Zêta de Riemann (ζ)"
                     >
-                      ζ
+                      <span className="text-lg font-bold">ζ</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('φ', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Phi"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Nombre d'or Phi (φ) ≈ 1.618..."
                     >
-                      φ
+                      <span className="text-lg font-bold">φ</span>
                     </Button>
                     <Button
                       variant="ghost"
                       size="sm"
                       onClick={() => insertText('θ', '')}
-                      className="text-cyan-200 hover:bg-white/10 text-xs px-1 py-1"
-                      title="Theta"
+                      className="text-cyan-200 hover:bg-cyan-800/30 text-sm px-2 py-1 border border-cyan-600/20 rounded transition-colors font-mono"
+                      title="Angle Theta (θ)"
                     >
-                      θ
+                      <span className="text-lg">θ</span>
                     </Button>
                   </div>
 
