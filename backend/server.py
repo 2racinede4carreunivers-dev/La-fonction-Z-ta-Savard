@@ -3704,10 +3704,17 @@ async def lister_formules(domaine: Optional[str] = None):
         # Convertir les ObjectId pour la sérialisation JSON
         formules = convert_objectid(formules)
         
+        # Filtrer seulement les formules avec structure complète
+        formules_valides = []
+        for formule in formules:
+            if (formule.get("code_formule") and formule.get("nom_formule") and 
+                formule.get("formule_mathematique") and formule.get("domaine")):
+                formules_valides.append(formule)
+        
         return {
             "success": True,
-            "formules": formules,
-            "total": len(formules)
+            "formules": formules_valides,
+            "total": len(formules_valides)
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération formules: {str(e)}")
