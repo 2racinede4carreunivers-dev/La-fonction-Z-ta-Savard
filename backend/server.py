@@ -15,6 +15,24 @@ import json
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
 
+# Fonction utilitaire pour convertir ObjectId en string
+def convert_objectid(document):
+    """Convertir les ObjectId MongoDB en string pour JSON serialization"""
+    if document is None:
+        return None
+    if isinstance(document, list):
+        return [convert_objectid(item) for item in document]
+    if isinstance(document, dict):
+        for key, value in document.items():
+            if isinstance(value, ObjectId):
+                document[key] = str(value)
+            elif isinstance(value, (dict, list)):
+                document[key] = convert_objectid(value)
+        return document
+    elif isinstance(document, ObjectId):
+        return str(document)
+    return document
+
 # Charger les variables d'environnement
 load_dotenv()
 
