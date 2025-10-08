@@ -860,9 +860,9 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
         
         # Test by domain
         success5b, response5b = self.run_test(
-            "Get Formulas by Domain (NUM)",
+            "Get Formulas by Domain (nombres)",
             "GET",
-            "api/formules?domaine=NUM",
+            "api/formules?domaine=nombres",
             200
         )
         
