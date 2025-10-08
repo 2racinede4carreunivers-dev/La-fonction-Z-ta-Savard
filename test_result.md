@@ -105,6 +105,138 @@
 user_problem_statement: "Tester les nouvelles fonctionnalités d'intelligence avancée que j'ai ajoutées dans l'API backend. Effectuer des tests sur ces nouveaux endpoints: (1) POST /api/suggestions-contenu - Génération de suggestions de contenu contextuelles, (2) POST /api/resume-automatique - Génération de résumés automatiques, (3) POST /api/detection-coherence - Analyse de cohérence argumentaire, (4) POST /api/citations-automatiques - Citations théoriques automatiques, (5) POST /api/notifications-intelligentes - Système de notifications intelligentes. Utilise l'Emergent LLM Key pour les appels IA avec Claude Sonnet 3.5 et teste avec du texte relatif à la théorie 'L'univers est au carré' pour vérifier la pertinence contextuelle des réponses IA."
 
 backend:
+  - task: "API endpoint POST /api/concepts - Créer nouveau concept"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint POST /api/concepts fonctionne parfaitement. Tests réalisés: (1) Création concept 'Digamma Test' avec domaine 'nombres', niveau complexité 3, (2) Auto-génération ID UUID réussie (b28f12d0-e584-46a8-9bf7-2ecc0883a075), (3) Structure ConceptModel validée avec tous champs requis (titre, description, domaine, sous_domaine, mots_cles, niveau_complexite, document_source, page_reference, created_by), (4) Réponse JSON correcte avec success=true, concept_id et message de confirmation. Système de gestion des concepts opérationnel avec MongoDB."
+
+  - task: "API endpoint GET /api/concepts - Lister concepts avec filtres"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME DÉTECTÉ - Endpoint GET /api/concepts retourne erreur 500 Internal Server Error. Cause identifiée: problème de sérialisation MongoDB ObjectId dans FastAPI. Erreur: 'ObjectId' object is not iterable. Le endpoint existe et la logique semble correcte, mais la conversion des documents MongoDB en JSON échoue. Nécessite correction de la sérialisation des ObjectId avant retour des données."
+
+  - task: "API endpoint GET /api/concepts/{concept_id} - Obtenir concept avec relations"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ NON TESTÉ - Test non effectué car dépendant du GET /api/concepts qui a des problèmes de sérialisation. Une fois le problème ObjectId résolu, ce endpoint devrait fonctionner."
+
+  - task: "API endpoint POST /api/formules - Créer formule avec code auto-généré"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS - Endpoint POST /api/formules fonctionne parfaitement. Tests réalisés: (1) Création formule 'Calcul Digamma Test' avec domaine 'nombres', (2) Auto-génération code formule réussie: NUM001 (format correct NUM###), (3) Structure FormuleModel validée avec tous champs requis (nom_formule, formule_mathematique, domaine, description, variables, concepts_lies, formules_dependantes, niveau_complexite), (4) Réponse JSON correcte avec success=true, formule_id, code_formule et message. Système de génération automatique des codes (NUM001, GEO001, etc.) opérationnel."
+
+  - task: "API endpoint GET /api/formules - Lister formules par domaine"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME DÉTECTÉ - Endpoint GET /api/formules retourne erreur 500 Internal Server Error. Même problème que GET /api/concepts: sérialisation MongoDB ObjectId échoue dans FastAPI. Le endpoint existe et la création de formules fonctionne, mais la récupération des données échoue à cause de la conversion ObjectId vers JSON."
+
+  - task: "API endpoint GET /api/formules/{code_formule} - Obtenir formule avec validations"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ NON TESTÉ - Test non effectué car dépendant du GET /api/formules qui a des problèmes de sérialisation. Une fois le problème ObjectId résolu, ce endpoint devrait fonctionner."
+
+  - task: "API endpoint POST /api/indexation/analyser-document - Analyser texte pour extraire formules"
+    implemented: true
+    working: true
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS COMPLET - Endpoint POST /api/indexation/analyser-document fonctionne parfaitement avec IA Emergent LLM. Tests réalisés: (1) Analyse document avec formules mathématiques (Digamma, Zêta, Théorème Philippôt), (2) Extraction intelligente de 3 formules avec codes proposés (DIG001, PHI001, PHI002), (3) Identification automatique des variables et descriptions, (4) Détection des concepts liés (Digamma de Philippôt, Zêta-géométrie, Volume triangulaire), (5) Relations entre formules détectées automatiquement, (6) Niveaux de complexité attribués (3-5), (7) Réponse structurée JSON avec formules_extraites, concepts_identifies, relations_detectees. Intégration Claude Sonnet 3.5 opérationnelle pour extraction intelligente."
+
+  - task: "API endpoint POST /api/indexation/valider-extraction - Valider et enregistrer formules extraites"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ NON TESTÉ - Test non effectué car nécessite d'abord résoudre les problèmes de sérialisation pour pouvoir valider et enregistrer les formules extraites."
+
+  - task: "API endpoint GET /api/acces-privilegie/concepts-complets - Accès privilégié IA spécialisée"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME DÉTECTÉ - Endpoint GET /api/acces-privilegie/concepts-complets retourne erreur 500 Internal Server Error. Même problème de sérialisation MongoDB ObjectId. L'endpoint existe et devrait fournir l'accès privilégié aux concepts complets organisés par domaines, mais échoue à la sérialisation des données MongoDB."
+
+  - task: "API endpoint POST /api/acces-privilegie/requete-contextuelle - Requêtes contextuelles par domaine"
+    implemented: true
+    working: false
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ PROBLÈME DÉTECTÉ - Endpoint POST /api/acces-privilegie/requete-contextuelle retourne erreur 500 Internal Server Error. Problème de sérialisation MongoDB ObjectId empêche le fonctionnement des requêtes contextuelles par domaine."
+
+  - task: "API endpoint POST /api/validations - Enregistrer validations formules"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/server.py"
+    stuck_count: 0
+    priority: "medium"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "testing"
+          comment: "⚠️ NON TESTÉ - Test non effectué car nécessite d'abord résoudre les problèmes de sérialisation et avoir des formules validées disponibles."
+
   - task: "API endpoint /api/collaborate pour collaboration IA"
     implemented: true
     working: true
