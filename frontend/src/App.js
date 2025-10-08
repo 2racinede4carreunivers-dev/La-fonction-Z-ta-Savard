@@ -7050,6 +7050,25 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
           >
             🔬 Extraire Formules
           </Button>
+          
+          {/* Indicateur de détection automatique des formules */}
+          {formulesDetectees.length > 0 && (
+            <div className="flex items-center gap-2 bg-blue-900/30 border border-blue-600/50 rounded px-3 py-1">
+              <span className="text-blue-400 text-sm">🧮</span>
+              <span className="text-blue-200 text-sm">
+                {formulesDetectees.length} formule{formulesDetectees.length > 1 ? 's' : ''} de Philippôt détectée{formulesDetectees.length > 1 ? 's' : ''}
+              </span>
+              <Button
+                onClick={() => setShowFormulaTooltip(!showFormulaTooltip)}
+                variant="ghost"
+                size="sm" 
+                className="text-blue-200 hover:bg-blue-800/30 text-xs px-2 py-1"
+                title="Voir les détails"
+              >
+                {showFormulaTooltip ? '👁️' : '💡'}
+              </Button>
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
