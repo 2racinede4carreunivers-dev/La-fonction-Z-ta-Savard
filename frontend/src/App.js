@@ -4536,6 +4536,10 @@ const SalonLecturePage = () => {
   const [concepts, setConcepts] = useState([]);
   const [loading, setLoading] = useState(true);
   
+  // États temporaires pour éviter l'erreur (à corriger plus tard)
+  const folders = [];
+  const currentFolder = 'root';
+  
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
