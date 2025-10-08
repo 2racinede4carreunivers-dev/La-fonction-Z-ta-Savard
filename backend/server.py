@@ -3718,6 +3718,10 @@ async def obtenir_formule(code_formule: str):
             "formule_id": formule["id"]
         }).to_list(length=None)
         
+        # Convertir les ObjectId pour la sérialisation JSON
+        formule = convert_objectid(formule)
+        validations = convert_objectid(validations)
+        
         return {
             "success": True,
             "formule": formule,
