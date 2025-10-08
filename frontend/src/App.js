@@ -907,7 +907,7 @@ const ExplorerPage = () => {
                       onChange={(e) => {
                         setLatexTemplate(e.target.value);
                         const nouveauLatex = convertirVersLatex(
-                          `# ${documentTitle || 'Document L\\'Univers est au Carré'}\n\n${document}`, 
+                          `# ${documentTitle || "Document L'Univers est au Carré"}\n\n${document}`, 
                           e.target.value
                         );
                         setLatexCode(nouveauLatex);
