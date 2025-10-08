@@ -875,7 +875,7 @@ Cette méthode permet de calculer directement des nombres premiers spécifiques 
             
             # Check if our created formula is in the results
             if created_formula_code:
-                found_formula = any(formula.get('code_formule') == created_formula_code for formula in response5b)
+                found_formula = any(formula.get('code_formule') == created_formula_code for formula in formules)
                 if found_formula:
                     print(f"   ✅ Created formula found in domain results")
                 else:
