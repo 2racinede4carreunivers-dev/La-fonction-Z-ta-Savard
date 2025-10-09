@@ -2629,6 +2629,13 @@ const CollaborationPage = ({ folderProps = {} }) => {
   const calculer = () => {
     try {
       const expression = calcDisplay[0];
+      const ligne2 = calcDisplay[1];
+      
+      // Si on a déjà un résultat affiché, ne pas recalculer
+      if (ligne2 && ligne2 !== '' && ligne2 !== 'ERREUR') {
+        return;
+      }
+      
       // Vérifier que l'expression est valide
       if (!expression || expression === '' || expression === '0' || expression === 'ERREUR') {
         return; // Ne rien faire si l'écran est vide ou invalide
@@ -2656,8 +2663,13 @@ const CollaborationPage = ({ folderProps = {} }) => {
         return;
       }
       
-      setCalcDisplay([expression, resultat.toString()]);
-      setCalcHistory(prev => [...prev, `${expression} = ${resultat}`].slice(-5)); // Garder les 5 derniers
+      // Formater le résultat
+      const resultatFormate = typeof resultat === 'number' ? 
+        (Number.isInteger(resultat) ? resultat.toString() : resultat.toFixed(8).replace(/\.?0+$/, '')) : 
+        resultat.toString();
+      
+      setCalcDisplay([expression, resultatFormate]);
+      setCalcHistory(prev => [...prev, `${expression} = ${resultatFormate}`].slice(-5)); // Garder les 5 derniers
       
     } catch (error) {
       setCalcDisplay([calcDisplay[0] || '', 'ERREUR']);
