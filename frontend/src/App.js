@@ -4885,6 +4885,9 @@ const SalonLecturePage = () => {
   const folders = [];
   const currentFolder = 'root';
   const [showFolderManager, setShowFolderManager] = useState(false);
+  const [showNewFolderForm, setShowNewFolderForm] = useState(false);
+  const [newFolderName, setNewFolderName] = useState('');
+  const [newFolderDescription, setNewFolderDescription] = useState('');
   
   // États pour l'extraction de formules
   const [notifications, setNotifications] = useState([]);
