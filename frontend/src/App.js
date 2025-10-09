@@ -5221,7 +5221,7 @@ const SalonLecturePage = () => {
 
   // Fonction de détection des formules en temps réel
   const detecterFormules = useCallback((texte) => {
-    if (!texte || texte.length < 3) {
+    if (!isMountedRef.current || !texte || texte.length < 3) {
       setFormulesDetectees([]);
       setShowFormulaTooltip(false);
       return;
@@ -5248,9 +5248,16 @@ const SalonLecturePage = () => {
       setTooltipFormula(formulesDetecteesResult[0]);
       setShowFormulaTooltip(true);
       
+      // Nettoyer le timer précédent
+      if (tooltipTimerRef.current) {
+        clearTimeout(tooltipTimerRef.current);
+      }
+      
       // Masquer automatiquement après 5 secondes
-      setTimeout(() => {
-        setShowFormulaTooltip(false);
+      tooltipTimerRef.current = setTimeout(() => {
+        if (isMountedRef.current) {
+          setShowFormulaTooltip(false);
+        }
       }, 5000);
     }
   }, [showFormulaTooltip]);
