@@ -5186,6 +5186,10 @@ const SalonLecturePage = () => {
         clearTimeout(tooltipTimerRef.current);
         tooltipTimerRef.current = null;
       }
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+        longPressTimerRef.current = null;
+      }
     };
   }, []);
 
