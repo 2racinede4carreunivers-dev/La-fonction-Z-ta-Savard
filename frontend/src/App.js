@@ -2757,6 +2757,66 @@ const CollaborationPage = ({ folderProps = {} }) => {
           }
           break;
           
+        case 'quantite_entre':
+          // Méthode de Philippôt pour déterminer la quantité de nombres entre deux premiers
+          const premier1 = parseFloat(prompt('Entrez le premier nombre premier (plus petit):', '3'));
+          const premier2 = parseFloat(prompt('Entrez le deuxième nombre premier (plus grand):', '19'));
+          
+          if (!isNaN(premier1) && !isNaN(premier2) && premier1 !== premier2) {
+            try {
+              // Déterminer les positions n pour les formules (approximation)
+              const getPosition = (p) => p >= 0 ? Math.abs(p) : Math.abs(p);
+              const pos1 = getPosition(premier1);
+              const pos2 = getPosition(premier2);
+              
+              // #1 Somme 1ère suite du nombre premier suivant le plus petit
+              let somme1ere;
+              if (premier1 >= 0) {
+                somme1ere = (Math.sqrt(13.203125) / (2 * Math.pow(2, pos1 + 1))) - Math.sqrt(5);
+              } else {
+                somme1ere = (Math.sqrt(13.203125) * Math.pow(2, -Math.abs(pos1 + 1))) - Math.sqrt(5);
+              }
+              
+              // #2 Somme 2ième suite du nombre premier plus grand
+              let somme2eme_grand;
+              if (premier2 >= 0) {
+                somme2eme_grand = (Math.sqrt(52.8125) / (2 * Math.pow(2, pos2))) - Math.sqrt(5445);
+              } else {
+                somme2eme_grand = (Math.sqrt(52.8125) * Math.pow(2, -Math.abs(pos2))) - Math.sqrt(5445);
+              }
+              
+              // #3 Digamma calculé du nombre premier plus grand
+              const digamma_grand = (somme2eme_grand / Math.sqrt(5120) - premier2) * Math.sqrt(5120);
+              
+              // #4 Somme 2ième suite du nombre premier plus petit
+              let somme2eme_petit;
+              if (premier1 >= 0) {
+                somme2eme_petit = (Math.sqrt(52.8125) / (2 * Math.pow(2, pos1))) - Math.sqrt(5445);
+              } else {
+                somme2eme_petit = (Math.sqrt(52.8125) * Math.pow(2, -Math.abs(pos1))) - Math.sqrt(5445);
+              }
+              
+              // Digamma calculé du nombre premier plus petit
+              const digamma_petit = (somme2eme_petit / Math.sqrt(5120) - premier1) * Math.sqrt(5120);
+              
+              // Étape 1: somme 1ère suite - (somme 2ième suite grand - digamma grand)
+              const etape1 = somme1ere - (somme2eme_grand - digamma_grand);
+              
+              // Étape 2: (étape1 - digamma petit) / √5120
+              const quantite = (etape1 - digamma_petit) / Math.sqrt(5120);
+              
+              // Vérification classique
+              const quantiteClassique = Math.abs(premier2 - premier1) - 1;
+              
+              resultat = `Méthode Philippôt: ${Math.round(quantite)} nombres\nMéthode classique: ${quantiteClassique} nombres\nEntre ${premier1} et ${premier2}`;
+              
+            } catch (error) {
+              resultat = 'Erreur dans le calcul de quantité';
+              console.error('Erreur quantité entre premiers:', error);
+            }
+          }
+          break;
+          
         default:
           resultat = 'Formule non reconnue';
       }
