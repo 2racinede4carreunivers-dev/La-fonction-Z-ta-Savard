@@ -2602,7 +2602,10 @@ const CollaborationPage = ({ folderProps = {} }) => {
   const calculer = () => {
     try {
       const expression = calcDisplay[0];
-      if (!expression || expression === '0') return;
+      // Vérifier que l'expression est valide
+      if (!expression || expression === '' || expression === '0' || expression === 'ERREUR') {
+        return; // Ne rien faire si l'écran est vide ou invalide
+      }
 
       // Remplacer les symboles pour l'évaluation
       let expr = expression
@@ -2611,14 +2614,26 @@ const CollaborationPage = ({ folderProps = {} }) => {
         .replace(/π/g, '3.141592653589793')
         .replace(/√\(/g, 'Math.sqrt(');
 
+      // Vérifier que l'expression n'est pas vide après remplacement
+      if (expr.trim() === '') {
+        setCalcDisplay(['', 'ERREUR']);
+        return;
+      }
+
       // Évaluation sécurisée (à améliorer pour la production)
       const resultat = eval(expr);
+      
+      // Vérifier si le résultat est valide
+      if (isNaN(resultat) || !isFinite(resultat)) {
+        setCalcDisplay([expression, 'ERREUR']);
+        return;
+      }
       
       setCalcDisplay([expression, resultat.toString()]);
       setCalcHistory(prev => [...prev, `${expression} = ${resultat}`].slice(-5)); // Garder les 5 derniers
       
     } catch (error) {
-      setCalcDisplay([calcDisplay[0], 'ERREUR']);
+      setCalcDisplay([calcDisplay[0] || '', 'ERREUR']);
       console.error('Erreur calcul:', error);
     }
   };
