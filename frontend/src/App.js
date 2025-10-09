@@ -4083,7 +4083,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                     <span className="text-xs text-gray-500">Ligne 1:</span>
                   </div>
                   <div className="min-h-[20px] text-base">
-                    {calcDisplay[0] || '0'}
+                    {calcDisplay[0] || ''}
                   </div>
                   <div className="border-b border-gray-700 pb-1">
                     <span className="text-xs text-gray-500">Ligne 2:</span>
