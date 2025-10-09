@@ -2653,6 +2653,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
       // Pré-traiter l'expression pour corriger les problèmes courants
       let expr = expression.trim();
       
+      // Détecter si l'expression commence par un nombre suivi de ")" (manque √( au début)
+      if (/^\d/.test(expr) && expr.includes(')') && !expr.includes('√(')) {
+        // Probablement une expression de racine carrée malformée, ajouter √( au début
+        expr = '√(' + expr;
+      }
+      
       // Ajouter des parenthèses fermantes manquantes pour √(
       let openSqrt = (expr.match(/√\(/g) || []).length;
       let closingParens = (expr.match(/\)/g) || []).length;
@@ -2660,6 +2666,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
       
       if (missingSqrtParens > 0) {
         expr += ')'.repeat(missingSqrtParens);
+      }
+      
+      // Détecter si on a une expression comme "√(" sans contenu
+      if (expr === '√(' || expr === '√()') {
+        setCalcDisplay([expression, 'ERREUR']);
+        return;
       }
       
       // Remplacer les symboles pour l'évaluation JavaScript
