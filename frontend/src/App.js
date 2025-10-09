@@ -3384,43 +3384,6 @@ ${latexContent}
     }
   };
 
-  // Fonctions pour l'administration des concepts
-  const creerConcept = async () => {
-    try {
-      const response = await axios.post(`${API_URL}/api/concepts`, conceptForm);
-      if (response.data.success) {
-        await fetchConceptsEnrichis(); // Recharger les concepts
-        setShowConceptForm(false);
-        setConceptForm({
-          titre: '',
-          description: '',
-          domaine: 'geometrie',
-          sous_domaine: '',
-          mots_cles: '',
-          niveau_complexite: 3,
-          document_source: '',
-          page_reference: ''
-        });
-        setNotifications(prev => [...prev, {
-          id: Date.now(),
-          type: 'success',
-          title: 'Concept créé',
-          message: 'Nouveau concept ajouté avec succès',
-          timestamp: new Date().toLocaleTimeString()
-        }]);
-      }
-    } catch (error) {
-      console.error('Erreur création concept:', error);
-      setNotifications(prev => [...prev, {
-        id: Date.now(),
-        type: 'error',
-        title: 'Erreur',
-        message: 'Impossible de créer le concept',
-        timestamp: new Date().toLocaleTimeString()
-      }]);
-    }
-  };
-
   const creerFormule = async () => {
     try {
       const response = await axios.post(`${API_URL}/api/formules`, formuleForm);
