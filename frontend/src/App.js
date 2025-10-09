@@ -4569,6 +4569,30 @@ const SalonLecturePage = () => {
   
   // États pour l'administration
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [showConceptForm, setShowConceptForm] = useState(false);
+  const [showFormuleForm, setShowFormuleForm] = useState(false);
+  const [activeAdminTab, setActiveAdminTab] = useState('concepts');
+  const [conceptForm, setConceptForm] = useState({
+    titre: '',
+    description: '',
+    domaine: 'geometrie',
+    sous_domaine: '',
+    mots_cles: '',
+    niveau_complexite: 3,
+    document_source: '',
+    page_reference: ''
+  });
+  const [formuleForm, setFormuleForm] = useState({
+    nom_formule: '',
+    formule_mathematique: '',
+    domaine: 'geometrie',
+    description: '',
+    variables: '',
+    niveau_complexite: 3,
+    document_source: '',
+    exemple_calcul: '',
+    resultat_exemple: ''
+  });
   
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
