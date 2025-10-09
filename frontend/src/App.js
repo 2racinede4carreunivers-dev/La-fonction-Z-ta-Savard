@@ -4561,6 +4561,12 @@ const SalonLecturePage = () => {
   const [isGeneratingLatex, setIsGeneratingLatex] = useState(false);
   const [latexTemplate, setLatexTemplate] = useState('article');
   
+  // États pour la détection automatique des formules
+  const [formulesDetectees, setFormulesDetectees] = useState([]);
+  const [showFormulaTooltip, setShowFormulaTooltip] = useState(false);
+  const [tooltipFormula, setTooltipFormula] = useState(null);
+  const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
