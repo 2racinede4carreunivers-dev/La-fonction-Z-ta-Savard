@@ -4554,6 +4554,13 @@ const SalonLecturePage = () => {
   const [showExtractionPanel, setShowExtractionPanel] = useState(false);
   const [document, setDocument] = useState(''); // Document actuel à analyser
   
+  // États pour LaTeX
+  const [documentTitle, setDocumentTitle] = useState('Document Salon de Lecture');
+  const [latexCode, setLatexCode] = useState('');
+  const [showLatexExport, setShowLatexExport] = useState(false);
+  const [isGeneratingLatex, setIsGeneratingLatex] = useState(false);
+  const [latexTemplate, setLatexTemplate] = useState('article');
+  
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
