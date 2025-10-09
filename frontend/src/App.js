@@ -2544,27 +2544,57 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
   const ajouterChiffre = (chiffre) => {
     setCalcDisplay(prev => {
-      const nouvelleLigne = prev[0] === '0' ? chiffre : prev[0] + chiffre;
-      return [nouvelleLigne, prev[1]];
+      // Si l'écran affiche "0", "ERREUR" ou est vide, remplacer par le nouveau chiffre
+      const ligne1 = prev[0];
+      if (ligne1 === '0' || ligne1 === 'ERREUR' || ligne1 === '' || ligne1 === undefined) {
+        return [chiffre, ''];
+      }
+      // Sinon ajouter le chiffre
+      return [ligne1 + chiffre, prev[1]];
     });
   };
 
   const ajouterSymbole = (symbole) => {
     setCalcDisplay(prev => {
-      const nouvelleLigne = prev[0] + symbole;
-      return [nouvelleLigne, prev[1]];
+      const ligne1 = prev[0];
+      // Si l'écran affiche "ERREUR", ne pas permettre d'ajouter des symboles
+      if (ligne1 === 'ERREUR') {
+        return prev;
+      }
+      // Si l'écran affiche "0", remplacer par le symbole seulement pour certains symboles
+      if (ligne1 === '0') {
+        if (['+', '-', '*', '/', '×', '÷'].includes(symbole)) {
+          return ['0' + symbole, prev[1]];
+        } else {
+          return [symbole, prev[1]];
+        }
+      }
+      return [ligne1 + symbole, prev[1]];
     });
   };
 
   const effacerDernier = () => {
     setCalcDisplay(prev => {
-      const nouvelleLigne = prev[0].length > 1 ? prev[0].slice(0, -1) : '0';
-      return [nouvelleLigne, prev[1]];
+      const ligne1 = prev[0];
+      // Si c'est "ERREUR", effacer complètement
+      if (ligne1 === 'ERREUR') {
+        return ['', ''];
+      }
+      // Si c'est déjà "0" ou vide, ne rien faire
+      if (ligne1 === '0' || ligne1 === '' || ligne1 === undefined) {
+        return ['', ''];
+      }
+      // Si c'est un seul caractère, vider l'écran
+      if (ligne1.length <= 1) {
+        return ['', ''];
+      }
+      // Sinon enlever le dernier caractère
+      return [ligne1.slice(0, -1), prev[1]];
     });
   };
 
   const effacerCalculatrice = () => {
-    setCalcDisplay(['0', '']);
+    setCalcDisplay(['', '']); // Écran complètement vide au lieu de "0"
     setCalcMemoire('');
     setCalcOperation('');
   };
