@@ -4214,15 +4214,21 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 <div className="grid grid-cols-5 gap-1">
                   <button 
                     onClick={() => {
-                      // Raccourci pour √(13.203125 si l'écran est vide
-                      if (!calcDisplay[0] || calcDisplay[0] === '' || (calcDisplay[1] && calcDisplay[1] !== '' && calcDisplay[1] !== 'ERREUR')) {
-                        setCalcDisplay(['√(13.203125)', '']);
-                      } else {
-                        ajouterSymbole('√(');
-                      }
+                      setCalcDisplay(prev => {
+                        const ligne1 = prev[0];
+                        const ligne2 = prev[1];
+                        
+                        // Si on vient de faire un calcul ou écran vide, commencer fresh avec √(
+                        if (!ligne1 || ligne1 === '' || (ligne2 && ligne2 !== '' && ligne2 !== 'ERREUR')) {
+                          return ['√(', ''];
+                        } else {
+                          // Sinon ajouter √( à l'expression existante
+                          return [ligne1 + '√(', ligne2];
+                        }
+                      });
                     }}
                     className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
-                    title="Racine carrée (√13.203125 si écran vide)"
+                    title="Racine carrée √("
                   >
                     √
                   </button>
