@@ -4884,6 +4884,7 @@ const SalonLecturePage = () => {
   // États temporaires pour éviter l'erreur (à corriger plus tard)
   const folders = [];
   const currentFolder = 'root';
+  const [showFolderManager, setShowFolderManager] = useState(false);
   
   // États pour l'extraction de formules
   const [notifications, setNotifications] = useState([]);
