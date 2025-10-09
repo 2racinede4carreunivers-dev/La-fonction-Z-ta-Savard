@@ -4275,10 +4275,11 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                     QTÉ
                   </button>
                   <button 
-                    onClick={() => effacerCalculatrice()}
-                    className="bg-red-600 hover:bg-red-700 text-white text-xs p-2 rounded border border-red-500 transition-colors"
+                    onClick={() => calculerFormulePhilippot('rapport')}
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white text-xs p-2 rounded border border-indigo-500 transition-colors"
+                    title="Rapport constant 1/2"
                   >
-                    CLEAR
+                    1/2
                   </button>
                 </div>
 
