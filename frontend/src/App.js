@@ -5119,6 +5119,10 @@ const SalonLecturePage = () => {
   
   // États pour l'administration
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  
+  // Refs pour gérer les timers et éviter les erreurs DOM
+  const tooltipTimerRef = useRef(null);
+  const isMountedRef = useRef(true);
   const [showConceptForm, setShowConceptForm] = useState(false);
   const [showFormuleForm, setShowFormuleForm] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState('concepts');
