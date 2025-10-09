@@ -3384,42 +3384,6 @@ ${latexContent}
     }
   };
 
-  const creerFormule = async () => {
-    try {
-      const response = await axios.post(`${API_URL}/api/formules`, formuleForm);
-      if (response.data.success) {
-        setShowFormuleForm(false);
-        setFormuleForm({
-          nom_formule: '',
-          formule_mathematique: '',
-          domaine: 'geometrie',
-          description: '',
-          variables: '',
-          niveau_complexite: 3,
-          document_source: '',
-          exemple_calcul: '',
-          resultat_exemple: ''
-        });
-        setNotifications(prev => [...prev, {
-          id: Date.now(),
-          type: 'success',
-          title: 'Formule créée',
-          message: 'Nouvelle formule ajoutée avec succès',
-          timestamp: new Date().toLocaleTimeString()
-        }]);
-      }
-    } catch (error) {
-      console.error('Erreur création formule:', error);
-      setNotifications(prev => [...prev, {
-        id: Date.now(),
-        type: 'error',
-        title: 'Erreur',
-        message: 'Impossible de créer la formule',
-        timestamp: new Date().toLocaleTimeString()
-      }]);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-6">
