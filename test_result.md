@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "Tester les nouvelles fonctionnalités d'intelligence avancée que j'ai ajoutées dans l'API backend. Effectuer des tests sur ces nouveaux endpoints: (1) POST /api/suggestions-contenu - Génération de suggestions de contenu contextuelles, (2) POST /api/resume-automatique - Génération de résumés automatiques, (3) POST /api/detection-coherence - Analyse de cohérence argumentaire, (4) POST /api/citations-automatiques - Citations théoriques automatiques, (5) POST /api/notifications-intelligentes - Système de notifications intelligentes. Utilise l'Emergent LLM Key pour les appels IA avec Claude Sonnet 3.5 et teste avec du texte relatif à la théorie 'L'univers est au carré' pour vérifier la pertinence contextuelle des réponses IA."
+user_problem_statement: "Implémenter et tester la calculatrice TI-83 Plus dans CollaborationPage selon les spécifications : (1) Panneau flottant avec fermeture automatique au clic extérieur, (2) Design authentique TI-83 Plus avec clavier complet, (3) Intégration des formules spécifiques de Riemann de Philippôt, (4) Insertion des résultats dans l'éditeur de texte. Formules à intégrer : Digamma ψ(n) = √((n+7)² + (n+8)²), Suites Riemann (√13.203125/2×2^n)-√5 et (√52.8125/2×2^n)-√5445, Rapport constant = 1/2. Corriger également les erreurs JavaScript dans SalonLecturePage (analyserDocumentFormules, genererLatex, formulesDetectees non définies)."
 
 backend:
   - task: "API endpoint POST /api/concepts - Créer nouveau concept"
