@@ -4589,6 +4589,82 @@ const SalonLecturePage = () => {
     }
   };
 
+  // Base de formules de Philippôt pour reconnaissance automatique
+  const formulesPhilippot = [
+    {
+      code: "DIG001",
+      nom: "Digamma de Philippôt", 
+      patterns: ["ψ(n)", "√((n+7)²", "√((n+8)²", "digamma"],
+      formule: "ψ(n) = √((n+7)² + (n+8)²)",
+      description: "Formule fondamentale pour calcul nombres premiers",
+      variables: "n = position dans la séquence",
+      domaine: "Théorie des Nombres"
+    },
+    {
+      code: "RIE001", 
+      nom: "Énigme de Riemann - Solution Philippôt",
+      patterns: ["√13.203125", "√52.8125", "2^n", "riemann"],
+      formule: "(√13.203125/2×2^n )-√5 = Somme première suite",
+      description: "Réponse finale à l'énigme de Riemann selon Philippôt",
+      variables: "n = entier positif (position du nombre premier)",
+      domaine: "Géométrie/Analyse"
+    },
+    {
+      code: "RIE002",
+      nom: "Rapport Triangulaire 1/2", 
+      patterns: ["1/2", "rapport triangulaire", "/2"],
+      formule: "Rapport = 1/2 (toujours et sans exception)",
+      description: "Rapport constant entre suites pour nombres premiers positifs/négatifs",
+      variables: "n1, n2 = entiers différents",
+      domaine: "Géométrie/Relations"
+    },
+    {
+      code: "CAN001",
+      nom: "Cardinal vs Ordinal des Infinis",
+      patterns: ["ω+1=1+ω", "1+ω≠ω+1", "cardinal", "ordinal"],
+      formule: "Cardinal: ω+1=1+ω mais Ordinal: 1+ω≠ω+1", 
+      description: "Distinction fondamentale selon Cantor adaptée par Philippôt",
+      variables: "ω = infini ordinal",
+      domaine: "Théorie des Ensembles"
+    }
+  ];
+
+  // Fonction de détection des formules en temps réel
+  const detecterFormules = useCallback((texte) => {
+    if (!texte || texte.length < 3) {
+      setFormulesDetectees([]);
+      setShowFormulaTooltip(false);
+      return;
+    }
+
+    const texteMinuscule = texte.toLowerCase();
+    const formulesDetecteesResult = [];
+
+    formulesPhilippot.forEach(formule => {
+      const detected = formule.patterns.some(pattern => {
+        const patternMinuscule = pattern.toLowerCase();
+        return texteMinuscule.includes(patternMinuscule);
+      });
+
+      if (detected) {
+        formulesDetecteesResult.push(formule);
+      }
+    });
+
+    setFormulesDetectees(formulesDetecteesResult);
+
+    // Afficher tooltip pour la première formule détectée
+    if (formulesDetecteesResult.length > 0 && !showFormulaTooltip) {
+      setTooltipFormula(formulesDetecteesResult[0]);
+      setShowFormulaTooltip(true);
+      
+      // Masquer automatiquement après 5 secondes
+      setTimeout(() => {
+        setShowFormulaTooltip(false);
+      }, 5000);
+    }
+  }, [showFormulaTooltip]);
+
   // Analyser le document actuel pour extraire les formules
   const analyserDocumentFormules = async () => {
     if (!document.trim()) {
