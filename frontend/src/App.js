@@ -5139,6 +5139,7 @@ const SalonLecturePage = () => {
   
   // États pour l'administration
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const [formules, setFormules] = useState([]);
   
   // Refs pour gérer les timers et éviter les erreurs DOM
   const tooltipTimerRef = useRef(null);
