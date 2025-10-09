@@ -3545,15 +3545,35 @@ ${latexContent}
 
   // Télécharger le fichier .tex
   const telechargerLatex = () => {
-    const blob = new Blob([latexCode], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${documentTitle || 'universeaucarre'}.tex`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    try {
+      if (!isMountedRef.current) return;
+      
+      const blob = new Blob([latexCode], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${documentTitle || 'universeaucarre'}.tex`;
+      
+      // Sécuriser l'ajout/suppression DOM
+      if (document.body && isMountedRef.current) {
+        document.body.appendChild(a);
+        a.click();
+        
+        // Utiliser setTimeout pour nettoyer de façon asynchrone
+        setTimeout(() => {
+          try {
+            if (document.body && document.body.contains(a)) {
+              document.body.removeChild(a);
+            }
+          } catch (e) {
+            console.warn('Élément déjà supprimé:', e);
+          }
+          URL.revokeObjectURL(url);
+        }, 100);
+      }
+    } catch (error) {
+      console.error('Erreur téléchargement LaTeX:', error);
+    }
   };
 
   // Copier vers le presse-papier
@@ -5463,15 +5483,35 @@ ${contenuLatex}
 
   // Télécharger le fichier .tex
   const telechargerLatex = () => {
-    const blob = new Blob([latexCode], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `${documentTitle || 'universeaucarre'}.tex`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    try {
+      if (!isMountedRef.current) return;
+      
+      const blob = new Blob([latexCode], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${documentTitle || 'universeaucarre'}.tex`;
+      
+      // Sécuriser l'ajout/suppression DOM
+      if (document.body && isMountedRef.current) {
+        document.body.appendChild(a);
+        a.click();
+        
+        // Utiliser setTimeout pour nettoyer de façon asynchrone
+        setTimeout(() => {
+          try {
+            if (document.body && document.body.contains(a)) {
+              document.body.removeChild(a);
+            }
+          } catch (e) {
+            console.warn('Élément déjà supprimé:', e);
+          }
+          URL.revokeObjectURL(url);
+        }, 100);
+      }
+    } catch (error) {
+      console.error('Erreur téléchargement LaTeX:', error);
+    }
   };
 
   // Copier vers le presse-papier
