@@ -4213,8 +4213,16 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 {/* Deuxième rangée - Fonctions mathématiques */}
                 <div className="grid grid-cols-5 gap-1">
                   <button 
-                    onClick={() => ajouterSymbole('√(')}
+                    onClick={() => {
+                      // Raccourci pour √(13.203125 si l'écran est vide
+                      if (!calcDisplay[0] || calcDisplay[0] === '' || (calcDisplay[1] && calcDisplay[1] !== '' && calcDisplay[1] !== 'ERREUR')) {
+                        setCalcDisplay(['√(13.203125)', '']);
+                      } else {
+                        ajouterSymbole('√(');
+                      }
+                    }}
                     className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
+                    title="Racine carrée (√13.203125 si écran vide)"
                   >
                     √
                   </button>
