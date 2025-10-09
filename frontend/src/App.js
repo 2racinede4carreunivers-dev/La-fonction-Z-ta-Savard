@@ -5205,6 +5205,18 @@ const SalonLecturePage = () => {
     }
   };
 
+  const fetchFormules = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/formules`);
+      if (response.data.success) {
+        setFormules(response.data.formules || []);
+      }
+    } catch (error) {
+      console.error('Erreur chargement formules:', error);
+      setFormules([]);
+    }
+  };
+
   // Base de formules de Philippôt pour reconnaissance automatique
   const formulesPhilippot = [
     {
