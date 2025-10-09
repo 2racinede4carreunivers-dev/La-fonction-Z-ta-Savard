@@ -2564,6 +2564,19 @@ const CollaborationPage = ({ folderProps = {} }) => {
   const ajouterSymbole = (symbole) => {
     setCalcDisplay(prev => {
       const ligne1 = prev[0];
+      const ligne2 = prev[1];
+      
+      // Si on vient de faire un calcul (ligne2 contient un résultat), utiliser le résultat pour continuer
+      if (ligne2 && ligne2 !== '' && ligne2 !== 'ERREUR') {
+        // Pour les opérateurs, utiliser le résultat précédent
+        if (['+', '-', '*', '/', '×', '÷'].includes(symbole)) {
+          return [ligne2 + symbole, ''];
+        } else {
+          // Pour les autres symboles, commencer fresh
+          return [symbole, ''];
+        }
+      }
+      
       // Si l'écran affiche "ERREUR", ne pas permettre d'ajouter des symboles
       if (ligne1 === 'ERREUR') {
         return prev;
@@ -2571,12 +2584,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
       // Si l'écran affiche "0", remplacer par le symbole seulement pour certains symboles
       if (ligne1 === '0') {
         if (['+', '-', '*', '/', '×', '÷'].includes(symbole)) {
-          return ['0' + symbole, prev[1]];
+          return ['0' + symbole, ligne2];
         } else {
-          return [symbole, prev[1]];
+          return [symbole, ligne2];
         }
       }
-      return [ligne1 + symbole, prev[1]];
+      return [ligne1 + symbole, ligne2];
     });
   };
 
