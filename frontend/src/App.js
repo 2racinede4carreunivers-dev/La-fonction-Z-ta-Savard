@@ -3708,6 +3708,22 @@ ${latexContent}
                       </div>
                     </div>
                   </div>
+
+                  {/* Calculatrice TI-83 Plus */}
+                  <div className="flex items-center gap-1">
+                    <Button
+                      onClick={() => setShowCalculatrice(true)}
+                      variant="ghost"
+                      size="sm"
+                      className="text-orange-200 hover:bg-orange-800/30 text-xs px-2 py-1 border border-orange-600/20 rounded transition-colors"
+                      title="Ouvrir la calculatrice TI-83 Plus"
+                    >
+                      <span className="flex items-center gap-1">
+                        <span className="text-lg">🧮</span>
+                        <span className="text-xs font-semibold">TI-83</span>
+                      </span>
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
