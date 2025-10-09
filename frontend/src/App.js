@@ -4662,6 +4662,155 @@ const SalonLecturePage = () => {
     }
   };
 
+  // Helper pour conversion LaTeX
+  const convertirVersLatex = (texte, template) => {
+    const contenuLatex = texte
+      .replace(/# (.*)/g, '\\section{$1}')
+      .replace(/## (.*)/g, '\\subsection{$1}')
+      .replace(/### (.*)/g, '\\subsubsection{$1}')
+      .replace(/\*\*(.*?)\*\*/g, '\\textbf{$1}')
+      .replace(/\*(.*?)\*/g, '\\textit{$1}')
+      .replace(/√/g, '\\sqrt{}')
+      .replace(/∑/g, '\\sum')
+      .replace(/∫/g, '\\int')
+      .replace(/π/g, '\\pi')
+      .replace(/∞/g, '\\infty')
+      .replace(/ζ/g, '\\zeta')
+      .replace(/φ/g, '\\phi')
+      .replace(/θ/g, '\\theta');
+
+    const templates = {
+      article: `\\documentclass{article}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath, amssymb}
+\\usepackage{geometry}
+\\geometry{margin=2.5cm}
+
+\\title{${documentTitle}}
+\\author{Théorie de Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+
+${contenuLatex}
+
+\\end{document}`,
+      
+      report: `\\documentclass{report}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath, amssymb}
+\\usepackage{geometry}
+\\geometry{margin=2.5cm}
+
+\\title{${documentTitle}}
+\\author{Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\maketitle
+\\tableofcontents
+
+\\chapter{Introduction}
+${contenuLatex}
+
+\\end{document}`,
+
+      book: `\\documentclass{book}
+\\usepackage[utf8]{inputenc}
+\\usepackage[french]{babel}
+\\usepackage{amsmath, amssymb}
+\\usepackage{geometry}
+\\geometry{margin=2.5cm}
+
+\\title{${documentTitle}}
+\\author{Philippe Thomas Savard}
+\\date{\\today}
+
+\\begin{document}
+\\frontmatter
+\\maketitle
+\\tableofcontents
+
+\\mainmatter
+\\chapter{L'Univers est au Carré}
+${contenuLatex}
+
+\\backmatter
+\\bibliography{references}
+
+\\end{document}`
+    };
+
+    return templates[template] || templates.article;
+  };
+
+  // Générer le code LaTeX
+  const genererLatex = () => {
+    if (!document.trim()) {
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'warning',
+        title: 'Document vide',
+        message: 'Aucun contenu à exporter en LaTeX',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      return;
+    }
+
+    setIsGeneratingLatex(true);
+    
+    try {
+      const contenuAvecTitre = `# ${documentTitle || "Document L'Univers est au Carré"}\n\n${document}`;
+      const latexGenere = convertirVersLatex(contenuAvecTitre, latexTemplate);
+      setLatexCode(latexGenere);
+      setShowLatexExport(true);
+      
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'success',
+        title: 'LaTeX généré',
+        message: `Code LaTeX prêt pour Overleaf (template: ${latexTemplate})`,
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    } catch (error) {
+      console.error('Erreur génération LaTeX:', error);
+    } finally {
+      setIsGeneratingLatex(false);
+    }
+  };
+
+  // Télécharger le fichier .tex
+  const telechargerLatex = () => {
+    const blob = new Blob([latexCode], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${documentTitle || 'universeaucarre'}.tex`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  // Copier vers le presse-papier
+  const copierLatex = async () => {
+    try {
+      await navigator.clipboard.writeText(latexCode);
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'success',
+        title: 'Copié !',
+        message: 'Code LaTeX copié dans le presse-papier',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    } catch (error) {
+      console.error('Erreur copie:', error);
+    }
+  };
+
   // Fonctions pour l'assistant contextuel
   const handleMouseDown = (e) => {
     const timer = setTimeout(() => {
