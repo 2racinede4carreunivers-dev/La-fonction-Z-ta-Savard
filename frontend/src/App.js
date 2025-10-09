@@ -4324,10 +4324,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                     π
                   </button>
                   <button 
-                    onClick={() => effacerDernier()}
-                    className="bg-yellow-600 hover:bg-yellow-700 text-white text-xs p-2 rounded border border-yellow-500 transition-colors"
+                    onClick={() => effacerCalculatrice()}
+                    className="bg-red-600 hover:bg-red-700 text-white text-xs p-2 rounded border border-red-500 transition-colors"
                   >
-                    DEL
+                    CLEAR
                   </button>
                 </div>
 
