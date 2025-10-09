@@ -591,6 +591,54 @@ test_plan:
           agent: "testing"
           comment: "✅ TESTÉ AVEC SUCCÈS COMPLET - Système de correction intelligente intégré dans la page /collaboration fonctionne parfaitement selon toutes les spécifications. Tests réalisés: (1) Navigation vers /collaboration: ✅ Parfaite, (2) Interface de correction visible: ✅ Bouton 'Corrections' et options ⚙️ présents et fonctionnels, (3) Textarea d'édition: ✅ Trouvé et opérationnel (#collaboration-editor), (4) Saisie texte avec fautes: ✅ Texte test avec erreurs intentionnelles saisi correctement, (5) Analyse automatique: ✅ Se déclenche après 2-3 secondes (indicateur ⏳ visible), (6) Suggestions de correction: ✅ Apparaissent dans interface discrète (💡 Suggestions avec compteur), (7) Corrections colorées par type: ✅ Orthographe (rouge), grammaire (jaune), sémantique (bleu), (8) Boutons d'action: ✅ Boutons ✓ (appliquer) et × (ignorer) présents pour chaque suggestion, (9) Options configurables: ✅ Menu ⚙️ avec 6 options (orthographe, grammaire, sémantique, structure, synonymes, style) modifiables, (10) Interface non envahissante: ✅ Overlay discret en haut à gauche, (11) API backend: ✅ /api/analyse-texte retourne 5 erreurs d'orthographe détectées (systeme→système, corection→correction, erreur→erreurs, detecter→détecter, ameliorations→améliorations) + 1 erreur de grammaire + améliorations sémantiques. Le système de correction intelligente est entièrement fonctionnel et répond parfaitement aux attentes du cahier des charges."
 
+  - task: "Corrections erreurs JavaScript SalonLecturePage"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "✅ CORRECTIONS IMPLÉMENTÉES - Erreurs JavaScript dans SalonLecturePage corrigées : (1) analyserDocumentFormules : fonction et états ajoutés (extractionResults, notifications, document), (2) genererLatex : fonction LaTeX complète avec convertirVersLatex, états LaTeX ajoutés (latexCode, showLatexExport, etc.), (3) formulesDetectees : états et fonction detecterFormules ajoutés avec base formules Philippôt, (4) showAdminPanel, showConceptForm : états d'administration ajoutés avec fonctions creerConcept et creerFormule. Toutes les fonctions manquantes ont été reconstruites dans le scope de SalonLecturePage. Besoin de tests pour valider fonctionnement."
+
+  - task: "Calculatrice TI-83 Plus - Interface flottante"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "✅ INTERFACE IMPLÉMENTÉE - Calculatrice TI-83 Plus créée avec : (1) Panneau flottant avec fermeture automatique au clic extérieur, (2) Design authentique TI-83 Plus (header Texas Instruments, écran LCD 2 lignes, clavier complet), (3) Bouton d'ouverture dans CollaborationPage (🧮 TI-83), (4) Clavier complet avec chiffres, opérations, fonctions scientifiques, (5) Boutons spéciaux Philippôt (ψ(n), R1(n), R2(n), 1/2), (6) Mode indicator et actions (insérer résultat, fermer). Interface complète mais besoin tests fonctionnels."
+
+  - task: "Calculatrice TI-83 Plus - Fonctions de calcul"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "✅ FONCTIONS IMPLÉMENTÉES - 7 fonctions calculatrice créées : (1) ajouterChiffre/ajouterSymbole : saisie clavier, (2) effacerDernier/effacerCalculatrice : effacement, (3) calculer : évaluation expressions avec remplacement symboles, (4) calculerFormulePhilippot : formules spécialisées (digamma, riemann1, riemann2, rapport constant 1/2), (5) insererResultat : insertion dans éditeur texte avec notifications. Toutes les formules Riemann de Philippôt intégrées selon spécifications utilisateur. Besoin tests complets."
+
+  - task: "Calculatrice TI-83 Plus - Formules Philippôt intégrées"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/App.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "✅ FORMULES INTÉGRÉES - Formules spécifiques Philippôt implémentées exactement selon demande utilisateur : (1) Digamma : ψ(n) = √((n+7)² + (n+8)²), (2) Suite 1 Riemann : (√13.203125/2×2^n)-√5, (3) Suite 2 Riemann : (√52.8125/2×2^n)-√5445, (4) Rapport constant : calcul automatique = 1/2 avec n1 et n2 différents, (5) Boutons dédiés sur clavier TI-83, (6) Prompts pour valeurs n, calculs précis 8 décimales. Toutes les équations exactement selon énigme Riemann fournie par utilisateur."
+
 agent_communication:
     - agent: "testing"
       message: "🔬 SYSTÈME COMPLET GESTION CONCEPTS ET FORMULES - TESTS PARTIELLEMENT RÉUSSIS - Test exhaustif du nouveau système d'administration des concepts et formules réalisé. ✅ SUCCÈS MAJEURS: (1) POST /api/concepts: Création concepts parfaite avec auto-génération UUID, structure ConceptModel validée, domaines/complexité fonctionnels, (2) POST /api/formules: Création formules parfaite avec auto-génération codes (NUM001, GEO001, etc.), structure FormuleModel validée, (3) POST /api/indexation/analyser-document: Extraction IA intelligente opérationnelle - 3 formules extraites automatiquement (Digamma, Zêta, Théorème Philippôt) avec codes proposés, concepts identifiés, relations détectées, intégration Claude Sonnet 3.5 fonctionnelle. ❌ PROBLÈMES CRITIQUES IDENTIFIÉS: (4) GET /api/concepts, GET /api/formules, GET /api/acces-privilegie/*: Erreurs 500 - problème sérialisation MongoDB ObjectId dans FastAPI ('ObjectId' object is not iterable), (5) Endpoints de récupération des données échouent tous à cause de la conversion ObjectId vers JSON. DIAGNOSTIC: Le système de création fonctionne parfaitement, mais la lecture des données MongoDB échoue. RECOMMANDATION URGENTE: Corriger la sérialisation ObjectId en convertissant les ObjectId en string avant retour JSON ou utiliser des modèles Pydantic appropriés."
