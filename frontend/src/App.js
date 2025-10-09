@@ -4548,6 +4548,12 @@ const SalonLecturePage = () => {
   const folders = [];
   const currentFolder = 'root';
   
+  // États pour l'extraction de formules
+  const [notifications, setNotifications] = useState([]);
+  const [extractionResults, setExtractionResults] = useState(null);
+  const [showExtractionPanel, setShowExtractionPanel] = useState(false);
+  const [document, setDocument] = useState(''); // Document actuel à analyser
+  
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
