@@ -3951,6 +3951,192 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
           </div>
         </div>
 
+        {/* Calculatrice TI-83 Plus Flottante */}
+        {showCalculatrice && (
+          <div 
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 flex items-center justify-center p-4"
+            onClick={() => setShowCalculatrice(false)}
+          >
+            <div 
+              className="bg-gradient-to-b from-slate-800 to-slate-900 border-2 border-slate-600 rounded-3xl p-6 shadow-2xl relative max-w-md w-full"
+              onClick={(e) => e.stopPropagation()}
+              style={{ fontFamily: 'Monaco, "Courier New", monospace' }}
+            >
+              {/* Header TI-83 Plus */}
+              <div className="text-center mb-4">
+                <div className="text-white font-bold text-lg mb-1">TEXAS INSTRUMENTS</div>
+                <div className="text-cyan-400 font-bold text-2xl">TI-83 Plus</div>
+                <div className="text-xs text-gray-400">Édition Philippôt</div>
+              </div>
+
+              {/* Écran LCD */}
+              <div className="bg-gray-900 border-2 border-gray-600 rounded-lg p-4 mb-6 min-h-[120px]">
+                <div className="text-green-400 font-mono text-sm space-y-1">
+                  <div className="border-b border-gray-700 pb-1">
+                    <span className="text-xs text-gray-500">Ligne 1:</span>
+                  </div>
+                  <div className="min-h-[20px] text-base">
+                    {calcDisplay[0] || '0'}
+                  </div>
+                  <div className="border-b border-gray-700 pb-1">
+                    <span className="text-xs text-gray-500">Ligne 2:</span>
+                  </div>
+                  <div className="min-h-[20px] text-base">
+                    {calcDisplay[1] || ''}
+                  </div>
+                  {calcHistory.length > 0 && (
+                    <div className="text-xs text-gray-400 mt-2">
+                      Dernier: {calcHistory[calcHistory.length - 1]}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Clavier TI-83 */}
+              <div className="space-y-2">
+                {/* Première rangée - Fonctions spéciales */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button 
+                    onClick={() => calculerFormulePhilippot('digamma')}
+                    className="bg-blue-600 hover:bg-blue-700 text-white text-xs p-2 rounded border border-blue-500 transition-colors"
+                    title="Digamma de Philippôt"
+                  >
+                    ψ(n)
+                  </button>
+                  <button 
+                    onClick={() => calculerFormulePhilippot('riemann1')}
+                    className="bg-purple-600 hover:bg-purple-700 text-white text-xs p-2 rounded border border-purple-500 transition-colors"
+                    title="Suite 1 Riemann"
+                  >
+                    R1(n)
+                  </button>
+                  <button 
+                    onClick={() => calculerFormulePhilippot('riemann2')}
+                    className="bg-purple-600 hover:bg-purple-700 text-white text-xs p-2 rounded border border-purple-500 transition-colors"
+                    title="Suite 2 Riemann"
+                  >
+                    R2(n)
+                  </button>
+                  <button 
+                    onClick={() => calculerFormulePhilippot('rapport')}
+                    className="bg-green-600 hover:bg-green-700 text-white text-xs p-2 rounded border border-green-500 transition-colors"
+                    title="Rapport 1/2"
+                  >
+                    1/2
+                  </button>
+                  <button 
+                    onClick={() => effacerCalculatrice()}
+                    className="bg-red-600 hover:bg-red-700 text-white text-xs p-2 rounded border border-red-500 transition-colors"
+                  >
+                    CLEAR
+                  </button>
+                </div>
+
+                {/* Deuxième rangée - Fonctions mathématiques */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button 
+                    onClick={() => ajouterSymbole('√(')}
+                    className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
+                  >
+                    √
+                  </button>
+                  <button 
+                    onClick={() => ajouterSymbole('^2')}
+                    className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
+                  >
+                    x²
+                  </button>
+                  <button 
+                    onClick={() => ajouterSymbole('^')}
+                    className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
+                  >
+                    x^y
+                  </button>
+                  <button 
+                    onClick={() => ajouterSymbole('π')}
+                    className="bg-orange-600 hover:bg-orange-700 text-white text-xs p-2 rounded border border-orange-500 transition-colors"
+                  >
+                    π
+                  </button>
+                  <button 
+                    onClick={() => effacerDernier()}
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white text-xs p-2 rounded border border-yellow-500 transition-colors"
+                  >
+                    DEL
+                  </button>
+                </div>
+
+                {/* Troisième rangée - Chiffres 7-9 + opérations */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button onClick={() => ajouterChiffre('7')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">7</button>
+                  <button onClick={() => ajouterChiffre('8')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">8</button>
+                  <button onClick={() => ajouterChiffre('9')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">9</button>
+                  <button onClick={() => ajouterSymbole('/')} className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded border border-blue-500 transition-colors">÷</button>
+                  <button onClick={() => ajouterSymbole('*')} className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded border border-blue-500 transition-colors">×</button>
+                </div>
+
+                {/* Quatrième rangée - Chiffres 4-6 + opérations */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button onClick={() => ajouterChiffre('4')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">4</button>
+                  <button onClick={() => ajouterChiffre('5')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">5</button>
+                  <button onClick={() => ajouterChiffre('6')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">6</button>
+                  <button onClick={() => ajouterSymbole('-')} className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded border border-blue-500 transition-colors">-</button>
+                  <button onClick={() => ajouterSymbole('+')} className="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded border border-blue-500 transition-colors">+</button>
+                </div>
+
+                {/* Cinquième rangée - Chiffres 1-3 + parenthèses */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button onClick={() => ajouterChiffre('1')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">1</button>
+                  <button onClick={() => ajouterChiffre('2')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">2</button>
+                  <button onClick={() => ajouterChiffre('3')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">3</button>
+                  <button onClick={() => ajouterSymbole('(')} className="bg-slate-600 hover:bg-slate-500 text-white p-2 rounded border border-slate-500 transition-colors">(</button>
+                  <button onClick={() => ajouterSymbole(')')} className="bg-slate-600 hover:bg-slate-500 text-white p-2 rounded border border-slate-500 transition-colors">)</button>
+                </div>
+
+                {/* Sixième rangée - 0, point décimal, égal */}
+                <div className="grid grid-cols-5 gap-1">
+                  <button onClick={() => ajouterChiffre('0')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors col-span-2">0</button>
+                  <button onClick={() => ajouterSymbole('.')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">.</button>
+                  <button 
+                    onClick={() => calculer()}
+                    className="bg-green-600 hover:bg-green-700 text-white p-2 rounded border border-green-500 transition-colors col-span-2 font-bold"
+                  >
+                    ENTER
+                  </button>
+                </div>
+              </div>
+
+              {/* Actions en bas */}
+              <div className="flex justify-between items-center mt-4">
+                <Button
+                  onClick={() => insererResultat()}
+                  variant="ghost"
+                  size="sm"
+                  className="text-cyan-400 hover:bg-cyan-800/30 text-xs px-2 py-1"
+                  disabled={!calcDisplay[0] || calcDisplay[0] === '0'}
+                >
+                  📝 Insérer dans le texte
+                </Button>
+                <Button
+                  onClick={() => setShowCalculatrice(false)}
+                  variant="ghost"
+                  size="sm"
+                  className="text-red-400 hover:bg-red-800/30 text-xs px-2 py-1"
+                >
+                  ✕ Fermer
+                </Button>
+              </div>
+
+              {/* Mode indicator */}
+              <div className="text-center mt-2">
+                <div className="text-xs text-gray-400">
+                  Mode: {calcMode === 'philippot' ? 'Formules Philippôt' : 'Calculatrice Standard'}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Modal de Correction Personnelle */}
         {showCorrectionForm && (
           <div 
