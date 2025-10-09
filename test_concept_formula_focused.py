@@ -6,7 +6,7 @@ import sys
 
 def test_concept_formula_system():
     """Test the concept and formula management system specifically"""
-    base_url = "https://theory-hub-1.preview.emergentagent.com"
+    base_url = "https://math-collab-hub.preview.emergentagent.com"
     
     print("🔬 FOCUSED TEST: Concept and Formula Management System")
     print("=" * 60)
