@@ -2725,8 +2725,8 @@ const CollaborationPage = ({ folderProps = {} }) => {
           resultat = 'Formule non reconnue';
       }
       
-      setCalcDisplay(['Formule Philippôt', resultat]);
-      setCalcHistory(prev => [...prev, resultat].slice(-5));
+      setCalcDisplay([type.toUpperCase(), resultat]);
+      setCalcHistory(prev => [...prev, `${type.toUpperCase()}: ${resultat}`].slice(-5));
       setCalcMode('philippot');
       
     } catch (error) {
