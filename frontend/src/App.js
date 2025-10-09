@@ -2596,6 +2596,13 @@ const CollaborationPage = ({ folderProps = {} }) => {
   const effacerDernier = () => {
     setCalcDisplay(prev => {
       const ligne1 = prev[0];
+      const ligne2 = prev[1];
+      
+      // Si on vient de faire un calcul, effacer tout
+      if (ligne2 && ligne2 !== '' && ligne2 !== 'ERREUR') {
+        return ['', ''];
+      }
+      
       // Si c'est "ERREUR", effacer complètement
       if (ligne1 === 'ERREUR') {
         return ['', ''];
@@ -2609,7 +2616,7 @@ const CollaborationPage = ({ folderProps = {} }) => {
         return ['', ''];
       }
       // Sinon enlever le dernier caractère
-      return [ligne1.slice(0, -1), prev[1]];
+      return [ligne1.slice(0, -1), ligne2];
     });
   };
 
