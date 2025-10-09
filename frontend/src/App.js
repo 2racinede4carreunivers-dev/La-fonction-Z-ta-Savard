@@ -2544,13 +2544,20 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
   const ajouterChiffre = (chiffre) => {
     setCalcDisplay(prev => {
-      // Si l'écran affiche "0", "ERREUR" ou est vide, remplacer par le nouveau chiffre
       const ligne1 = prev[0];
+      const ligne2 = prev[1];
+      
+      // Si on vient de faire un calcul (ligne2 contient un résultat), recommencer à zéro
+      if (ligne2 && ligne2 !== '' && ligne2 !== 'ERREUR') {
+        return [chiffre, ''];
+      }
+      
+      // Si l'écran affiche "0", "ERREUR" ou est vide, remplacer par le nouveau chiffre
       if (ligne1 === '0' || ligne1 === 'ERREUR' || ligne1 === '' || ligne1 === undefined) {
         return [chiffre, ''];
       }
       // Sinon ajouter le chiffre
-      return [ligne1 + chiffre, prev[1]];
+      return [ligne1 + chiffre, ligne2];
     });
   };
 
