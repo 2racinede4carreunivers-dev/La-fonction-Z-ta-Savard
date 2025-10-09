@@ -4228,7 +4228,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                   variant="ghost"
                   size="sm"
                   className="text-cyan-400 hover:bg-cyan-800/30 text-xs px-2 py-1"
-                  disabled={!calcDisplay[0] || calcDisplay[0] === '0'}
+                  disabled={(!calcDisplay[0] && !calcDisplay[1]) || calcDisplay[0] === 'ERREUR' || calcDisplay[1] === 'ERREUR'}
                 >
                   📝 Insérer dans le texte
                 </Button>
