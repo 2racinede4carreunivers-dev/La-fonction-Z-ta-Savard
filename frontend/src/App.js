@@ -4208,11 +4208,11 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                     R2(n)
                   </button>
                   <button 
-                    onClick={() => calculerFormulePhilippot('rapport')}
+                    onClick={() => calculerFormulePhilippot('quantite_entre')}
                     className="bg-green-600 hover:bg-green-700 text-white text-xs p-2 rounded border border-green-500 transition-colors"
-                    title="Rapport 1/2"
+                    title="Quantité nombres entre deux premiers"
                   >
-                    1/2
+                    QTÉ
                   </button>
                   <button 
                     onClick={() => effacerCalculatrice()}
