@@ -2650,20 +2650,35 @@ const CollaborationPage = ({ folderProps = {} }) => {
         return; // Ne rien faire si l'écran est vide ou invalide
       }
 
-      // Remplacer les symboles pour l'évaluation
-      let expr = expression
+      // Pré-traiter l'expression pour corriger les problèmes courants
+      let expr = expression.trim();
+      
+      // Ajouter des parenthèses fermantes manquantes pour √(
+      let openSqrt = (expr.match(/√\(/g) || []).length;
+      let closingParens = (expr.match(/\)/g) || []).length;
+      let missingSqrtParens = openSqrt - closingParens;
+      
+      if (missingSqrtParens > 0) {
+        expr += ')'.repeat(missingSqrtParens);
+      }
+      
+      // Remplacer les symboles pour l'évaluation JavaScript
+      expr = expr
         .replace(/×/g, '*')
         .replace(/÷/g, '/')
         .replace(/π/g, '3.141592653589793')
-        .replace(/√\(/g, 'Math.sqrt(');
+        .replace(/√\(/g, 'Math.sqrt(')
+        .replace(/\^/g, '**'); // Gestion des puissances
 
       // Vérifier que l'expression n'est pas vide après remplacement
-      if (expr.trim() === '') {
-        setCalcDisplay(['', 'ERREUR']);
+      if (expr.trim() === '' || expr.includes('Math.sqrt()')) {
+        setCalcDisplay([expression, 'ERREUR']);
         return;
       }
 
-      // Évaluation sécurisée (à améliorer pour la production)
+      console.log('Expression à évaluer:', expr); // Pour debug
+      
+      // Évaluation sécurisée 
       const resultat = eval(expr);
       
       // Vérifier si le résultat est valide
@@ -2674,15 +2689,15 @@ const CollaborationPage = ({ folderProps = {} }) => {
       
       // Formater le résultat
       const resultatFormate = typeof resultat === 'number' ? 
-        (Number.isInteger(resultat) ? resultat.toString() : resultat.toFixed(8).replace(/\.?0+$/, '')) : 
+        (Number.isInteger(resultat) ? resultat.toString() : parseFloat(resultat.toFixed(10)).toString()) : 
         resultat.toString();
       
       setCalcDisplay([expression, resultatFormate]);
       setCalcHistory(prev => [...prev, `${expression} = ${resultatFormate}`].slice(-5)); // Garder les 5 derniers
       
     } catch (error) {
-      setCalcDisplay([calcDisplay[0] || '', 'ERREUR']);
       console.error('Erreur calcul:', error);
+      setCalcDisplay([calcDisplay[0] || '', 'ERREUR']);
     }
   };
 
