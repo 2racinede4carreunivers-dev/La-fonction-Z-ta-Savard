@@ -5563,19 +5563,22 @@ ${contenuLatex}
       }
     }, 800); // 800ms pour l'appui long
     
+    longPressTimerRef.current = timer;
     setLongPressTimer(timer);
   };
 
   const handleMouseUp = () => {
-    if (longPressTimer) {
-      clearTimeout(longPressTimer);
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
       setLongPressTimer(null);
     }
   };
 
   const handleMouseLeave = () => {
-    if (longPressTimer) {
-      clearTimeout(longPressTimer);
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
       setLongPressTimer(null);
     }
   };
