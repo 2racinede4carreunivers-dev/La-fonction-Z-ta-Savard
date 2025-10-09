@@ -4360,8 +4360,14 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
 
                 {/* Sixième rangée - 0, point décimal, égal */}
                 <div className="grid grid-cols-5 gap-1">
-                  <button onClick={() => ajouterChiffre('0')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors col-span-2">0</button>
+                  <button onClick={() => ajouterChiffre('0')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">0</button>
                   <button onClick={() => ajouterSymbole('.')} className="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded border border-gray-500 transition-colors">.</button>
+                  <button 
+                    onClick={() => effacerDernier()}
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white text-xs p-2 rounded border border-yellow-500 transition-colors"
+                  >
+                    DEL
+                  </button>
                   <button 
                     onClick={() => calculer()}
                     className="bg-green-600 hover:bg-green-700 text-white p-2 rounded border border-green-500 transition-colors col-span-2 font-bold"
