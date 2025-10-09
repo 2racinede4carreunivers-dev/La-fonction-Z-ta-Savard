@@ -5142,6 +5142,7 @@ const SalonLecturePage = () => {
   
   // Refs pour gérer les timers et éviter les erreurs DOM
   const tooltipTimerRef = useRef(null);
+  const longPressTimerRef = useRef(null);
   const isMountedRef = useRef(true);
   const [showConceptForm, setShowConceptForm] = useState(false);
   const [showFormuleForm, setShowFormuleForm] = useState(false);
