@@ -4576,6 +4576,85 @@ const SalonLecturePage = () => {
     }
   };
 
+  // Analyser le document actuel pour extraire les formules
+  const analyserDocumentFormules = async () => {
+    if (!document.trim()) {
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'warning',
+        title: 'Document vide',
+        message: 'Aucun contenu à analyser dans l\'éditeur',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${API_URL}/api/indexation/analyser-document`, {
+        texte_document: document,
+        domaine_principal: 'geometrie'
+      });
+
+      if (response.data.success) {
+        setExtractionResults(response.data.extraction);
+        setShowExtractionPanel(true);
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Analyse terminée',
+          message: 'Extraction automatique des formules terminée',
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur analyse document:', error);
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'error',
+        title: 'Erreur d\'analyse',
+        message: 'Impossible d\'analyser le document',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    }
+  };
+
+  // Valider et enregistrer l'extraction automatique
+  const validerExtraction = async () => {
+    if (!extractionResults) return;
+
+    try {
+      const response = await axios.post(`${API_URL}/api/indexation/valider-extraction`, {
+        formules_validees: extractionResults.formules_extraites || [],
+        concepts_valides: extractionResults.concepts_identifies || [],
+        relations_validees: extractionResults.relations_detectees || []
+      });
+
+      if (response.data.success) {
+        await fetchConceptsEnrichis(); // Recharger les concepts
+        setShowExtractionPanel(false);
+        setExtractionResults(null);
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Extraction validée',
+          message: `${response.data.resultats.formules_creees} formules et ${response.data.resultats.concepts_crees} concepts créés`,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur validation extraction:', error);
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'error',
+        title: 'Erreur de validation',
+        message: 'Impossible de valider l\'extraction',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    }
+  };
+
   // Fonctions pour l'assistant contextuel
   const handleMouseDown = (e) => {
     const timer = setTimeout(() => {
