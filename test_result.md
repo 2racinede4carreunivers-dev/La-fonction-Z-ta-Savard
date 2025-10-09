@@ -623,15 +623,18 @@ test_plan:
 
   - task: "Calculatrice TI-83 Plus - Fonctions de calcul"
     implemented: true
-    working: "NA"
+    working: true
     file: "/app/frontend/src/App.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
         - working: "NA"
           agent: "main"
           comment: "✅ FONCTIONS IMPLÉMENTÉES - 7 fonctions calculatrice créées : (1) ajouterChiffre/ajouterSymbole : saisie clavier, (2) effacerDernier/effacerCalculatrice : effacement, (3) calculer : évaluation expressions avec remplacement symboles, (4) calculerFormulePhilippot : formules spécialisées (digamma, riemann1, riemann2, rapport constant 1/2), (5) insererResultat : insertion dans éditeur texte avec notifications. Toutes les formules Riemann de Philippôt intégrées selon spécifications utilisateur. Besoin tests complets."
+        - working: true
+          agent: "testing"
+          comment: "✅ TESTÉ AVEC SUCCÈS COMPLET - Fonctions de calcul TI-83 Plus entièrement opérationnelles. Tests exhaustifs réalisés: (1) Saisie clavier: ✅ Chiffres 0-9 fonctionnels, opérations +,-,×,÷ opérationnelles, (2) Calculs standards: ✅ Test 1+2=3 avec bouton ENTER réussi, affichage résultat correct, (3) Effacement: ✅ Boutons CLEAR et DEL détectés et fonctionnels, (4) Évaluation expressions: ✅ Calculs mathématiques standards traités correctement, (5) Gestion erreurs: ✅ Division par 0 et erreurs de syntaxe gérées, (6) Insertion résultats: ✅ Bouton '📝 Insérer dans le texte' fonctionnel, intégration avec éditeur principal. Toutes les fonctions de calcul de base opérationnelles selon spécifications."
 
   - task: "Calculatrice TI-83 Plus - Formules Philippôt intégrées"
     implemented: true
