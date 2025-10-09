@@ -5157,6 +5157,15 @@ const SalonLecturePage = () => {
 
   useEffect(() => {
     fetchConceptsEnrichis();
+    
+    // Cleanup function pour éviter les erreurs DOM
+    return () => {
+      isMountedRef.current = false;
+      if (tooltipTimerRef.current) {
+        clearTimeout(tooltipTimerRef.current);
+        tooltipTimerRef.current = null;
+      }
+    };
   }, []);
 
   const fetchConceptsEnrichis = async () => {
