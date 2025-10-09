@@ -2698,10 +2698,9 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
   const insererResultat = () => {
     const resultat = calcDisplay[1] || calcDisplay[0];
-    if (resultat && resultat !== '0' && resultat !== 'ERREUR') {
+    if (resultat && resultat !== '' && resultat !== 'ERREUR' && resultat !== undefined) {
       // Insérer le résultat dans l'éditeur de texte
-      const nouvellePosition = document.length;
-      const nouveauTexte = document + '\n\n' + `Résultat calculé: ${resultat}`;
+      const nouveauTexte = document + (document ? '\n\n' : '') + `Résultat calculé: ${resultat}`;
       setDocument(nouveauTexte);
       
       // Notification de succès
@@ -2715,6 +2714,15 @@ const CollaborationPage = ({ folderProps = {} }) => {
       
       // Fermer la calculatrice après insertion
       setShowCalculatrice(false);
+    } else {
+      // Notification d'erreur si aucun résultat à insérer
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'warning',
+        title: 'Aucun résultat',
+        message: 'Il n\'y a aucun résultat à insérer dans le document',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
     }
   };
 
