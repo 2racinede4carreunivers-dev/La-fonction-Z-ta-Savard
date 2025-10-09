@@ -2571,6 +2571,9 @@ const CollaborationPage = ({ folderProps = {} }) => {
         // Pour les opérateurs, utiliser le résultat précédent
         if (['+', '-', '*', '/', '×', '÷'].includes(symbole)) {
           return [ligne2 + symbole, ''];
+        } else if (symbole === '√(') {
+          // Pour la racine, commencer une nouvelle expression
+          return [symbole, ''];
         } else {
           // Pour les autres symboles, commencer fresh
           return [symbole, ''];
@@ -2589,6 +2592,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
           return [symbole, ligne2];
         }
       }
+      
+      // Gestion spéciale pour la racine carrée - s'assurer qu'elle est bien formatée
+      if (symbole === '√(') {
+        return [ligne1 + symbole, ligne2];
+      }
+      
       return [ligne1 + symbole, ligne2];
     });
   };
