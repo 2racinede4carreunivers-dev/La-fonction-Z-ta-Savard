@@ -2539,6 +2539,141 @@ const CollaborationPage = ({ folderProps = {} }) => {
   };
 
   // ===============================================
+  // FONCTIONS CALCULATRICE TI-83 PLUS
+  // ===============================================
+
+  const ajouterChiffre = (chiffre) => {
+    setCalcDisplay(prev => {
+      const nouvelleLigne = prev[0] === '0' ? chiffre : prev[0] + chiffre;
+      return [nouvelleLigne, prev[1]];
+    });
+  };
+
+  const ajouterSymbole = (symbole) => {
+    setCalcDisplay(prev => {
+      const nouvelleLigne = prev[0] + symbole;
+      return [nouvelleLigne, prev[1]];
+    });
+  };
+
+  const effacerDernier = () => {
+    setCalcDisplay(prev => {
+      const nouvelleLigne = prev[0].length > 1 ? prev[0].slice(0, -1) : '0';
+      return [nouvelleLigne, prev[1]];
+    });
+  };
+
+  const effacerCalculatrice = () => {
+    setCalcDisplay(['0', '']);
+    setCalcMemoire('');
+    setCalcOperation('');
+  };
+
+  const calculer = () => {
+    try {
+      const expression = calcDisplay[0];
+      if (!expression || expression === '0') return;
+
+      // Remplacer les symboles pour l'évaluation
+      let expr = expression
+        .replace(/×/g, '*')
+        .replace(/÷/g, '/')
+        .replace(/π/g, '3.141592653589793')
+        .replace(/√\(/g, 'Math.sqrt(');
+
+      // Évaluation sécurisée (à améliorer pour la production)
+      const resultat = eval(expr);
+      
+      setCalcDisplay([expression, resultat.toString()]);
+      setCalcHistory(prev => [...prev, `${expression} = ${resultat}`].slice(-5)); // Garder les 5 derniers
+      
+    } catch (error) {
+      setCalcDisplay([calcDisplay[0], 'ERREUR']);
+      console.error('Erreur calcul:', error);
+    }
+  };
+
+  const calculerFormulePhilippot = (type) => {
+    try {
+      let resultat = '';
+      
+      // Demander la valeur de n à l'utilisateur
+      const n = prompt(`Entrez la valeur de n pour la formule ${type}:`, '1');
+      if (!n || isNaN(n)) return;
+      
+      const nVal = parseFloat(n);
+      
+      switch(type) {
+        case 'digamma':
+          // ψ(n) = √((n+7)² + (n+8)²)
+          const digammaResult = Math.sqrt(Math.pow(nVal + 7, 2) + Math.pow(nVal + 8, 2));
+          resultat = `ψ(${n}) = ${digammaResult.toFixed(8)}`;
+          break;
+          
+        case 'riemann1':
+          // (√13.203125/2×2^n )-√5
+          const riemann1Result = (Math.sqrt(13.203125) / (2 * Math.pow(2, nVal))) - Math.sqrt(5);
+          resultat = `R1(${n}) = ${riemann1Result.toFixed(8)}`;
+          break;
+          
+        case 'riemann2':
+          // (√52.8125/2×2^n )-√5445
+          const riemann2Result = (Math.sqrt(52.8125) / (2 * Math.pow(2, nVal))) - Math.sqrt(5445);
+          resultat = `R2(${n}) = ${riemann2Result.toFixed(8)}`;
+          break;
+          
+        case 'rapport':
+          // Calcul du rapport constant 1/2
+          const n1 = parseFloat(prompt('Entrez n1:', '1'));
+          const n2 = parseFloat(prompt('Entrez n2:', '2'));
+          if (!isNaN(n1) && !isNaN(n2) && n1 !== n2) {
+            const r1_n1 = (Math.sqrt(13.203125) / (2 * Math.pow(2, n1))) - Math.sqrt(5);
+            const r1_n2 = (Math.sqrt(13.203125) / (2 * Math.pow(2, n2))) - Math.sqrt(5);
+            const r2_n1 = (Math.sqrt(52.8125) / (2 * Math.pow(2, n1))) - Math.sqrt(5445);
+            const r2_n2 = (Math.sqrt(52.8125) / (2 * Math.pow(2, n2))) - Math.sqrt(5445);
+            
+            const rapport = (r1_n1 - r1_n2) / (r2_n1 - r2_n2);
+            resultat = `Rapport = ${rapport.toFixed(8)} ≈ 1/2`;
+          }
+          break;
+          
+        default:
+          resultat = 'Formule non reconnue';
+      }
+      
+      setCalcDisplay(['Formule Philippôt', resultat]);
+      setCalcHistory(prev => [...prev, resultat].slice(-5));
+      setCalcMode('philippot');
+      
+    } catch (error) {
+      setCalcDisplay(['ERREUR', 'Calcul impossible']);
+      console.error('Erreur formule Philippôt:', error);
+    }
+  };
+
+  const insererResultat = () => {
+    const resultat = calcDisplay[1] || calcDisplay[0];
+    if (resultat && resultat !== '0' && resultat !== 'ERREUR') {
+      // Insérer le résultat dans l'éditeur de texte
+      const nouvellePosition = document.length;
+      const nouveauTexte = document + '\n\n' + `Résultat calculé: ${resultat}`;
+      setDocument(nouveauTexte);
+      
+      // Notification de succès
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'success',
+        title: 'Résultat inséré',
+        message: 'Le résultat de calcul a été ajouté au document',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+      
+      // Fermer la calculatrice après insertion
+      setShowCalculatrice(false);
+    }
+  };
+
+  // ===============================================
   // SYSTÈME DE DÉTECTION AUTOMATIQUE DES FORMULES
   // ===============================================
 
