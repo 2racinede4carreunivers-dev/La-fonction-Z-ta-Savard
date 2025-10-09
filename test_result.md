@@ -453,10 +453,10 @@ metadata:
 
 test_plan:
   current_focus:
-    - "API endpoint GET /api/concepts - Lister concepts avec filtres"
-    - "API endpoint GET /api/formules - Lister formules par domaine"
-    - "API endpoint GET /api/acces-privilegie/concepts-complets - Accès privilégié IA spécialisée"
-    - "API endpoint POST /api/acces-privilegie/requete-contextuelle - Requêtes contextuelles par domaine"
+    - "Corrections erreurs JavaScript SalonLecturePage"
+    - "Calculatrice TI-83 Plus - Interface flottante"
+    - "Calculatrice TI-83 Plus - Fonctions de calcul"
+    - "Calculatrice TI-83 Plus - Formules Philippôt intégrées"
   stuck_tasks:
     - "Problème sérialisation MongoDB ObjectId dans FastAPI"
   test_all: false
