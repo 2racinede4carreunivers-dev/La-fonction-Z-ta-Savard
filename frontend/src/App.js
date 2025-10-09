@@ -4567,6 +4567,9 @@ const SalonLecturePage = () => {
   const [tooltipFormula, setTooltipFormula] = useState(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
   
+  // États pour l'administration
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  
   // États pour l'assistant contextuel
   const [showContextualAssistant, setShowContextualAssistant] = useState(false);
   const [selectedText, setSelectedText] = useState('');
