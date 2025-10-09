@@ -5179,6 +5179,7 @@ const SalonLecturePage = () => {
 
   useEffect(() => {
     fetchConceptsEnrichis();
+    fetchFormules();
     
     // Cleanup function pour éviter les erreurs DOM
     return () => {
