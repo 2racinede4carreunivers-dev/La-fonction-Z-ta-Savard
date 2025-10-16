@@ -10098,6 +10098,358 @@ const SalleIllustrationsPage = () => {
 };
 
 // ===============================================
+// COMPOSANT IA SOCRATIQUE - PARTENAIRE INTELLECTUEL
+// ===============================================
+
+const IASocratiquePage = () => {
+  const [reflexionUtilisateur, setReflexionUtilisateur] = useState('');
+  const [historiqueChallenge, setHistoriqueChallenge] = useState([]);
+  const [axesEvolution, setAxesEvolution] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [modeActuel, setModeActuel] = useState('dialogue'); // 'dialogue' ou 'exploration'
+  const [conceptSelectionne, setConceptSelectionne] = useState('');
+
+  const challengerRaisonnement = async () => {
+    if (!reflexionUtilisateur.trim()) return;
+    
+    setIsLoading(true);
+    
+    // Ajouter la réflexion à l'historique
+    const nouvelHistorique = [...historiqueChallenge, {
+      type: 'reflexion',
+      message: reflexionUtilisateur,
+      timestamp: new Date().toLocaleString()
+    }];
+    setHistoriqueChallenge(nouvelHistorique);
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/ia-socratique/challenger`, {
+        reflexion_utilisateur: reflexionUtilisateur,
+        contexte_session: "Évolution théorique L'univers est au carré"
+      });
+      
+      // Ajouter la réponse socratique à l'historique
+      setHistoriqueChallenge(prev => [...prev, {
+        type: 'socratique',
+        message: response.data.reponse_socratique,
+        questions_challengeantes: response.data.questions_challengeantes,
+        axes_evolution: response.data.axes_evolution_identifies,
+        niveau_challenge: response.data.niveau_challenge,
+        concepts_analyses: response.data.concepts_analyses,
+        timestamp: new Date().toLocaleString()
+      }]);
+      
+      // Mettre à jour les axes d'évolution
+      if (response.data.axes_evolution_identifies.length > 0) {
+        setAxesEvolution(prev => {
+          const nouveauxAxes = response.data.axes_evolution_identifies.filter(
+            axe => !prev.some(existant => existant.titre === axe)
+          );
+          return [...prev, ...nouveauxAxes.map(axe => ({
+            titre: axe,
+            timestamp: new Date().toLocaleString()
+          }))];
+        });
+      }
+      
+      setReflexionUtilisateur('');
+      
+    } catch (error) {
+      console.error('Erreur challenge socratique:', error);
+      setHistoriqueChallenge(prev => [...prev, {
+        type: 'erreur',
+        message: 'Erreur de communication avec le partenaire intellectuel.',
+        timestamp: new Date().toLocaleString()
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const approfondirConcept = async (concept) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/ia-socratique/approfondir`, {
+        concept: concept,
+        contexte: "Développement théorique avancé"
+      });
+      
+      setHistoriqueChallenge(prev => [...prev, {
+        type: 'approfondissement',
+        concept: concept,
+        message: `**Analyse approfondie de ${concept}**\n\n${response.data.question_challengeante}`,
+        lacunes: response.data.lacunes_identifiees,
+        questions_emergentes: response.data.questions_emergentes,
+        niveau_challenge: response.data.niveau_challenge,
+        timestamp: new Date().toLocaleString()
+      }]);
+      
+    } catch (error) {
+      console.error('Erreur approfondissement:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const concepts = [
+    { id: 'digamma_philippot', nom: 'Digamma de Philippôt', icon: 'ψ' },
+    { id: 'suites_riemann', nom: 'Suites de Riemann', icon: '∑' },
+    { id: 'rapport_triangulaire', nom: 'Rapport Triangulaire 1/2', icon: '△' },
+    { id: 'geometrie_carree', nom: 'Géométrie Carrée', icon: '□' }
+  ];
+
+  const exemplesReflexions = [
+    "Je pense que la constante +7 et +8 dans ma formule Digamma pourrait être généralisée...",
+    "Mon rapport 1/2 semble universel, mais je me demande s'il y a des exceptions aux limites...",
+    "La géométrie carrée fonctionne bien, mais comment l'étendre aux dimensions supérieures?",
+    "Mes suites de Riemann donnent des résultats cohérents, mais la dérivation des constantes reste à clarifier..."
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-indigo-900 to-slate-900">
+      <div className="container mx-auto px-4 py-6">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400 mb-4">
+            🎯 Partenaire Intellectuel Socratique
+          </h1>
+          <p className="text-gray-300 text-lg max-w-4xl mx-auto">
+            Votre compagnon de réflexion pour élever votre raisonnement et développer une version plus sophistiquée 
+            de "L'univers est au carré". Questionnement socratique pour identifier les lacunes et axes d'évolution.
+          </p>
+        </div>
+
+        {/* Sélecteur de mode */}
+        <div className="flex justify-center mb-6">
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-1 flex">
+            <button
+              onClick={() => setModeActuel('dialogue')}
+              className={`px-6 py-2 rounded-lg transition-all ${
+                modeActuel === 'dialogue' 
+                  ? 'bg-purple-600 text-white' 
+                  : 'text-gray-300 hover:text-white'
+              }`}
+            >
+              💭 Dialogue Socratique
+            </button>
+            <button
+              onClick={() => setModeActuel('exploration')}
+              className={`px-6 py-2 rounded-lg transition-all ${
+                modeActuel === 'exploration' 
+                  ? 'bg-indigo-600 text-white' 
+                  : 'text-gray-300 hover:text-white'
+              }`}
+            >
+              🔍 Exploration Conceptuelle
+            </button>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          {/* Zone principale de dialogue/exploration */}
+          <div className="lg:col-span-2">
+            
+            {/* Mode Dialogue Socratique */}
+            {modeActuel === 'dialogue' && (
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-purple-400 mb-4">💬 Questionnement Socratique</h3>
+                
+                {/* Historique des échanges */}
+                <div className="h-96 overflow-y-auto mb-4 space-y-4 border border-gray-700 rounded-lg p-4 bg-black/20">
+                  {historiqueChallenge.length === 0 ? (
+                    <div className="text-center text-gray-400 py-8">
+                      <p>🎯 Partagez une réflexion sur votre théorie pour commencer le questionnement socratique</p>
+                      <p className="text-sm mt-2">L'IA va challenger votre raisonnement et vous poser des questions provocatrices</p>
+                    </div>
+                  ) : (
+                    historiqueChallenge.map((msg, index) => (
+                      <div key={index} className={`p-4 rounded-lg ${
+                        msg.type === 'reflexion' ? 'bg-blue-900/30 border-l-4 border-blue-400' :
+                        msg.type === 'socratique' ? 'bg-purple-900/30 border-l-4 border-purple-400' :
+                        msg.type === 'approfondissement' ? 'bg-indigo-900/30 border-l-4 border-indigo-400' :
+                        'bg-red-900/30 border-l-4 border-red-400'
+                      }`}>
+                        <div className="flex justify-between items-start mb-2">
+                          <span className="font-semibold text-sm">
+                            {msg.type === 'reflexion' ? '🤔 Votre Réflexion' : 
+                             msg.type === 'socratique' ? '🎯 Challenge Socratique' :
+                             msg.type === 'approfondissement' ? '🔍 Approfondissement' : '❌ Erreur'}
+                          </span>
+                          <span className="text-xs text-gray-400">{msg.timestamp}</span>
+                        </div>
+                        
+                        <div className="text-gray-200 text-sm whitespace-pre-line">{msg.message}</div>
+                        
+                        {/* Questions challengeantes */}
+                        {msg.questions_challengeantes && msg.questions_challengeantes.length > 0 && (
+                          <div className="mt-3 space-y-2">
+                            <div className="text-xs text-purple-300 font-semibold">Questions Challengeantes :</div>
+                            {msg.questions_challengeantes.map((q, i) => (
+                              <div key={i} className="bg-purple-800/20 p-2 rounded text-xs text-purple-200">
+                                🔥 {q}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        
+                        {/* Axes d'évolution */}
+                        {msg.axes_evolution && msg.axes_evolution.length > 0 && (
+                          <div className="mt-3">
+                            <div className="text-xs text-indigo-300 font-semibold mb-1">Axes d'Évolution Identifiés :</div>
+                            <div className="flex flex-wrap gap-1">
+                              {msg.axes_evolution.map((axe, i) => (
+                                <span key={i} className="bg-indigo-800/30 text-indigo-300 px-2 py-1 rounded text-xs">
+                                  {axe}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                        
+                        {/* Niveau de challenge */}
+                        {msg.niveau_challenge && (
+                          <div className="mt-2 flex items-center gap-2">
+                            <span className="text-xs text-gray-400">Niveau de Challenge:</span>
+                            <div className="flex">
+                              {[...Array(5)].map((_, i) => (
+                                <span key={i} className={`text-xs ${i < msg.niveau_challenge ? 'text-red-400' : 'text-gray-600'}`}>
+                                  🔥
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+                
+                {/* Zone de saisie */}
+                <div className="space-y-3">
+                  <textarea
+                    value={reflexionUtilisateur}
+                    onChange={(e) => setReflexionUtilisateur(e.target.value)}
+                    placeholder="Partagez une réflexion sur votre théorie, une hypothèse, ou un questionnement personnel..."
+                    className="w-full h-24 bg-black/20 border-gray-600 text-white placeholder-gray-400 rounded-lg p-3 resize-none"
+                    disabled={isLoading}
+                  />
+                  <div className="flex justify-between items-center">
+                    <Button 
+                      onClick={challengerRaisonnement}
+                      disabled={isLoading || !reflexionUtilisateur.trim()}
+                      className="bg-purple-600 hover:bg-purple-700"
+                    >
+                      {isLoading ? '🔄 Analyse...' : '🎯 Challenger mon Raisonnement'}
+                    </Button>
+                    <div className="text-xs text-gray-400">
+                      {reflexionUtilisateur.length}/500 caractères
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Mode Exploration Conceptuelle */}
+            {modeActuel === 'exploration' && (
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-indigo-400 mb-4">🔍 Exploration Conceptuelle</h3>
+                
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  {concepts.map(concept => (
+                    <button
+                      key={concept.id}
+                      onClick={() => approfondirConcept(concept.id)}
+                      disabled={isLoading}
+                      className="bg-indigo-800/20 hover:bg-indigo-700/30 border border-indigo-600/30 rounded-xl p-4 text-left transition-all"
+                    >
+                      <div className="text-2xl mb-2">{concept.icon}</div>
+                      <div className="text-indigo-300 font-semibold">{concept.nom}</div>
+                      <div className="text-xs text-gray-400 mt-1">Cliquez pour approfondir</div>
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Résultats d'approfondissement */}
+                <div className="space-y-4">
+                  {historiqueChallenge
+                    .filter(item => item.type === 'approfondissement')
+                    .slice(-3)
+                    .map((item, index) => (
+                    <div key={index} className="bg-indigo-900/20 border border-indigo-600/30 rounded-lg p-4">
+                      <div className="text-indigo-300 font-semibold mb-2">
+                        🔍 Analyse de {item.concept}
+                      </div>
+                      <div className="text-gray-200 text-sm mb-3">{item.message}</div>
+                      
+                      {item.lacunes && (
+                        <div className="mb-3">
+                          <div className="text-xs text-yellow-300 font-semibold mb-1">Lacunes Identifiées :</div>
+                          {item.lacunes.map((lacune, i) => (
+                            <div key={i} className="text-xs text-yellow-200 bg-yellow-900/20 p-2 rounded mb-1">
+                              ⚠️ {lacune}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Panneau latéral */}
+          <div className="space-y-4">
+            
+            {/* Exemples de réflexions */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <h4 className="font-semibold text-purple-400 mb-3">💡 Exemples de Réflexions</h4>
+              <div className="space-y-2">
+                {exemplesReflexions.map((exemple, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setReflexionUtilisateur(exemple)}
+                    className="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-white/10 p-2 rounded transition-colors"
+                  >
+                    • {exemple}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Axes d'évolution identifiés */}
+            {axesEvolution.length > 0 && (
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                <h4 className="font-semibold text-indigo-400 mb-3">🚀 Axes d'Évolution</h4>
+                <div className="space-y-2">
+                  {axesEvolution.slice(-5).map((axe, index) => (
+                    <div key={index} className="text-xs text-indigo-300 bg-indigo-900/20 p-2 rounded">
+                      📈 {axe.titre}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Objectif */}
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <h4 className="font-semibold text-green-400 mb-3">🎯 Objectif</h4>
+              <div className="text-xs text-gray-300 space-y-2">
+                <p><strong>Développer une version plus sophistiquée</strong> de votre théorie "L'univers est au carré"</p>
+                <p><strong>Identifier les lacunes conceptuelles</strong> et les axes d'amélioration</p>
+                <p><strong>Élever votre raisonnement</strong> par un questionnement socratique rigoureux</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// ===============================================
 // COMPOSANT IA ÉVOLUTIVE - QUESTIONNEMENT ADAPTATIF  
 // ===============================================
 
