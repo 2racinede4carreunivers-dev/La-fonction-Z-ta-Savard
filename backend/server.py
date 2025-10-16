@@ -12,6 +12,9 @@ from emergentintegrations.llm.chat import LlmChat, UserMessage
 import math
 import base64
 import json
+
+# Import du système évolutif
+from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
 
