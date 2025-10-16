@@ -10112,6 +10112,7 @@ function App() {
           <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
           <Route path="/salon-lecture" element={<SalonLecturePage />} />
           <Route path="/salle-illustrations" element={<SalleIllustrationsPage />} />
+          <Route path="/ia-evolutif" element={<IAEvolutifPage />} />
         </Routes>
       </div>
     </Router>
