@@ -129,6 +129,14 @@ const HomePage = () => {
                 <span className="w-5 h-5 mr-2">🧠</span>
                 IA Évolutive
               </Button>
+              
+              <Button 
+                onClick={() => navigate('/ia-socratique')}
+                className="bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                <span className="w-5 h-5 mr-2">🎯</span>
+                Partenaire Intellectuel
+              </Button>
             </div>
 
             {/* Statistiques enrichies */}
