@@ -1816,6 +1816,120 @@ async def supprimer_question(question_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur suppression Q&R: {str(e)}")
 
+# ===============================================
+# IA SOCRATIQUE - PARTENAIRE INTELLECTUEL
+# ===============================================
+
+class DialogueSocratiqueRequest(BaseModel):
+    reflexion_utilisateur: str
+    contexte_session: Optional[str] = None
+
+class DialogueSocratiqueResponse(BaseModel):
+    reponse_socratique: str
+    questions_challengeantes: List[str]
+    axes_evolution_identifies: List[str]
+    niveau_challenge: int
+    concepts_analyses: List[str]
+
+@app.post("/api/ia-socratique/challenger", response_model=DialogueSocratiqueResponse)
+async def challenger_raisonnement(dialogue: DialogueSocratiqueRequest):
+    """
+    IA Socratique pour challenger et élever le raisonnement de Philippe Thomas Savard
+    Analyse la réflexion et pose des questions provocatrices pour l'évolution théorique
+    """
+    try:
+        # Analyse socratique du raisonnement
+        resultat = await ia_socratique.analyser_et_challenger(dialogue.reflexion_utilisateur)
+        
+        return DialogueSocratiqueResponse(
+            reponse_socratique=resultat["reponse_socratique"],
+            questions_challengeantes=resultat["questions_challengeantes"],
+            axes_evolution_identifies=resultat["axes_evolution_identifies"],
+            niveau_challenge=resultat["niveau_challenge_global"],
+            concepts_analyses=resultat["concepts_analyses"]
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur IA socratique: {str(e)}")
+
+@app.post("/api/ia-socratique/approfondir")
+async def approfondir_concept(concept_request: dict):
+    """
+    Approfondissement socratique d'un concept spécifique
+    Génère des questions pour challenger un aspect particulier de la théorie
+    """
+    try:
+        concept = concept_request.get("concept", "")
+        contexte = concept_request.get("contexte", "")
+        
+        if not concept:
+            raise HTTPException(status_code=400, detail="Concept à approfondir requis")
+        
+        # Analyse spécifique du concept
+        analyse = await ia_socratique.analyseur.analyser_concept(concept, contexte)
+        
+        # Génération de questions challengeantes
+        question_socratique = await ia_socratique.generateur_questions.generer_question_challengeante(
+            analyse, contexte
+        )
+        
+        return {
+            "concept_analyse": concept,
+            "solidite_logique": analyse.solidite_logique,
+            "lacunes_identifiees": analyse.lacunes_identifiees,
+            "questions_emergentes": analyse.questions_emergentes,
+            "question_challengeante": question_socratique.question,
+            "niveau_challenge": question_socratique.niveau_challenge,
+            "angle_approche": question_socratique.angle_approche,
+            "type_reponse_attendue": question_socratique.reponse_attendue_type
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur approfondissement concept: {str(e)}")
+
+@app.get("/api/ia-socratique/axes-evolution")
+async def obtenir_axes_evolution_theorique():
+    """
+    Récupération des axes d'évolution identifiés pour la théorie
+    Vue d'ensemble des directions d'amélioration possibles
+    """
+    try:
+        axes_evolution = {
+            "axes_prioritaires": [
+                "Formalisation rigoureuse des constantes dans les formules",
+                "Démonstration de l'universalité du rapport 1/2", 
+                "Extension de la géométrie carrée aux dimensions supérieures",
+                "Connexion avec la théorie analytique des nombres classique"
+            ],
+            "questions_fondamentales": [
+                "Comment démontrer mathématiquement l'unicité de vos formules?",
+                "Quelles sont les limites de validité de votre théorie?",
+                "Comment votre approche se généralise-t-elle à d'autres domaines?",
+                "Quelles prédictions testables fait votre théorie?"
+            ],
+            "lacunes_a_combler": [
+                "Preuves formelles des convergences",
+                "Validation empirique sur de grands ensembles",
+                "Comparaison systématique avec les approches classiques",
+                "Développement d'applications pratiques"
+            ],
+            "opportunites_extension": [
+                "Géométrie non-euclidienne et théorie",
+                "Applications en cryptographie",
+                "Liens avec la physique théorique",
+                "Algorithmes optimisés pour le calcul de nombres premiers"
+            ]
+        }
+        
+        return {
+            "axes_evolution_theorique": axes_evolution,
+            "objectif": "Développer une version plus sophistiquée et rigoureuse de 'L'univers est au carré'",
+            "approche_recommandee": "Questionnement socratique systématique pour identifier et combler les lacunes conceptuelles"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur axes évolution: {str(e)}")
+
 @app.get("/api/concepts", response_model=List[ConceptModel])
 async def get_concepts(categorie: Optional[str] = None):
     """Récupère tous les concepts ou filtrés par catégorie"""
