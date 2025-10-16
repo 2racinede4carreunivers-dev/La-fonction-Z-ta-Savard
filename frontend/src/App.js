@@ -10089,6 +10089,410 @@ const SalleIllustrationsPage = () => {
   );
 };
 
+// ===============================================
+// COMPOSANT IA ÉVOLUTIVE - QUESTIONNEMENT ADAPTATIF  
+// ===============================================
+
+const IAEvolutifPage = () => {
+  const [systemeInitialise, setSystemeInitialise] = useState(false);
+  const [questionUtilisateur, setQuestionUtilisateur] = useState('');
+  const [reponseIA, setReponseIA] = useState('');
+  const [historiqueDiagogue, setHistoriqueDiagogue] = useState([]);
+  const [statistiques, setStatistiques] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [showInitialisation, setShowInitialisation] = useState(false);
+  
+  // Banque initiale de 14 questions-réponses
+  const banqueInitiale14 = [
+    {
+      question: "Quelle est la formule de base du Digamma de Philippôt ?",
+      reponse: "La formule fondamentale est ψ(n) = √((n+7)² + (n+8)²), où n représente la position dans la séquence des nombres premiers.",
+      complexite: 3,
+      concepts: ["digamma", "philippot", "nombres_premiers", "formule"]
+    },
+    {
+      question: "Comment résoudre l'énigme de Riemann selon la méthode de Philippôt ?",
+      reponse: "La solution réside dans les deux suites : (√13.203125/2×2^n)-√5 pour la première suite et (√52.8125/2×2^n)-√5445 pour la deuxième suite, révélant un rapport constant de 1/2.",
+      complexite: 5,
+      concepts: ["riemann", "suites", "rapport_constant", "geometrie"]
+    },
+    {
+      question: "Qu'est-ce que la géométrie du spectre des nombres premiers ?",
+      reponse: "C'est l'approche géométrique qui révèle la structure carrée sous-jacente de l'univers mathématique, permettant de visualiser les nombres premiers dans un espace géométrique défini.",
+      complexite: 4,
+      concepts: ["geometrie", "spectre", "nombres_premiers", "structure"]
+    },
+    {
+      question: "Comment fonctionne le rapport triangulaire de 1/2 ?",
+      reponse: "Le rapport triangulaire de 1/2 est constant et sans exception entre les suites de nombres premiers positifs et négatifs, démontrant l'universalité de la théorie.",
+      complexite: 3,
+      concepts: ["rapport_triangulaire", "constante", "nombres_premiers"]
+    },
+    {
+      question: "Quelle est la relation entre l'univers au carré et les nombres premiers ?",
+      reponse: "L'univers au carré révèle que tous les nombres premiers s'inscrivent dans une structure géométrique carrée fondamentale, unifiant mathématiques et géométrie.",
+      complexite: 4,
+      concepts: ["univers_carre", "nombres_premiers", "structure_geometrique"]
+    },
+    {
+      question: "Comment calculer la quantité de nombres entre deux nombres premiers ?",
+      reponse: "La méthode de Philippôt utilise les quatre données : sommes des suites, digamma calculé des deux nombres premiers, puis applique la formule spécifique incluant le zéro.",
+      complexite: 5,
+      concepts: ["quantite_nombres", "methode_philippot", "calcul"]
+    },
+    {
+      question: "Qu'est-ce que la distinction entre cardinal et ordinal des infinis selon Cantor ?",
+      reponse: "Pour le cardinal : ω+1=1+ω, mais pour l'ordinal : 1+ω≠ω+1. Cette distinction est fondamentale dans l'adaptation de Cantor par Philippôt.",
+      complexite: 5,
+      concepts: ["cantor", "cardinal", "ordinal", "infinis"]
+    },
+    {
+      question: "Comment interpréter les couples n×n dans la théorie ?",
+      reponse: "Les couples n×n représentent les relations symétriques entre nombres premiers selon la géométrie carrée, révélant des patterns invariants.",
+      complexite: 4,
+      concepts: ["couples_nn", "symetrie", "patterns"]
+    },
+    {
+      question: "Quelle est l'importance de la position 8 du Digamma ?",
+      reponse: "La position 8 du Digamma est cruciale car elle révèle le point d'équilibre géométrique de la théorie, ancrant la structure dans l'octogone mathématique.",
+      complexite: 4,
+      concepts: ["position_8", "digamma", "equilibre", "octogone"]
+    },
+    {
+      question: "Comment les suites de racines carrées déterminent-elles les nombres premiers ?",
+      reponse: "Les suites de racines carrées créent un réseau géométrique précis où chaque intersection correspond à un nombre premier, selon des règles géométriques strictes.",
+      complexite: 4,
+      concepts: ["suites_racines", "reseau_geometrique", "intersections"]
+    },
+    {
+      question: "Quelle est la cohérence conceptuelle de la théorie L'univers est au carré ?",
+      reponse: "La cohérence réside dans l'unification de tous les concepts mathématiques fondamentaux sous une seule géométrie carrée, créant un système théorique unifié.",
+      complexite: 5,
+      concepts: ["coherence", "unification", "systeme_unifie"]
+    },
+    {
+      question: "Comment la méthode de Philippôt révolutionne-t-elle les mathématiques ?",
+      reponse: "Elle apporte une approche géométrique inédite aux problèmes arithmétiques, résolvant notamment l'énigme de Riemann par la visualisation spatiale.",
+      complexite: 5,
+      concepts: ["revolution", "approche_geometrique", "innovation"]
+    },
+    {
+      question: "Qu'est-ce que le spectre géométrique des nombres premiers ?",
+      reponse: "C'est la représentation visuelle de tous les nombres premiers dans l'espace géométrique carré, révélant leur distribution selon des lois géométriques précises.",
+      complexite: 4,
+      concepts: ["spectre_geometrique", "representation_visuelle", "distribution"]
+    },
+    {
+      question: "Comment interpréter les nombres premiers négatifs dans la théorie ?",
+      reponse: "Les nombres premiers négatifs suivent les mêmes lois géométriques que les positifs, mais avec des paramètres de suites adaptés, maintenant le rapport de 1/2.",
+      complexite: 4,
+      concepts: ["nombres_premiers_negatifs", "lois_geometriques", "parametres"]
+    }
+  ];
+
+  useEffect(() => {
+    verifierInitialisation();
+  }, []);
+
+  const verifierInitialisation = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/api/ia-evolutif/statistiques`);
+      if (response.data.systeme_initialise) {
+        setSystemeInitialise(true);
+        setStatistiques(response.data.statistiques);
+      }
+    } catch (error) {
+      console.error('Erreur vérification initialisation:', error);
+    }
+  };
+
+  const initialiserSysteme = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/ia-evolutif/initialiser`, {
+        banque_initiale: banqueInitiale14
+      });
+      
+      if (response.data.success) {
+        setSystemeInitialise(true);
+        setStatistiques(response.data.statistiques);
+        setShowInitialisation(false);
+        
+        // Message de confirmation
+        setHistoriqueDiagogue([{
+          type: 'systeme',
+          message: '🧠 Système d\'IA évolutive initialisé avec succès ! La banque de 14 questions a été analysée et enrichie avec les concepts de votre théorie. La méta-programmation est maintenant active.',
+          timestamp: new Date().toLocaleString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur initialisation:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const dialoguerAvecIA = async () => {
+    if (!questionUtilisateur.trim() || !systemeInitialise) return;
+    
+    setIsLoading(true);
+    
+    // Ajouter la question à l'historique
+    const nouvelHistorique = [...historiqueDiagogue, {
+      type: 'utilisateur',
+      message: questionUtilisateur,
+      timestamp: new Date().toLocaleString()
+    }];
+    setHistoriqueDiagogue(nouvelHistorique);
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/ia-evolutif/dialoguer`, {
+        question: questionUtilisateur,
+        contexte: "Théorie L'univers est au carré"
+      });
+      
+      // Ajouter la réponse à l'historique
+      setHistoriqueDiagogue(prev => [...prev, {
+        type: 'ia',
+        message: response.data.reponse,
+        concepts_utilises: response.data.concepts_utilises,
+        evolution_silencieuse: response.data.evolution_silencieuse,
+        timestamp: new Date().toLocaleString()
+      }]);
+      
+      setQuestionUtilisateur('');
+      
+      // Mise à jour des statistiques
+      await verifierInitialisation();
+      
+    } catch (error) {
+      console.error('Erreur dialogue:', error);
+      setHistoriqueDiagogue(prev => [...prev, {
+        type: 'erreur',
+        message: 'Erreur de communication avec l\'IA évolutive.',
+        timestamp: new Date().toLocaleString()
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const reinitialiserSysteme = async () => {
+    setIsLoading(true);
+    try {
+      await axios.post(`${API_URL}/api/ia-evolutif/reinitialiser`);
+      setSystemeInitialise(false);
+      setHistoriqueDiagogue([]);
+      setStatistiques(null);
+      setShowInitialisation(true);
+    } catch (error) {
+      console.error('Erreur réinitialisation:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="container mx-auto px-4 py-6">
+        
+        {/* Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400 mb-4">
+            🧠 IA de Questionnement Évolutif
+          </h1>
+          <p className="text-gray-300 text-lg max-w-4xl mx-auto">
+            Partenaire de pensée adaptatif basé sur votre théorie "L'univers est au carré". 
+            Méta-programmation autonome et évolution silencieuse de la banque de connaissances.
+          </p>
+        </div>
+
+        {/* Panneau d'initialisation */}
+        {!systemeInitialise && (
+          <div className="bg-gradient-to-r from-emerald-900/30 to-teal-900/30 border border-emerald-500/30 rounded-xl p-6 mb-6">
+            <h3 className="text-xl font-semibold text-emerald-400 mb-4">🚀 Initialisation du Système</h3>
+            <p className="text-gray-300 mb-4">
+              Le système d'IA évolutive n'est pas encore initialisé. Cette étape va :
+            </p>
+            <ul className="text-gray-300 space-y-2 mb-6">
+              <li>• Analyser les 14 questions-réponses de base</li>
+              <li>• Extraire les concepts des documents PDF (Partie 1 & 2)</li>
+              <li>• Activer la méta-programmation pour l'évolution silencieuse</li>
+              <li>• Créer les connexions conceptuelles avec votre théorie</li>
+            </ul>
+            
+            <Button 
+              onClick={initialiserSysteme}
+              disabled={isLoading}
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
+            >
+              {isLoading ? 'Initialisation...' : '🧠 Initialiser l\'IA Évolutive'}
+            </Button>
+          </div>
+        )}
+
+        {/* Statistiques d'évolution */}
+        {systemeInitialise && statistiques && (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <div className="text-2xl font-bold text-emerald-400">{statistiques.taille_banque_actuelle}</div>
+              <div className="text-sm text-gray-400">Questions-Réponses</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <div className="text-2xl font-bold text-teal-400">{statistiques.nombre_evolutions}</div>
+              <div className="text-sm text-gray-400">Évolutions</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <div className="text-2xl font-bold text-cyan-400">{statistiques.concepts_theoriques_couverts}</div>
+              <div className="text-sm text-gray-400">Concepts PDF</div>
+            </div>
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+              <div className="text-2xl font-bold text-purple-400">🔄</div>
+              <div className="text-sm text-gray-400">Méta-prog Active</div>
+            </div>
+          </div>
+        )}
+
+        {/* Interface de dialogue */}
+        {systemeInitialise && (
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            {/* Zone de dialogue principal */}
+            <div className="lg:col-span-2">
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-emerald-400 mb-4">💬 Dialogue Évolutif</h3>
+                
+                {/* Historique */}
+                <div className="h-96 overflow-y-auto mb-4 space-y-4 border border-gray-700 rounded-lg p-4 bg-black/20">
+                  {historiqueDiagogue.length === 0 ? (
+                    <div className="text-center text-gray-400 py-8">
+                      <p>🧠 Posez votre première question sur la théorie "L'univers est au carré"</p>
+                      <p className="text-sm mt-2">L'IA évoluera silencieusement sa banque de connaissances à chaque interaction</p>
+                    </div>
+                  ) : (
+                    historiqueDiagogue.map((msg, index) => (
+                      <div key={index} className={`p-3 rounded-lg ${
+                        msg.type === 'utilisateur' ? 'bg-blue-900/30 border-l-4 border-blue-400' :
+                        msg.type === 'ia' ? 'bg-emerald-900/30 border-l-4 border-emerald-400' :
+                        msg.type === 'systeme' ? 'bg-purple-900/30 border-l-4 border-purple-400' :
+                        'bg-red-900/30 border-l-4 border-red-400'
+                      }`}>
+                        <div className="flex justify-between items-start mb-2">
+                          <span className="font-semibold text-sm">
+                            {msg.type === 'utilisateur' ? '👤 Vous' : 
+                             msg.type === 'ia' ? '🧠 IA Évolutive' :
+                             msg.type === 'systeme' ? '⚙️ Système' : '❌ Erreur'}
+                          </span>
+                          <span className="text-xs text-gray-400">{msg.timestamp}</span>
+                        </div>
+                        <div className="text-gray-200 text-sm">{msg.message}</div>
+                        {msg.concepts_utilises && msg.concepts_utilises.length > 0 && (
+                          <div className="mt-2 flex flex-wrap gap-1">
+                            {msg.concepts_utilises.map(concept => (
+                              <span key={concept} className="bg-emerald-800/30 text-emerald-300 px-2 py-1 rounded text-xs">
+                                {concept}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                        {msg.evolution_silencieuse && (
+                          <div className="mt-2 text-xs text-teal-400">
+                            🔄 Évolution silencieuse activée
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+                
+                {/* Zone de saisie */}
+                <div className="flex gap-2">
+                  <Input
+                    value={questionUtilisateur}
+                    onChange={(e) => setQuestionUtilisateur(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && dialoguerAvecIA()}
+                    placeholder="Posez votre question sur la théorie L'univers est au carré..."
+                    className="flex-1 bg-black/20 border-gray-600 text-white placeholder-gray-400"
+                    disabled={isLoading}
+                  />
+                  <Button 
+                    onClick={dialoguerAvecIA}
+                    disabled={isLoading || !questionUtilisateur.trim()}
+                    className="bg-emerald-600 hover:bg-emerald-700"
+                  >
+                    {isLoading ? '🔄' : '📤'}
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            {/* Panneau de contrôle */}
+            <div className="space-y-4">
+              
+              {/* Informations système */}
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                <h4 className="font-semibold text-teal-400 mb-3">📊 État du Système</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Méta-programmation</span>
+                    <span className="text-green-400">✅ Active</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Évolution silencieuse</span>
+                    <span className="text-green-400">✅ Opérationnelle</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Documents PDF</span>
+                    <span className="text-green-400">✅ Analysés</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Base conceptuelle</span>
+                    <span className="text-green-400">✅ Intégrée</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Questions d'exemple */}
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                <h4 className="font-semibold text-purple-400 mb-3">💡 Exemples de Questions</h4>
+                <div className="space-y-2">
+                  {[
+                    "Comment fonctionne le Digamma de Philippôt ?",
+                    "Quelle est la solution à l'énigme de Riemann ?",
+                    "Expliquez le rapport triangulaire de 1/2",
+                    "Comment calculer les nombres premiers ?"
+                  ].map((exemple, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setQuestionUtilisateur(exemple)}
+                      className="w-full text-left text-xs text-gray-300 hover:text-white hover:bg-white/10 p-2 rounded transition-colors"
+                    >
+                      • {exemple}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl p-4">
+                <h4 className="font-semibold text-red-400 mb-3">⚙️ Actions</h4>
+                <Button 
+                  onClick={reinitialiserSysteme}
+                  variant="outline"
+                  className="w-full text-red-400 border-red-400 hover:bg-red-400 hover:text-white"
+                  disabled={isLoading}
+                >
+                  🔄 Réinitialiser
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 // App principale
 function App() {
   // États de navigation et de contenu
