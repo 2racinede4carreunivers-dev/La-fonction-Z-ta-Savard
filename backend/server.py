@@ -102,6 +102,25 @@ class SearchQuery(BaseModel):
 
 class CalculateurRequest(BaseModel):
     rapport_base: int
+
+# Modèles pour le système évolutif
+class QuestionEvolutive(BaseModel):
+    question: str
+    reponse: str
+    complexite: Optional[int] = 2
+    concepts: Optional[List[str]] = []
+
+class DialogueRequest(BaseModel):
+    question: str
+    contexte: Optional[str] = None
+
+class DialogueResponse(BaseModel):
+    reponse: str
+    concepts_utilises: List[str]
+    evolution_silencieuse: bool
+
+class InitialisationBanque(BaseModel):
+    banque_initiale: List[QuestionEvolutive]
     rapport_hauteur: int
 
 class DocumentUpload(BaseModel):
