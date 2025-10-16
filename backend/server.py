@@ -1570,6 +1570,247 @@ async def obtenir_concepts_theoriques():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération concepts: {str(e)}")
 
+# ===============================================
+# GESTION MANUELLE DE LA BANQUE ÉVOLUTIVE
+# ===============================================
+
+@app.post("/api/ia-evolutif/ajouter-question")
+async def ajouter_question_manuelle(nouvelle_qr: QuestionEvolutive):
+    """
+    Ajout manuel d'une question-réponse à la banque évolutive
+    Permet à l'utilisateur d'enrichir sa banque avec ses propres Q&R
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        # Création d'une nouvelle entrée QuestionReponse
+        from modules.evolutionary_qa_system import QuestionReponse
+        import uuid
+        from datetime import datetime
+        
+        nouvelle_entree = QuestionReponse(
+            id=str(uuid.uuid4()),
+            question=nouvelle_qr.question,
+            reponse=nouvelle_qr.reponse,
+            contexte_theorique=["L'univers est au carré", "Ajout manuel utilisateur"],
+            niveau_complexite=nouvelle_qr.complexite or 3,
+            variantes=[],
+            concepts_cles=nouvelle_qr.concepts or [],
+            frequence_utilisation=0,
+            derniere_evolution=datetime.now().isoformat(),
+            meta_score=0.7,  # Score élevé car ajouté manuellement
+            relations_internes=[]
+        )
+        
+        # Ajout à la banque
+        ia_evolutif.banque_evolutive.banque.append(nouvelle_entree)
+        
+        # Sauvegarde immédiate
+        await ia_evolutif.banque_evolutive._sauvegarder_banque()
+        
+        return {
+            "success": True,
+            "message": "Question-réponse ajoutée avec succès à la banque évolutive",
+            "id_cree": nouvelle_entree.id,
+            "taille_banque": len(ia_evolutif.banque_evolutive.banque),
+            "evolution_silencieuse": "La nouvelle Q&R sera intégrée dans l'évolution automatique"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur ajout Q&R: {str(e)}")
+
+@app.post("/api/ia-evolutif/importer-questions")
+async def importer_questions_lot(fichier_qr: dict):
+    """
+    Import en lot de plusieurs questions-réponses
+    Format: {"questions": [{"question": "...", "reponse": "...", "complexite": 3, "concepts": [...]}]}
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        questions_a_importer = fichier_qr.get("questions", [])
+        
+        if not questions_a_importer:
+            raise HTTPException(status_code=400, detail="Aucune question à importer")
+        
+        questions_ajoutees = []
+        
+        for qr_data in questions_a_importer:
+            # Validation des données
+            if not qr_data.get("question") or not qr_data.get("reponse"):
+                continue
+                
+            from modules.evolutionary_qa_system import QuestionReponse
+            import uuid
+            from datetime import datetime
+            
+            nouvelle_entree = QuestionReponse(
+                id=str(uuid.uuid4()),
+                question=qr_data["question"],
+                reponse=qr_data["reponse"],
+                contexte_theorique=["L'univers est au carré", "Import lot utilisateur"],
+                niveau_complexite=qr_data.get("complexite", 3),
+                variantes=[],
+                concepts_cles=qr_data.get("concepts", []),
+                frequence_utilisation=0,
+                derniere_evolution=datetime.now().isoformat(),
+                meta_score=0.7,
+                relations_internes=[]
+            )
+            
+            ia_evolutif.banque_evolutive.banque.append(nouvelle_entree)
+            questions_ajoutees.append(nouvelle_entree.question[:50] + "...")
+        
+        # Sauvegarde
+        await ia_evolutif.banque_evolutive._sauvegarder_banque()
+        
+        return {
+            "success": True,
+            "message": f"{len(questions_ajoutees)} questions importées avec succès",
+            "questions_ajoutees": questions_ajoutees,
+            "taille_banque_finale": len(ia_evolutif.banque_evolutive.banque)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur import lot: {str(e)}")
+
+@app.get("/api/ia-evolutif/voir-banque")
+async def voir_banque_complete():
+    """
+    Visualisation complète de la banque évolutive
+    Permet de voir toutes les Q&R (originales + évoluées + ajoutées manuellement)
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        banque_complete = []
+        
+        for qr in ia_evolutif.banque_evolutive.banque:
+            banque_complete.append({
+                "id": qr.id,
+                "question": qr.question,
+                "reponse": qr.reponse,
+                "complexite": qr.niveau_complexite,
+                "concepts": qr.concepts_cles,
+                "source": "Manuelle" if "manuel" in qr.contexte_theorique[0].lower() else "Évolutive",
+                "utilisation": qr.frequence_utilisation,
+                "derniere_evolution": qr.derniere_evolution,
+                "meta_score": qr.meta_score,
+                "variantes_count": len(qr.variantes)
+            })
+        
+        return {
+            "banque_complete": banque_complete,
+            "statistiques": {
+                "total_questions": len(banque_complete),
+                "questions_manuelles": len([q for q in banque_complete if q["source"] == "Manuelle"]),
+                "questions_evolutives": len([q for q in banque_complete if q["source"] == "Évolutive"]),
+                "concepts_uniques": len(set(concept for qr in banque_complete for concept in qr["concepts"])),
+                "complexite_moyenne": sum(qr["complexite"] for qr in banque_complete) / len(banque_complete) if banque_complete else 0
+            }
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur visualisation banque: {str(e)}")
+
+@app.put("/api/ia-evolutif/modifier-question/{question_id}")
+async def modifier_question(question_id: str, qr_modifiee: QuestionEvolutive):
+    """
+    Modification d'une question-réponse existante dans la banque
+    Permet d'ajuster les Q&R manuellement
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        # Recherche de la Q&R à modifier
+        qr_trouvee = None
+        index_qr = -1
+        
+        for i, qr in enumerate(ia_evolutif.banque_evolutive.banque):
+            if qr.id == question_id:
+                qr_trouvee = qr
+                index_qr = i
+                break
+        
+        if not qr_trouvee:
+            raise HTTPException(status_code=404, detail="Question non trouvée")
+        
+        # Modification
+        from datetime import datetime
+        
+        qr_trouvee.question = qr_modifiee.question
+        qr_trouvee.reponse = qr_modifiee.reponse
+        qr_trouvee.niveau_complexite = qr_modifiee.complexite or qr_trouvee.niveau_complexite
+        qr_trouvee.concepts_cles = qr_modifiee.concepts or qr_trouvee.concepts_cles
+        qr_trouvee.derniere_evolution = datetime.now().isoformat()
+        qr_trouvee.meta_score = min(qr_trouvee.meta_score + 0.1, 1.0)  # Légère augmentation du score
+        
+        # Ajout dans le contexte qu'elle a été modifiée manuellement
+        if "Modifié manuellement" not in qr_trouvee.contexte_theorique:
+            qr_trouvee.contexte_theorique.append("Modifié manuellement")
+        
+        # Sauvegarde
+        await ia_evolutif.banque_evolutive._sauvegarder_banque()
+        
+        return {
+            "success": True,
+            "message": "Question-réponse modifiée avec succès",
+            "question_modifiee": qr_trouvee.question[:50] + "...",
+            "derniere_evolution": qr_trouvee.derniere_evolution
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur modification Q&R: {str(e)}")
+
+@app.delete("/api/ia-evolutif/supprimer-question/{question_id}")
+async def supprimer_question(question_id: str):
+    """
+    Suppression d'une question-réponse de la banque évolutive
+    À utiliser avec précaution car la suppression est définitive
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        # Recherche et suppression
+        banque_originale = len(ia_evolutif.banque_evolutive.banque)
+        question_supprimee = None
+        
+        ia_evolutif.banque_evolutive.banque = [
+            qr for qr in ia_evolutif.banque_evolutive.banque 
+            if qr.id != question_id
+        ]
+        
+        if len(ia_evolutif.banque_evolutive.banque) == banque_originale:
+            raise HTTPException(status_code=404, detail="Question non trouvée")
+        
+        # Sauvegarde
+        await ia_evolutif.banque_evolutive._sauvegarder_banque()
+        
+        return {
+            "success": True,
+            "message": "Question-réponse supprimée avec succès",
+            "taille_banque": len(ia_evolutif.banque_evolutive.banque),
+            "questions_supprimees": 1
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur suppression Q&R: {str(e)}")
+
 @app.get("/api/concepts", response_model=List[ConceptModel])
 async def get_concepts(categorie: Optional[str] = None):
     """Récupère tous les concepts ou filtrés par catégorie"""
