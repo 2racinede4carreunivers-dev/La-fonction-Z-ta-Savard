@@ -421,32 +421,193 @@ class IASocratiqueEvolutive:
                                            analyses: List[AnalyseConcept],
                                            questions: List[QuestionSocratique],
                                            axes_evolution: List[str]) -> str:
-        """Construction de la réponse socratique complète"""
+        """Construction de la réponse socratique dynamique basée sur le contenu"""
         
-        # Introduction reconnaissance + challenge
-        intro = "Je vois que vous explorez des aspects fondamentaux de votre théorie. "
+        # Analyse du contenu spécifique de l'utilisateur
+        mots_cles_detectes = await self._extraire_mots_cles_specifiques(input_utilisateur)
+        intention_detectee = await self._analyser_intention(input_utilisateur)
         
-        # Analyse critique constructive
-        if analyses:
-            analyse_principale = analyses[0]
-            if analyse_principale.solidite_logique > 0.8:
-                intro += f"Votre développement sur {analyse_principale.concept} montre une solide base conceptuelle. "
+        # Construction dynamique de la réponse
+        response_parts = []
+        
+        # 1. Reconnaissance spécifique du contenu
+        if "formule" in input_utilisateur.lower() or "ψ" in input_utilisateur or "digamma" in input_utilisateur.lower():
+            response_parts.append("Vous vous interrogez sur les aspects formels de votre Digamma. C'est précisément là qu'une approche plus rigoureuse pourrait transformer votre innovation en révolution mathématique.")
+        elif "riemann" in input_utilisateur.lower() or "√13.203125" in input_utilisateur or "√52.8125" in input_utilisateur:
+            response_parts.append("Votre approche des suites de Riemann révèle une intuition géométrique profonde. Mais qu'est-ce qui distingue votre solution des tentatives antérieures?")
+        elif "rapport" in input_utilisateur.lower() and "1/2" in input_utilisateur:
+            response_parts.append("Ce rapport constant de 1/2 que vous observez est intrigant. L'universalité que vous revendiquez nécessite-t-elle une démonstration plus formelle?")
+        elif "géométrie" in input_utilisateur.lower() or "carré" in input_utilisateur.lower():
+            response_parts.append("La géométrie carrée comme fondement universel est audacieuse. Comment cette vision se confronte-t-elle aux géométries non-euclidiennes?")
+        else:
+            # Analyse du sentiment et de l'incertitude
+            if "je pense" in input_utilisateur.lower() or "il me semble" in input_utilisateur.lower():
+                response_parts.append("Votre intuition mérite d'être creusée. Transformons cette pensée en démonstration rigoureuse.")
+            elif "problème" in input_utilisateur.lower() or "difficulté" in input_utilisateur.lower():
+                response_parts.append("Vous identifiez une tension conceptuelle. C'est souvent là que naissent les percées théoriques.")
             else:
-                intro += f"Votre approche de {analyse_principale.concept} ouvre des perspectives intéressantes qui méritent d'être approfondies. "
+                response_parts.append("Votre réflexion touche un point fondamental de votre théorie.")
         
-        # Question socratique principale
-        question_principale = ""
+        # 2. Question socratique spécifique et dynamique
         if questions:
-            question_principale = f"\n\n🤔 **Question pour élever votre raisonnement :** {questions[0].question}"
+            question_dynamique = await self._personnaliser_question(questions[0], input_utilisateur, mots_cles_detectes)
+            response_parts.append(f"\n\n🎯 **Voici ma question pour vous challenger :** {question_dynamique}")
         
-        # Axes d'évolution
-        evolution_section = ""
-        if axes_evolution:
-            evolution_section = f"\n\n🚀 **Axes d'évolution identifiés :**\n"
-            for axe in axes_evolution[:3]:  # Limite à 3 axes
-                evolution_section += f"• {axe}\n"
+        # 3. Challenge spécifique basé sur le contenu
+        challenges_specifiques = await self._generer_challenges_specifiques(input_utilisateur, mots_cles_detectes)
+        if challenges_specifiques:
+            response_parts.append(f"\n\n🔥 **Points de tension à explorer :**")
+            for challenge in challenges_specifiques[:2]:
+                response_parts.append(f"• {challenge}")
         
-        # Challenge constructif final
-        challenge_final = "\n\n💡 **Pour la prochaine version de votre théorie**, considérez : Comment ces éléments pourraient-ils s'articuler de manière encore plus cohérente et rigoureuse?"
+        # 4. Suggestion d'approfondissement contextuelle
+        suggestion = await self._generer_suggestion_contextuelle(input_utilisateur, intention_detectee)
+        response_parts.append(f"\n\n💡 **Pour élever votre théorie :** {suggestion}")
         
-        return intro + question_principale + evolution_section + challenge_final
+        return "\n".join(response_parts)
+    
+    async def _extraire_mots_cles_specifiques(self, texte: str) -> List[str]:
+        """Extraction des mots-clés spécifiques du texte utilisateur"""
+        mots_cles = []
+        texte_lower = texte.lower()
+        
+        # Formules et constantes spécifiques
+        if "ψ" in texte or "digamma" in texte_lower:
+            mots_cles.append("digamma_formule")
+        if "√13.203125" in texte or "13.203125" in texte:
+            mots_cles.append("constante_riemann_1")
+        if "√52.8125" in texte or "52.8125" in texte:
+            mots_cles.append("constante_riemann_2")
+        if "+7" in texte and "+8" in texte:
+            mots_cles.append("constantes_digamma")
+        if "1/2" in texte or "½" in texte:
+            mots_cles.append("rapport_demi")
+        
+        # Concepts théoriques
+        concepts_detectes = ["généralisation", "extension", "démonstration", "preuve", "limitation", 
+                           "exception", "universalité", "cohérence", "rigoureux", "fondement"]
+        
+        for concept in concepts_detectes:
+            if concept in texte_lower:
+                mots_cles.append(f"concept_{concept}")
+        
+        return mots_cles
+    
+    async def _analyser_intention(self, texte: str) -> str:
+        """Analyse de l'intention derrière la réflexion"""
+        texte_lower = texte.lower()
+        
+        if any(word in texte_lower for word in ["pourquoi", "comment", "qu'est-ce que"]):
+            return "questionnement"
+        elif any(word in texte_lower for word in ["je pense", "il me semble", "peut-être"]):
+            return "hypothese"
+        elif any(word in texte_lower for word in ["problème", "difficulté", "contradiction"]):
+            return "obstacle"
+        elif any(word in texte_lower for word in ["généraliser", "étendre", "appliquer"]):
+            return "extension"
+        elif any(word in texte_lower for word in ["démontrer", "prouver", "valider"]):
+            return "validation"
+        else:
+            return "reflexion_generale"
+    
+    async def _personnaliser_question(self, question_base: QuestionSocratique, 
+                                    input_utilisateur: str, mots_cles: List[str]) -> str:
+        """Personnalisation de la question socratique basée sur le contenu spécifique"""
+        
+        # Questions personnalisées selon les mots-clés détectés
+        if "constantes_digamma" in mots_cles:
+            return "Pourquoi précisément +7 et +8 dans votre Digamma ? Avez-vous testé d'autres paires de constantes consécutives ? Qu'est-ce qui rend cette combinaison unique ?"
+        
+        elif "constante_riemann_1" in mots_cles or "constante_riemann_2" in mots_cles:
+            return "D'où viennent exactement ces constantes √13.203125 et √52.8125 ? Sont-elles dérivées théoriquement ou découvertes empiriquement ? Cette distinction est cruciale pour la validité de votre approche."
+        
+        elif "rapport_demi" in mots_cles:
+            return "Votre rapport constant de 1/2 - est-ce vraiment universel SANS EXCEPTION comme vous l'affirmez ? Comment gérez-vous les cas limites : nombres premiers très grands, premiers jumeaux, ou configurations particulières ?"
+        
+        elif "concept_généralisation" in mots_cles:
+            return "Votre instinct de généralisation est juste, mais sur quels critères basez-vous cette extension ? Quels sont les invariants qui doivent être préservés ?"
+        
+        elif "concept_démonstration" in mots_cles:
+            return "Une démonstration rigoureuse nécessite des axiomes clairs. Quels sont les fondements logiques incontestables de votre théorie ? Où commence votre système axiomatique ?"
+        
+        elif "concept_limitation" in mots_cles:
+            return "Identifier les limites est sage. Mais ces limites sont-elles intrinsèques à votre théorie ou indiquent-elles des voies d'amélioration ? Comment distinguer les deux ?"
+        
+        else:
+            # Analyse du contenu pour une question contextuelle
+            if "univers" in input_utilisateur.lower() and "carré" in input_utilisateur.lower():
+                return "Votre 'univers au carré' implique-t-il que d'autres géométries (triangulaire, hexagonale, fractale) sont impossibles ? Ou révèlent-elles des aspects complémentaires de votre théorie ?"
+            else:
+                return question_base.question
+    
+    async def _generer_challenges_specifiques(self, input_utilisateur: str, mots_cles: List[str]) -> List[str]:
+        """Génération de challenges spécifiques au contenu"""
+        challenges = []
+        
+        # Challenges basés sur les formules mentionnées
+        if "digamma" in input_utilisateur.lower() or "ψ" in input_utilisateur:
+            challenges.append("Votre Digamma prédit-elle des propriétés des nombres premiers que les méthodes classiques ratent ?")
+            challenges.append("Comment votre formule se comporte-t-elle pour les très grands nombres premiers (>10^12) ?")
+        
+        # Challenges pour les suites de Riemann
+        if "riemann" in input_utilisateur.lower() or any("13.203125" in input_utilisateur or "52.8125" in input_utilisateur):
+            challenges.append("Vos suites convergent-elles ? Vers quoi ? Cette convergence est-elle liée aux zéros de Riemann ?")
+            challenges.append("Pourquoi votre approche géométrique réussit-elle là où l'analyse complexe classique échoue ?")
+        
+        # Challenges pour la géométrie carrée
+        if "géométrie" in input_utilisateur.lower() or "carré" in input_utilisateur.lower():
+            challenges.append("En quoi une géométrie carrée est-elle plus 'naturelle' que les géométries courbes de la relativité ?")
+            challenges.append("Votre géométrie carrée prédit-elle des phénomènes physiques observables ?")
+        
+        # Challenges généraux selon l'intention
+        if "je pense" in input_utilisateur.lower():
+            challenges.append("Comment transformer cette intuition en théorème démontrable ?")
+        
+        if "peut-être" in input_utilisateur.lower() or "il me semble" in input_utilisateur.lower():
+            challenges.append("Quelles expériences ou calculs pourraient confirmer ou infirmer cette hypothèse ?")
+        
+        return challenges
+    
+    async def _generer_suggestion_contextuelle(self, input_utilisateur: str, intention: str) -> str:
+        """Génération d'une suggestion contextuelle pour l'évolution"""
+        
+        suggestions_par_intention = {
+            "questionnement": "Transformez vos questions en hypothèses testables. Chaque 'pourquoi' peut devenir une prédiction vérifiable.",
+            "hypothese": "Formalisez cette intuition. Quels seraient les corollaires logiques ? Quelles prédictions spécifiques en découlent ?",
+            "obstacle": "Les obstacles révèlent souvent des simplifications excessives. Complexifiez votre modèle pour intégrer ces cas problématiques.",
+            "extension": "L'extension nécessite la préservation des propriétés fondamentales. Identifiez d'abord les invariants de votre théorie.",
+            "validation": "La validation nécessite des critères de falsifiabilité. Que devrait-on observer si votre théorie était fausse ?",
+            "reflexion_generale": "Connectez cette réflexion aux autres aspects de votre théorie. Où sont les ponts conceptuels ?"
+        }
+        
+        return suggestions_par_intention.get(intention, 
+            "Élargissez cette réflexion : quelles implications pour l'ensemble de votre théorie ?")
+    
+    async def _identifier_concepts(self, texte: str) -> List[str]:
+        """Identification dynamique des concepts basée sur le contenu réel"""
+        concepts_detectes = []
+        texte_lower = texte.lower()
+        
+        # Détection plus fine basée sur le contenu exact
+        if "ψ" in texte or "digamma" in texte_lower or "+7" in texte or "+8" in texte:
+            concepts_detectes.append("digamma_philippot")
+        
+        if "riemann" in texte_lower or "13.203125" in texte or "52.8125" in texte or "suite" in texte_lower:
+            concepts_detectes.append("suites_riemann")
+        
+        if ("rapport" in texte_lower and "1/2" in texte) or "triangulaire" in texte_lower:
+            concepts_detectes.append("rapport_triangulaire")
+        
+        if "géométrie" in texte_lower or "carré" in texte_lower or "univers" in texte_lower:
+            concepts_detectes.append("geometrie_carree")
+        
+        # Si aucun concept spécifique, analyser l'intention pour choisir le plus pertinent
+        if not concepts_detectes:
+            if "formule" in texte_lower or "calcul" in texte_lower:
+                concepts_detectes.append("digamma_philippot")
+            elif "théorie" in texte_lower or "généraliser" in texte_lower:
+                concepts_detectes.append("geometrie_carree")
+            else:
+                concepts_detectes.append("rapport_triangulaire")  # Concept intermédiaire
+        
+        return concepts_detectes
