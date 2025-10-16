@@ -263,38 +263,87 @@ class GenerateurQuestionsSocratiques:
     async def _construire_question_specifique(self, template: str, 
                                             concept_analyse: AnalyseConcept, 
                                             type_q: str) -> str:
-        """Construction d'une question spécifique basée sur le template"""
+        """Construction d'une question spécifique et variée"""
         
-        questions_specifiques = {
+        # Banques de questions variées pour éviter les répétitions
+        questions_variees = {
             "digamma_philippot": {
-                "contradiction": "Si ψ(n) = √((n+7)² + (n+8)²) est fondamental pour les nombres premiers, pourquoi cette formule n'apparaît-elle pas dans la littérature classique de théorie des nombres? Comment expliquez-vous cette originalité radicale?",
-                "approfondissement": "Votre formule Digamma utilise les constantes +7 et +8. Avez-vous exploré ce qui se passe avec d'autres paires de constantes consécutives? Y a-t-il quelque chose d'unique dans cette paire spécifique?",
-                "extension": "Votre Digamma fonctionne en dimension 1. Avez-vous considéré une généralisation à ψ(n,m) = √((n+a)² + (m+b)²) pour des systèmes de nombres premiers bidimensionnels?",
-                "validation": "Comment pourriez-vous démontrer rigoureusement que votre Digamma capture effectivement l'essence des nombres premiers mieux que les méthodes classiques?"
+                "contradiction": [
+                    "Si ψ(n) = √((n+7)² + (n+8)²) est vraiment fondamental, pourquoi les mathématiciens n'ont-ils pas découvert cette relation avant vous? Qu'est-ce qui les en a empêchés?",
+                    "Votre Digamma utilise +7 et +8, mais d'autres paires comme +5,+6 ou +9,+10 donneraient d'autres résultats. Comment justifier que CETTE paire spécifique révèle la vérité sur les nombres premiers?",
+                    "Si votre formule était correcte, elle devrait prédire des propriétés des nombres premiers inconnues des méthodes classiques. Quelles prédictions spécifiques fait-elle?"
+                ],
+                "approfondissement": [
+                    "D'où viennent précisément les constantes +7 et +8? Sont-elles le résultat d'une déduction logique ou d'une observation empirique? Cette origine détermine la validité théorique.",
+                    "Votre Digamma fonctionne-t-elle encore si on change de base numérique? En base 8 ou 16, obtient-on les mêmes relations?",
+                    "Qu'est-ce qui se passe aux limites: que donne ψ(n) pour des nombres premiers astronomiquement grands? La formule reste-t-elle stable?"
+                ],
+                "extension": [
+                    "Pourriez-vous généraliser votre Digamma en ψ(n,k) = √((n+a)² + (k+b)²) pour capturer des relations entre différents types de nombres?",
+                    "Votre approche géométrique du Digamma s'étend-elle aux nombres complexes? Que devient ψ(n) dans le plan complexe?",
+                    "Si la géométrie carrée est fondamentale, existe-t-il des Digamma pour d'autres formes géométriques (triangulaire, hexagonale)?"
+                ],
+                "validation": [
+                    "Quelle expérience mathématique pourrait falsifier votre Digamma? Un bon théorème doit pouvoir être testé et potentiellement réfuté.",
+                    "Votre Digamma fait-elle des prédictions sur la distribution des nombres premiers que les méthodes classiques ne font pas?",
+                    "Comment votre Digamma se compare-t-elle quantitativement aux estimations du théorème des nombres premiers?"
+                ]
             },
             "suites_riemann": {
-                "contradiction": "Vos suites donnent un rapport constant de 1/2, mais l'hypothèse de Riemann classique concerne la ligne critique Re(s)=1/2. Cette coïncidence est-elle fortuite ou révélatrice d'une connexion profonde?",
-                "approfondissement": "Vos constantes √13.203125 et √52.8125 sont très spécifiques. D'où viennent exactement ces valeurs? Y a-t-il une dérivation théorique ou sont-elles empiriques?",
-                "extension": "Vos suites fonctionnent pour les nombres premiers. Que se passe-t-il si on les applique aux nombres composés ou aux nombres transcendants?",
-                "validation": "Comment votre résolution de l'énigme de Riemann se compare-t-elle aux approches par les zéros de la fonction zêta? Quelles prédictions uniques fait-elle?"
+                "contradiction": [
+                    "Vos suites utilisent √13.203125 et √52.8125. Ces constantes semblent très arbitraires. Pourquoi pas √13.2 ou √52.9? Qu'est-ce qui rend ces valeurs exactes si spéciales?",
+                    "Vous résolvez l'énigme de Riemann, mais votre approche ignore complètement la fonction zêta et l'analyse complexe. N'est-ce pas comme ignorer les fondements mêmes du problème?",
+                    "Si votre solution est correcte, pourquoi le rapport 1/2 n'apparaît-il pas naturellement dans les tentatives classiques de résolution de Riemann?"
+                ],
+                "approfondissement": [
+                    "Comment avez-vous découvert exactement ces constantes √13.203125 et √52.8125? Sont-elles dérivées d'une théorie plus profonde?",
+                    "Vos suites convergent-elles? Vers quelles valeurs? Et cette convergence a-t-elle un sens par rapport aux zéros de Riemann?",
+                    "Que se passe-t-il si on applique vos suites aux nombres de Carmichael ou aux nombres premiers de Mersenne?"
+                ],
+                "extension": [
+                    "Vos suites fonctionnent en dimension 1. Peut-on les étendre à des matrices de suites pour des problèmes multidimensionnels?",
+                    "Si vos suites résolvent Riemann, s'appliquent-elles aux autres conjectures célèbres (Goldbach, nombres premiers jumeaux)?",
+                    "Votre méthode géométrique pourrait-elle s'appliquer à d'autres L-fonctions de la théorie analytique des nombres?"
+                ],
+                "validation": [
+                    "Comment testeriez-vous computationnellement votre solution sur les premiers 10^15 zéros de Riemann?",
+                    "Quelles implications pratiques aurait votre solution (cryptographie, distribution de clés, etc.)?",
+                    "Votre méthode prédit-elle le comportement des écarts entre nombres premiers consécutifs?"
+                ]
             },
-            "rapport_triangulaire": {
-                "contradiction": "Vous affirmez que le rapport 1/2 est universel et sans exception. Mais l'universalité en mathématiques nécessite généralement des preuves rigoureuses. Comment gérez-vous les cas pathologiques ou les nombres premiers très grands?",
-                "approfondissement": "Votre rapport 1/2 inclut le zéro dans son calcul, contrairement aux méthodes classiques. Cette inclusion change-t-elle fondamentalement la nature mathématique de ce que vous mesurez?",
-                "extension": "Si le rapport 1/2 est si fondamental, apparaît-il dans d'autres contextes mathématiques de votre théorie? Y a-t-il d'autres rapports constants similaires?",
-                "validation": "Comment pourriez-vous concevoir une expérience mathématique qui distinguerait votre rapport 1/2 des coïncidences statistiques?"
-            },
-            "geometrie_carree": {
-                "contradiction": "Une géométrie carrée semble très rigide et discrète, mais l'univers physique semble continu et courbe (relativité). Comment réconciliez-vous cette apparente contradiction?",
-                "approfondissement": "Vous parlez de géométrie carrée pour l'univers mathématique. Mais qu'est-ce qui détermine que ce soit spécifiquement le carré et pas d'autres polygones réguliers ou des formes fractales?",
-                "extension": "Votre géométrie carrée pourrait-elle s'étendre aux espaces de Hilbert ou aux variétés différentielles? Comment preserverait-elle ses propriétés essentielles?",
-                "validation": "Quelles conséquences observables votre géométrie carrée prédit-elle qui seraient absentes dans les géométries euclidiennes ou non-euclidiennes classiques?"
-            }
+            "rapport_triangulaire": [
+                "Votre rapport 1/2 'universel et sans exception' - comment cette affirmation résiste-t-elle aux cas pathologiques ou aux configurations extrêmes?",
+                "Vous incluez le zéro dans vos calculs contrairement aux méthodes classiques. Cette modification change-t-elle la nature de ce que vous mesurez?",
+                "Si 1/2 est vraiment fondamental, retrouve-t-on ce rapport dans d'autres contextes mathématiques de votre théorie?"
+            ],
+            "geometrie_carree": [
+                "Pourquoi spécifiquement le carré et pas d'autres formes régulières? Qu'est-ce qui rend la géométrie carrée plus 'vraie' que les autres?",
+                "Comment votre géométrie carrée discrète s'articule-t-elle avec la continuité apparente de l'espace physique?",
+                "Votre géométrie carrée prédit-elle des phénomènes physiques observables qui distingueraient votre théorie?"
+            ]
         }
         
+        import random
         concept = concept_analyse.concept
-        return questions_specifiques.get(concept, {}).get(type_q, 
-            f"Pouvez-vous approfondir votre raisonnement concernant {concept}?")
+        
+        if concept in questions_variees:
+            if isinstance(questions_variees[concept], dict):
+                questions_type = questions_variees[concept].get(type_q, [])
+                if questions_type:
+                    return random.choice(questions_type)
+            else:
+                # Pour les concepts avec une seule liste
+                return random.choice(questions_variees[concept])
+        
+        # Fallback avec variation
+        fallbacks = [
+            f"Qu'est-ce qui vous rend si confiant dans votre approche de {concept}?",
+            f"Comment {concept} résiste-t-il aux objections classiques?",
+            f"Quelles sont les implications les plus profondes de {concept}?",
+            f"Comment généraliseriez-vous {concept} au-delà de son contexte actuel?"
+        ]
+        
+        return random.choice(fallbacks)
     
     def _calculer_niveau_challenge(self, concept_analyse: AnalyseConcept) -> int:
         """Calcule le niveau de challenge basé sur l'analyse"""
