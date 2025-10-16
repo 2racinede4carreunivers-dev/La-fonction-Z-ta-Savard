@@ -121,6 +121,14 @@ const HomePage = () => {
                 <MessageCircle className="w-5 h-5 mr-2" />
                 IA spécialisée
               </Button>
+              
+              <Button 
+                onClick={() => navigate('/ia-evolutif')}
+                className="bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              >
+                <span className="w-5 h-5 mr-2">🧠</span>
+                IA Évolutive
+              </Button>
             </div>
 
             {/* Statistiques enrichies */}
