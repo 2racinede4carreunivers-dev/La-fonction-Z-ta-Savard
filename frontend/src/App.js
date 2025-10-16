@@ -10089,6 +10089,7 @@ const SalleIllustrationsPage = () => {
   );
 };
 
+// App principale
 function App() {
   // États de navigation et de contenu
   const [selectedConcept, setSelectedConcept] = useState(null);
