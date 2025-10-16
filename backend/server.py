@@ -15,6 +15,8 @@ import json
 
 # Import du système évolutif
 from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
+# Import de l'IA socratique
+from modules.ia_socratique_evolutive import IASocratiqueEvolutive
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
 
