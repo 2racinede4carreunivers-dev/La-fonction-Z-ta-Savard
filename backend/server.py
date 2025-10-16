@@ -59,6 +59,10 @@ EMERGENT_LLM_KEY = os.environ.get("EMERGENT_LLM_KEY", "sk-emergent-c20D27d2bDa57
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
 
+# Système d'IA évolutif
+ia_evolutif = IAQuestionnementEvolutif()
+systeme_initialise = False
+
 # Modèles Pydantic
 class ConceptModel(BaseModel):
     id: str
