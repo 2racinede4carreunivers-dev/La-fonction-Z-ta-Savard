@@ -65,6 +65,9 @@ db = client[DB_NAME]
 ia_evolutif = IAQuestionnementEvolutif()
 systeme_initialise = False
 
+# IA Socratique pour challenger le raisonnement
+ia_socratique = IASocratiqueEvolutive()
+
 # Modèles Pydantic
 class ConceptModel(BaseModel):
     id: str
