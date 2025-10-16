@@ -1422,6 +1422,154 @@ async def startup_event():
 async def health_check():
     return {"status": "ok", "message": "L'univers est au carré API - Version enrichie"}
 
+# ===============================================
+# SYSTÈME D'IA ÉVOLUTIF - ENDPOINTS PRINCIPAUX
+# ===============================================
+
+@app.post("/api/ia-evolutif/initialiser")
+async def initialiser_systeme_evolutif(init_data: InitialisationBanque):
+    """
+    Initialisation du système d'IA évolutif avec la banque de 14 questions-réponses
+    Déclenche l'analyse des documents PDF et la méta-programmation
+    """
+    global systeme_initialise
+    
+    try:
+        # Conversion des données d'entrée
+        banque_initiale = []
+        for qr in init_data.banque_initiale:
+            banque_initiale.append({
+                "question": qr.question,
+                "reponse": qr.reponse,
+                "complexite": qr.complexite,
+                "concepts": qr.concepts
+            })
+        
+        # Initialisation du système
+        await ia_evolutif.initialiser_systeme(banque_initiale)
+        systeme_initialise = True
+        
+        # Statistiques d'initialisation
+        stats = await ia_evolutif.obtenir_statistiques_evolution()
+        
+        return {
+            "success": True,
+            "message": "Système d'IA évolutif initialisé avec succès",
+            "statistiques": stats,
+            "analyse_pdf": "Documents PDF analysés et concepts extraits",
+            "meta_programmation": "Méta-programmation activée pour évolution silencieuse"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur initialisation IA évolutif: {str(e)}")
+
+@app.post("/api/ia-evolutif/dialoguer", response_model=DialogueResponse)
+async def dialoguer_avec_ia_evolutif(dialogue: DialogueRequest):
+    """
+    Interface principale de dialogue avec l'IA évolutive
+    Évolution silencieuse automatique de la banque en arrière-plan
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé. Appelez d'abord /api/ia-evolutif/initialiser")
+    
+    try:
+        # Dialogue avec évolution automatique
+        reponse = await ia_evolutif.dialoguer(dialogue.question)
+        
+        # Extraction des concepts utilisés (simulation)
+        concepts_utilises = []
+        mots_cles_theoriques = ["digamma", "riemann", "nombres premiers", "geometrie", "philippot", "univers", "carre"]
+        
+        for concept in mots_cles_theoriques:
+            if concept.lower() in dialogue.question.lower() or concept.lower() in reponse.lower():
+                concepts_utilises.append(concept)
+        
+        return DialogueResponse(
+            reponse=reponse,
+            concepts_utilises=concepts_utilises,
+            evolution_silencieuse=True
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur dialogue IA évolutif: {str(e)}")
+
+@app.get("/api/ia-evolutif/statistiques")
+async def obtenir_statistiques_systeme():
+    """
+    Statistiques d'évolution du système pour monitoring
+    Informations sur l'évolution silencieuse de la banque
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        return {
+            "systeme_initialise": False,
+            "message": "Système non initialisé"
+        }
+    
+    try:
+        stats = await ia_evolutif.obtenir_statistiques_evolution()
+        
+        return {
+            "systeme_initialise": True,
+            "evolution_silencieuse_active": True,
+            "statistiques": stats,
+            "meta_programmation_status": "Opérationnelle",
+            "analyse_pdf_status": "Documents intégrés"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur statistiques: {str(e)}")
+
+@app.post("/api/ia-evolutif/reinitialiser")
+async def reinitialiser_systeme():
+    """
+    Réinitialisation complète du système évolutif
+    Efface l'évolution et repart de la banque initiale
+    """
+    global systeme_initialise
+    
+    try:
+        # Création d'une nouvelle instance
+        global ia_evolutif
+        ia_evolutif = IAQuestionnementEvolutif()
+        systeme_initialise = False
+        
+        return {
+            "success": True,
+            "message": "Système réinitialisé avec succès",
+            "action_requise": "Appeler /api/ia-evolutif/initialiser avec la banque de 14 questions"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur réinitialisation: {str(e)}")
+
+@app.get("/api/ia-evolutif/concepts-theoriques")
+async def obtenir_concepts_theoriques():
+    """
+    Récupération des concepts théoriques extraits des documents PDF
+    Base conceptuelle pour l'évolution de la banque
+    """
+    global systeme_initialise
+    
+    if not systeme_initialise:
+        raise HTTPException(status_code=400, detail="Système non initialisé")
+    
+    try:
+        concepts = ia_evolutif.banque_evolutive.concepts_theoriques
+        
+        return {
+            "concepts_extraits": concepts,
+            "nombre_concepts": len(concepts.get("concepts_fondamentaux", {})),
+            "source": "Analyse automatique des documents PDF Partie 1 & 2",
+            "utilisation": "Base pour l'évolution silencieuse de la banque Q&R"
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération concepts: {str(e)}")
+
 @app.get("/api/concepts", response_model=List[ConceptModel])
 async def get_concepts(categorie: Optional[str] = None):
     """Récupère tous les concepts ou filtrés par catégorie"""
