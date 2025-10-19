@@ -599,7 +599,7 @@ class IASocratiqueEvolutive:
             challenges.append("Comment votre formule se comporte-t-elle pour les très grands nombres premiers (>10^12) ?")
         
         # Challenges pour les suites de Riemann
-        if "riemann" in input_utilisateur.lower() or any("13.203125" in input_utilisateur or "52.8125" in input_utilisateur):
+        if "riemann" in input_utilisateur.lower() or "13.203125" in input_utilisateur or "52.8125" in input_utilisateur:
             challenges.append("Vos suites convergent-elles ? Vers quoi ? Cette convergence est-elle liée aux zéros de Riemann ?")
             challenges.append("Pourquoi votre approche géométrique réussit-elle là où l'analyse complexe classique échoue ?")
         
