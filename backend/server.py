@@ -2610,6 +2610,16 @@ async def chat_with_ai(chat_message: ChatMessage):
         }
         await db.conversations.insert_one(conversation)
         
+        # 🔄 SYNCHRONISATION AVEC L'IA ÉVOLUTIVE
+        # Alimenter l'IA évolutive avec cette conversation si elle est initialisée
+        if systeme_initialise:
+            try:
+                # Utiliser l'IA évolutive pour qu'elle apprenne de cette conversation
+                await ia_evolutif.dialoguer(chat_message.message)
+                print(f"✅ IA Évolutive enrichie avec: {chat_message.message[:50]}...")
+            except Exception as e:
+                print(f"⚠️ Erreur synchronisation IA évolutive: {e}")
+        
         return ChatResponse(response=response, session_id=session_id)
         
     except Exception as e:
