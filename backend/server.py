@@ -2374,6 +2374,8 @@ async def update_personal_context(session_id: str, user_message: str, ai_respons
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat_with_ai(chat_message: ChatMessage):
     """Chat avec l'IA spécialisée dans la théorie 'L'univers est au carré'"""
+    global systeme_initialise
+    
     if not EMERGENT_LLM_KEY:
         raise HTTPException(status_code=500, detail="Clé API manquante")
     
