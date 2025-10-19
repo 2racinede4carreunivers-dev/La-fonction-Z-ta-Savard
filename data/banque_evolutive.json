@@ -1,0 +1,119 @@
+{
+  "banque": [
+    {
+      "id": "adbe9441-7fe8-4ebb-a489-3aca05527f7d",
+      "question": "Test",
+      "reponse": "Test réponse",
+      "contexte_theorique": [
+        "L'univers est au carré"
+      ],
+      "niveau_complexite": 3,
+      "variantes": [],
+      "concepts_cles": [
+        "test"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2025-10-19T12:32:24.201858",
+      "meta_score": 0.5,
+      "relations_internes": []
+    }
+  ],
+  "concepts_theoriques": {
+    "concepts_fondamentaux": {
+      "geometrie_spectre_premiers": {
+        "description": "Géométrie du spectre des nombres premiers",
+        "mots_cles": [
+          "spectre",
+          "nombres_premiers",
+          "geometrie"
+        ],
+        "complexite": 4
+      },
+      "digamma_fonction": {
+        "description": "Fonction Digamma de Philippôt pour le calcul des premiers",
+        "formule": "ψ(n) = √((n+7)² + (n+8)²)",
+        "mots_cles": [
+          "digamma",
+          "philippot",
+          "calcul"
+        ],
+        "complexite": 5
+      },
+      "univers_carre_complet": {
+        "description": "Théorie complète L'univers est au carré",
+        "mots_cles": [
+          "univers",
+          "carre",
+          "theorie_complete"
+        ],
+        "complexite": 5
+      },
+      "riemann_solution": {
+        "description": "Solution géométrique à l'hypothèse de Riemann",
+        "formules": [
+          "(√13.203125/2×2^n)-√5 = Somme première suite",
+          "(√52.8125/2×2^n)-√5445 = Somme deuxième suite"
+        ],
+        "mots_cles": [
+          "riemann",
+          "solution",
+          "geometrique"
+        ],
+        "complexite": 5
+      }
+    },
+    "definitions_cles": {
+      "philippot_method": "Méthode géométrique pour déterminer les nombres premiers via des suites de racines carrées",
+      "rapport_triangulaire": "Rapport constant de 1/2 entre les suites de nombres premiers positifs et négatifs",
+      "couples_nn": "Relations n×n entre nombres premiers selon la géométrie carrée"
+    },
+    "structures_logiques": {
+      "hierarchie_concepts": {
+        "niveau_1": [
+          "geometrie_carree",
+          "univers_carre"
+        ],
+        "niveau_2": [
+          "nombres_premiers",
+          "suites_racines"
+        ],
+        "niveau_3": [
+          "digamma_philippot",
+          "riemann_solution"
+        ],
+        "niveau_4": [
+          "rapport_triangulaire",
+          "couples_nn"
+        ]
+      },
+      "dependencies": {
+        "riemann_solution": [
+          "suites_racines",
+          "geometrie_carree"
+        ],
+        "digamma_philippot": [
+          "nombres_premiers",
+          "geometrie_carree"
+        ]
+      }
+    },
+    "relations_conceptuelles": {
+      "geometrie_carree": [
+        "nombres_premiers",
+        "riemann_solution",
+        "univers_carre"
+      ],
+      "philippot_method": [
+        "digamma_fonction",
+        "suites_racines",
+        "calcul_premiers"
+      ],
+      "riemann_solution": [
+        "rapport_triangulaire",
+        "suites_racines"
+      ]
+    }
+  },
+  "derniere_evolution": "2025-10-19T12:32:24.202003",
+  "version": "1.0"
+}
