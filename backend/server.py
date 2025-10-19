@@ -126,7 +126,6 @@ class DialogueResponse(BaseModel):
 
 class InitialisationBanque(BaseModel):
     banque_initiale: List[QuestionEvolutive]
-    rapport_hauteur: int
 
 class DocumentUpload(BaseModel):
     id: str
