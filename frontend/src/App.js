@@ -13,6 +13,9 @@ import { Separator } from './components/ui/separator';
 import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 
+// Protection des documents
+import DocumentProtection from './components/DocumentProtection';
+
 // Icônes
 import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu } from 'lucide-react';
 
