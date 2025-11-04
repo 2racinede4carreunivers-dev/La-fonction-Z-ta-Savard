@@ -2093,7 +2093,7 @@ async def upload_document(
                     api_key=EMERGENT_LLM_KEY,
                     session_id=doc_id,
                     system_message="Tu es l'IA spécialisée dans la théorie 'L'univers est au carré'. Analyse ce document en profondeur."
-                ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+                ).with_model("anthropic", "claude-sonnet-4-20250514")
                 
                 analysis = await chat.send_message(UserMessage(text=analysis_prompt))
                 
@@ -2288,7 +2288,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=enhanced_system_message
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=chat_message.message)
         response = await chat.send_message(user_message)
@@ -2593,7 +2593,7 @@ async def chat_with_ai(chat_message: ChatMessage):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=system_message
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         # Créer le message utilisateur
         user_message = UserMessage(text=chat_message.message)
@@ -2688,7 +2688,7 @@ async def collaborate_with_ai(request: CollaborationRequest):
             api_key=EMERGENT_LLM_KEY,
             session_id=request.session_id,
             system_message=collaboration_system
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Améliore ce document selon ma demande : {request.request}")
         updated_document = await chat.send_message(user_message)
@@ -2809,7 +2809,7 @@ INSTRUCTIONS SPÉCIALES POUR CETTE CONVERSATION:
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=privileged_system
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=message)
         response = await chat.send_message(user_message)
@@ -2883,7 +2883,7 @@ async def chat_with_domain_focus(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=specialized_system
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=message)
         response = await chat.send_message(user_message)
@@ -2971,7 +2971,7 @@ async def chat_methode_spectrale(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=specialized_system
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=message)
         response = await chat.send_message(user_message)
@@ -3029,7 +3029,7 @@ async def generate_latex(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=latex_system
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Convertis ce document en LaTeX professionnel : {content}")
         latex_response = await chat.send_message(user_message)
@@ -3234,7 +3234,7 @@ Analyse ce texte avec bienveillance et expertise, en restant discret et construc
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_correcteur
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Effectue une analyse complète et discrète de ce texte en suivant exactement le format JSON demandé.")
         response = await chat.send_message(user_message)
@@ -3320,7 +3320,7 @@ Fournis une analyse complète de protection et d'originalité."""
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_plagiat
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Analyse ce texte pour sa protection de propriété intellectuelle et détection de plagiat potentiel.")
         response = await chat.send_message(user_message)
@@ -3477,7 +3477,7 @@ Analyser l'historique des questions pour identifier :
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_lacunes
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Analyse cet historique pour identifier les lacunes de compréhension et proposer un parcours personnalisé.")
         response = await chat.send_message(user_message)
@@ -3552,7 +3552,7 @@ Identifier les sections de la théorie "L'univers est au carré" qui posent le p
             api_key=EMERGENT_LLM_KEY,
             session_id="system_analysis",
             system_message=systeme_detection
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Analyse ces questions pour identifier les sections problématiques et proposer des améliorations.")
         response = await chat.send_message(user_message)
@@ -3627,7 +3627,7 @@ async def generer_suggestions_contenu(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_suggestions
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Génère des suggestions intelligentes pour développer ce texte selon la théorie de Philippe Thomas Savard.")
         response = await chat.send_message(user_message)
@@ -3702,7 +3702,7 @@ async def generer_resume_automatique(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_resume
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Crée un résumé {style_resume} de longueur {longueur_cible} de ce texte.")
         resume = await chat.send_message(user_message)
@@ -3802,7 +3802,7 @@ async def detecter_coherence_arguments(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_coherence
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Analyse la cohérence argumentaire de ce texte avec un niveau {niveau_detail}.")
         analyse = await chat.send_message(user_message)
@@ -3900,7 +3900,7 @@ async def generer_citations_automatiques(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_citations
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Analyse ce contenu et suggère des citations théoriques appropriées en style {style_citation}.")
         citations = await chat.send_message(user_message)
@@ -3993,7 +3993,7 @@ async def generer_notifications_intelligentes(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=session_id,
             system_message=systeme_notifications
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text=f"Analyse ce texte et génère des notifications avec seuil {seuil_importance}.")
         notifications = await chat.send_message(user_message)
@@ -4415,7 +4415,7 @@ async def analyser_document_formules(request: dict):
             api_key=EMERGENT_LLM_KEY,
             session_id=str(uuid.uuid4()),
             system_message=systeme_extraction
-        ).with_model("anthropic", "claude-3-5-sonnet-20241022")
+        ).with_model("anthropic", "claude-sonnet-4-20250514")
         
         user_message = UserMessage(text="Analyse ce document et extrait toutes les formules avec leur indexation.")
         extraction = await chat.send_message(user_message)
