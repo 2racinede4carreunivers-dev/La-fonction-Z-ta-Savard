@@ -10886,7 +10886,11 @@ function App() {
           <Route path="/collaboration" element={<CollaborationPage folderProps={folderProps} />} />
           <Route path="/concepts-enrichis" element={<ConceptsEnrichisPage />} />
           <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
-          <Route path="/salon-lecture" element={<SalonLecturePage />} />
+          <Route path="/salon-lecture" element={
+            <DocumentProtection documentTitle="Salon de Lecture - L'univers est au carré" showWatermark={true}>
+              <SalonLecturePage />
+            </DocumentProtection>
+          } />
           <Route path="/salle-illustrations" element={<SalleIllustrationsPage />} />
           <Route path="/ia-evolutif" element={<IAEvolutifPage />} />
           <Route path="/ia-socratique" element={<IASocratiquePage />} />
