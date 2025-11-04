@@ -1,0 +1,245 @@
+/* Protection des documents - Styles */
+
+.document-protection-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Désactiver la sélection de texte */
+.protected-content {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  position: relative;
+  z-index: 1;
+}
+
+/* Permettre la sélection dans les champs de formulaire */
+.protected-content input,
+.protected-content textarea,
+.protected-content [contenteditable="true"] {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+}
+
+/* Watermark semi-transparent */
+.document-watermark {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+  overflow: hidden;
+}
+
+.watermark-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  opacity: 0.08;
+  font-size: 48px;
+  font-weight: bold;
+  color: #000;
+  text-align: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.watermark-text {
+  margin: 20px 0;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Copyright Notice en haut */
+.copyright-notice.top {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+  color: white;
+  padding: 12px 20px;
+  text-align: center;
+  font-size: 14px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border-bottom: 3px solid #fbbf24;
+}
+
+.copyright-icon {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.copyright-text strong {
+  color: #fbbf24;
+  font-weight: 600;
+}
+
+/* Copyright Notice en bas */
+.copyright-notice.bottom {
+  background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+  color: white;
+  padding: 30px 20px;
+  margin-top: 60px;
+  border-top: 4px solid #fbbf24;
+}
+
+.copyright-full {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.copyright-full h4 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #fbbf24;
+  font-weight: bold;
+}
+
+.copyright-full p {
+  margin: 12px 0;
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.copyright-full strong {
+  color: #fbbf24;
+}
+
+.copyright-warning {
+  background: rgba(239, 68, 68, 0.2);
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #fecaca;
+}
+
+/* Toast de notification copyright */
+.copyright-toast {
+  position: fixed;
+  top: 80px;
+  right: -400px;
+  background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
+  color: white;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(220, 38, 38, 0.4);
+  z-index: 10000;
+  min-width: 350px;
+  transition: right 0.3s ease-in-out;
+  border: 2px solid #fecaca;
+}
+
+.copyright-toast.show {
+  right: 20px;
+}
+
+.copyright-toast-content strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 8px;
+  color: #fef2f2;
+}
+
+.copyright-toast-content p {
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.copyright-toast-content small {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  opacity: 0.9;
+  font-style: italic;
+  color: #fecaca;
+}
+
+/* Overlay de protection invisible */
+.protection-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9997;
+  background: transparent;
+}
+
+/* Empêcher le drag & drop d'images */
+.protected-content img {
+  pointer-events: none;
+  user-drag: none;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -ms-user-drag: none;
+}
+
+/* Protection contre l'impression */
+@media print {
+  .document-protection-wrapper::before {
+    content: "© DOCUMENT PROTÉGÉ - Philippe Thomas Savard - Tous droits réservés - Impression non autorisée";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 72px;
+    font-weight: bold;
+    color: rgba(220, 38, 38, 0.3);
+    white-space: nowrap;
+    z-index: 10000;
+  }
+  
+  .protected-content {
+    filter: blur(3px);
+    opacity: 0.5;
+  }
+}
+
+/* Style pour les appareils mobiles */
+@media (max-width: 768px) {
+  .watermark-content {
+    font-size: 32px;
+  }
+  
+  .copyright-notice.top {
+    font-size: 12px;
+    padding: 10px 15px;
+  }
+  
+  .copyright-toast {
+    min-width: 280px;
+    right: -320px;
+  }
+  
+  .copyright-toast.show {
+    right: 10px;
+  }
+}
+
+/* Animation pulse pour les avertissements */
+@keyframes pulse-warning {
+  0%, 100% {
+    border-color: #ef4444;
+  }
+  50% {
+    border-color: #fbbf24;
+  }
+}
+
+.copyright-warning {
+  animation: pulse-warning 2s ease-in-out infinite;
+}
