@@ -1346,6 +1346,169 @@ CONCEPTS_ENRICHIS = [
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
+    
+    # === NOUVEAUX CONCEPTS DE LA BANQUE Q&R ENRICHIE (Questions 14-18) ===
+    
+    # 27. RÉCIPROCITÉ VOLUMIQUE ET CÉLÉRITÉ COMME INVARIANTS
+    {
+        "id": "reciprocite_volumique_celerite_invariants",
+        "titre": "Réciprocité Volumique et Célérité comme Invariants Géométriques",
+        "description": "Interprétation des trous noirs comme espaces de stockage d'information potentiellement infinis. Chaque trou noir tangible en relation avec un trou noir virtuel réciproque. Rayon du trou noir égal à l'angle formé avec l'horizon des événements (√18000° = 134.164°). Produit alternatif réciproque: produit aire disque × carré aire × longueur horizon opposé. Rapport produits donne constante (√1.6)³ interprétée comme inverse du temps. Temps comme opération où multiplicateur aspire multiplicande: 2×1 = 1×2.",
+        "domaine_principal": "Astrophysique Théorique",
+        "concepts_cles": [
+            "Réciprocité volumique",
+            "Célérité comme invariant",
+            "Entropie trous noirs",
+            "Stockage information infini",
+            "Trou noir virtuel réciproque",
+            "Produit alternatif réciproque",
+            "Horizon des événements",
+            "Constante inverse du temps (√1.6)³",
+            "Temps comme multiplication"
+        ],
+        "formules": [
+            "Rayon = √18000° = 134.1640786°",
+            "Rayon = √1.8 unités",
+            "Constante inverse temps = (√1.6)³ = 2.023857703",
+            "Temps: 2 × 1 = 1 × 2",
+            "Singularité temporelle = 5/10000 secondes"
+        ],
+        "definitions": [
+            "Réciprocité volumique: Rapport constant entre volumes associés de trous noirs réciproques",
+            "Trou noir virtuel: Contrepartie théorique réciproque d'un trou noir observable",
+            "Produit alternatif réciproque: Produit aire × carré aire × horizon opposé",
+            "Inverse du temps: Constante (√1.6)³ révélant structure temporelle"
+        ],
+        "relations": [
+            "Lien entropie et information",
+            "Connexion constante 3.6 fondamentale",
+            "Application théorème univers au carré"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot_corrigé.pdf",
+        "page_reference": "Question 14",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 28. ÉNERGIE COMME RYTHME - E=MC² RÉDUITE
+    {
+        "id": "energie_rythme_emc2_reduite",
+        "titre": "Énergie comme Rythme - Réduction E=mc² Trous Noirs",
+        "description": "Réinterprétation révolutionnaire E=mc² en double lecture (réduite et non réduite) dans contexte trous noirs. Figure sphérique rayon angle 144° révèle diamètre parhélique concept central. Diamètre parhélique représente énergie (E), sa demi-longueur mesure énergie. Volume sphère = masse (m) considérée comme information. Équation non réduite démontre pression P=0, infiniment proche zéro, représente par inversion valeur approchée infini. Volume devient facteur-pont entre énergie infinie et masse. Produits alternatifs célérité (m/s, km/h) liés géométriquement par diamètre parhélique.",
+        "domaine_principal": "Physique Théorique",
+        "concepts_cles": [
+            "E=mc² réduite et non réduite",
+            "Diamètre parhélique",
+            "Énergie comme rythme",
+            "Masse comme information",
+            "Pression P=0 et infini",
+            "Volume facteur-pont",
+            "Célérité géométrique (m/s ↔ km/h)",
+            "Conversion unités par volume"
+        ],
+        "formules": [
+            "E = mc² (version réduite)",
+            "P = 0 (équation non réduite)",
+            "Angle sphère = 144°",
+            "Diamètre parhélique = demi-longueur énergie",
+            "Volume sphère = masse (information)",
+            "Masse algébrique ≈ 1"
+        ],
+        "definitions": [
+            "Diamètre parhélique: Diamètre géométrique angle 144° représentant énergie",
+            "Énergie-rythme: Énergie non comme quantité mais pulsation rythmique",
+            "Masse-information: Matière considérée forme d'information stockée",
+            "P=0: Pression nulle représentant infini par inversion proportionnelle"
+        ],
+        "relations": [
+            "Connexion entropie trous noirs",
+            "Lien produits alternatifs réciproques",
+            "Application réciprocité volumique"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot_corrigé.pdf",
+        "page_reference": "Question 15",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 29. SINGULARITÉ COMME SEUIL RYTHMIQUE
+    {
+        "id": "singularite_seuil_rythmique",
+        "titre": "Singularité comme Seuil Rythmique - Non Rupture",
+        "description": "Vision philosophique révolutionnaire: singularité non point de rupture empirique mais construction théorique, intuition mathématique et philosophique. Vérité fondamentale: nous sommes toujours maintenant, jamais passé ni futur, toujours instant présent. Expérience mentale: figer horloge 23h59min995cs = 'aujourd'hui', 5/10000 seconde plus tard serait 'demain', mais transition nous maintient. Singularité devient seuil rythmique, frontière qui pulse sans séparer. Battement ultime temps gardant au bord demain sans y basculer. Singularité vue comme multiplication où multiplicateur aspire multiplicande: 1×2 = 2×1.",
+        "domaine_principal": "Philosophie de la Physique",
+        "concepts_cles": [
+            "Singularité seuil rythmique",
+            "Non-rupture temporelle",
+            "Instant présent perpétuel",
+            "Évidence rythmique universelle",
+            "Temps comme pulsation",
+            "Singularité temporelle 5/10000 s",
+            "Multiplication aspiration",
+            "Réciprocité cosmique rythmique"
+        ],
+        "formules": [
+            "Singularité temporelle = 5/10000 secondes = 0.0005 s",
+            "1 × 2 = 2 × 1 (aspiration multiplicande)",
+            "23h59min995cs = aujourd'hui",
+            "Transition ≈ 5/10000 s"
+        ],
+        "definitions": [
+            "Singularité rythmique: Seuil temporel pulsant maintenant dans présent",
+            "Seuil rythmique: Frontière temporelle battant sans rupture",
+            "Évidence rythmique: Vérité fondamentale être toujours maintenant",
+            "Aspiration multiplicande: Opération temps où 1 absorbe multiplicateur"
+        ],
+        "relations": [
+            "Connexion trous noirs et temps",
+            "Lien horizon des événements",
+            "Application théorie univers au carré"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot_corrigé.pdf",
+        "page_reference": "Question 16",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+    
+    # 30. PRODUITS ALTERNATIFS INTERACTION TROUS NOIRS
+    {
+        "id": "produits_alternatifs_interaction_trous_noirs",
+        "titre": "Produits Alternatifs Géométriques - Interaction Trous Noirs",
+        "description": "Représentation théorique interaction deux trous noirs nez à nez via produits alternatifs géométriques, sans outils tensoriels relativité générale. Expérience pensée purement mathématique: produit alternatif réciproque démontre entropie affecte aire (non volume). Relations formalisées: A = Horizon_réciproque × Entropie² = Entropie × Horizon. Et A⁻¹ = Horizon × Entropie_réciproque² = Entropie_réciproque × Horizon_réciproque. Rapport fondamental: Arc_concourant/Arc_rayonnement = Aire/Horizon. Constante réciprocité temporelle: Trou_noir_réciproque/Trou_noir = (1.6)³, constante inverse temps.",
+        "domaine_principal": "Astrophysique Théorique",
+        "concepts_cles": [
+            "Produits alternatifs géométriques",
+            "Interaction trous noirs théorique",
+            "Expérience pensée mathématique",
+            "Entropie affecte aire (non volume)",
+            "Théorème analogie Thalès",
+            "Réciprocité géométrique",
+            "Constante réciprocité temporelle",
+            "Sans tenseurs relativité"
+        ],
+        "formules": [
+            "A = Horizon_réciproque × (Entropie)² = Entropie × Horizon",
+            "A⁻¹ = Horizon × (Entropie_réciproque)² = Entropie_réciproque × Horizon_réciproque",
+            "Arc_concourant/Arc_rayonnement = Aire_trou_noir/Horizon_trou_noir",
+            "Trou_noir_réciproque/Trou_noir = (1.6)³ = 2.023857703",
+            "Constante inverse temps = (√1.6)³"
+        ],
+        "definitions": [
+            "Produit alternatif géométrique: Produit Horizon × Entropie révélant constantes",
+            "Interaction nez à nez: Configuration théorique collision trous noirs",
+            "Entropie géométrique: Information affectant surface non volume",
+            "Réciprocité temporelle: Rapport constant (1.6)³ entre trous noirs réciproques"
+        ],
+        "relations": [
+            "Lien entropie et géométrie",
+            "Connexion constante 1.6 fondamentale",
+            "Application théorème Thalès géométrique"
+        ],
+        "document_source": "Banque_Questions_Réponses_Géométrie_Philippot_corrigé.pdf",
+        "page_reference": "Question 17 et 18",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
 ]
 
 def get_concept_enrichi_by_domain(domain=None):
