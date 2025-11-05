@@ -5636,7 +5636,6 @@ ${contenuLatex}
     if (longPressTimerRef.current) {
       clearTimeout(longPressTimerRef.current);
       longPressTimerRef.current = null;
-      setLongPressTimer(null);
     }
   };
 
