@@ -388,6 +388,27 @@
       "derniere_evolution": "2025-11-05T18:31:06.005797",
       "meta_score": 0.5,
       "relations_internes": []
+    },
+    {
+      "id": "08b67446-577d-4f74-b8c3-20f965ce4803",
+      "question": "Quelle est la solution de Philippôt à l'énigme de Riemann ?",
+      "reponse": "Les suites (√13.203125/2×2^n)-√5 et (√52.8125/2×2^n)-√5445 révèlent un rapport constant de 1/2 entre nombres premiers, résolvant l'hypothèse de Riemann par la géométrie carrée.",
+      "contexte_theorique": [
+        "L'univers est au carré",
+        "Méthode de Philippôt"
+      ],
+      "niveau_complexite": 3,
+      "variantes": [],
+      "concepts_cles": [
+        "riemann",
+        "suites",
+        "rapport_constant",
+        "geometrie_carree"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2025-11-05T18:52:41.287559",
+      "meta_score": 0.5,
+      "relations_internes": []
     }
   ],
   "concepts_theoriques": {
@@ -486,6 +507,6 @@
       ]
     }
   },
-  "derniere_evolution": "2025-11-05T18:31:06.006858",
+  "derniere_evolution": "2025-11-05T18:52:41.289696",
   "version": "1.0"
 }
