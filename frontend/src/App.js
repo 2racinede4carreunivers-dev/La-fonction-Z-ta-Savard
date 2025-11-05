@@ -10694,24 +10694,56 @@ const IAEvolutifPage = () => {
         {/* Panneau d'initialisation */}
         {!systemeInitialise && (
           <div className="bg-gradient-to-r from-emerald-900/30 to-teal-900/30 border border-emerald-500/30 rounded-xl p-6 mb-6">
-            <h3 className="text-xl font-semibold text-emerald-400 mb-4">🚀 Initialisation du Système</h3>
-            <p className="text-gray-300 mb-4">
-              Le système d'IA évolutive n'est pas encore initialisé. Cette étape va :
-            </p>
-            <ul className="text-gray-300 space-y-2 mb-6">
-              <li>• Analyser les 14 questions-réponses de base</li>
-              <li>• Extraire les concepts des documents PDF (Partie 1 & 2)</li>
-              <li>• Activer la méta-programmation pour l'évolution silencieuse</li>
-              <li>• Créer les connexions conceptuelles avec votre théorie</li>
-            </ul>
-            
-            <Button 
-              onClick={initialiserSysteme}
-              disabled={isLoading}
-              className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
-            >
-              {isLoading ? 'Initialisation...' : '🧠 Initialiser l\'IA Évolutive'}
-            </Button>
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 text-5xl">🧠</div>
+              <div className="flex-grow">
+                <h3 className="text-2xl font-bold text-emerald-400 mb-3">🚀 Initialisation du Système IA Évolutive</h3>
+                <p className="text-gray-300 mb-4">
+                  Le système d'IA évolutive n'est pas encore initialisé. <strong>Cliquez sur le bouton ci-dessous</strong> pour activer :
+                </p>
+                <ul className="text-gray-300 space-y-2 mb-6 ml-4">
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400">✓</span>
+                    <span><strong>18 questions-réponses</strong> de la banque enrichie (14 fondamentales + 4 nouvelles sur trous noirs/entropie)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400">✓</span>
+                    <span>Extraction des concepts des <strong>5 documents PDF</strong> analysés (Parties 1, 2, trous noirs)</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400">✓</span>
+                    <span><strong>Méta-programmation</strong> pour évolution silencieuse et apprentissage continu</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400">✓</span>
+                    <span>Connexions conceptuelles avec <strong>30 concepts enrichis</strong> de votre théorie</span>
+                  </li>
+                </ul>
+                
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={initialiserSysteme}
+                    disabled={isLoading}
+                    className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-lg px-8 py-3 shadow-lg"
+                  >
+                    {isLoading ? (
+                      <>
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                        Initialisation en cours...
+                      </>
+                    ) : (
+                      <>
+                        🚀 Initialiser l'IA Évolutive (18 Questions)
+                      </>
+                    )}
+                  </Button>
+                </div>
+                
+                <p className="text-sm text-gray-400 mt-4">
+                  ⏱️ <em>L'initialisation prend quelques secondes. Une fois terminée, vous pourrez dialoguer avec l'IA.</em>
+                </p>
+              </div>
+            </div>
           </div>
         )}
 
