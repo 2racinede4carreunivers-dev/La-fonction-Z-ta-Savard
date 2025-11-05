@@ -88,6 +88,34 @@
       "reponse": "Les nombres premiers négatifs suivent les mêmes lois géométriques que les positifs, mais avec des paramètres de suites adaptés, maintenant le rapport de 1/2.",
       "complexite": 4,
       "concepts": ["nombres_premiers_negatifs", "lois_geometriques", "parametres"]
+    },
+    {
+      "question": "Comment la réciprocité volumique et la célérité sont-elles interprétées comme invariants géométriques dans un espace-temps affecté par une singularité gravitationnelle?",
+      "reponse": "Les trous noirs sont envisagés comme espaces de stockage d'information potentiellement infinis. Chaque trou noir tangible serait en relation avec un trou noir virtuel réciproque. Le rayon du trou noir égale l'angle formé avec l'horizon des événements: √18000° = 134.164°. Le produit alternatif réciproque révèle une constante (√1.6)³ = 2.024 interprétée comme l'inverse du temps. Le temps fonctionne comme multiplication où multiplicateur aspire multiplicande: 2×1 = 1×2.",
+      "complexite": 5,
+      "concepts": ["trous_noirs", "entropie", "reciprocite_volumique", "celerite", "inverse_temps", "horizon_evenements"],
+      "nouvelle_question": true
+    },
+    {
+      "question": "En quoi la réduction de l'équation E=mc² dans le contexte des trous noirs modifie notre compréhension de l'énergie comme rythme plutôt que comme quantité?",
+      "reponse": "L'équation E=mc² est réinterprétée via le diamètre parhélique (angle 144°) représentant l'énergie (E). Sa demi-longueur mesure l'énergie, le volume de la sphère représente la masse (m) comme information. L'équation non réduite démontre que P=0, valeur infiniment proche de zéro représentant l'infini par inversion. Le volume devient facteur-pont entre énergie infinie et masse. Les célérités (m/s et km/h) sont liées géométriquement par le diamètre parhélique.",
+      "complexite": 5,
+      "concepts": ["emc2", "energie_rythme", "diametre_parhelique", "masse_information", "pression_nulle", "infini"],
+      "nouvelle_question": true
+    },
+    {
+      "question": "Quelle est la portée philosophique de considérer la singularité non comme un point de rupture, mais comme un seuil rythmique?",
+      "reponse": "La singularité n'est pas un point de rupture empirique mais une construction théorique, une intuition philosophique. Nous sommes toujours maintenant, jamais dans le passé ni futur. Expérience mentale: figer l'horloge à 23h59min995cs = 'aujourd'hui', 5/10000 seconde plus tard serait 'demain', mais cette transition nous maintient. La singularité devient un seuil rythmique, une frontière qui pulse sans séparer. C'est le battement ultime du temps nous gardant au bord de demain sans y basculer. Singularité vue comme multiplication: 1×2 = 2×1.",
+      "complexite": 5,
+      "concepts": ["singularite", "seuil_rythmique", "instant_present", "temps_pulsation", "philosophie_physique"],
+      "nouvelle_question": true
+    },
+    {
+      "question": "Comment les produits alternatifs géométriques permettent-ils de représenter l'interaction entre deux trous noirs sans outils tensoriels de la relativité générale?",
+      "reponse": "Expérience de pensée mathématique pure: rencontre hypothétique nez à nez de deux trous noirs. Le produit alternatif réciproque démontre que l'entropie affecte l'aire (non le volume). Relations formalisées: A = Horizon_réciproque × Entropie² = Entropie × Horizon. Rapport fondamental: Arc_concourant/Arc_rayonnement = Aire/Horizon. Constante de réciprocité temporelle: Trou_noir_réciproque/Trou_noir = (1.6)³, constante de l'inverse du temps. Approche géométrique sans tenseurs.",
+      "complexite": 5,
+      "concepts": ["produits_alternatifs", "interaction_trous_noirs", "entropie_geometrique", "reciprocite_temporelle", "sans_tenseurs"],
+      "nouvelle_question": true
     }
   ]
 }
