@@ -4921,14 +4921,24 @@ const AccesPrivilegiePage = () => {
     if (!testMessage.trim()) return;
     
     setLoading(true);
+    setChatResponse(""); // Clear previous response
     try {
       const response = await axios.post(`${API_URL}/api/chat-privileged`, {
-        message: testMessage
+        message: testMessage,
+        session_id: `session_${Date.now()}`
       });
-      setChatResponse(response.data.response);
+      
+      console.log('Réponse API:', response.data);
+      
+      if (response.data && response.data.response) {
+        setChatResponse(response.data.response);
+      } else {
+        setChatResponse("Aucune réponse reçue de l'IA.");
+      }
     } catch (error) {
       console.error('Erreur chat privilégié:', error);
-      setChatResponse("Erreur lors de la communication avec l'IA.");
+      const errorMsg = error.response?.data?.detail || error.message || "Erreur inconnue";
+      setChatResponse(`❌ Erreur: ${errorMsg}`);
     } finally {
       setLoading(false);
     }
