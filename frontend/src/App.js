@@ -5621,14 +5621,12 @@ ${contenuLatex}
     }, 800); // 800ms pour l'appui long
     
     longPressTimerRef.current = timer;
-    setLongPressTimer(timer);
   };
 
   const handleMouseUp = () => {
     if (longPressTimerRef.current) {
       clearTimeout(longPressTimerRef.current);
       longPressTimerRef.current = null;
-      setLongPressTimer(null);
     }
   };
 
