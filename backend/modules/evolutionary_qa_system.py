@@ -511,7 +511,7 @@ Réponse :"""
                 max_tokens=1500
             )
             
-            reponse_ia = response.choices[0].message.content
+            reponse_ia = response.get('response', '') if isinstance(response, dict) else str(response)
             
             # Ajout d'une note sur l'évolution
             note_evolution = "\n\n---\n*💡 Cette réponse a été générée à partir de ma banque évolutive de connaissances. Je m'améliore silencieusement à chaque interaction.*"
