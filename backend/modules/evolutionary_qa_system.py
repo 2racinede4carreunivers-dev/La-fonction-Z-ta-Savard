@@ -398,24 +398,41 @@ class BanqueEvolutive:
         return [qr for qr, _ in scores[:5]]
     
     def _calculer_score_pertinence(self, qr: QuestionReponse, contexte: str) -> float:
-        """Calcul du score de pertinence d'une Q&R"""
+        """Calcul du score de pertinence d'une Q&R avec détection intelligente"""
         score = 0.0
         
-        # Analyse textuelle
-        mots_contexte = set(contexte.lower().split())
-        mots_qr = set((qr.question + " " + qr.reponse).lower().split())
+        contexte_lower = contexte.lower()
+        qr_text_lower = (qr.question + " " + qr.reponse).lower()
+        
+        # Bonus pour mots-clés spécifiques très pertinents
+        mots_cles_importants = {
+            "trous noirs": 0.5, "trou noir": 0.5, "entropie": 0.4,
+            "reciprocite": 0.3, "volumique": 0.3, "celerite": 0.3,
+            "singularite": 0.4, "emc2": 0.4, "e=mc²": 0.4,
+            "diametre parhelique": 0.4, "seuil rythmique": 0.4,
+            "produits alternatifs": 0.3, "horizon evenements": 0.4,
+            "digamma": 0.3, "riemann": 0.3, "nombres premiers": 0.3
+        }
+        
+        for mot_cle, poids in mots_cles_importants.items():
+            if mot_cle in contexte_lower and mot_cle in qr_text_lower:
+                score += poids
+        
+        # Analyse textuelle standard
+        mots_contexte = set(contexte_lower.split())
+        mots_qr = set(qr_text_lower.split())
         
         intersection = mots_contexte & mots_qr
-        score += len(intersection) / max(len(mots_contexte), 1) * 0.4
+        score += len(intersection) / max(len(mots_contexte), 1) * 0.3
         
         # Score basé sur les concepts clés
         concepts_contexte = self._extraire_concepts_contexte(contexte)
         concepts_communs = set(concepts_contexte) & set(qr.concepts_cles)
-        score += len(concepts_communs) / max(len(concepts_contexte), 1) * 0.3
+        score += len(concepts_communs) / max(len(concepts_contexte), 1) * 0.2
         
         # Score basé sur le meta_score et l'utilisation
-        score += qr.meta_score * 0.2
-        score += min(qr.frequence_utilisation / 20, 0.1)
+        score += qr.meta_score * 0.1
+        score += min(qr.frequence_utilisation / 20, 0.05)
         
         return min(score, 1.0)
     
