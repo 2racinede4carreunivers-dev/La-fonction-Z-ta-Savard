@@ -1,7 +1,7 @@
 {
   "banque": [
     {
-      "id": "e34caaf5-3645-4dbd-ad48-2bc06affc0d3",
+      "id": "b9ff4119-8c55-401d-bb18-c2f7734288e5",
       "question": "Quelle est la formule de base du Digamma de Philippôt ?",
       "reponse": "La formule fondamentale est ψ(n) = √((n+7)² + (n+8)²), où n représente la position dans la séquence des nombres premiers.",
       "contexte_theorique": [
@@ -17,12 +17,12 @@
         "digamma_fonction"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397639",
+      "derniere_evolution": "2025-11-05T18:58:57.034229",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "f51a88c9-8724-4a62-91f2-263e19e20e30",
+      "id": "1982c8ab-baa4-463c-999e-207965100e01",
       "question": "Comment résoudre l'énigme de Riemann selon la méthode de Philippôt ?",
       "reponse": "La solution réside dans les deux suites : (√13.203125/2×2^n)-√5 pour la première suite et (√52.8125/2×2^n)-√5445 pour la deuxième suite, révélant un rapport constant de 1/2.",
       "contexte_theorique": [
@@ -38,12 +38,12 @@
         "riemann_solution"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397658",
+      "derniere_evolution": "2025-11-05T18:58:57.034272",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "d7814ad6-229f-4ce9-a358-f45f8808bcf4",
+      "id": "3f9e7315-89fb-4ff7-8977-d7af28a2bed5",
       "question": "Qu'est-ce que la géométrie du spectre des nombres premiers ?",
       "reponse": "C'est l'approche géométrique qui révèle la structure carrée sous-jacente de l'univers mathématique, permettant de visualiser les nombres premiers dans un espace géométrique défini.",
       "contexte_theorique": [
@@ -60,12 +60,12 @@
         "univers_carre_complet"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397666",
+      "derniere_evolution": "2025-11-05T18:58:57.034282",
       "meta_score": 0.7,
       "relations_internes": []
     },
     {
-      "id": "f7d01c2d-df12-4399-9444-e9229759f15f",
+      "id": "8f12bbc9-0ec8-4124-8110-2791bce44c2c",
       "question": "Comment fonctionne le rapport triangulaire de 1/2 ?",
       "reponse": "Le rapport triangulaire de 1/2 est constant et sans exception entre les suites de nombres premiers positifs et négatifs, démontrant l'universalité de la théorie.",
       "contexte_theorique": [
@@ -80,12 +80,12 @@
         "univers_carre_complet"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397672",
+      "derniere_evolution": "2025-11-05T18:58:57.034293",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "87919708-d565-4bc3-85ec-53279d4cd36e",
+      "id": "534ad11e-e35a-42f3-b125-e50829eb9f10",
       "question": "Quelle est la relation entre l'univers au carré et les nombres premiers ?",
       "reponse": "L'univers au carré révèle que tous les nombres premiers s'inscrivent dans une structure géométrique carrée fondamentale, unifiant mathématiques et géométrie.",
       "contexte_theorique": [
@@ -100,12 +100,12 @@
         "univers_carre_complet"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397679",
+      "derniere_evolution": "2025-11-05T18:58:57.034300",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "4f04beab-03b7-4456-a379-89550eaa3a45",
+      "id": "be3a6a47-5801-4ccd-b183-3385bb17fad2",
       "question": "Comment calculer la quantité de nombres entre deux nombres premiers ?",
       "reponse": "La méthode de Philippôt utilise les quatre données : sommes des suites, digamma calculé des deux nombres premiers, puis applique la formule spécifique incluant le zéro.",
       "contexte_theorique": [
@@ -120,12 +120,12 @@
         "digamma_fonction"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397686",
+      "derniere_evolution": "2025-11-05T18:58:57.034307",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "faaf4c35-71dd-45fa-a087-852b42129757",
+      "id": "e0ae8007-1a7b-4255-8ec5-2d7b7032cffe",
       "question": "Qu'est-ce que la distinction entre cardinal et ordinal des infinis selon Cantor ?",
       "reponse": "Pour le cardinal : ω+1=1+ω, mais pour l'ordinal : 1+ω≠ω+1. Cette distinction est fondamentale dans l'adaptation de Cantor par Philippôt.",
       "contexte_theorique": [
@@ -140,12 +140,12 @@
         "infinis"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397692",
+      "derniere_evolution": "2025-11-05T18:58:57.034314",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "3fc52c48-faba-46d0-9d1c-b2a2118b2315",
+      "id": "89eab0c7-1a30-4342-98b4-2d4b6105b24c",
       "question": "Comment interpréter les couples n×n dans la théorie ?",
       "reponse": "Les couples n×n représentent les relations symétriques entre nombres premiers selon la géométrie carrée, révélant des patterns invariants.",
       "contexte_theorique": [
@@ -159,12 +159,12 @@
         "patterns"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397700",
+      "derniere_evolution": "2025-11-05T18:58:57.034324",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "7b324074-288b-45c6-8f6e-e2aefaf0bb77",
+      "id": "86868059-7121-48a1-b53c-96552465bf90",
       "question": "Quelle est l'importance de la position 8 du Digamma ?",
       "reponse": "La position 8 du Digamma est cruciale car elle révèle le point d'équilibre géométrique de la théorie, ancrant la structure dans l'octogone mathématique.",
       "contexte_theorique": [
@@ -180,12 +180,12 @@
         "digamma_fonction"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397707",
+      "derniere_evolution": "2025-11-05T18:58:57.034332",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "331eb063-6606-4fcf-884c-70bf5418ce88",
+      "id": "a6874e06-32b1-4c49-9aea-df5774490dc3",
       "question": "Comment les suites de racines carrées déterminent-elles les nombres premiers ?",
       "reponse": "Les suites de racines carrées créent un réseau géométrique précis où chaque intersection correspond à un nombre premier, selon des règles géométriques strictes.",
       "contexte_theorique": [
@@ -199,12 +199,12 @@
         "intersections"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397714",
+      "derniere_evolution": "2025-11-05T18:58:57.034346",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "5c21647a-8157-4711-b68f-62a19ee5dcf3",
+      "id": "d8c51f2a-4fee-48b1-9b18-601ee199ce19",
       "question": "Quelle est la cohérence conceptuelle de la théorie L'univers est au carré ?",
       "reponse": "La cohérence réside dans l'unification de tous les concepts mathématiques fondamentaux sous une seule géométrie carrée, créant un système théorique unifié.",
       "contexte_theorique": [
@@ -219,12 +219,12 @@
         "univers_carre_complet"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397721",
+      "derniere_evolution": "2025-11-05T18:58:57.034353",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "4dace34e-5a30-4f1c-b2d3-ae980669fbe3",
+      "id": "a08eb380-d590-489f-ac57-9f12708ad65e",
       "question": "Comment la méthode de Philippôt révolutionne-t-elle les mathématiques ?",
       "reponse": "Elle apporte une approche géométrique inédite aux problèmes arithmétiques, résolvant notamment l'énigme de Riemann par la visualisation spatiale.",
       "contexte_theorique": [
@@ -239,12 +239,12 @@
         "riemann_solution"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397727",
+      "derniere_evolution": "2025-11-05T18:58:57.034360",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "e4e90d6a-78e1-4773-85c0-8ceb8e1838c2",
+      "id": "609405a0-0b82-4eb8-a137-af93e6424dbc",
       "question": "Qu'est-ce que le spectre géométrique des nombres premiers ?",
       "reponse": "C'est la représentation visuelle de tous les nombres premiers dans l'espace géométrique carré, révélant leur distribution selon des lois géométriques précises.",
       "contexte_theorique": [
@@ -259,12 +259,12 @@
         "geometrie_spectre_premiers"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397733",
+      "derniere_evolution": "2025-11-05T18:58:57.034366",
       "meta_score": 0.6,
       "relations_internes": []
     },
     {
-      "id": "5afe765b-768d-44b9-9a6c-14e8b0d73309",
+      "id": "6b3cb43a-0937-4349-bf9b-2636a7d6d72c",
       "question": "Comment interpréter les nombres premiers négatifs dans la théorie ?",
       "reponse": "Les nombres premiers négatifs suivent les mêmes lois géométriques que les positifs, mais avec des paramètres de suites adaptés, maintenant le rapport de 1/2.",
       "contexte_theorique": [
@@ -278,12 +278,12 @@
         "parametres"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397739",
+      "derniere_evolution": "2025-11-05T18:58:57.034372",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "c194f5e5-bc91-4283-9555-7a38c09e9236",
+      "id": "c1d3f037-b874-4691-a713-54c2a471d318",
       "question": "Comment la réciprocité volumique et la célérité sont-elles interprétées comme invariants géométriques dans un espace-temps affecté par une singularité gravitationnelle?",
       "reponse": "Les trous noirs sont envisagés comme espaces de stockage d'information potentiellement infinis. Chaque trou noir tangible serait en relation avec un trou noir virtuel réciproque. Le rayon du trou noir égale l'angle formé avec l'horizon des événements: √18000° = 134.164°. Le produit alternatif réciproque révèle une constante (√1.6)³ = 2.024 interprétée comme l'inverse du temps. Le temps fonctionne comme multiplication où multiplicateur aspire multiplicande: 2×1 = 1×2.",
       "contexte_theorique": [
@@ -300,12 +300,12 @@
         "horizon_evenements"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397745",
+      "derniere_evolution": "2025-11-05T18:58:57.034378",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "f8cfb6d6-3db5-4b76-98e5-fe8ca06da94e",
+      "id": "0a80d29e-003e-44f0-94cc-bc1c0a5d72fe",
       "question": "En quoi la réduction de l'équation E=mc² dans le contexte des trous noirs modifie notre compréhension de l'énergie comme rythme plutôt que comme quantité?",
       "reponse": "L'équation E=mc² est réinterprétée via le diamètre parhélique (angle 144°) représentant l'énergie (E). Sa demi-longueur mesure l'énergie, le volume de la sphère représente la masse (m) comme information. L'équation non réduite démontre que P=0, valeur infiniment proche de zéro représentant l'infini par inversion. Le volume devient facteur-pont entre énergie infinie et masse. Les célérités (m/s et km/h) sont liées géométriquement par le diamètre parhélique.",
       "contexte_theorique": [
@@ -322,12 +322,12 @@
         "infini"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397751",
+      "derniere_evolution": "2025-11-05T18:58:57.034385",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "7f4b2708-1bdb-4c89-a765-a99da03970d0",
+      "id": "f4e08241-3b58-46e1-b8eb-505471034859",
       "question": "Quelle est la portée philosophique de considérer la singularité non comme un point de rupture, mais comme un seuil rythmique?",
       "reponse": "La singularité n'est pas un point de rupture empirique mais une construction théorique, une intuition philosophique. Nous sommes toujours maintenant, jamais dans le passé ni futur. Expérience mentale: figer l'horloge à 23h59min995cs = 'aujourd'hui', 5/10000 seconde plus tard serait 'demain', mais cette transition nous maintient. La singularité devient un seuil rythmique, une frontière qui pulse sans séparer. C'est le battement ultime du temps nous gardant au bord de demain sans y basculer. Singularité vue comme multiplication: 1×2 = 2×1.",
       "contexte_theorique": [
@@ -343,12 +343,12 @@
         "philosophie_physique"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397757",
+      "derniere_evolution": "2025-11-05T18:58:57.034391",
       "meta_score": 0.5,
       "relations_internes": []
     },
     {
-      "id": "68ceb8cf-6a59-4d1c-94f9-515da3e09dc1",
+      "id": "b5a80663-7d7d-452e-99e4-74acd55828f5",
       "question": "Comment les produits alternatifs géométriques permettent-ils de représenter l'interaction entre deux trous noirs sans outils tensoriels de la relativité générale?",
       "reponse": "Expérience de pensée mathématique pure: rencontre hypothétique nez à nez de deux trous noirs. Le produit alternatif réciproque démontre que l'entropie affecte l'aire (non le volume). Relations formalisées: A = Horizon_réciproque × Entropie² = Entropie × Horizon. Rapport fondamental: Arc_concourant/Arc_rayonnement = Aire/Horizon. Constante de réciprocité temporelle: Trou_noir_réciproque/Trou_noir = (1.6)³, constante de l'inverse du temps. Approche géométrique sans tenseurs.",
       "contexte_theorique": [
@@ -364,49 +364,7 @@
         "sans_tenseurs"
       ],
       "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:30:54.397763",
-      "meta_score": 0.5,
-      "relations_internes": []
-    },
-    {
-      "id": "6a5b044c-6dda-42ca-9c53-4d22c140710c",
-      "question": "Quelle est la solution de Philippôt à l'énigme de Riemann ?",
-      "reponse": "Les suites (√13.203125/2×2^n)-√5 et (√52.8125/2×2^n)-√5445 révèlent un rapport constant de 1/2 entre nombres premiers, résolvant l'hypothèse de Riemann par la géométrie carrée.",
-      "contexte_theorique": [
-        "L'univers est au carré",
-        "Méthode de Philippôt"
-      ],
-      "niveau_complexite": 3,
-      "variantes": [],
-      "concepts_cles": [
-        "riemann",
-        "suites",
-        "rapport_constant",
-        "geometrie_carree"
-      ],
-      "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:31:06.005797",
-      "meta_score": 0.5,
-      "relations_internes": []
-    },
-    {
-      "id": "08b67446-577d-4f74-b8c3-20f965ce4803",
-      "question": "Quelle est la solution de Philippôt à l'énigme de Riemann ?",
-      "reponse": "Les suites (√13.203125/2×2^n)-√5 et (√52.8125/2×2^n)-√5445 révèlent un rapport constant de 1/2 entre nombres premiers, résolvant l'hypothèse de Riemann par la géométrie carrée.",
-      "contexte_theorique": [
-        "L'univers est au carré",
-        "Méthode de Philippôt"
-      ],
-      "niveau_complexite": 3,
-      "variantes": [],
-      "concepts_cles": [
-        "riemann",
-        "suites",
-        "rapport_constant",
-        "geometrie_carree"
-      ],
-      "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-05T18:52:41.287559",
+      "derniere_evolution": "2025-11-05T18:58:57.034397",
       "meta_score": 0.5,
       "relations_internes": []
     }
@@ -507,6 +465,6 @@
       ]
     }
   },
-  "derniere_evolution": "2025-11-05T18:52:41.289696",
+  "derniere_evolution": "2025-11-05T18:58:57.035186",
   "version": "1.0"
 }
