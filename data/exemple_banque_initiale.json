@@ -1,6 +1,9 @@
 {
-  "description": "Banque initiale de 14 questions-réponses pour l'IA évolutive - Théorie L'univers est au carré",
-  "version": "1.0",
+  "description": "Banque initiale de 18 questions-réponses pour l'IA évolutive - Théorie L'univers est au carré (Mise à jour avec trous noirs et entropie)",
+  "version": "2.0",
+  "date_mise_a_jour": "2024",
+  "nouvelles_questions": [15, 16, 17, 18],
+  "theme_nouvelles_questions": "Trous noirs, entropie, réciprocité volumique et célérité",
   "banque_initiale": [
     {
       "question": "Quelle est la formule de base du Digamma de Philippôt ?",
