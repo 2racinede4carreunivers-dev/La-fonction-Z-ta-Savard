@@ -475,8 +475,8 @@ class BanqueEvolutive:
         
         # Utilisation du LLM pour générer une réponse intelligente
         try:
-            from emergentintegrations import Claude
             import os
+            import emergentintegrations
             
             api_key = os.environ.get('EMERGENT_LLM_KEY')
             if not api_key:
@@ -485,8 +485,6 @@ class BanqueEvolutive:
                 for qr in qr_pertinentes[:3]:
                     elements_reponse.append(f"**{qr.question}**\n{qr.reponse}")
                 return "\n\n".join(elements_reponse)
-            
-            client = Claude(api_key=api_key)
             
             prompt = f"""Tu es l'IA Évolutive experte de la théorie "L'univers est au carré" de Philippe Thomas Savard.
 
@@ -506,9 +504,10 @@ Instructions :
 
 Réponse :"""
 
-            response = client.chat.completions.create(
+            response = emergentintegrations.generate(
                 model="claude-sonnet-4-20250514",
-                messages=[{"role": "user", "content": prompt}],
+                prompt=prompt,
+                api_key=api_key,
                 max_tokens=1500
             )
             
