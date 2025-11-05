@@ -438,23 +438,72 @@ class BanqueEvolutive:
     
     async def _generer_reponse_contextuelle(self, qr_pertinentes: List[QuestionReponse], 
                                           contexte: str) -> str:
-        """Génération d'une réponse contextualisée"""
+        """Génération d'une réponse contextualisée via LLM"""
         if not qr_pertinentes:
-            return "Je n'ai pas trouvé d'éléments pertinents dans ma banque de connaissances pour répondre à cette question."
+            return "Je n'ai pas trouvé d'éléments pertinents dans ma banque de connaissances pour répondre à cette question. Puis-je vous aider avec une autre question sur la théorie 'L'univers est au carré' ?"
         
-        # Construction de la réponse basée sur les Q&R pertinentes
-        elements_reponse = []
+        # Construction du contexte pour le LLM
+        contexte_qr = "\n\n".join([
+            f"Question {i+1}: {qr.question}\nRéponse: {qr.reponse}\nConcepts: {', '.join(qr.concepts_cles)}"
+            for i, qr in enumerate(qr_pertinentes[:3])  # Utiliser les 3 plus pertinentes
+        ])
         
-        for qr in qr_pertinentes[:3]:  # Utiliser les 3 plus pertinentes
-            elements_reponse.append(f"**{qr.question}**\n{qr.reponse}")
-        
-        reponse_finale = "\n\n".join(elements_reponse)
-        
-        # Ajout du contexte théorique si pertinent
-        if any("riemann" in qr.concepts_cles for qr in qr_pertinentes):
-            reponse_finale += "\n\n*Note : Cette réponse s'appuie sur les développements théoriques de 'L'univers est au carré' concernant la résolution géométrique de l'hypothèse de Riemann.*"
-        
-        return reponse_finale
+        # Utilisation du LLM pour générer une réponse intelligente
+        try:
+            from emergentintegrations import Claude
+            import os
+            
+            api_key = os.environ.get('EMERGENT_LLM_KEY')
+            if not api_key:
+                # Fallback si pas de clé: retourner les Q&R directement
+                elements_reponse = []
+                for qr in qr_pertinentes[:3]:
+                    elements_reponse.append(f"**{qr.question}**\n{qr.reponse}")
+                return "\n\n".join(elements_reponse)
+            
+            client = Claude(api_key=api_key)
+            
+            prompt = f"""Tu es l'IA Évolutive experte de la théorie "L'univers est au carré" de Philippe Thomas Savard.
+
+Basé sur les questions-réponses suivantes de ma banque de connaissances :
+
+{contexte_qr}
+
+Réponds à la question de l'utilisateur : "{contexte}"
+
+Instructions :
+1. Réponds de manière claire, pédagogique et détaillée
+2. Utilise les informations de la banque Q&R
+3. Cite les concepts théoriques pertinents
+4. Explique les formules si mentionnées
+5. Reste fidèle à la théorie de Philippôt
+6. Si la question porte sur les trous noirs, l'entropie, ou la réciprocité volumique, utilise les nouvelles informations disponibles
+
+Réponse :"""
+
+            response = client.chat.completions.create(
+                model="claude-sonnet-4-20250514",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=1500
+            )
+            
+            reponse_ia = response.choices[0].message.content
+            
+            # Ajout d'une note sur l'évolution
+            note_evolution = "\n\n---\n*💡 Cette réponse a été générée à partir de ma banque évolutive de connaissances. Je m'améliore silencieusement à chaque interaction.*"
+            
+            return reponse_ia + note_evolution
+            
+        except Exception as e:
+            # Fallback en cas d'erreur
+            logging.error(f"Erreur génération réponse LLM: {str(e)}")
+            elements_reponse = []
+            for qr in qr_pertinentes[:3]:
+                elements_reponse.append(f"**{qr.question}**\n{qr.reponse}")
+            
+            reponse_finale = "\n\n".join(elements_reponse)
+            reponse_finale += "\n\n*Note : Cette réponse s'appuie sur les développements théoriques de 'L'univers est au carré'.*"
+            return reponse_finale
     
     async def _sauvegarder_banque(self) -> None:
         """Sauvegarde silencieuse de la banque évoluée"""
