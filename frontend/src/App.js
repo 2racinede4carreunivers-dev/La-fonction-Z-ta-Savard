@@ -5204,7 +5204,6 @@ const SalonLecturePage = () => {
   const [selectedText, setSelectedText] = useState('');
   const [contextualResponse, setContextualResponse] = useState('');
   const [isContextualLoading, setIsContextualLoading] = useState(false);
-  const [longPressTimer, setLongPressTimer] = useState(null);
 
   useEffect(() => {
     fetchConceptsEnrichis();
@@ -5223,6 +5222,21 @@ const SalonLecturePage = () => {
       }
     };
   }, []);
+  
+  // Cleanup supplémentaire quand on change de section
+  useEffect(() => {
+    // Nettoyer tous les timers quand la section change
+    return () => {
+      if (tooltipTimerRef.current) {
+        clearTimeout(tooltipTimerRef.current);
+        tooltipTimerRef.current = null;
+      }
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current);
+        longPressTimerRef.current = null;
+      }
+    };
+  }, [selectedSection]);
 
   const fetchConceptsEnrichis = async () => {
     try {
