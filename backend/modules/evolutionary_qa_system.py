@@ -423,9 +423,17 @@ class BanqueEvolutive:
         """Extraction des concepts du contexte de la requête"""
         concepts = []
         
+        # Mots-clés théoriques étendus incluant les nouveaux concepts
         mots_cles_theoriques = [
+            # Fondamentaux
             "digamma", "riemann", "nombres premiers", "geometrie", "philippot",
-            "univers", "carre", "suites", "rapport", "triangulaire"
+            "univers", "carre", "suites", "rapport", "triangulaire",
+            # Nouveaux concepts (Questions 15-18)
+            "trous noirs", "trou noir", "entropie", "reciprocite", "volumique",
+            "celerite", "singularite", "horizon", "evenements", "emc2",
+            "energie", "rythme", "masse", "information", "diametre", "parhelique",
+            "produits alternatifs", "seuil rythmique", "temps", "pulsation",
+            "interaction", "astrophysique", "cosmologie", "relativite"
         ]
         
         contexte_lower = contexte.lower()
