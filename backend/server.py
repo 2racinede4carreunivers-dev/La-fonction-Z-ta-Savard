@@ -2079,10 +2079,69 @@ async def health_check():
 # SYSTÈME D'IA ÉVOLUTIF - ENDPOINTS PRINCIPAUX
 # ===============================================
 
+@app.post("/api/ia-evolutif/initialiser-auto")
+async def initialiser_systeme_evolutif_auto():
+    """
+    Initialisation AUTOMATIQUE du système d'IA évolutif avec la banque de 18 questions-réponses
+    Charge automatiquement le fichier exemple_banque_initiale.json
+    Déclenche l'analyse des documents PDF et la méta-programmation
+    """
+    global systeme_initialise
+    
+    try:
+        # Charger le fichier JSON automatiquement
+        import json
+        fichier_path = "/app/data/exemple_banque_initiale.json"
+        
+        with open(fichier_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Extraction de la banque initiale
+        banque_json = data.get("banque_initiale", [])
+        
+        if not banque_json:
+            raise HTTPException(status_code=400, detail="Banque initiale vide dans le fichier JSON")
+        
+        # Conversion au format attendu
+        banque_initiale = []
+        for qr in banque_json:
+            banque_initiale.append({
+                "question": qr.get("question", ""),
+                "reponse": qr.get("reponse", ""),
+                "complexite": qr.get("complexite", 3),
+                "concepts": qr.get("concepts", [])
+            })
+        
+        # Initialisation du système
+        await ia_evolutif.initialiser_systeme(banque_initiale)
+        systeme_initialise = True
+        
+        # Statistiques d'initialisation
+        stats = await ia_evolutif.obtenir_statistiques_evolution()
+        
+        return {
+            "success": True,
+            "message": f"Système d'IA évolutif initialisé avec succès - {len(banque_initiale)} questions chargées",
+            "nombre_questions": len(banque_initiale),
+            "version": data.get("version", "1.0"),
+            "nouvelles_questions": data.get("nouvelles_questions", []),
+            "theme_nouvelles": data.get("theme_nouvelles_questions", ""),
+            "statistiques": stats,
+            "analyse_pdf": "Documents PDF analysés et concepts extraits",
+            "meta_programmation": "Méta-programmation activée pour évolution silencieuse"
+        }
+        
+    except FileNotFoundError:
+        raise HTTPException(status_code=404, detail="Fichier banque initiale non trouvé")
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=400, detail="Erreur de format JSON dans le fichier")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur initialisation IA évolutif: {str(e)}")
+
 @app.post("/api/ia-evolutif/initialiser")
 async def initialiser_systeme_evolutif(init_data: InitialisationBanque):
     """
-    Initialisation du système d'IA évolutif avec la banque de 14 questions-réponses
+    Initialisation MANUELLE du système d'IA évolutif avec données fournies
     Déclenche l'analyse des documents PDF et la méta-programmation
     """
     global systeme_initialise
