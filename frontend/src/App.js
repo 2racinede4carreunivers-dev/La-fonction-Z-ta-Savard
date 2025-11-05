@@ -10572,24 +10572,45 @@ const IAEvolutifPage = () => {
   const initialiserSysteme = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.post(`${API_URL}/api/ia-evolutif/initialiser`, {
-        banque_initiale: banqueInitiale14
-      });
+      // Utilisation du nouvel endpoint automatique
+      const response = await axios.post(`${API_URL}/api/ia-evolutif/initialiser-auto`);
       
       if (response.data.success) {
         setSystemeInitialise(true);
         setStatistiques(response.data.statistiques);
         setShowInitialisation(false);
         
-        // Message de confirmation
+        // Message de confirmation enrichi avec les nouvelles informations
+        const nombreQuestions = response.data.nombre_questions || 18;
+        const version = response.data.version || "2.0";
+        const nouvellesQuestions = response.data.nouvelles_questions || [];
+        const themeNouvelles = response.data.theme_nouvelles || "";
+        
+        let messageConfirmation = `🧠 Système d'IA évolutive initialisé avec succès !\n\n`;
+        messageConfirmation += `✅ ${nombreQuestions} questions-réponses chargées (Version ${version})\n`;
+        
+        if (nouvellesQuestions.length > 0) {
+          messageConfirmation += `\n🆕 Nouvelles questions ajoutées: ${nouvellesQuestions.join(', ')}\n`;
+          messageConfirmation += `📚 Thème: ${themeNouvelles}\n`;
+        }
+        
+        messageConfirmation += `\n🔄 Méta-programmation activée pour évolution silencieuse\n`;
+        messageConfirmation += `📖 Documents PDF analysés et concepts extraits\n`;
+        messageConfirmation += `\n💬 Posez vos questions sur "L'univers est au carré" !`;
+        
         setHistoriqueDiagogue([{
           type: 'systeme',
-          message: '🧠 Système d\'IA évolutive initialisé avec succès ! La banque de 14 questions a été analysée et enrichie avec les concepts de votre théorie. La méta-programmation est maintenant active.',
+          message: messageConfirmation,
           timestamp: new Date().toLocaleString()
         }]);
       }
     } catch (error) {
       console.error('Erreur initialisation:', error);
+      setHistoriqueDiagogue([{
+        type: 'erreur',
+        message: `❌ Erreur lors de l'initialisation: ${error.response?.data?.detail || error.message}`,
+        timestamp: new Date().toLocaleString()
+      }]);
     } finally {
       setIsLoading(false);
     }
