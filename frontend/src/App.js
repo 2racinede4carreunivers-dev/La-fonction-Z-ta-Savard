@@ -2439,14 +2439,15 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
       if (response.data.success) {
         setSuggestions(response.data.suggestions);
-        setShowSuggestions(true);
+        // NE PAS ouvrir automatiquement la fenêtre
+        // setShowSuggestions(true); // DÉSACTIVÉ pour ne pas gêner l'écriture
         
-        // Notification non envahissante
+        // Notification non envahissante - l'utilisateur peut cliquer pour consulter
         setNotifications(prev => [...prev, {
           id: Date.now(),
           type: 'suggestion',
-          title: 'Suggestions générées',
-          message: 'De nouvelles suggestions de contenu sont disponibles',
+          title: '✨ Suggestions générées',
+          message: `${response.data.suggestions.length} nouvelles suggestions disponibles. Cliquez pour consulter.`,
           timestamp: new Date().toLocaleTimeString()
         }]);
       }
