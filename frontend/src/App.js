@@ -2518,6 +2518,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
           message: `Score: ${score}/10. ${analysis.points_amelioration?.length || 0} points d'amélioration. Cliquez pour détails.`,
           timestamp: new Date().toLocaleTimeString()
         }]);
+        
+        // Afficher brièvement le panneau (3 secondes) puis le masquer automatiquement
+        setShowNotifications(true);
+        setTimeout(() => {
+          setShowNotifications(false);
+        }, 3000);
       }
     } catch (error) {
       console.error('Erreur cohérence:', error);
