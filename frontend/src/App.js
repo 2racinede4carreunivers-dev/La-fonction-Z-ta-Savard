@@ -4832,10 +4832,40 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
 
         {/* Tooltip only in SalonLecturePage */}
 
-        {/* Notifications Intelligentes (Overlay non-intrusif) - Position corrigée */}
+        {/* Badge de notifications - Toujours visible si notifications présentes */}
+        {notifications.length > 0 && (
+          <div className="fixed top-20 right-4 z-50">
+            <button
+              onClick={() => setShowNotifications(!showNotifications)}
+              className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white rounded-full px-4 py-2 shadow-lg flex items-center gap-2 transition-all"
+            >
+              <span className="text-lg">🔔</span>
+              <span className="font-semibold">Analyses prêtes</span>
+              <span className="bg-white text-cyan-600 rounded-full px-2 py-0.5 text-xs font-bold">
+                {notifications.length}
+              </span>
+            </button>
+          </div>
+        )}
+        
+        {/* Panneau de notifications - S'ouvre au clic */}
         {showNotifications && notifications.length > 0 && (
-          <div className="fixed top-20 right-4 z-50 max-w-sm">
-            {notifications.slice(-3).map((notification, index) => (
+          <div className="fixed top-32 right-4 z-50 max-w-md">
+            <div className="bg-gradient-to-br from-slate-900 to-slate-800 border-2 border-cyan-500/30 rounded-xl shadow-2xl p-4">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-cyan-400 font-bold text-lg flex items-center gap-2">
+                  <span>🔔</span>
+                  Analyses disponibles ({notifications.length})
+                </h3>
+                <button
+                  onClick={() => setShowNotifications(false)}
+                  className="text-gray-400 hover:text-white hover:bg-red-600/30 rounded px-2 py-1"
+                >
+                  ✕ Fermer
+                </button>
+              </div>
+              
+              {notifications.map((notification, index) => (
               <div
                 key={notification.id || index}
                 className="bg-slate-800/95 backdrop-blur-sm border border-slate-600 rounded-lg p-3 mb-2 shadow-xl cursor-pointer hover:bg-slate-700/95 transition-colors"
