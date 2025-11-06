@@ -2497,14 +2497,19 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
       if (response.data.success) {
         setCoherenceAnalysis(response.data.analyse_coherence);
-        setShowCoherence(true);
+        // NE PAS ouvrir automatiquement la fenêtre
+        // setShowCoherence(true); // DÉSACTIVÉ pour ne pas gêner l'écriture
         
-        // Notification si problèmes détectés
+        // Notification avec indicateur de qualité - l'utilisateur peut cliquer pour consulter
+        const analysis = response.data.analyse_coherence;
+        const score = analysis.score_coherence || 0;
+        const emoji = score >= 8 ? '✅' : score >= 6 ? '⚠️' : '🔴';
+        
         setNotifications(prev => [...prev, {
           id: Date.now(),
           type: 'coherence',
-          title: 'Analyse de cohérence terminée',
-          message: 'L\'analyse de cohérence argumentaire est disponible',
+          title: `${emoji} Analyse de cohérence terminée`,
+          message: `Score: ${score}/10. ${analysis.points_amelioration?.length || 0} points d'amélioration. Cliquez pour détails.`,
           timestamp: new Date().toLocaleTimeString()
         }]);
       }
