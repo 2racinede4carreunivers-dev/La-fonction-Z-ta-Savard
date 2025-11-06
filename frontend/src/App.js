@@ -4909,10 +4909,21 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                 </div>
                 <div className="text-gray-500 text-xs mt-1 flex items-center justify-between">
                   <span>{notification.timestamp}</span>
-                  <span className="text-blue-400 text-xs">← Cliquer pour ouvrir</span>
+                  <span className="text-cyan-400 text-xs font-semibold">👆 Cliquer pour consulter</span>
                 </div>
               </div>
-            ))}
+              ))}
+              
+              {/* Bouton pour tout effacer */}
+              <div className="mt-4 pt-3 border-t border-slate-600">
+                <button
+                  onClick={() => setNotifications([])}
+                  className="w-full text-center text-sm text-gray-400 hover:text-red-400 transition-colors"
+                >
+                  🗑️ Tout effacer
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
