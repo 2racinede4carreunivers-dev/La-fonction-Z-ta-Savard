@@ -2450,6 +2450,12 @@ const CollaborationPage = ({ folderProps = {} }) => {
           message: `${response.data.suggestions.length} nouvelles suggestions disponibles. Cliquez pour consulter.`,
           timestamp: new Date().toLocaleTimeString()
         }]);
+        
+        // Afficher brièvement le panneau (3 secondes) puis le masquer automatiquement
+        setShowNotifications(true);
+        setTimeout(() => {
+          setShowNotifications(false);
+        }, 3000);
       }
     } catch (error) {
       console.error('Erreur suggestions:', error);
