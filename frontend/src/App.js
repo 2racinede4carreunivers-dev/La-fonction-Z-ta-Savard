@@ -10211,19 +10211,26 @@ const IASocratiquePage = () => {
         contexte_session: "Évolution théorique L'univers est au carré"
       });
       
+      console.log('Réponse IA Socratique:', response.data);
+      
+      // Vérifier que les données sont présentes
+      if (!response.data || !response.data.reponse_socratique) {
+        throw new Error('Réponse invalide du serveur');
+      }
+      
       // Ajouter la réponse socratique à l'historique
       setHistoriqueChallenge(prev => [...prev, {
         type: 'socratique',
         message: response.data.reponse_socratique,
-        questions_challengeantes: response.data.questions_challengeantes,
-        axes_evolution: response.data.axes_evolution_identifies,
-        niveau_challenge: response.data.niveau_challenge,
-        concepts_analyses: response.data.concepts_analyses,
+        questions_challengeantes: response.data.questions_challengeantes || [],
+        axes_evolution: response.data.axes_evolution_identifies || [],
+        niveau_challenge: response.data.niveau_challenge || 1,
+        concepts_analyses: response.data.concepts_analyses || [],
         timestamp: new Date().toLocaleString()
       }]);
       
       // Mettre à jour les axes d'évolution
-      if (response.data.axes_evolution_identifies.length > 0) {
+      if (response.data.axes_evolution_identifies && response.data.axes_evolution_identifies.length > 0) {
         setAxesEvolution(prev => {
           const nouveauxAxes = response.data.axes_evolution_identifies.filter(
             axe => !prev.some(existant => existant.titre === axe)
@@ -10239,9 +10246,10 @@ const IASocratiquePage = () => {
       
     } catch (error) {
       console.error('Erreur challenge socratique:', error);
+      const errorMsg = error.response?.data?.detail || error.message || 'Erreur inconnue';
       setHistoriqueChallenge(prev => [...prev, {
         type: 'erreur',
-        message: 'Erreur de communication avec le partenaire intellectuel.',
+        message: `❌ Erreur de communication avec l'IA Socratique: ${errorMsg}`,
         timestamp: new Date().toLocaleString()
       }]);
     } finally {
