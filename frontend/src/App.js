@@ -4172,12 +4172,12 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                               </div>
                             </div>
                           ) : (
-                            <div className="w-full mb-4">
+                            <div className="w-full mb-4" style={{ position: 'relative', zIndex: 20 }}>
                               <div className={`w-full rounded-lg p-4 ${
                                 msg.type === 'error'
-                                  ? 'bg-red-600/20 text-red-200 border border-red-500/30'
+                                  ? 'bg-red-600/30 text-red-200 border border-red-500/30'
                                   : msg.type === 'system'
-                                  ? 'bg-green-600/20 text-green-200 border border-green-500/30'
+                                  ? 'bg-green-600/30 text-green-200 border border-green-500/30'
                                   : 'bg-indigo-600/20 text-blue-100 border border-indigo-500/30'
                               }`}>
                                 <div className="flex items-center justify-between mb-2">
