@@ -4186,7 +4186,8 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
                                   ? 'bg-red-600/30 text-red-200 border border-red-500/30'
                                   : msg.type === 'system'
                                   ? 'bg-green-600/30 text-green-200 border border-green-500/30'
-                                  : 'bg-indigo-700/90 text-blue-100 border border-indigo-500/30'
+                                  : 'text-blue-100 border border-indigo-500/30'
+                              }` + ` ${msg.type === 'ai' ? 'bg-indigo-900' : ''}`} style={msg.type === 'ai' ? { background: 'rgb(30 41 59)', isolation: 'isolate' } : {}}>
                               }`}>
                                 <div className="flex items-center justify-between mb-2">
                                   <div className="flex items-center gap-2">
