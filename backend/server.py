@@ -2799,7 +2799,8 @@ async def dialoguer_avec_ia_evolutif(dialogue: DialogueRequest):
         return DialogueResponse(
             reponse=reponse,
             concepts_utilises=concepts_utilises,
-            evolution_silencieuse=True
+            evolution_silencieuse=True,
+            taille_banque=len(ia_evolutif.banque_evolutive.banque)
         )
         
     except Exception as e:
