@@ -1509,6 +1509,603 @@ CONCEPTS_ENRICHIS = [
         "niveau_complexite": "avance",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
+    # === NOUVEAUX CONCEPTS - GÉOMÉTRIE DU SPECTRE DES NOMBRES PREMIERS ===
+    
+    # 31. GÉOMÉTRIE DU SPECTRE DES NOMBRES PREMIERS
+    {
+        "id": "geometrie_spectre_nombres_premiers",
+        "titre": "Géométrie du Spectre des Nombres Premiers",
+        "description": "Cadre géométrique conceptualisé pour représenter la distribution et les propriétés des nombres premiers, intégrant des visualisations 3D et des analyses numériques complexes. Vise à dévoiler une structure sous-jacente qui relie la géométrie aux nombres premiers et potentiellement à l'hypothèse de Riemann.",
+        "domaine_principal": "Mathématiques Théoriques",
+        "concepts_cles": [
+            "Visualisation géométrique 3D des nombres premiers",
+            "Projections et hyperplans",
+            "Structure spectrale des nombres premiers",
+            "Liens géométrie-arithmétique",
+            "Approche non conventionnelle de Riemann"
+        ],
+        "formules": [],
+        "definitions": [
+            "Spectre géométrique: Ensemble des manifestations géométriques des nombres premiers",
+            "Hyperplan: Surface traversant l'ensemble des cubes pour délimiter le plan cartésien",
+            "Structure sous-jacente: Organisation cachée révélée par l'analyse géométrique"
+        ],
+        "relations": [
+            "Fondement de l'analyse numérique métrique",
+            "Base pour modèle géométrique fonction Zêta",
+            "Connexion avec l'hypothèse de Riemann"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 1-2",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 32. MODÈLE GÉOMÉTRIQUE FONCTION ZÊTA
+    {
+        "id": "modele_geometrique_fonction_zeta",
+        "titre": "Modèle Géométrique de la Fonction Zêta",
+        "description": "Représentation visuelle en 3D de la fonction zêta de Riemann, utilisant quatre pyramides orientées dans des directions cardinales, formant une structure cubique traversée par un hyperplan. Ce modèle cherche à illustrer la dynamique et les propriétés de la fonction Zêta dans un espace géométrique.",
+        "domaine_principal": "Analyse Complexe",
+        "concepts_cles": [
+            "Quatre pyramides orientées",
+            "Structure cubique et hyperplan",
+            "Visualisation fonction zêta",
+            "Modélisation 3D des zéros",
+            "Approche géométrique analytique"
+        ],
+        "formules": [],
+        "definitions": [
+            "Pyramides cardinales: Structures orientées Nord, Sud, Est, Ouest",
+            "Hyperplan jaune: Surface traversant les cubes",
+            "Tesseract: Expression du repli des cubes"
+        ],
+        "relations": [
+            "Lien avec hypothèse de Riemann",
+            "Visualisation des zéros non triviaux",
+            "Fondement géométrie du spectre"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 2.1, Figure 1",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 33. ANALYSE NUMÉRIQUE MÉTRIQUE (PHILIPPÔT)
+    {
+        "id": "analyse_numerique_metrique_philippot",
+        "titre": "Analyse Numérique Métrique selon Philippôt",
+        "description": "Méthode d'analyse numérique fondée sur des suites fractionnaires et la manipulation de figures géométriques (rectangles, carrés, cubes) pour déterminer des propriétés des nombres premiers. Inspirée par le principe de substitution dans l'analyse granulométrique.",
+        "domaine_principal": "Analyse Numérique",
+        "concepts_cles": [
+            "Suites fractionnaires itératives",
+            "Substitution positionnelle",
+            "Manipulation figures géométriques",
+            "Schémas 3D et parallélogrammes",
+            "Rapports invariants"
+        ],
+        "formules": [
+            "Suites itératives avec règles de progression",
+            "Étape 1: Σ(aₙ + aₙ₋₁ + ... + a₁) = 1",
+            "Position k: valeur 1/(2^(k+4))"
+        ],
+        "definitions": [
+            "Analyse métrique: Méthode de mesure basée sur substitutions positionnelles",
+            "Suite fractionnaire: Séquence de fractions suivant des règles itératives",
+            "Substitution: Déplacement de valeurs selon positions"
+        ],
+        "relations": [
+            "Inspirée de l'analyse granulométrique",
+            "Connexion au Digamma grec",
+            "Fondement des rapports triangulaires"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 2.4, 7.1-7.2",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 34. DIGAMMA COMME OUTIL DE CALCUL
+    {
+        "id": "digamma_outil_calcul_philippot",
+        "titre": "Digamma comme Outil de Calcul",
+        "description": "La fonction Digamma (ψ(x)) est utilisée comme élément clé pour déterminer les nombres premiers et vérifier des hypothèses. Sa position dans les calculs (7ème, 8ème ou 9ème) est déterminante. Lié à la numération grecque où Digamma est situé entre Epsilon et Zêta.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Fonction Digamma ψ(x)",
+            "Positions critiques (7e, 8e, 9e)",
+            "Calculs de suites",
+            "Addition/soustraction selon rapport Base/Hauteur",
+            "Lien numération grecque"
+        ],
+        "formules": [
+            "ψ(n) = √((n+7)² + (n+8)²)",
+            "Digamma calculé à position p dans suites",
+            "Formule du Digamma selon Philippôt"
+        ],
+        "definitions": [
+            "Digamma: Lettre grecque archaïque entre Epsilon et Zêta",
+            "Position Digamma: Emplacement critique dans séquences de calcul",
+            "Digamma calculé: Valeur dérivée pour ajuster résultats"
+        ],
+        "relations": [
+            "Connexion analyse numérique métrique",
+            "Lien avec détermination nombres premiers",
+            "Fondement anomalie Zêta grec"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 3, 7.2, 8.2",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 35. RAPPORTS TRIANGULAIRES ET CONVERGENCE VERS 1/2
+    {
+        "id": "rapports_triangulaires_convergence",
+        "titre": "Rapports Triangulaires et Convergence vers 1/2",
+        "description": "Étude des rapports (base/hauteur) dans des figures géométriques associées aux nombres premiers. Ces rapports, manipulés par les méthodes de Philippôt, tendent à converger vers 1/2, interprété comme confirmation de l'hypothèse de Riemann.",
+        "domaine_principal": "Géométrie Fondamentale",
+        "concepts_cles": [
+            "Rapport base/hauteur = 1/n",
+            "Convergence systématique vers 1/2",
+            "Figures géométriques (triangles, trapèzes)",
+            "Confirmation hypothèse Riemann",
+            "Rapports invariants"
+        ],
+        "formules": [
+            "base/hauteur = 1/2",
+            "Aire trapèze = ((b₁ + b₂)/2) × h",
+            "Rapports: 50/100 = 100/200 = 200/400 = 1/2"
+        ],
+        "definitions": [
+            "Rapport triangulaire: Relation base/hauteur dans figures géométriques",
+            "Convergence vers 1/2: Tendance systématique des rapports",
+            "Invariant 1/2: Valeur constante observée dans analyses"
+        ],
+        "relations": [
+            "Lien direct avec hypothèse Riemann",
+            "Connexion au rapport 1/2 comme valeur de référence",
+            "Fondement des suites fractionnaires"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 7.15-7.20",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 36. SUITES FRACTIONNAIRES ITÉRATIVES
+    {
+        "id": "suites_fractionnaires_iteratives",
+        "titre": "Suites Fractionnaires Itératives",
+        "description": "Suites de nombres fractionnaires construites selon des règles itératives spécifiques. La somme de ces suites, souvent dans des 'étapes' successives, produit des résultats finis utilisés pour identifier des propriétés des nombres premiers.",
+        "domaine_principal": "Analyse",
+        "concepts_cles": [
+            "Construction itérative",
+            "Règles récurrentes",
+            "Somme convergeant vers 1",
+            "Étapes successives",
+            "Propriétés nombres premiers"
+        ],
+        "formules": [
+            "a₁ = 1/2",
+            "Pour i=2 à n-3: aᵢ = aᵢ₋₁ × (1/2)",
+            "Avant-dernier: aₙ₋₁ = aₙ₋₂ × (2/3)",
+            "Dernier: aₙ = aₙ₋₁ × (1/2)",
+            "Progression: 1/(3^(n+1)) / 1/(3^n) = 1/3"
+        ],
+        "definitions": [
+            "Suite fractionnaire: Séquence de fractions suivant règles itératives",
+            "Étape: Phase de calcul dans méthode Philippôt",
+            "Convergence: Tendance de la somme vers valeur finie"
+        ],
+        "relations": [
+            "Cœur de la méthode numérique Philippôt",
+            "Lien avec rapports triangulaires",
+            "Connexion analyse métrique"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 7.15-7.22, Tables 1-26",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 37. NOMBRES PREMIERS COMME INFINITÉS
+    {
+        "id": "nombres_premiers_comme_infinites",
+        "titre": "Les Nombres Premiers comme Infinités",
+        "description": "Concept philosophique où chaque nombre premier, bien que fini, porte en lui une infinité intrinsèque. Cette infinité se manifeste par sa capacité à générer des structures infinies (suites, groupes) et par ses propriétés irréductibles mais universelles.",
+        "domaine_principal": "Philosophie des Mathématiques",
+        "concepts_cles": [
+            "Infini intrinsèque aux premiers",
+            "Structures infinies générées",
+            "Propriétés irréductibles",
+            "Universalité des premiers",
+            "Singularités géométriques"
+        ],
+        "formules": [],
+        "definitions": [
+            "Infini en soi: Chaque premier comme entité infinie individuelle",
+            "Singularité géométrique: Premier comme point fondamental dans l'infini",
+            "Universalité: Propriété fondamentale partagée par tous les premiers"
+        ],
+        "relations": [
+            "Lien avec compression de l'infini",
+            "Connexion spectre des nombres premiers",
+            "Fondement philosophique de la théorie"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 7.13-7.14, 13.0",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 38. COMPRESSION PROPORTIONNELLE DE L'INFINI
+    {
+        "id": "compression_proportionnelle_infini",
+        "titre": "Compression Proportionnelle de l'Infini",
+        "description": "Concept selon lequel l'infini peut être représenté comme un espace structuré où les nombres premiers sont compressés le long d'un diamètre, et l'ensemble des entiers composés se répartit sur une surface. Cette compression permet de 'ramener' l'infini à une position médiane.",
+        "domaine_principal": "Théorie de l'Infini",
+        "concepts_cles": [
+            "Infini comme espace structuré",
+            "Compression des premiers",
+            "Diamètre vs surface (Cantor)",
+            "Position médiane de l'infini",
+            "Dernier nombre premier"
+        ],
+        "formules": [
+            "Somme entiers entre -3 et 1000033",
+            "Représentation proportionnelle de l'infini"
+        ],
+        "definitions": [
+            "Compression: Rapprochement des premiers vers l'infini",
+            "Espace structuré: Infini organisé par géométrie des premiers",
+            "Dernier premier: Point médian marquant moitié de l'infini"
+        ],
+        "relations": [
+            "Lien avec nombres premiers comme infinités",
+            "Connexion figure conceptuelle infini composé",
+            "Application théorème Cantor"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 10-11",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 39. LE ZÊTA GREC ET SUBSTITUTION
+    {
+        "id": "zeta_grec_substitution",
+        "titre": "Le Zêta Grec et l'Idée de Substitution",
+        "description": "Observation que la lettre grecque Zêta (ζ) vaut 7 mais occupe la sixième position dans l'alphabet. Cette particularité, due à l'ancienne existence du Digamma, sert de métaphore pour illustrer le déplacement, la substitution et les valeurs ne correspondant pas à leur position logique.",
+        "domaine_principal": "Histoire des Mathématiques",
+        "concepts_cles": [
+            "Anomalie Zêta grec",
+            "Valeur 7 en position 6",
+            "Digamma archaïque",
+            "Substitution positionnelle",
+            "Inspiration métaphorique"
+        ],
+        "formules": [],
+        "definitions": [
+            "Anomalie Zêta: Décalage valeur/position",
+            "Substitution: Déplacement conceptuel de valeurs",
+            "Digamma archaïque: Lettre grecque disparue entre Epsilon et Zêta"
+        ],
+        "relations": [
+            "Inspiration pour analyse numérique métrique",
+            "Connexion au Digamma comme outil",
+            "Fondement principe de substitution"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 2.2",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 40. RAPPORT 1/2 COMME VALEUR DE RÉFÉRENCE
+    {
+        "id": "rapport_demi_valeur_reference",
+        "titre": "Le Rapport 1/2 comme Valeur de Référence",
+        "description": "La valeur 1/2 est présentée comme une 'valeur de référence' fondamentale, le 'pôle' autour duquel la recherche tourne, particulièrement en lien avec l'hypothèse de Riemann et les rapports observés dans les analyses géométriques et numériques.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Valeur fondamentale 1/2",
+            "Pôle de convergence",
+            "Invariant mathématique",
+            "Lien hypothèse Riemann",
+            "Confirmation géométrique"
+        ],
+        "formules": [
+            "Rapport constant = 1/2",
+            "Partie réelle zéros = 1/2",
+            "Rapports géométriques → 1/2"
+        ],
+        "definitions": [
+            "Valeur de référence: Constante fondamentale 1/2",
+            "Pôle 1: Convergence symbolique vers 1/2",
+            "Invariant: Propriété constante dans analyses"
+        ],
+        "relations": [
+            "Cœur de l'hypothèse de Riemann",
+            "Connexion rapports triangulaires",
+            "Fondement convergence géométrique"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 1.1, 7.8, 13.0",
+        "niveau_complexite": "fondamental",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 41. NOMBRES PREMIERS POSITIFS ET NÉGATIFS
+    {
+        "id": "nombres_premiers_positifs_negatifs",
+        "titre": "Nombres Premiers Positifs et Négatifs",
+        "description": "Extension de la méthode de Philippôt pour inclure les nombres premiers négatifs, en définissant des équations applicables aux deux. Ces équations utilisent des puissances de 2 (positive ou négative) et des constantes numériques dérivées des analyses.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Extension aux premiers négatifs",
+            "Symétrie positive/négative",
+            "Puissances de 2 (2ⁿ et 2⁻ⁿ)",
+            "Équations duales",
+            "Structure miroir"
+        ],
+        "formules": [
+            "1ère suite (positifs): (√13.203125/2 × 2ⁿ) - √5",
+            "1ère suite (négatifs): (√13.203125/2 × 2⁻ⁿ) - √5",
+            "2e suite (positifs): (√52.8125/2 × 2ⁿ) - √5445",
+            "2e suite (négatifs): (√52.8125/2 × 2⁻ⁿ) - √5445"
+        ],
+        "definitions": [
+            "Premiers négatifs: Extension conceptuelle aux entiers négatifs",
+            "Symétrie duale: Structure miroir positive/négative",
+            "Exposant négatif: Utilisation de 2⁻ⁿ pour premiers négatifs"
+        ],
+        "relations": [
+            "Extension théorie nombres premiers",
+            "Connexion suites fractionnaires",
+            "Lien avec symétries géométriques"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 4, 5.4",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 42. RAPPORT BASE/HAUTEUR POUR LES SUITES
+    {
+        "id": "rapport_base_hauteur_suites",
+        "titre": "Rapport Base/Hauteur pour les Suites",
+        "description": "Rapport constant (1/2, 1/3, 1/4, etc.) utilisé comme paramètre dans la construction des suites de Philippôt. Ce rapport influence la dynamique des suites et la détermination du nombre premier associé à chaque étape.",
+        "domaine_principal": "Géométrie",
+        "concepts_cles": [
+            "Rapport base/hauteur = 1/n",
+            "Paramètre de construction",
+            "Influence sur dynamique",
+            "Facteur multiplicatif",
+            "Détermination premiers associés"
+        ],
+        "formules": [
+            "Rapport = base/hauteur = 1/n",
+            "Influence: facteur dans calculs itératifs",
+            "Tables démontrant rapports 1/2 à 1/100"
+        ],
+        "definitions": [
+            "Rapport B/H: Relation géométrique base sur hauteur",
+            "Paramètre: Valeur contrôlant construction suite",
+            "Clé géométrique: Rapport comme déterminant de propriétés"
+        ],
+        "relations": [
+            "Connexion rapports triangulaires",
+            "Lien avec suites fractionnaires",
+            "Fondement détermination premiers"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 7.15-7.20, Tables 13-26",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 43. FIGURE CONCEPTUELLE DE L'INFINI COMPOSÉ
+    {
+        "id": "figure_conceptuelle_infini_compose",
+        "titre": "Figure Conceptuelle de l'Infini Composé",
+        "description": "Représentation visuelle conceptualisant l'infini comme un espace structuré. Les nombres premiers compressés occupent le diamètre, les nombres entiers composés forment la surface, avec une 'deuxième moitié de l'infini' inaccessible. Basé sur le carré de Cantor.",
+        "domaine_principal": "Topologie",
+        "concepts_cles": [
+            "Visualisation infini structuré",
+            "Premiers sur diamètre",
+            "Composés sur surface",
+            "Carré de Cantor",
+            "Moitié inaccessible de l'infini"
+        ],
+        "formules": [],
+        "definitions": [
+            "Infini composé: Espace structuré contenant premiers et composés",
+            "Diamètre: Ligne contenant premiers compressés",
+            "Surface: Zone contenant nombres composés",
+            "Point médian: Dernier nombre premier"
+        ],
+        "relations": [
+            "Application théorème Cantor",
+            "Lien compression de l'infini",
+            "Connexion premiers comme infinités"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Sections 11-12, Figure 4",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 44. ÉCHANTILLON 0123456789 REPRÉSENTATIF
+    {
+        "id": "echantillon_0123456789_representatif",
+        "titre": "Échantillon 0123456789 comme Représentatif de l'Infini",
+        "description": "Idée que l'échantillon de nombres 0123456789, par ses cycles et transformations, peut représenter l'ensemble des entiers de 0 à l'infini. S'inspire des travaux de Cantor sur la densité des points dans un continuum.",
+        "domaine_principal": "Théorie des Ensembles",
+        "concepts_cles": [
+            "Échantillon représentatif",
+            "Cycles et transformations",
+            "Structure analogique",
+            "Référence Cantor",
+            "Cardinalité équivalente"
+        ],
+        "formules": [
+            "(√12.34567901 / (10/9))² = 10",
+            "(√23.456790123 / (10/9))² = 19"
+        ],
+        "definitions": [
+            "Échantillon probant: 0123456789 comme modèle de l'infini",
+            "Structure cyclique: Répétition et évolution de l'échantillon",
+            "Analogie Cantor: Surface = diamètre en cardinalité"
+        ],
+        "relations": [
+            "Application théorème Cantor",
+            "Lien avec représentation infini",
+            "Connexion analyse métrique"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 12",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 45. NOMENCLATURE EN POURCENTAGE DE (0)
+    {
+        "id": "nomenclature_pourcentage_zero",
+        "titre": "Nomenclature en Pourcentage de (0)",
+        "description": "Système proposé pour positionner les nombres premiers (positifs ou négatifs) sur une droite à partir de l'origine 0, en utilisant un 'pourcentage de 0' pour exprimer leur relation à l'infini. Par exemple, 101% de 0 = -2.",
+        "domaine_principal": "Philosophie des Mathématiques",
+        "concepts_cles": [
+            "Positionnement depuis zéro",
+            "Pourcentage de 0",
+            "Relation à l'infini",
+            "Topologie nulle",
+            "Classification des infinis"
+        ],
+        "formules": [
+            "100% de 0 = 0",
+            "101% de 0 = -2",
+            "102% de 0 = 2",
+            "X% de 0 = Y (position relative)"
+        ],
+        "definitions": [
+            "Pourcentage de zéro: Expression de position relative à l'origine",
+            "Topologie nulle: Système de relations depuis 0",
+            "Infinis relatifs: Premiers classés par 'taille' relative"
+        ],
+        "relations": [
+            "Lien avec premiers comme infinités",
+            "Connexion compression infini",
+            "Nouvelle métrique de distance"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 13.0",
+        "niveau_complexite": "intermediaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 46. HYPOTHÈSE DE RIEMANN - RÉPONSE FINALE
+    {
+        "id": "hypothese_riemann_reponse_finale",
+        "titre": "Hypothèse de Riemann - Réponse Finale de Philippôt",
+        "description": "La conclusion de l'auteur concernant l'hypothèse de Riemann, basée sur sa méthode géométrique et numérique. Propose que la partie réelle des zéros non triviaux de la fonction zêta est bien égale à 1/2, dérivée de l'observation constante de cette valeur dans les rapports calculés.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Réponse à Riemann",
+            "Partie réelle = 1/2",
+            "Confirmation géométrique",
+            "Preuves par rapports constants",
+            "Approche non conventionnelle"
+        ],
+        "formules": [
+            "Zéros non triviaux: Re(s) = 1/2",
+            "Confirmation par rapports géométriques",
+            "Symétries démontrant 1/2"
+        ],
+        "definitions": [
+            "Réponse finale: Conclusion sur hypothèse Riemann",
+            "Preuve géométrique: Démonstration via structure spectrale",
+            "Confirmation numérique: Vérification par rapports constants"
+        ],
+        "relations": [
+            "Synthèse de toute la théorie",
+            "Lien avec rapport 1/2 de référence",
+            "Application géométrie du spectre"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 13.0",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 47. MÉTHODE DE PHILIPPÔT COMPLÈTE
+    {
+        "id": "methode_philippot_complete",
+        "titre": "Méthode de Philippôt Complète",
+        "description": "Approche itérative globale basée sur des suites fractionnaires et des calculs géométriques, visant à identifier les nombres premiers et à étudier leurs propriétés. Combine analyse numérique métrique, rapports triangulaires, Digamma et visualisations 3D.",
+        "domaine_principal": "Théorie des Nombres",
+        "concepts_cles": [
+            "Méthode itérative complète",
+            "Suites fractionnaires",
+            "Rapports géométriques",
+            "Digamma calculé",
+            "Détermination nombres premiers",
+            "Vérification hypothèse Riemann"
+        ],
+        "formules": [
+            "Ensemble des formules des suites",
+            "Calculs Digamma",
+            "Rapports base/hauteur",
+            "Équations premiers positifs/négatifs"
+        ],
+        "definitions": [
+            "Méthode Philippôt: Approche globale géométrique et numérique",
+            "Processus itératif: Calculs par étapes successives",
+            "Système complet: Intégration de tous les concepts"
+        ],
+        "relations": [
+            "Synthèse de tous les concepts",
+            "Application géométrie du spectre",
+            "Fondement théorique complet"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Ensemble du document",
+        "niveau_complexite": "avance",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 48. EXPÉRIENCE DE PENSÉE NAÏVE ET RAPPORTS
+    {
+        "id": "experience_pensee_naive_rapports",
+        "titre": "Expérience de Pensée Naïve et Rapports Fondamentaux",
+        "description": "Observation initiale que les nombres entiers mis en relation par un procédé géométrique simple semblent tous séparés par une fraction constante 1/2. Cette expérience naïve (50/100, 100/200, 200/400...) est le point de départ de toute la théorie et du lien avec l'hypothèse de Riemann.",
+        "domaine_principal": "Géométrie Fondamentale",
+        "concepts_cles": [
+            "Expérience de pensée initiale",
+            "Rapport constant 1/2",
+            "Observation géométrique simple",
+            "Point de départ théorique",
+            "Connexion intuitive Riemann"
+        ],
+        "formules": [
+            "50/100 = 100/200 = 200/400 = 400/800 = 1/2",
+            "Rapport constant entre nombres entiers"
+        ],
+        "definitions": [
+            "Expérience naïve: Observation géométrique simple fondatrice",
+            "Rapport fondamental: Constante 1/2 omniprésente",
+            "Intuition initiale: Point de départ de la recherche"
+        ],
+        "relations": [
+            "Fondement de toute la théorie",
+            "Lien direct avec rapport 1/2 de référence",
+            "Inspiration pour analyse géométrique"
+        ],
+        "document_source": "Hypothese_emergent_prompt.pdf",
+        "page_reference": "Section 2.5",
+        "niveau_complexite": "fondamental",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
 ]
 
 def get_concept_enrichi_by_domain(domain=None):
