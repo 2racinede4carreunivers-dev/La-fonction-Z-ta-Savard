@@ -3382,27 +3382,62 @@ async def upload_document(
         analysis = ""
         if file.content_type.startswith('text/') or file.content_type == 'application/pdf':
             try:
-                # Analyser avec l'IA spécialisée
-                analysis_prompt = f"""
-                Analyse ce nouveau document dans le contexte de la théorie 'L'univers est au carré' de Philippe Thomas Savard.
+                # Extraire le texte du document
+                document_text = ""
                 
-                Identifie :
-                1. Les nouveaux concepts ou développements présentés
-                2. Les liens avec les concepts existants de la théorie
-                3. Les questions ou pistes de recherche suggérées
-                4. Les clarifications ou corrections apportées
-                5. Les implications pour la compréhension globale de la théorie
+                if file.content_type == 'application/pdf':
+                    # Pour les PDFs, utiliser PyPDF2 ou pdfplumber
+                    try:
+                        import io
+                        import PyPDF2
+                        
+                        pdf_file = io.BytesIO(content)
+                        pdf_reader = PyPDF2.PdfReader(pdf_file)
+                        
+                        # Extraire le texte de toutes les pages
+                        for page in pdf_reader.pages:
+                            document_text += page.extract_text() + "\n"
+                        
+                        # Limiter la taille si trop long (max 15000 caractères pour l'IA)
+                        if len(document_text) > 15000:
+                            document_text = document_text[:15000] + "\n\n[Document tronqué - contenu trop long]"
+                            
+                    except Exception as pdf_error:
+                        document_text = "[Erreur lors de l'extraction du PDF - analyse impossible]"
+                        print(f"Erreur extraction PDF: {str(pdf_error)}")
                 
-                Sois précis et technique dans ton analyse.
-                """
+                elif file.content_type.startswith('text/'):
+                    document_text = content.decode('utf-8', errors='ignore')
                 
-                chat = LlmChat(
-                    api_key=EMERGENT_LLM_KEY,
-                    session_id=doc_id,
-                    system_message="Tu es l'IA spécialisée dans la théorie 'L'univers est au carré'. Analyse ce document en profondeur."
-                ).with_model("anthropic", "claude-sonnet-4-20250514")
-                
-                analysis = await chat.send_message(UserMessage(text=analysis_prompt))
+                # Analyser avec l'IA spécialisée seulement si le texte a été extrait
+                if document_text and not document_text.startswith('[Erreur'):
+                    analysis_prompt = f"""
+Analyse ce nouveau document dans le contexte de la théorie 'L'univers est au carré' de Philippe Thomas Savard.
+
+CONTENU DU DOCUMENT "{file.filename}":
+---
+{document_text}
+---
+
+Identifie :
+1. Les nouveaux concepts ou développements présentés
+2. Les liens avec les concepts existants de la théorie
+3. Les questions ou pistes de recherche suggérées
+4. Les clarifications ou corrections apportées
+5. Les implications pour la compréhension globale de la théorie
+
+Sois précis et technique dans ton analyse.
+"""
+                    
+                    chat = LlmChat(
+                        api_key=EMERGENT_LLM_KEY,
+                        session_id=doc_id,
+                        system_message="Tu es l'IA spécialisée dans la théorie 'L'univers est au carré'. Analyse ce document en profondeur."
+                    ).with_model("anthropic", "claude-sonnet-4-20250514")
+                    
+                    analysis = await chat.send_message(UserMessage(text=analysis_prompt))
+                else:
+                    analysis = document_text  # Contient le message d'erreur
                 
                 # Mettre à jour l'analyse dans la base
                 await db.uploaded_documents.update_one(
