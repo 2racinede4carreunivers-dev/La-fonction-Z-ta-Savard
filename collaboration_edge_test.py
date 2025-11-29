@@ -6,7 +6,7 @@ import requests
 import json
 
 def test_collaboration_edge_cases():
-    base_url = "https://quantum-theory.preview.emergentagent.com"
+    base_url = "https://universe-fixer.preview.emergentagent.com"
     
     print("🧪 Testing Collaboration Edge Cases")
     print("=" * 50)
