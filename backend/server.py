@@ -123,6 +123,7 @@ class DialogueResponse(BaseModel):
     reponse: str
     concepts_utilises: List[str]
     evolution_silencieuse: bool
+    taille_banque: int = 0
 
 class InitialisationBanque(BaseModel):
     banque_initiale: List[QuestionEvolutive]
