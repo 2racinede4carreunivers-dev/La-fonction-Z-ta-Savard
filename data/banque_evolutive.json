@@ -388,27 +388,6 @@
       "derniere_evolution": "2025-11-29T17:32:11.728722",
       "meta_score": 0.5,
       "relations_internes": []
-    },
-    {
-      "id": "675a41e7-1a69-4cba-90ed-3a145551de69",
-      "question": "Comment la fonction Digamma de Philippôt permet-elle de calculer les nombres premiers ?",
-      "reponse": "La fonction Digamma ψ(n) = √((n+7)² + (n+8)²) établit une relation géométrique directe avec la position des nombres premiers selon la théorie L'univers est au carré.",
-      "contexte_theorique": [
-        "L'univers est au carré",
-        "Méthode de Philippôt"
-      ],
-      "niveau_complexite": 3,
-      "variantes": [],
-      "concepts_cles": [
-        "digamma",
-        "nombres_premiers",
-        "geometrie",
-        "philippot"
-      ],
-      "frequence_utilisation": 0,
-      "derniere_evolution": "2025-11-29T17:33:37.569669",
-      "meta_score": 0.5,
-      "relations_internes": []
     }
   ],
   "concepts_theoriques": {
@@ -507,6 +486,6 @@
       ]
     }
   },
-  "derniere_evolution": "2025-11-29T17:33:37.570958",
+  "derniere_evolution": "2025-11-29T17:34:01.728008+00:00",
   "version": "1.0"
 }
