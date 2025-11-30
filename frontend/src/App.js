@@ -11276,6 +11276,7 @@ function App() {
               <AccesPrivilegiePage />
             </DocumentProtection>
           } />
+          <Route path="/documents-officiels" element={<DocumentsOfficielsPage />} />
           <Route path="/salon-lecture" element={
             <DocumentProtection documentTitle="Salon de Lecture - L'univers est au carré" showWatermark={true}>
               <SalonLecturePage />
