@@ -13,11 +13,9 @@ import { Separator } from './components/ui/separator';
 import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 
-// Protection des documents
-import DocumentProtection from './components/DocumentProtection';
-
-// Gestionnaire DOM centralisé
-import domManager from './utils/DOMManager';
+// Protection des documents - DÉSACTIVÉE (causait des erreurs DOM)
+// import DocumentProtection from './components/DocumentProtection';
+// import domManager from './utils/DOMManager';
 
 // Icônes
 import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu } from 'lucide-react';
