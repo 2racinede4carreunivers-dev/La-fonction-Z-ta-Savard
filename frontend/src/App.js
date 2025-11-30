@@ -7388,7 +7388,7 @@ Le vingt-quatre mars deux mille vingt-cinq.
         </div>
 
         {/* Contenu du document par sections */}
-        {sections.map((section, index) => (
+        {visibleSections.map((section, index) => (
           <div 
             key={index} 
             id={`section-${index}`}
