@@ -103,18 +103,11 @@ const DocumentProtection = ({ children, showWatermark = true, documentTitle = ""
       }
       window.removeEventListener('beforeprint', handleBeforePrint);
       
-      // Nettoyer tous les toasts copyright existants
+      // Nettoyer tous les toasts copyright existants avec DOMManager
       const toasts = document.querySelectorAll('.copyright-toast');
       toasts.forEach(toast => {
-        // Nettoyer les timers si présents
-        if (toast.showTimer) clearTimeout(toast.showTimer);
-        if (toast.hideTimer) clearTimeout(toast.hideTimer);
-        if (toast.removeTimer) clearTimeout(toast.removeTimer);
-        
-        // Supprimer le toast seulement s'il est encore dans le DOM
-        if (toast.parentNode === document.body) {
-          document.body.removeChild(toast);
-        }
+        // Utiliser DOMManager pour supprimer de manière sécurisée
+        domManager.removeChild(document.body, toast);
       });
     };
   }, []);
