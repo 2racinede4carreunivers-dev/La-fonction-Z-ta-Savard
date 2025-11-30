@@ -5415,13 +5415,33 @@ Le document comprend 14 tableaux détaillés pour les rapports 1/2, 1/3, 1/4, 1/
           </CardHeader>
           <CardContent className="p-6 sm:p-8">
             <div className="prose prose-invert prose-lg max-w-none">
-              <div className="text-blue-50 leading-relaxed whitespace-pre-line">
+              <div className="text-blue-50 leading-relaxed whitespace-pre-line mb-8">
                 {documents[activeTab].contenu}
+              </div>
+              
+              {/* Bouton pour accéder au document complet */}
+              <div className="flex justify-center my-8">
+                <button
+                  onClick={() => {
+                    // Rediriger vers Salon de Lecture avec la section appropriée
+                    const sectionMap = {
+                      'partie1': 'document-integral',
+                      'partie2': 'methode-enrichie',
+                      'trousNoirs': 'trous-noirs',
+                      'geometrieSpectre': 'geometrie-spectre'
+                    };
+                    navigate('/salon-lecture', { state: { section: sectionMap[activeTab] } });
+                  }}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center gap-3"
+                >
+                  📖 Lire le Document Complet
+                  <span className="text-sm opacity-90">(avec navigation interactive)</span>
+                </button>
               </div>
             </div>
             
             {/* Notice Copyright */}
-            <div className="mt-12 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+            <div className="mt-8 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
               <p className="text-yellow-200 text-center font-semibold">
                 © Philippe Thomas Savard - Tous droits réservés
               </p>
