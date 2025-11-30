@@ -1710,8 +1710,8 @@ const Navigation = () => {
             <Link to="/acces-privilegie" className="text-blue-200 hover:text-cyan-400 transition-colors">
               🔐 Accès Privilégié
             </Link>
-            <Link to="/salon-lecture" className="text-blue-200 hover:text-cyan-400 transition-colors">
-              📚 Salon de Lecture
+            <Link to="/documents-officiels" className="text-blue-200 hover:text-cyan-400 transition-colors">
+              📄 Documents Officiels
             </Link>
             <Link to="/salle-illustrations" className="text-blue-200 hover:text-cyan-400 transition-colors">
               🎨 Salle des Illustrations
