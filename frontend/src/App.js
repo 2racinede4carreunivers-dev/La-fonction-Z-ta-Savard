@@ -3594,22 +3594,17 @@ ${latexContent}
       a.href = url;
       a.download = `${documentTitle || 'universeaucarre'}.tex`;
       
-      // Sécuriser l'ajout/suppression DOM
+      // Sécuriser l'ajout/suppression DOM avec DOMManager
       if (document.body && isMountedRef.current) {
-        document.body.appendChild(a);
+        const downloadId = `download-${Date.now()}`;
+        domManager.appendChild(document.body, a, downloadId);
         a.click();
         
-        // Utiliser setTimeout pour nettoyer de façon asynchrone
-        setTimeout(() => {
-          try {
-            if (document.body && document.body.contains(a)) {
-              document.body.removeChild(a);
-            }
-          } catch (e) {
-            console.warn('Élément déjà supprimé:', e);
-          }
+        // Utiliser DOMManager pour le timeout de nettoyage
+        domManager.setTimeout(() => {
+          domManager.removeChild(document.body, a);
           URL.revokeObjectURL(url);
-        }, 100);
+        }, 300, downloadId);
       }
     } catch (error) {
       console.error('Erreur téléchargement LaTeX:', error);
@@ -5624,22 +5619,17 @@ ${contenuLatex}
       a.href = url;
       a.download = `${documentTitle || 'universeaucarre'}.tex`;
       
-      // Sécuriser l'ajout/suppression DOM
+      // Sécuriser l'ajout/suppression DOM avec DOMManager
       if (document.body && isMountedRef.current) {
-        document.body.appendChild(a);
+        const downloadId = `download-${Date.now()}`;
+        domManager.appendChild(document.body, a, downloadId);
         a.click();
         
-        // Utiliser setTimeout pour nettoyer de façon asynchrone
-        setTimeout(() => {
-          try {
-            if (document.body && document.body.contains(a)) {
-              document.body.removeChild(a);
-            }
-          } catch (e) {
-            console.warn('Élément déjà supprimé:', e);
-          }
+        // Utiliser DOMManager pour le timeout de nettoyage
+        domManager.setTimeout(() => {
+          domManager.removeChild(document.body, a);
           URL.revokeObjectURL(url);
-        }, 100);
+        }, 300, downloadId);
       }
     } catch (error) {
       console.error('Erreur téléchargement LaTeX:', error);
