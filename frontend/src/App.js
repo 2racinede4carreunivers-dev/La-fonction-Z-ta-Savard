@@ -6049,6 +6049,10 @@ ${contenuLatex}
     }
   ];
 
+  // Sections à cacher (causent des erreurs DOM et sont accessibles via Documents Officiels)
+  const hiddenSectionIds = ['document-integral', 'methode-enrichie', 'univers-au-carre'];
+  const visibleSections = sections.filter(s => !hiddenSectionIds.includes(s.id));
+
   const getConceptsByDomain = (domain) => {
     return concepts.filter(concept => 
       concept.domaine_principal.toLowerCase().includes(domain.toLowerCase())
