@@ -5203,6 +5203,7 @@ const AccesPrivilegiePage = () => {
 
 const DocumentsOfficielsPage = () => {
   const [activeTab, setActiveTab] = useState('partie1');
+  const navigate = useNavigate();
 
   const documents = {
     partie1: {
