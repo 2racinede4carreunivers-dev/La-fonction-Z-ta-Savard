@@ -7369,7 +7369,7 @@ Le vingt-quatre mars deux mille vingt-cinq.
         <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-600">
           <h3 className="text-white font-semibold mb-4">📑 Navigation par Sections</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-            {sections.map((section, index) => (
+            {visibleSections.map((section, index) => (
               <button
                 key={index}
                 onClick={() => {
