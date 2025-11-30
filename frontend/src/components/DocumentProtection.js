@@ -116,16 +116,26 @@ const DocumentProtection = ({ children, showWatermark = true, documentTitle = ""
     `;
     document.body.appendChild(toast);
     
-    setTimeout(() => {
+    const showTimer = setTimeout(() => {
       toast.classList.add('show');
     }, 10);
 
-    setTimeout(() => {
+    const hideTimer = setTimeout(() => {
       toast.classList.remove('show');
-      setTimeout(() => {
-        document.body.removeChild(toast);
+      const removeTimer = setTimeout(() => {
+        // Vérifier que l'élément est toujours un enfant avant de le supprimer
+        if (toast.parentNode === document.body) {
+          document.body.removeChild(toast);
+        }
       }, 300);
+      
+      // Stocker le timer pour cleanup potentiel
+      toast.removeTimer = removeTimer;
     }, 3000);
+    
+    // Stocker les timers pour cleanup potentiel
+    toast.showTimer = showTimer;
+    toast.hideTimer = hideTimer;
   };
 
   return (
