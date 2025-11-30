@@ -181,13 +181,13 @@ const HomePage = () => {
           {/* Boutons d'accès rapide */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Button 
-              onClick={() => navigate('/salon-lecture')}
-              className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-6 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 h-auto"
+              onClick={() => navigate('/documents-officiels')}
+              className="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white px-8 py-6 rounded-xl font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 h-auto"
             >
               <BookOpen className="w-8 h-8 mb-2" />
               <div>
-                <div className="text-xl mb-1">Salon de Lecture</div>
-                <div className="text-sm opacity-80">Documents intégraux avec hyperliens interactifs</div>
+                <div className="text-xl mb-1">Documents Officiels de la Théorie</div>
+                <div className="text-sm opacity-80">Accès aux 4 documents fondamentaux</div>
               </div>
             </Button>
             
