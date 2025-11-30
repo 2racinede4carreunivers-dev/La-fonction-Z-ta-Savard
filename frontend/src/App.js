@@ -8182,7 +8182,7 @@ Fin 1ère partie, la méthode de Philippôt.`;
         <div className="bg-slate-800/50 rounded-xl p-4 border border-slate-600">
           <h3 className="text-white font-semibold mb-4">📑 Navigation par Sections</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            {sections.map((section, index) => (
+            {visibleSections.map((section, index) => (
               <button
                 key={index}
                 onClick={() => {
@@ -8201,7 +8201,7 @@ Fin 1ère partie, la méthode de Philippôt.`;
         </div>
 
         {/* Contenu du document par sections avec hyperliens */}
-        {sections.map((section, index) => (
+        {visibleSections.map((section, index) => (
           <div 
             key={index} 
             id={`methode-section-${index}`}
@@ -8873,7 +8873,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
 
         {/* Navigation par sections */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
-          {sections.map((section, index) => (
+          {visibleSections.map((section, index) => (
             <div 
               key={index}
               className="bg-white/5 backdrop-blur-sm rounded-lg p-4 border border-white/10 hover:border-indigo-400/30 transition-colors cursor-pointer"
@@ -8897,7 +8897,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
         </div>
 
         {/* Contenu du document par sections */}
-        {sections.map((section, index) => (
+        {visibleSections.map((section, index) => (
           <div 
             key={index} 
             id={`section-${index}`}
@@ -9208,7 +9208,7 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-2">
-                {sections.map(section => (
+                {visibleSections.map(section => (
                   <button
                     key={section.id}
                     onClick={() => setSelectedSection(section.id)}
