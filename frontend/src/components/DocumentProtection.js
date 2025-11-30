@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './DocumentProtection.css';
+import domManager from '../utils/DOMManager';
 
 /**
  * Composant de protection des documents
