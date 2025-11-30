@@ -1789,11 +1789,11 @@ const Navigation = () => {
                 🔐 Accès Privilégié
               </Link>
               <Link 
-                to="/salon-lecture" 
+                to="/documents-officiels" 
                 className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                📚 Salon de Lecture
+                📄 Documents Officiels
               </Link>
               <Link 
                 to="/salle-illustrations" 
