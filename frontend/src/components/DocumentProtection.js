@@ -123,6 +123,7 @@ const DocumentProtection = ({ children, showWatermark = true, documentTitle = ""
   const showCopyrightAlert = (message) => {
     // Créer un toast notification au lieu d'une alerte bloquante
     const toast = document.createElement('div');
+    const toastId = `toast-${Date.now()}-${Math.random()}`;
     toast.className = 'copyright-toast';
     toast.innerHTML = `
       <div class="copyright-toast-content">
@@ -131,28 +132,23 @@ const DocumentProtection = ({ children, showWatermark = true, documentTitle = ""
         <small>© Philippe Thomas Savard - Tous droits réservés</small>
       </div>
     `;
-    document.body.appendChild(toast);
     
-    const showTimer = setTimeout(() => {
+    // Utiliser le DOMManager pour ajouter l'élément
+    domManager.appendChild(document.body, toast, toastId);
+    
+    // Utiliser le DOMManager pour les timers
+    domManager.setTimeout(() => {
       toast.classList.add('show');
-    }, 10);
+    }, 10, `${toastId}-show`);
 
-    const hideTimer = setTimeout(() => {
+    domManager.setTimeout(() => {
       toast.classList.remove('show');
-      const removeTimer = setTimeout(() => {
-        // Vérifier que l'élément est toujours un enfant avant de le supprimer
-        if (toast.parentNode === document.body) {
-          document.body.removeChild(toast);
-        }
-      }, 300);
       
-      // Stocker le timer pour cleanup potentiel
-      toast.removeTimer = removeTimer;
-    }, 3000);
-    
-    // Stocker les timers pour cleanup potentiel
-    toast.showTimer = showTimer;
-    toast.hideTimer = hideTimer;
+      domManager.setTimeout(() => {
+        // Utiliser le DOMManager pour supprimer l'élément
+        domManager.removeChild(document.body, toast);
+      }, 300, `${toastId}-remove`);
+    }, 3000, `${toastId}-hide`);
   };
 
   return (
