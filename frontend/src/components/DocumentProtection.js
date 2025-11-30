@@ -93,12 +93,28 @@ const DocumentProtection = ({ children, showWatermark = true, documentTitle = ""
 
     // Nettoyage
     return () => {
-      protectedElement.removeEventListener('contextmenu', handleContextMenu);
-      protectedElement.removeEventListener('keydown', handleKeyDown);
-      protectedElement.removeEventListener('dragstart', handleDragStart);
-      protectedElement.removeEventListener('copy', handleCopy);
-      protectedElement.removeEventListener('selectstart', handleSelectStart);
+      if (protectedElement) {
+        protectedElement.removeEventListener('contextmenu', handleContextMenu);
+        protectedElement.removeEventListener('keydown', handleKeyDown);
+        protectedElement.removeEventListener('dragstart', handleDragStart);
+        protectedElement.removeEventListener('copy', handleCopy);
+        protectedElement.removeEventListener('selectstart', handleSelectStart);
+      }
       window.removeEventListener('beforeprint', handleBeforePrint);
+      
+      // Nettoyer tous les toasts copyright existants
+      const toasts = document.querySelectorAll('.copyright-toast');
+      toasts.forEach(toast => {
+        // Nettoyer les timers si présents
+        if (toast.showTimer) clearTimeout(toast.showTimer);
+        if (toast.hideTimer) clearTimeout(toast.hideTimer);
+        if (toast.removeTimer) clearTimeout(toast.removeTimer);
+        
+        // Supprimer le toast seulement s'il est encore dans le DOM
+        if (toast.parentNode === document.body) {
+          document.body.removeChild(toast);
+        }
+      });
     };
   }, []);
 
