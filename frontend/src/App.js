@@ -16,6 +16,9 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 // Protection des documents
 import DocumentProtection from './components/DocumentProtection';
 
+// Gestionnaire DOM centralisé
+import domManager from './utils/DOMManager';
+
 // Icônes
 import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu } from 'lucide-react';
 
