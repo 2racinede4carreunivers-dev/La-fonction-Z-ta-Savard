@@ -11264,16 +11264,8 @@ function App() {
           <Route path="/explorer" element={<ExplorerPage />} />
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/collaboration" element={<CollaborationPage folderProps={folderProps} />} />
-          <Route path="/concepts-enrichis" element={
-            <DocumentProtection documentTitle="Concepts Enrichis - Théorie Philippôt" showWatermark={true}>
-              <ConceptsEnrichisPage />
-            </DocumentProtection>
-          } />
-          <Route path="/acces-privilegie" element={
-            <DocumentProtection documentTitle="Accès Privilégié - IA Expert" showWatermark={true}>
-              <AccesPrivilegiePage />
-            </DocumentProtection>
-          } />
+          <Route path="/concepts-enrichis" element={<ConceptsEnrichisPage />} />
+          <Route path="/acces-privilegie" element={<AccesPrivilegiePage />} />
           <Route path="/documents-officiels" element={<DocumentsOfficielsPage />} />
           {/* Salon de Lecture désactivé temporairement */}
           <Route path="/salon-lecture" element={<SalonLecturePage />} />
