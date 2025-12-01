@@ -1690,9 +1690,10 @@ const Navigation = () => {
             <Link to="/" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Accueil
             </Link>
-            <Link to="/methode-philippot" className="text-blue-200 hover:text-cyan-400 transition-colors">
+            {/* Méthode Philippôt caché */}
+            {false && <Link to="/methode-philippot" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Méthode Philippôt
-            </Link>
+            </Link>}
             <Link to="/explorer" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Explorer
             </Link>
