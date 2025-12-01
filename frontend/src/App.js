@@ -100,13 +100,14 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Button 
+              {/* Méthode de Philippôt caché */}
+              {false && <Button 
                 onClick={() => navigate('/methode-philippot')}
                 className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
               >
                 <Play className="w-5 h-5 mr-2" />
                 Méthode de Philippôt
-              </Button>
+              </Button>}
               
               <Button 
                 onClick={() => navigate('/explorer')}
