@@ -9502,10 +9502,6 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                         <div className="text-2xl font-bold text-green-400">{formules.length}</div>
                         <div className="text-sm text-gray-300">Formules</div>
                       </div>
-                      <div className="bg-purple-900/20 border border-purple-600/30 rounded p-4 text-center">
-                        <div className="text-2xl font-bold text-purple-400">{relations.length}</div>
-                        <div className="text-sm text-gray-300">Relations</div>
-                      </div>
                     </div>
                     
                     <div className="space-y-2">
