@@ -25,7 +25,7 @@ POST /api/ia-evolutif/initialiser-auto
 
 2. **Exécutez cette commande:**
 ```bash
-curl -X POST https://universe-fixer.preview.emergentagent.com/api/ia-evolutif/initialiser-auto \
+curl -X POST https://docschemagal.preview.emergentagent.com/api/ia-evolutif/initialiser-auto \
   -H "Content-Type: application/json"
 ```
 
@@ -61,7 +61,7 @@ GET /api/ia-evolutif/statistiques
 
 **Commande:**
 ```bash
-curl https://universe-fixer.preview.emergentagent.com/api/ia-evolutif/statistiques
+curl https://docschemagal.preview.emergentagent.com/api/ia-evolutif/statistiques
 ```
 
 **Résultat si initialisé:**
@@ -85,7 +85,7 @@ POST /api/ia-evolutif/reinitialiser
 
 **Commande:**
 ```bash
-curl -X POST https://universe-fixer.preview.emergentagent.com/api/ia-evolutif/reinitialiser
+curl -X POST https://docschemagal.preview.emergentagent.com/api/ia-evolutif/reinitialiser
 ```
 
 ---
@@ -170,7 +170,7 @@ GET /api/ia-evolutif/statistiques
 
 **Pour initialiser maintenant:**
 ```bash
-curl -X POST https://universe-fixer.preview.emergentagent.com/api/ia-evolutif/initialiser-auto \
+curl -X POST https://docschemagal.preview.emergentagent.com/api/ia-evolutif/initialiser-auto \
   -H "Content-Type: application/json"
 ```
 
