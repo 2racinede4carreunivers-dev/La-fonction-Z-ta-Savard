@@ -1695,9 +1695,9 @@ const Navigation = () => {
             {false && <Link to="/methode-philippot" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Méthode Philippôt
             </Link>}
-            <Link to="/explorer" className="text-blue-200 hover:text-cyan-400 transition-colors">
+            {false && <Link to="/explorer" className="text-blue-200 hover:text-cyan-400 transition-colors">
               Explorer
-            </Link>
+            </Link>}
             <Link to="/chat" className="text-blue-200 hover:text-cyan-400 transition-colors">
               IA Expert
             </Link>
