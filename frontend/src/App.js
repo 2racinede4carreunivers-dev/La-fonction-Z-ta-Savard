@@ -5513,6 +5513,81 @@ Le document comprend 14 tableaux détaillés pour les rapports 1/2, 1/3, 1/4, 1/
             </div>
           </CardContent>
         </Card>
+        ) : (
+        // AFFICHAGE DES SCHÉMAS
+        <div className="grid grid-cols-1 gap-6">
+          {schemas.map((schema) => (
+            <Card key={schema.id} className="bg-white/10 backdrop-blur-md border-white/20 overflow-hidden hover:bg-white/15 transition-all duration-300">
+              <CardContent className="p-6">
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  {/* Image du schéma */}
+                  <div className="relative group">
+                    <img 
+                      src={schema.image} 
+                      alt={schema.titre}
+                      className="w-full h-auto rounded-lg shadow-xl cursor-pointer transition-transform duration-300 group-hover:scale-105"
+                      onClick={() => setSelectedSchema(schema)}
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-lg flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 text-white text-lg font-semibold bg-black/50 px-4 py-2 rounded-lg transition-opacity duration-300">
+                        🔍 Agrandir
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Description */}
+                  <div>
+                    <h3 className="text-2xl font-bold text-white mb-4">{schema.titre}</h3>
+                    <p className="text-blue-100 leading-relaxed">{schema.description}</p>
+                    <button
+                      onClick={() => setSelectedSchema(schema)}
+                      className="mt-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl"
+                    >
+                      📊 Voir en Grand
+                    </button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+          
+          {/* Notice Copyright */}
+          <div className="mt-8 p-6 bg-yellow-500/10 border border-yellow-500/30 rounded-xl">
+            <p className="text-yellow-200 text-center font-semibold">
+              © Philippe Thomas Savard - Tous droits réservés
+            </p>
+            <p className="text-yellow-200/80 text-center text-sm mt-2">
+              Ces schémas sont protégés par le droit d'auteur. Toute reproduction ou distribution non autorisée est interdite.
+            </p>
+          </div>
+        </div>
+        )}
+        
+        {/* Modal pour agrandir le schéma */}
+        {selectedSchema && (
+          <div 
+            className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4"
+            onClick={() => setSelectedSchema(null)}
+          >
+            <div className="relative max-w-6xl w-full">
+              <button
+                onClick={() => setSelectedSchema(null)}
+                className="absolute top-4 right-4 bg-red-600 hover:bg-red-700 text-white font-bold p-3 rounded-full shadow-lg z-10"
+              >
+                ✕
+              </button>
+              <img 
+                src={selectedSchema.image} 
+                alt={selectedSchema.titre}
+                className="w-full h-auto max-h-[90vh] object-contain rounded-lg shadow-2xl"
+              />
+              <div className="mt-4 bg-white/10 backdrop-blur-md p-4 rounded-lg">
+                <h3 className="text-2xl font-bold text-white mb-2">{selectedSchema.titre}</h3>
+                <p className="text-blue-100">{selectedSchema.description}</p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
