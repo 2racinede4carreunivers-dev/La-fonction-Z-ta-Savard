@@ -1713,9 +1713,10 @@ const Navigation = () => {
             <Link to="/documents-officiels" className="text-blue-200 hover:text-cyan-400 transition-colors">
               📄 Documents Officiels
             </Link>
-            <Link to="/salle-illustrations" className="text-blue-200 hover:text-cyan-400 transition-colors">
+            {/* Salle des Illustrations cachée */}
+            {false && <Link to="/salle-illustrations" className="text-blue-200 hover:text-cyan-400 transition-colors">
               🎨 Salle des Illustrations
-            </Link>
+            </Link>}
           </div>
 
           {/* Navigation mobile compacte */}
