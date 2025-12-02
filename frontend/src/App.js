@@ -1755,13 +1755,13 @@ const Navigation = () => {
               >
                 Méthode Philippôt
               </Link>}
-              <Link 
+              {false && <Link 
                 to="/explorer" 
                 className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Explorer
-              </Link>
+              </Link>}
               <Link 
                 to="/chat" 
                 className="text-blue-200 hover:text-cyan-400 transition-colors px-4 py-2"
