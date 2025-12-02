@@ -5271,6 +5271,24 @@ const DocumentsOfficielsPage = () => {
       titre: 'Terre et Angles Géométriques',
       image: '/schemas/terre_angles.png',
       description: 'Schéma montrant la Terre avec des angles géométriques spécifiques et leurs relations dans le contexte de la théorie de l\'univers au carré.'
+    },
+    {
+      id: 'tesseract_zeta',
+      titre: 'Tesseract de la Fonction Zêta',
+      image: '/schemas/tesseract_fonction_zeta_philippot.png',
+      description: 'Représentation hypercubique (tesseract) de la fonction Zêta de Riemann dans l\'espace 4D, illustrant les connexions entre les dimensions et la structure géométrique profonde de cette fonction fondamentale.'
+    },
+    {
+      id: 'escalier_philippot',
+      titre: 'Escalier de Philippôt (1/4)',
+      image: '/schemas/escalier_philippot_1_4.png',
+      description: 'Structure en escalier illustrant la progression fractionnaire 1/4 dans la méthode Philippôt. Démontre les relations entre niveaux géométriques et progressions arithmétiques.'
+    },
+    {
+      id: 'espace_harmonique',
+      titre: 'Espace Harmonique de Philippôt',
+      image: '/schemas/espace_philippot_harmonique.jpg',
+      description: 'Visualisation de l\'espace harmonique selon la théorie de Philippôt, montrant les relations harmoniques entre les différentes dimensions géométriques et leurs résonances.'
     }
   ];
 
