@@ -5208,6 +5208,7 @@ const AccesPrivilegiePage = () => {
 
 const DocumentsOfficielsPage = () => {
   const [activeTab, setActiveTab] = useState('partie1');
+  const [selectedSchema, setSelectedSchema] = useState(null);
   const navigate = useNavigate();
 
   const documents = {
