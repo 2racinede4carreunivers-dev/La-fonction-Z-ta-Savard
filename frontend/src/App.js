@@ -5450,6 +5450,16 @@ Le document comprend 14 tableaux détaillés pour les rapports 1/2, 1/3, 1/4, 1/
             >
               🔢 Géométrie du Spectre
             </button>
+            <button
+              onClick={() => setActiveTab('schemas')}
+              className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                activeTab === 'schemas'
+                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg scale-105'
+                  : 'bg-white/10 text-blue-200 hover:bg-white/20'
+              }`}
+            >
+              📊 Schémas & Visualisations
+            </button>
           </div>
         </div>
 
