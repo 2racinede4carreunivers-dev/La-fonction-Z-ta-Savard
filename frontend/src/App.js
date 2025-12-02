@@ -5211,6 +5211,51 @@ const DocumentsOfficielsPage = () => {
   const [selectedSchema, setSelectedSchema] = useState(null);
   const navigate = useNavigate();
 
+  const schemas = [
+    {
+      id: 'cubes_zeta',
+      titre: '4 Cubes Zêta - Modèle Fondamental',
+      image: '/schemas/4_cubes_zeta.jpg',
+      description: 'Modèle géométrique de la fonction Zêta avec 4 pyramides orientées selon les directions cardinales (Nord, Sud, Est, Ouest) et axes rouges traversant les cubes.'
+    },
+    {
+      id: 'sphere_zeta',
+      titre: 'Sphère Zêta - Arc de Cubes',
+      image: '/schemas/5_cube_zeta.jpg.png',
+      description: 'Arc de 5 cubes formant une structure sphérique, démontrant la géométrie volumétrique de la fonction Zêta.'
+    },
+    {
+      id: 'analyse_metrique',
+      titre: 'Analyse Numérique Métrique 3D',
+      image: '/schemas/analyse_numerique_metrique_philippot_3d.jpg.png',
+      description: 'Visualisation tridimensionnelle de la méthode d\'analyse numérique métrique selon Philippôt, montrant les suites fractionnaires et rapports géométriques.'
+    },
+    {
+      id: 'cardan',
+      titre: 'Cardan Sans Blocage',
+      image: '/schemas/cardan_sans_blocage.jpg.png',
+      description: 'Système de rotation sans gimbal lock, illustrant les rotations libres dans l\'espace tridimensionnel sans conflit d\'axes.'
+    },
+    {
+      id: 'cercles_denis',
+      titre: 'Cercles Denis - Structure Concentrique',
+      image: '/schemas/cercles_denis.jpg.png',
+      description: 'Configuration de cercles concentriques démontrant les relations géométriques dans la théorie.'
+    },
+    {
+      id: 'rectangles_squaring',
+      titre: 'Rectangles Associables - Squaring',
+      image: '/schemas/carre_gabriel_rectangle_scalene.jpg.png',
+      description: 'Carré de Gabriel avec rectangle scalène, montrant les relations entre formes géométriques associables et le concept du "squaring".'
+    },
+    {
+      id: 'triangles_intriques',
+      titre: 'Triangles Intriqués - Intrication Quantique',
+      image: '/schemas/interwoven_triangles.jpg',
+      description: 'Triangles entrelacés illustrant le concept d\'intrication dans le contexte géométrique de la théorie, avec parallèle à l\'intrication quantique.'
+    }
+  ];
+
   const documents = {
     partie1: {
       titre: "Document Intégral - Partie 1",
