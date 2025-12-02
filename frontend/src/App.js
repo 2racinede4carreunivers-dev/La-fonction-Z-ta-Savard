@@ -5253,6 +5253,24 @@ const DocumentsOfficielsPage = () => {
       titre: 'Triangles Intriqués - Intrication Quantique',
       image: '/schemas/interwoven_triangles.jpg',
       description: 'Triangles entrelacés illustrant le concept d\'intrication dans le contexte géométrique de la théorie, avec parallèle à l\'intrication quantique.'
+    },
+    {
+      id: 'univers_carre',
+      titre: 'L\'Univers est au Carré - Schéma Synthétique',
+      image: '/schemas/univers_carre_philippot.jpg',
+      description: 'Représentation synthétique de la théorie "L\'univers est au carré" de Philippe Thomas Savard, illustrant les relations fondamentales et la structure géométrique globale.'
+    },
+    {
+      id: 'spirale_temps',
+      titre: 'Spirale Inverse du Temps',
+      image: '/schemas/spirale_inverse_temps.jpg',
+      description: 'Visualisation de la spirale inverse du temps, montrant l\'évolution temporelle dans le cadre géométrique de la théorie. Concept révolutionnaire reliant temps et géométrie.'
+    },
+    {
+      id: 'terre_angles',
+      titre: 'Terre et Angles Géométriques',
+      image: '/schemas/terre_angles.png',
+      description: 'Schéma montrant la Terre avec des angles géométriques spécifiques et leurs relations dans le contexte de la théorie de l\'univers au carré.'
     }
   ];
 
