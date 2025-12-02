@@ -5463,7 +5463,8 @@ Le document comprend 14 tableaux détaillés pour les rapports 1/2, 1/3, 1/4, 1/
           </div>
         </div>
 
-        {/* Document Content */}
+        {/* Document Content OU Schémas */}
+        {activeTab !== 'schemas' ? (
         <Card className="bg-white/10 backdrop-blur-md border-white/20">
           <CardHeader className="border-b border-white/10">
             <CardTitle className="text-2xl text-white flex items-center gap-3">
