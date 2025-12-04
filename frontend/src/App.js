@@ -4270,7 +4270,7 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
         {/* Calculatrice TI-83 Plus Flottante */}
         {showCalculatrice && (
           <div 
-            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 flex items-center justify-center p-4"
+            className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[60] flex items-center justify-center p-4"
             onClick={() => setShowCalculatrice(false)}
           >
             <div 
