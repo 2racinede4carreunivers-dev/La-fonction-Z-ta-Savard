@@ -109,14 +109,14 @@ const HomePage = () => {
                 Méthode de Philippôt
               </Button>}
               
-              <Button 
+              {false && <Button 
                 onClick={() => navigate('/explorer')}
                 variant="outline"
                 className="border-2 border-purple-400 text-purple-300 hover:bg-purple-400 hover:text-slate-900 px-8 py-3 rounded-full font-semibold transition-all duration-300"
               >
                 <BookOpen className="w-5 h-5 mr-2" />
                 Explorer la théorie
-              </Button>
+              </Button>}
               
               <Button 
                 onClick={() => navigate('/chat')}
