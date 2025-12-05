@@ -519,20 +519,19 @@ frontend:
 
 metadata:
   created_by: "main_agent"
-  version: "1.1"
-  test_sequence: 6
+  version: "1.2"
+  test_sequence: 7
   run_ui: false
 
 test_plan:
   current_focus:
-    - "Corrections erreurs JavaScript SalonLecturePage"
-    - "Calculatrice TI-83 Plus - Interface flottante"
-    - "Calculatrice TI-83 Plus - Fonctions de calcul"
-    - "Calculatrice TI-83 Plus - Formules Philippôt intégrées"
-  stuck_tasks:
-    - "Problème sérialisation MongoDB ObjectId dans FastAPI"
+    - "Tests critiques déploiement - TERMINÉS"
+    - "Validation endpoints priorité HAUTE - TERMINÉS"
+    - "Vérification 55 concepts enrichis - TERMINÉS"
+    - "Tests IA spécialisées et privilégiées - TERMINÉS"
+  stuck_tasks: []
   test_all: false
-  test_priority: "high_first"
+  test_priority: "deployment_critical_completed"
 
   - task: "Enrichissement IA avec concepts théoriques séparés"
     implemented: true
