@@ -199,6 +199,20 @@ class CriticalDeploymentTester:
         
         # 4. IA Évolutive (PRIORITÉ MOYENNE)
         print("\n4️⃣ IA ÉVOLUTIVE - POST /api/ia-evolutif/dialoguer (PRIORITÉ MOYENNE)")
+        
+        # First try to initialize the system
+        print("   🔧 Initialisation du système évolutif...")
+        init_success, init_response = self.run_test(
+            "IA Évolutive - Initialisation automatique",
+            "POST",
+            "api/ia-evolutif/initialiser-auto",
+            200
+        )
+        
+        if init_success:
+            print("   ✅ Système évolutif initialisé")
+        
+        # Now test the dialogue
         success4, response4 = self.run_test(
             "IA Évolutive - Système questions/réponses",
             "POST",
