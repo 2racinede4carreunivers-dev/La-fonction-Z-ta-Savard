@@ -2107,6 +2107,262 @@ CONCEPTS_ENRICHIS = [
         "niveau_complexite": "fondamental",
         "created_at": datetime.now(timezone.utc).isoformat()
     },
+
+    # === MÉCANIQUE DU CHAOS DISCRET ===
+
+    # 49. GÉOMÉTRIE RELATIONNELLE
+    {
+        "id": "geometrie_relationnelle",
+        "titre": "Géométrie Relationnelle",
+        "description": "Principe fondamental où les mesures géométriques dépendent intrinsèquement du choix de l'unité de mesure, créant une géométrie analogue à la théorie de la relativité. L'observateur (par son choix d'unité) influence directement les mesures, établissant une 'relativité géométrique'.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Dépendance des mesures à l'unité choisie",
+            "Analogie avec la relativité d'Einstein",
+            "Influence de l'observateur sur la mesure",
+            "Géométrie non-absolue mais relationnelle",
+            "Référentiel géométrique (l'unité)",
+            "Invariance relationnelle"
+        ],
+        "formules": [
+            "Unité de la figure: 0.5 / sin(angle) = constante",
+            "√3 + 1 (unité pour angle 22.84432053°)",
+            "√2 + 1 (unité pour angle 26.06176717°)",
+            "√5 + 1 (unité pour angle 19.013299528°)",
+            "Constante d'Euler-Mascheroni simplifiée: 0.5 / sin 60° ≈ 0.57735"
+        ],
+        "definitions": [
+            "Géométrie relationnelle: Système où les mesures sont relatives au référentiel (unité) choisi",
+            "Unité de la figure: Valeur scalaire servant de base aux calculs, influençant la position des mesures",
+            "Invariance relationnelle: Propriétés géométriques préservées malgré le changement d'unité"
+        ],
+        "relations": [
+            "Base théorique de la mécanique harmonique du chaos discret",
+            "Lien conceptuel avec la théorie de la relativité",
+            "Fondement pour la matrice à dérive première"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Sections 1.1, 1.5, 1.7, 1.9",
+        "niveau_complexite": "fondamental",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 50. PRODUIT ALTERNATIF
+    {
+        "id": "produit_alternatif",
+        "titre": "Produit Alternatif",
+        "description": "Opération géométrique/algébrique fondamentale non standard, appliquée aux longueurs et segments pour établir des relations structurelles. Existe sous deux formes: 'produit alternatif à droite' et 'produit alternatif général'. Permet de calculer le diamètre équivalent et révèle des invariants géométriques.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Opération non-standard sur longueurs",
+            "Produit alternatif à droite vs général",
+            "Calcul du diamètre équivalent",
+            "Relations de proportionnalité géométrique",
+            "Produit direct et produit croisé",
+            "Invariance du produit alternatif"
+        ],
+        "formules": [
+            "Relation géométrique: 3 × AC = GH × BC",
+            "Produit direct: 3 × 0.602885683 = 1.808657049",
+            "Produit croisé: 0.7764571353 × 2.329371406 = 1.808657049",
+            "Égalité: 3 × 25 = 5 × 15",
+            "Égalité: 3 × 125 = 25 × 15",
+            "5 × (0.8594235254 / 2) = 0.6555240366 × 3.277620183"
+        ],
+        "definitions": [
+            "Produit alternatif: Opération établissant des relations entre segments géométriques",
+            "Produit direct: Multiplication séquentielle de longueurs",
+            "Produit croisé: Multiplication alternée révélant des invariants"
+        ],
+        "relations": [
+            "Outil fondamental pour le diamètre équivalent",
+            "Base des relations dans la matrice à dérive première",
+            "Révélateur de symétries géométriques cachées"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Sections 1.2, 1.3, 1.6, 1.10",
+        "niveau_complexite": "intermédiaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 51. DIAMÈTRE ÉQUIVALENT
+    {
+        "id": "diametre_equivalent",
+        "titre": "Diamètre Équivalent",
+        "description": "Mesure fondamentale dérivée du produit alternatif, représentant une caractéristique globale de la figure géométrique. Le carré du diamètre équivalent égale le résultat du produit alternatif, révélant une propriété d'échelle intrinsèque à la structure.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Mesure dérivée du produit alternatif",
+            "Caractéristique globale de la figure",
+            "Relation au carré avec produit alternatif",
+            "Invariant d'échelle",
+            "Mesure de taille fondamentale"
+        ],
+        "formules": [
+            "Diamètre équivalent²: 1.344863208² = 1.808657049",
+            "Diamètre équivalent: 1.465796307² = 2.148558814",
+            "Relation générale: D_eq² = Produit_Alternatif"
+        ],
+        "definitions": [
+            "Diamètre équivalent: Racine carrée du produit alternatif, mesure fondamentale de la figure",
+            "Échelle globale: Mesure représentative de la taille caractéristique de la structure"
+        ],
+        "relations": [
+            "Dérivé directement du produit alternatif",
+            "Utilisé dans la construction de la matrice",
+            "Lien avec les propriétés d'invariance"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Sections 1.3, 1.10",
+        "niveau_complexite": "intermédiaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 52. MATRICE À DÉRIVE PREMIÈRE
+    {
+        "id": "matrice_derive_premiere",
+        "titre": "Matrice à Dérive Première",
+        "description": "Système algébrique complexe dérivé de l'analyse du 'cardan sans blocage', initialement composé de 12 inconnues. Se simplifie progressivement pour révéler une structure composée uniquement de nombres premiers, culminant en une seule inconnue: √3.375. Représente l'unification algébrique des relations géométriques observées.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Système algébrique à 12 inconnues initial",
+            "Simplification structurale progressive",
+            "Réduction à une inconnue unique: √3.375",
+            "Composition par nombres premiers",
+            "Dérivation du cardan sans blocage",
+            "Unification des relations géométriques"
+        ],
+        "formules": [
+            "Ligne 1: AD × α × r^(n+s1) + AB × α × r^(n+s1) + BD × α × r^(n+s1) = 2 × AD × α × r^(n+s1)",
+            "Ligne 2: AG × r^(n+s2) + AC × r^(n+s2) + CG × r^(n+s2) = 2 × AG × r^(n+s2)",
+            "Ligne 3: DG × r^(n+s3) + EF × r^(n+s3) + (DE + FG) × r^(n+s3) = 2 × DG × r^(n+s3)",
+            "Simplifications: AB + BD = AD, AC + CG = AG, EF + DE + FG = DG",
+            "Inconnue unique: √3.375"
+        ],
+        "definitions": [
+            "Matrice à dérive première: Système algébrique unifiant les relations géométriques du chaos discret",
+            "Dérive première: Première itération de simplification structurale",
+            "Inconnue unique: √3.375, valeur fondamentale émergeant de la simplification complète"
+        ],
+        "relations": [
+            "Base sur le cardan sans blocage",
+            "Lien avec le prisme matriciel",
+            "Composition par nombres premiers",
+            "Structure fondamentale du chaos discret"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Sections 1.11, 1.13, 1.14, 1.15, 1.17, 1.20",
+        "niveau_complexite": "avancé",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 53. CARDAN SANS BLOCAGE
+    {
+        "id": "cardan_sans_blocage",
+        "titre": "Cardan sans Blocage",
+        "description": "Configuration géométrique spécifique consistant en un carré inscrit dans un triangle scalène non rectangle. Modèle fondamental servant de base à la construction de la matrice à dérive première. Illustre le concept de rotation libre sans gimbal lock dans l'espace tridimensionnel.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Carré inscrit dans triangle scalène",
+            "Triangle non rectangle",
+            "Base de la matrice à dérive première",
+            "Rotation libre sans blocage",
+            "Absence de gimbal lock",
+            "Configuration géométrique fondamentale"
+        ],
+        "formules": [
+            "Mesures unitaires servant de base à la matrice",
+            "Relations géométriques dérivées des segments AD, AB, BD, AG, AC, CG, DG, EF, DE, FG"
+        ],
+        "definitions": [
+            "Cardan sans blocage: Configuration géométrique permettant une rotation libre",
+            "Gimbal lock: Problème de rotation absent dans cette configuration",
+            "Triangle scalène: Triangle aux trois côtés de longueurs différentes"
+        ],
+        "relations": [
+            "Modèle géométrique de la matrice à dérive première",
+            "Base pour l'analyse du chaos discret",
+            "Illustration de liberté rotationnelle"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Section 1.11, Figure 5",
+        "niveau_complexite": "intermédiaire",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 54. PRISME MATRICIEL À DÉRIVE PREMIÈRE
+    {
+        "id": "prisme_matriciel",
+        "titre": "Prisme Matriciel à Dérive Première",
+        "description": "Structure conceptuelle tridimensionnelle (comparable à un Rubik's Cube) englobant tous les nombres premiers de zéro à l'infini. Divisé en deux parties: gauche (PG) avec trois nombres premiers formant un groupe, et droite (PD) avec un seul terme. Le coefficient Cj a toujours un numérateur 7. L'inconnue pour les deux parties est √3.375.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Structure 3D des nombres premiers",
+            "Division gauche/droite (PG/PD)",
+            "Groupes de trois nombres premiers",
+            "Coefficient Cj avec numérateur 7",
+            "Inconnue unique: √3.375",
+            "Analogie avec Rubik's Cube"
+        ],
+        "formules": [
+            "Partie Gauche (PG): (PGi1 + PGi2 + PGi3) / 2 = Cj",
+            "Coefficient Cj: toujours numérateur 7",
+            "Partie Droite (PD): PGi1 + PGi2 + PGi3 = PDq",
+            "Inconnue commune: √3.375"
+        ],
+        "definitions": [
+            "Prisme matriciel: Structure 3D organisationnelle des nombres premiers",
+            "Partie gauche (PG): Groupes de trois nombres premiers",
+            "Partie droite (PD): Somme unique des termes",
+            "Coefficient Cj: Résultat de la moyenne des trois premiers avec numérateur 7"
+        ],
+        "relations": [
+            "Extension de la matrice à dérive première",
+            "Organisation structurelle des nombres premiers",
+            "Lien entre géométrie et théorie des nombres",
+            "Base pour l'infini des nombres premiers"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Section finale",
+        "niveau_complexite": "avancé",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
+
+    # 55. INVARIANCE GÉOMÉTRIQUE RELATIONNELLE
+    {
+        "id": "invariance_relationnelle",
+        "titre": "Invariance Géométrique Relationnelle",
+        "description": "Nouvelle forme d'invariance géométrique où certaines propriétés (comme le produit alternatif) restent invariantes malgré le changement d'unité de mesure. Étend les transformations classiques (translation, rotation, homothétie) en intégrant l'influence du choix de référentiel. Coexistence d'invariance et de dépendance au référentiel.",
+        "domaine_principal": "Mécanique du Chaos Discret",
+        "concepts_cles": [
+            "Invariance malgré changement d'unité",
+            "Extension des transformations classiques",
+            "Coexistence invariance/dépendance",
+            "Influence du référentiel",
+            "Propriétés préservées: produit alternatif",
+            "Nouvelle géométrie invariante"
+        ],
+        "formules": [
+            "Transformations classiques: translation, rotation, homothétie",
+            "Transformation relationnelle: changement d'unité",
+            "Invariant: Produit alternatif conservé"
+        ],
+        "definitions": [
+            "Invariance relationnelle: Préservation de propriétés géométriques malgré changement de référentiel",
+            "Référentiel géométrique: Unité de mesure choisie par l'observateur",
+            "Propriété invariante: Caractéristique géométrique préservée sous transformation"
+        ],
+        "relations": [
+            "Base théorique de la géométrie relationnelle",
+            "Lien avec la théorie de la relativité",
+            "Extension de la géométrie classique",
+            "Fondement philosophique du chaos discret"
+        ],
+        "document_source": "La_mécanique_emergent.pdf",
+        "page_reference": "Discussions théoriques",
+        "niveau_complexite": "avancé",
+        "created_at": datetime.now(timezone.utc).isoformat()
+    },
 ]
 
 def get_concept_enrichi_by_domain(domain=None):
