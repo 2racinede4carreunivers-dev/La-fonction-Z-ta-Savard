@@ -1113,6 +1113,25 @@ const ChatPage = () => {
     }
   };
 
+  const handleAccessCodeSubmit = () => {
+    const correctCode = 'Uni1374079226490873#car';
+    if (accessCode === correctCode) {
+      setShowAccessCodeModal(false);
+      setAccessCode('');
+      setAccessCodeError('');
+      // Déclencher l'upload
+      document.getElementById('file-upload').click();
+    } else {
+      setAccessCodeError('❌ Code d\'accès incorrect. Accès refusé.');
+    }
+  };
+
+  const handleDocumentButtonClick = () => {
+    setShowAccessCodeModal(true);
+    setAccessCode('');
+    setAccessCodeError('');
+  };
+
   const handleFileUpload = async (event) => {
     const files = Array.from(event.target.files);
     if (files.length === 0) return;
