@@ -316,8 +316,8 @@ Les formules incluent le calcul du Digamma et l'analyse géométrique du spectre
         endpoint_status = [
             ("IA Spécialisée (POST /api/chat)", results.get('ia_specialisee', False), "HAUTE"),
             ("IA Privilégiée (POST /api/chat-privileged)", results.get('ia_privilegiee', False), "HAUTE"),
-            ("Concepts Enrichis (GET /api/concepts-enrichis-list)", results.get('concepts_enrichis', False), "HAUTE"),
-            ("IA Évolutive (POST /api/dialogue-evolutif)", results.get('ia_evolutive', False), "MOYENNE"),
+            ("Concepts Enrichis (GET /api/concepts-enrichis)", results.get('concepts_enrichis', False), "HAUTE"),
+            ("IA Évolutive (POST /api/ia-evolutif/dialoguer)", results.get('ia_evolutive', False), "MOYENNE"),
             ("Upload Documents (POST /api/upload-document)", results.get('upload_document', False), "MOYENNE"),
             ("Health Check (GET /api/health)", results.get('health_check', False), "BASSE")
         ]
