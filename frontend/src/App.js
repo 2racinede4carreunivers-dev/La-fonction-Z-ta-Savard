@@ -5806,6 +5806,43 @@ const SalonLecturePage = () => {
     }
   };
 
+  const creerConcept = async () => {
+    try {
+      const conceptData = {
+        ...conceptForm,
+        mots_cles: conceptForm.mots_cles.split(',').map(m => m.trim()).filter(Boolean)
+      };
+
+      const response = await axios.post(`${API_URL}/api/concepts`, conceptData);
+      
+      if (response.data.success) {
+        await fetchConceptsEnrichis();
+        setShowConceptForm(false);
+        setConceptForm({
+          titre: '', description: '', domaine: 'geometrie', sous_domaine: '',
+          mots_cles: '', niveau_complexite: 3, document_source: '', page_reference: ''
+        });
+        
+        setNotifications(prev => [...prev, {
+          id: Date.now(),
+          type: 'success',
+          title: 'Concept créé',
+          message: `Le concept "${conceptForm.titre}" a été créé avec succès`,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+      }
+    } catch (error) {
+      console.error('Erreur création concept:', error);
+      setNotifications(prev => [...prev, {
+        id: Date.now(),
+        type: 'error',
+        title: 'Erreur',
+        message: 'Impossible de créer le concept',
+        timestamp: new Date().toLocaleTimeString()
+      }]);
+    }
+  };
+
   // Base de formules de Philippôt pour reconnaissance automatique
   const formulesPhilippot = [
     {
