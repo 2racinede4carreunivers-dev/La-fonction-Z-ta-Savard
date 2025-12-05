@@ -149,11 +149,11 @@ class CriticalDeploymentTester:
             critical_results['ia_privilegiee'] = False
         
         # 3. Concepts Enrichis (PRIORITÉ HAUTE)
-        print("\n3️⃣ CONCEPTS ENRICHIS - GET /api/concepts-enrichis-list (PRIORITÉ HAUTE)")
+        print("\n3️⃣ CONCEPTS ENRICHIS - GET /api/concepts-enrichis (PRIORITÉ HAUTE)")
         success3, response3 = self.run_test(
             "Concepts Enrichis - Liste des 55 concepts",
             "GET",
-            "api/concepts-enrichis-list",
+            "api/concepts-enrichis",
             200
         )
         
