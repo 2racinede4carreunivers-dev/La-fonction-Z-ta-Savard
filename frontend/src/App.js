@@ -1358,7 +1358,7 @@ const ChatPage = () => {
                       size="sm"
                       className="border-emerald-400/30 text-emerald-300 hover:bg-emerald-400/10"
                       disabled={uploading}
-                      onClick={() => document.getElementById('file-upload').click()}
+                      onClick={handleDocumentButtonClick}
                     >
                       <BookOpen className="w-4 h-4 mr-2" />
                       {uploading ? 'Upload...' : 'Ajouter document'}
