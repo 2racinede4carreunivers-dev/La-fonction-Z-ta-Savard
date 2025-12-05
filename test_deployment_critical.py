@@ -195,13 +195,13 @@ class CriticalDeploymentTester:
             critical_results['concepts_enrichis'] = False
         
         # 4. IA Évolutive (PRIORITÉ MOYENNE)
-        print("\n4️⃣ IA ÉVOLUTIVE - POST /api/dialogue-evolutif (PRIORITÉ MOYENNE)")
+        print("\n4️⃣ IA ÉVOLUTIVE - POST /api/ia-evolutif/dialoguer (PRIORITÉ MOYENNE)")
         success4, response4 = self.run_test(
             "IA Évolutive - Système questions/réponses",
             "POST",
-            "api/dialogue-evolutif",
+            "api/ia-evolutif/dialoguer",
             200,
-            data={"message": "Test question", "session_id": "test_evolutif"}
+            data={"question": "Test question", "contexte": "Test context"}
         )
         
         if success4 and isinstance(response4, dict):
