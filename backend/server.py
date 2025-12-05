@@ -5653,7 +5653,7 @@ class NotificationsRequest(BaseModel):
 # ===============================================
 
 # Modèles de données pour la base relationnelle
-class ConceptModel(BaseModel):
+class ConceptEnrichiModel(BaseModel):
     id: Optional[str] = None
     titre: str
     description: str
