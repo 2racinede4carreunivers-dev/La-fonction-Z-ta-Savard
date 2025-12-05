@@ -1439,6 +1439,59 @@ const ChatPage = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Modal de code d'accès pour upload de document */}
+      {showAccessCodeModal && (
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-slate-800 border-2 border-cyan-400 rounded-lg p-6 max-w-md w-full">
+            <div className="text-center mb-4">
+              <div className="text-4xl mb-3">🔐</div>
+              <h3 className="text-2xl font-bold text-white mb-2">Accès Restreint</h3>
+              <p className="text-blue-200 text-sm">
+                L'ajout de documents est réservé à l'auteur de la théorie pour préserver son intégrité.
+              </p>
+            </div>
+
+            <div className="mb-4">
+              <label className="block text-cyan-300 text-sm font-semibold mb-2">
+                Code d'accès requis
+              </label>
+              <Input
+                type="password"
+                placeholder="Entrez le code d'accès"
+                value={accessCode}
+                onChange={(e) => setAccessCode(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleAccessCodeSubmit()}
+                className="bg-slate-700 border-cyan-400/30 text-white placeholder:text-slate-400"
+                autoFocus
+              />
+              {accessCodeError && (
+                <p className="text-red-400 text-sm mt-2">{accessCodeError}</p>
+              )}
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={() => {
+                  setShowAccessCodeModal(false);
+                  setAccessCode('');
+                  setAccessCodeError('');
+                }}
+                variant="outline"
+                className="flex-1 border-slate-600 text-slate-300 hover:bg-slate-700"
+              >
+                Annuler
+              </Button>
+              <Button
+                onClick={handleAccessCodeSubmit}
+                className="flex-1 bg-cyan-600 hover:bg-cyan-700 text-white"
+              >
+                Valider
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
