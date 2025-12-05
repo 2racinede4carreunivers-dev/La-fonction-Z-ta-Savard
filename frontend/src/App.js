@@ -1093,6 +1093,9 @@ const ChatPage = () => {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [uploading, setUploading] = useState(false);
   const [extendedMode, setExtendedMode] = useState(true);
+  const [showAccessCodeModal, setShowAccessCodeModal] = useState(false);
+  const [accessCode, setAccessCode] = useState('');
+  const [accessCodeError, setAccessCodeError] = useState('');
 
   // Charger les documents au démarrage
   useEffect(() => {
