@@ -73,11 +73,13 @@ class ConceptModel(BaseModel):
     id: str
     titre: str
     description: str
-    categorie: str
+    categorie: Optional[str] = None
+    domaine: Optional[str] = None
     mots_cles: List[str]
-    contenu: str
+    contenu: Optional[str] = None
     document_source: str
     created_at: str
+    niveau_complexite: Optional[int] = None
 
 class TableauPhilippotModel(BaseModel):
     id: str
