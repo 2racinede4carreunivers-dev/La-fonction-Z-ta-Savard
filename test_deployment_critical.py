@@ -225,18 +225,54 @@ class CriticalDeploymentTester:
 La méthode de Philippôt utilise des rapports triangulaires pour déterminer les nombres premiers.
 Les formules incluent le calcul du Digamma et l'analyse géométrique du spectre des nombres premiers."""
         
-        success5, response5 = self.run_test(
-            "Upload Document - Analyse petit fichier",
-            "POST",
-            "api/upload-document",
-            200,
-            data={
-                "filename": "test_document.txt",
-                "content": test_file_content,
-                "file_type": "text/plain",
-                "user_session": "test_upload_session"
-            }
-        )
+        # Test file upload with multipart/form-data
+        try:
+            import io
+            url = f"{self.base_url}/api/upload-document"
+            files = {'file': ('test_document.txt', io.StringIO(test_file_content), 'text/plain')}
+            data = {'session_id': 'test_upload_session'}
+            
+            print(f"\n🔍 Testing Upload Document - Analyse petit fichier...")
+            print(f"   URL: {url}")
+            
+            start_time = datetime.now()
+            response = requests.post(url, files=files, data=data, timeout=30)
+            end_time = datetime.now()
+            response_time = (end_time - start_time).total_seconds()
+            
+            self.tests_run += 1
+            success5 = response.status_code == 200
+            
+            if success5:
+                self.tests_passed += 1
+                print(f"✅ PASSED - Status: {response.status_code}")
+                print(f"   ⏱️  Temps de réponse: {response_time:.2f}s")
+                
+                try:
+                    response5 = response.json()
+                    if 'analysis' in response5:
+                        analysis = response5['analysis']
+                        print(f"   ✅ Analyse du document effectuée")
+                        print(f"   📝 Analyse: {len(analysis)} caractères")
+                        print(f"   📝 Extrait analyse: {analysis[:100]}...")
+                        critical_results['upload_document'] = True
+                    else:
+                        print(f"   ⚠️  Analyse du document non trouvée")
+                        critical_results['upload_document'] = False
+                except:
+                    print(f"   ⚠️  Réponse non JSON")
+                    critical_results['upload_document'] = False
+            else:
+                print(f"❌ FAILED - Attendu 200, reçu {response.status_code}")
+                print(f"   ⏱️  Temps de réponse: {response_time:.2f}s")
+                print(f"   📝 Réponse: {response.text[:200]}...")
+                self.critical_failures.append(f"Upload Document: {response.status_code} - {response.text[:100]}")
+                critical_results['upload_document'] = False
+                
+        except Exception as e:
+            print(f"❌ FAILED - Erreur: {str(e)}")
+            self.critical_failures.append(f"Upload Document: {str(e)}")
+            critical_results['upload_document'] = False
         
         if success5 and isinstance(response5, dict):
             if 'analysis' in response5:
