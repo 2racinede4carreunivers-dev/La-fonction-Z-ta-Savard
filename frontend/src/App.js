@@ -5289,6 +5289,24 @@ const DocumentsOfficielsPage = () => {
       titre: 'Espace Harmonique de Philippôt',
       image: '/schemas/espace_philippot_harmonique.jpg',
       description: 'Visualisation de l\'espace harmonique selon la théorie de Philippôt, montrant les relations harmoniques entre les différentes dimensions géométriques et leurs résonances.'
+    },
+    {
+      id: 'tableau_rapport_1_2',
+      titre: 'Tableau Rapport 1/2 - Calcul du 10ème Premier (29)',
+      image: '/schemas/tableau_rapport_1_2.png',
+      description: 'Tableau détaillé pour le rapport de triangle base/hauteur = 1/2. Démonstration complète du calcul avec les deux suites de racines carrées, le Digamma à la 8ème position (√81920), et le résultat final donnant 29 comme 10ème nombre premier.'
+    },
+    {
+      id: 'tableau_rapport_1_3',
+      titre: 'Tableau Rapport 1/3 - Calcul du 49ème Premier (227)',
+      image: '/schemas/tableau_rapport_1_3.png',
+      description: 'Tableau détaillé pour le rapport de triangle base/hauteur = 1/3. Montre la progression géométrique avec multiplication par 3, le Digamma calculé (√47829690), aboutissant à 227 qui est le 49ème nombre premier, confirmant la méthode de Philippôt.'
+    },
+    {
+      id: 'tableau_rapport_1_7',
+      titre: 'Tableau Rapport 1/7 - Calcul du Nombre Premier 16421',
+      image: '/schemas/tableau_rapport_1_7.png',
+      description: 'Tableau détaillé pour le rapport de triangle base/hauteur = 1/7. Illustration de la méthode avec multiplication par 7, calcul du Digamma à la 8ème position, démontrant que 16421 est un nombre premier selon la formule de Philippôt.'
     }
   ];
 
