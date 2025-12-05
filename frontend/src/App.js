@@ -5325,6 +5325,18 @@ const DocumentsOfficielsPage = () => {
       titre: 'Formules Symétriques Multiples et Ordonnées',
       image: '/schemas/formules_symetriques_multiples.png',
       description: 'Généralisations symétriques des formules (Sections 7.2.1 et 7.3.0). Relations entre différentes valeurs de n1, n2, ni, nj montrant la structure symétrique profonde. Formule générale donnant 1/2 quand n1 et n2 sont différents, démonstration de l\'harmonie mathématique sous-jacente à la distribution des nombres premiers.'
+    },
+    {
+      id: 'formules_ordonnees_chaotiques',
+      titre: 'Formules Symétriques Ordonnées vs Chaotiques',
+      image: '/schemas/formules_symetriques_ordonnees_chaotiques.png',
+      description: 'Distinction fondamentale (Sections 7.3.0 et 7.3.1) entre comportements ordonnés et chaotiques. En mode ordonné: n+1+2...+in avec entiers successifs ordonnés donne ≠1/2. En mode chaotique: n avec entiers non successifs donne ≈1/2. Révèle la dualité ordre/chaos dans la structure des nombres premiers.'
+    },
+    {
+      id: 'exemples_calculs_pratiques',
+      titre: 'Exemples de Calculs Pratiques entre Nombres Premiers',
+      image: '/schemas/exemples_calculs_entre_premiers.png',
+      description: 'Applications concrètes (Section 6.2.1) de la méthode. Calculs détaillés entre différents nombres premiers: Entre 19 et 43 (résultat -23), Entre -11 et -29 (résultat 19), Entre -11 et 17 (résultat -27). Démonstration pratique de la méthode en 2 étapes avec racines carrées et divisions par √5120.'
     }
   ];
 
