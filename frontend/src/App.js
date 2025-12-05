@@ -5307,6 +5307,24 @@ const DocumentsOfficielsPage = () => {
       titre: 'Tableau Rapport 1/7 - Calcul du Nombre Premier 16421',
       image: '/schemas/tableau_rapport_1_7.png',
       description: 'Tableau détaillé pour le rapport de triangle base/hauteur = 1/7. Illustration de la méthode avec multiplication par 7, calcul du Digamma à la 8ème position, démontrant que 16421 est un nombre premier selon la formule de Philippôt.'
+    },
+    {
+      id: 'formules_premiers_positifs_negatifs',
+      titre: 'Formules Directes - Nombres Premiers Positifs et Négatifs',
+      image: '/schemas/formules_premiers_positifs_negatifs.png',
+      description: 'Équations révolutionnaires (Section 5.4.0) pour calculer directement les sommes des suites de nombres premiers. Formule pour la 1ère suite positive: (√13.203125/2×2ⁿ) - √5, et pour la 1ère suite négative: (√13.203125×2ⁿ) - √5. Innovation majeure éliminant le besoin d\'additionner terme par terme.'
+    },
+    {
+      id: 'formules_suite_2',
+      titre: 'Formules Suite 2 - Calculs Positifs et Négatifs',
+      image: '/schemas/formules_suite_2_positive_negative.png',
+      description: 'Formules pour la deuxième suite (Sections 5.4.2 et 5.4.3). Pour les positifs: (√52.8125/2×2ⁿ) - √5445, avec démonstration que √5445 = 32(32+1)×√5. Pour les négatifs: (√52.8125×2ⁿ) - √5445. Complète le système de calcul direct des nombres premiers.'
+    },
+    {
+      id: 'formules_symetriques',
+      titre: 'Formules Symétriques Multiples et Ordonnées',
+      image: '/schemas/formules_symetriques_multiples.png',
+      description: 'Généralisations symétriques des formules (Sections 7.2.1 et 7.3.0). Relations entre différentes valeurs de n1, n2, ni, nj montrant la structure symétrique profonde. Formule générale donnant 1/2 quand n1 et n2 sont différents, démonstration de l\'harmonie mathématique sous-jacente à la distribution des nombres premiers.'
     }
   ];
 
