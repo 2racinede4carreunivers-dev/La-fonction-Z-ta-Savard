@@ -597,13 +597,17 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Tests critiques déploiement - TERMINÉS"
-    - "Validation endpoints priorité HAUTE - TERMINÉS"
-    - "Vérification 55 concepts enrichis - TERMINÉS"
-    - "Tests IA spécialisées et privilégiées - TERMINÉS"
-  stuck_tasks: []
+    - "Tests critiques déploiement frontend - TERMINÉS"
+    - "Navigation principale - VALIDÉE 5/5"
+    - "Galerie 21 schémas - VALIDÉE 22/21"
+    - "IA spécialisée - PROBLÈME CRITIQUE"
+    - "Calculatrice TI-83 - PARTIELLEMENT FONCTIONNELLE"
+    - "Documents officiels - VALIDÉS"
+  stuck_tasks: 
+    - "IA spécialisée - Erreurs 500 backend empêchent fonctionnement"
+    - "Erreurs console JavaScript - 4 erreurs critiques 500"
   test_all: false
-  test_priority: "deployment_critical_completed"
+  test_priority: "frontend_deployment_mixed_results"
 
   - task: "Enrichissement IA avec concepts théoriques séparés"
     implemented: true
