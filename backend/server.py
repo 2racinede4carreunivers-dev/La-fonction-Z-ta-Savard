@@ -5713,7 +5713,7 @@ class ValidationEmpiriqueModel(BaseModel):
 # ===============================================
 
 @app.post("/api/concepts", response_model=dict)
-async def creer_concept(concept: ConceptModel):
+async def creer_concept(concept: ConceptEnrichiModel):
     """Créer un nouveau concept dans la base"""
     try:
         concept_data = concept.dict()
