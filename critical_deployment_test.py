@@ -77,7 +77,7 @@ class CriticalDeploymentTester:
             "api/chat",
             200,
             data={
-                "message": "Explique la sphère de Zêta",
+                "message": "Qu'est-ce que la sphère de Zêta?",
                 "session_id": "test_final_deploy"
             }
         )
