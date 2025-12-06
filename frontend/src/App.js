@@ -3718,7 +3718,7 @@ ${latexContent}
         </div>
 
         {/* Nouvelle structure 50/50 avec subdivisions internes */}
-        <div className="grid grid-cols-2 gap-4 h-[calc(100vh-180px)]">
+        <div className="grid grid-cols-2 gap-4 flex-1">
           {/* PARTIE GAUCHE - 50% : ÉDITION AVEC SUBDIVISION 20/80 */}
           <div className="flex flex-col h-full">
             {/* TOP-LEFT - Options de traitement texte (20%) */}
