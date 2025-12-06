@@ -3708,7 +3708,7 @@ ${latexContent}
   return (
     <div className="h-screen overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
       <div className="container mx-auto px-4 py-4 h-full flex flex-col">
-        <div className="text-center mb-6">
+        <div className="text-center mb-4">
           <h1 className="text-4xl font-bold text-white mb-4">
             Espace de Collaboration - L'univers est au carré
           </h1>
