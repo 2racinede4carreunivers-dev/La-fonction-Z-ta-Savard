@@ -4317,8 +4317,8 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
               </CardContent>
             </Card>
 
-            {/* BOTTOM-RIGHT - Interface chat (12%) */}
-            <Card className="bg-slate-900/80 border border-white/10 flex-shrink-0" style={{ height: '12%', minHeight: '80px' }}>
+            {/* BOTTOM-RIGHT - Interface chat (15%) */}
+            <Card className="bg-slate-900/80 border border-white/10 flex-shrink-0 overflow-hidden" style={{ flex: '0 0 15%', minHeight: '70px' }}>
               <CardContent className="p-3 h-full">
                 <div className="flex gap-2 h-full items-center">
                   <input
