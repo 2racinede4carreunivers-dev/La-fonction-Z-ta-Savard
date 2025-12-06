@@ -186,16 +186,31 @@ class CriticalDeploymentTester:
         print("Endpoint: POST /api/dialogue-evolutif")
         print("Payload: {\"question\": \"Test\", \"session_id\": \"test_evolutif_final\"}")
         
-        success4, response4, time4 = self.run_test(
-            "IA Évolutive - Test dialogue",
+        # First initialize the system
+        print("   Initializing IA Évolutive system...")
+        init_success, init_response, init_time = self.run_test(
+            "IA Évolutive - Initialization",
             "POST",
-            "api/ia-evolutif/dialoguer",
+            "api/ia-evolutif/initialiser-auto",
             200,
-            data={
-                "question": "Test",
-                "session_id": "test_evolutif_final"
-            }
+            data={}
         )
+        
+        if init_success:
+            print("   ✅ System initialized successfully")
+            success4, response4, time4 = self.run_test(
+                "IA Évolutive - Test dialogue",
+                "POST",
+                "api/ia-evolutif/dialoguer",
+                200,
+                data={
+                    "question": "Test",
+                    "session_id": "test_evolutif_final"
+                }
+            )
+        else:
+            print("   ❌ Failed to initialize system")
+            success4, response4, time4 = False, {}, 0.0
         
         if success4 and isinstance(response4, dict):
             if 'reponse' in response4:
