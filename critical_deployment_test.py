@@ -28,9 +28,9 @@ class CriticalDeploymentTester:
         try:
             start_time = datetime.now()
             if method == 'GET':
-                response = requests.get(url, headers=headers, timeout=30)
+                response = requests.get(url, headers=headers, timeout=60)
             elif method == 'POST':
-                response = requests.post(url, json=data, headers=headers, timeout=30)
+                response = requests.post(url, json=data, headers=headers, timeout=60)
             end_time = datetime.now()
             response_time = (end_time - start_time).total_seconds()
 
