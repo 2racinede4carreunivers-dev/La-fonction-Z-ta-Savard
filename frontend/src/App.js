@@ -5387,10 +5387,16 @@ const DocumentsOfficielsPage = () => {
       description: 'Distinction fondamentale (Sections 7.3.0 et 7.3.1) entre comportements ordonnés et chaotiques. En mode ordonné: n+1+2...+in avec entiers successifs ordonnés donne ≠1/2. En mode chaotique: n avec entiers non successifs donne ≈1/2. Révèle la dualité ordre/chaos dans la structure des nombres premiers.'
     },
     {
-      id: 'exemples_calculs_pratiques',
-      titre: 'Exemples de Calculs Pratiques entre Nombres Premiers',
-      image: '/schemas/exemples_calculs_entre_premiers.png',
-      description: 'Applications concrètes (Section 6.2.1) de la méthode. Calculs détaillés entre différents nombres premiers: Entre 19 et 43 (résultat -23), Entre -11 et -29 (résultat 19), Entre -11 et 17 (résultat -27). Démonstration pratique de la méthode en 2 étapes avec racines carrées et divisions par √5120.'
+      id: 'exemples_calculs_pratiques_1',
+      titre: 'Exemples de Calculs entre Nombres Premiers - Partie 1',
+      image: '/schemas/exemples_calculs_premiers_corriges_1.png',
+      description: 'Applications concrètes de la méthode avec calculs corrigés. Démonstration détaillée de la méthode en 2 étapes : calcul des racines carrées et divisions par √5120. Exemples pratiques illustrant la formule de Philippôt pour déterminer la quantité de nombres premiers entre deux positions.'
+    },
+    {
+      id: 'exemples_calculs_pratiques_2',
+      titre: 'Exemples de Calculs entre Nombres Premiers - Partie 2',
+      image: '/schemas/exemples_calculs_premiers_corriges_2.png',
+      description: 'Suite des applications concrètes avec calculs corrigés. Calculs détaillés entre différentes positions de nombres premiers montrant l\'application systématique de la méthode de Philippôt. Validation de la formule avec exemples pratiques vérifiés.'
     }
   ];
 
