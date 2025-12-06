@@ -184,7 +184,7 @@ class CriticalDeploymentTester:
         # 4. IA Évolutive
         print("\n4️⃣ IA ÉVOLUTIVE")
         print("Endpoint: POST /api/dialogue-evolutif")
-        print("Payload: {\"message\": \"Test\", \"session_id\": \"test_evolutif_final\"}")
+        print("Payload: {\"question\": \"Test\", \"session_id\": \"test_evolutif_final\"}")
         
         success4, response4, time4 = self.run_test(
             "IA Évolutive - Test dialogue",
