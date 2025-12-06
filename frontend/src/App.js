@@ -4214,10 +4214,10 @@ La fonction ζ(s) = Σ(1/n^s) avec √10 ≈ π selon Philippôt..."
             </Card>
           </div>
 
-          {/* PARTIE DROITE - 50% : IA AVEC SUBDIVISION 90/10 */}
-          <div className="flex flex-col h-full gap-3">
-            {/* TOP-RIGHT - Réponses IA (88%) */}
-            <Card className="bg-slate-900/80 border border-white/10 flex flex-col flex-shrink-0" style={{ height: '88%', maxHeight: '88%' }}>
+          {/* PARTIE DROITE - 50% : IA AVEC SUBDIVISION 85/15 */}
+          <div className="flex flex-col h-full gap-4">
+            {/* TOP-RIGHT - Réponses IA (85%) */}
+            <Card className="bg-slate-900/80 border border-white/10 flex flex-col flex-shrink-0 overflow-hidden" style={{ flex: '0 0 85%' }}>
               <CardHeader className="pb-2">
                 <CardTitle className="text-white text-sm flex items-center gap-2">
                   <Brain className="w-4 h-4 text-cyan-400" />
