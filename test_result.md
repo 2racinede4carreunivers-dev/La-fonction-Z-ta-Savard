@@ -618,13 +618,15 @@ metadata:
 
 test_plan:
   current_focus:
-    - "TEST RAPIDE VALIDATION APRÈS CORRECTIONS PYDANTIC - TERMINÉ ✅"
-    - "IA spécialisée - CORRIGÉE ET FONCTIONNELLE ✅"
-    - "Console erreurs JavaScript - RÉSOLUES ✅"
-    - "Navigation fluide - VALIDÉE 4/4 pages ✅"
+    - "TESTS CRITIQUES DÉPLOIEMENT FINAL - TERMINÉS ✅"
+    - "IA Spécialisée POST /api/chat - VALIDÉE DÉPLOIEMENT ✅"
+    - "IA Privilégiée POST /api/chat-privileged - VALIDÉE DÉPLOIEMENT ✅"
+    - "Concepts Enrichis GET /api/concepts-enrichis - VALIDÉS DÉPLOIEMENT ✅"
+    - "IA Évolutive POST /api/dialogue-evolutif - VALIDÉE DÉPLOIEMENT ✅"
+    - "Health Check GET /api/health - VALIDÉ DÉPLOIEMENT ✅"
   stuck_tasks: []
   test_all: false
-  test_priority: "validation_post_pydantic_corrections_success"
+  test_priority: "critical_deployment_validation_complete"
 
   - task: "Enrichissement IA avec concepts théoriques séparés"
     implemented: true
