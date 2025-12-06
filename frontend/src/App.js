@@ -3715,27 +3715,6 @@ ${latexContent}
           <p className="text-blue-200 mb-4">
             Interface avancée pour développer, écrire et collaborer avec l'IA spécialisée sur la théorie de Philippôt
           </p>
-          
-          {/* Indicateur de la nouvelle structure */}
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl p-4 max-w-4xl mx-auto mb-6">
-            <h3 className="text-lg font-semibold text-cyan-400 mb-3">Architecture 4-Quadrants</h3>
-            <div className="grid grid-cols-2 gap-4 text-sm">
-              <div className="bg-purple-900/20 p-3 rounded border border-purple-600/30">
-                <strong className="text-purple-400">Gauche - Édition (50%)</strong>
-                <div className="mt-2 space-y-1">
-                  <div className="text-orange-300">• Options traitement (20%)</div>
-                  <div className="text-green-300">• Éditeur principal (80%)</div>
-                </div>
-              </div>
-              <div className="bg-cyan-900/20 p-3 rounded border border-cyan-600/30">
-                <strong className="text-cyan-400">Droite - IA (50%)</strong>
-                <div className="mt-2 space-y-1">
-                  <div className="text-blue-300">• Réponses IA (90%)</div>
-                  <div className="text-yellow-300">• Interface chat (10%)</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Nouvelle structure 50/50 avec subdivisions internes */}
