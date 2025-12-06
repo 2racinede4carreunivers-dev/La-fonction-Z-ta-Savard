@@ -50,8 +50,8 @@ class CriticalDeploymentTester:
                 return False, {}, response_time
 
         except requests.exceptions.Timeout:
-            print(f"❌ Failed - Request timeout (30s)")
-            return False, {}, 30.0
+            print(f"❌ Failed - Request timeout (60s)")
+            return False, {}, 60.0
         except Exception as e:
             print(f"❌ Failed - Error: {str(e)}")
             return False, {}, 0.0
