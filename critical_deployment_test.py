@@ -192,7 +192,7 @@ class CriticalDeploymentTester:
             "api/ia-evolutif/dialoguer",
             200,
             data={
-                "message": "Test",
+                "question": "Test",
                 "session_id": "test_evolutif_final"
             }
         )
