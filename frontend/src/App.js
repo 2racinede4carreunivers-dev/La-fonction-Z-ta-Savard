@@ -2007,6 +2007,7 @@ const CollaborationPage = ({ folderProps = {} }) => {
   // États pour les améliorations UI Phase 1
   const [fontSize, setFontSize] = useState(16); // Taille police par défaut
   const [showFontSizePanel, setShowFontSizePanel] = useState(false);
+  const fontSizePanelRef = useRef(null);
   
   // États Phase 2 : Système de dossiers et organisation (folders/currentFolder sont globaux)
   const [showFolderManager, setShowFolderManager] = useState(false);
