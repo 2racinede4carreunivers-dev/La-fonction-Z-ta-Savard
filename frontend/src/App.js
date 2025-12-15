@@ -2066,6 +2066,23 @@ const CollaborationPage = ({ folderProps = {} }) => {
     loadSavedDocuments();
   }, []);
 
+  // Fermer le panneau de taille de police quand on clique en dehors
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (fontSizePanelRef.current && !fontSizePanelRef.current.contains(event.target)) {
+        setShowFontSizePanel(false);
+      }
+    };
+
+    if (showFontSizePanel) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFontSizePanel]);
+
   const loadSavedDocuments = async () => {
     try {
       if (sessionId) {
