@@ -3816,7 +3816,7 @@ ${latexContent}
                       </Button>
                       
                       {showFontSizePanel && (
-                        <div className="absolute top-8 left-0 bg-slate-800 border border-slate-600 rounded-lg p-3 min-w-[200px] z-50 shadow-xl">
+                        <div ref={fontSizePanelRef} className="absolute top-8 left-0 bg-slate-800 border border-slate-600 rounded-lg p-3 min-w-[200px] z-50 shadow-xl">
                           <div className="text-cyan-400 font-semibold mb-2 text-xs">Taille Police</div>
                           
                           <div className="flex items-center gap-2 mb-2">
