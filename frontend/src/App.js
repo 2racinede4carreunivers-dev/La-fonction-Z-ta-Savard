@@ -2076,11 +2076,11 @@ const CollaborationPage = ({ folderProps = {} }) => {
 
     if (showFontSizePanel) {
       document.addEventListener('mousedown', handleClickOutside);
+      
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
     }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
   }, [showFontSizePanel]);
 
   const loadSavedDocuments = async () => {
