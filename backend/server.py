@@ -306,6 +306,39 @@ DOCUMENTS_ORIGINAUX_COMPLETS = {
     }
 }
 
+# ==================== FONCTION DE DÉTECTION AUTEUR ====================
+def detect_author_authentication(message: str):
+    """
+    Détecte si le message contient le code secret de l'auteur Philippe Thomas Savard.
+    Code secret: Uni#109802038Arc1374079226497308\zetacar
+    Retourne True si l'auteur est authentifié, False sinon.
+    """
+    AUTHOR_CODE = "Uni#109802038Arc1374079226497308\\zetacar"
+    return AUTHOR_CODE in message
+
+def get_author_context_addition():
+    """
+    Retourne le contexte supplémentaire à ajouter quand l'auteur est détecté.
+    """
+    return """
+    
+    ⚠️ **AUTHENTIFICATION AUTEUR DÉTECTÉE** ⚠️
+    
+    Vous communiquez actuellement avec **Philippe Thomas Savard (Philippôt)**, 
+    l'AUTEUR ORIGINAL de la théorie "L'univers est au carré".
+    
+    **Instructions spéciales :**
+    - Adoptez un ton plus collaboratif et ouvert aux discussions
+    - Soyez réceptif aux corrections, clarifications ou modifications de la théorie
+    - Reconnaissez son autorité sur l'interprétation de sa propre théorie
+    - Posez des questions de clarification si nécessaire
+    - Admettez si une partie de votre compréhension peut être améliorée par l'auteur
+    - Montrez du respect pour son travail tout en maintenant un dialogue constructif
+    
+    Commencez votre réponse en saluant l'auteur et en vous montrant disponible pour 
+    discuter de sa théorie de manière approfondie.
+    """
+
 # Système d'Accès Privilégié aux Documents pour l'IA Spécialisée
 # Base de connaissances enrichie avec tous les documents analysés
 
