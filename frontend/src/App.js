@@ -11757,9 +11757,38 @@ function App() {
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState('');
   
+  // État pour l'accès admin secret
+  const [adminModeActivated, setAdminModeActivated] = useState(false);
+  
   // États globaux pour les dossiers (disponibles dans toute l'app)
   const [folders, setFolders] = useState([]);
   const [currentFolder, setCurrentFolder] = useState('root');
+
+  // Effet pour le raccourci clavier admin (Ctrl+Shift+A)
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      // Ctrl+Shift+A ET mode admin activé
+      if (e.ctrlKey && e.shiftKey && e.key === 'A' && adminModeActivated) {
+        e.preventDefault();
+        window.location.href = '/admin-questions';
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    
+    // Désactiver le mode admin après 30 secondes pour plus de sécurité
+    let timeout;
+    if (adminModeActivated) {
+      timeout = setTimeout(() => {
+        setAdminModeActivated(false);
+      }, 30000); // 30 secondes
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+      if (timeout) clearTimeout(timeout);
+    };
+  }, [adminModeActivated]);
 
   // Objet props pour partager les états des dossiers
   const folderProps = {
