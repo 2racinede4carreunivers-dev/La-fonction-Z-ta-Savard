@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 class CriticalDeploymentTester:
-    def __init__(self, base_url="https://docschemagal.preview.emergentagent.com"):
+    def __init__(self, base_url="https://universe-squared.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
@@ -389,7 +389,7 @@ def main():
     """Fonction principale pour les tests critiques de déploiement"""
     print("🚀 TESTS CRITIQUES DÉPLOIEMENT - L'UNIVERS EST AU CARRÉ")
     print("Application FastAPI + MongoDB")
-    print("Backend: https://docschemagal.preview.emergentagent.com")
+    print("Backend: https://universe-squared.preview.emergentagent.com")
     print("Base de connaissances: 55 concepts enrichis sur la théorie de Philippe Thomas Savard")
     print("=" * 80)
     
