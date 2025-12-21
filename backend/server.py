@@ -6252,7 +6252,7 @@ async def admin_login(credentials: dict):
 @app.post("/api/admin/questions-log")
 async def get_questions_log(request: dict):
     """Récupérer l'historique des questions posées à l'IA (protégé par mot de passe)"""
-    ADMIN_PASSWORD = "Uni1374079226497308car"
+    ADMIN_PASSWORD = "Uni1098020238Arc1374079226497308\\zetacar"
     
     password = request.get("password", "")
     limit = request.get("limit", 100)  # Par défaut, 100 dernières questions
