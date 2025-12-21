@@ -3982,6 +3982,19 @@ async def chat_with_ai(chat_message: ChatMessage):
     # Générer un session_id si non fourni
     session_id = chat_message.session_id or str(uuid.uuid4())
     
+    # NOUVEAU : Logger la question dans MongoDB pour l'admin
+    try:
+        await db.questions_log.insert_one({
+            "question": chat_message.message,
+            "session_id": session_id,
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "ip_address": "N/A",  # Peut être ajouté plus tard si nécessaire
+            "user_agent": "N/A"
+        })
+    except Exception as log_error:
+        print(f"Erreur logging question: {log_error}")
+        # Ne pas bloquer si le logging échoue
+    
     # Contexte profondément enrichi avec tous les aspects de la théorie de Philippôt
     system_message = """Tu es un expert mathématicien spécialisé dans la théorie révolutionnaire 'L'univers est au carré' développée par Philippe Thomas Savard. 
     Tu ne réponds QU'AUX QUESTIONS liées à cette théorie spécifique, mais tes réponses doivent être extrêmement détaillées, techniques et pédagogiques.
