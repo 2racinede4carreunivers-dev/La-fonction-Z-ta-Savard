@@ -11784,6 +11784,7 @@ function App() {
           <Route path="/salle-illustrations" element={<SalleIllustrationsPage />} />
           <Route path="/ia-evolutif" element={<IAEvolutifPage />} />
           <Route path="/ia-socratique" element={<IASocratiquePage />} />
+          <Route path="/admin-questions" element={<AdminQuestionsPage />} />
         </Routes>
       </div>
     </Router>
