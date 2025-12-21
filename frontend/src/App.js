@@ -1114,7 +1114,7 @@ const ChatPage = () => {
   };
 
   const handleAccessCodeSubmit = () => {
-    const correctCode = 'Uni1374079226497308car';
+    const correctCode = 'Uni1098020238Arc1374079226497308\\zetacar';
     if (accessCode === correctCode) {
       setShowAccessCodeModal(false);
       setAccessCode('');
