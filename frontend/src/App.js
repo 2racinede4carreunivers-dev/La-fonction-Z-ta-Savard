@@ -11593,6 +11593,161 @@ const IAEvolutifPage = () => {
   );
 };
 
+// ==================== PAGE ADMIN - HISTORIQUE QUESTIONS ====================
+const AdminQuestionsPage = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState('');
+  const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [totalCount, setTotalCount] = useState(0);
+
+  const handleLogin = async () => {
+    setError('');
+    setLoading(true);
+    
+    try {
+      const response = await axios.post(`${API_URL}/api/admin/login`, {
+        password: password
+      });
+      
+      if (response.data.success) {
+        setIsAuthenticated(true);
+        loadQuestions();
+      }
+    } catch (err) {
+      setError('Mot de passe incorrect');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadQuestions = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.post(`${API_URL}/api/admin/questions-log`, {
+        password: password,
+        limit: 200
+      });
+      
+      setQuestions(response.data.questions);
+      setTotalCount(response.data.total_count);
+    } catch (err) {
+      setError('Erreur lors du chargement des questions');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const formatDate = (isoString) => {
+    const date = new Date(isoString);
+    return date.toLocaleString('fr-FR', {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+  };
+
+  if (!isAuthenticated) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md bg-slate-800/90 border-cyan-400/30">
+          <CardHeader>
+            <CardTitle className="text-2xl text-white text-center">
+              🔐 Accès Admin - Historique Questions
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div>
+              <label className="text-cyan-300 text-sm font-semibold mb-2 block">
+                Mot de passe administrateur
+              </label>
+              <Input
+                type="password"
+                placeholder="Entrez le mot de passe"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleLogin()}
+                className="bg-slate-700 border-cyan-400/30 text-white"
+              />
+            </div>
+            {error && (
+              <div className="text-red-400 text-sm text-center">{error}</div>
+            )}
+            <Button
+              onClick={handleLogin}
+              disabled={loading}
+              className="w-full bg-cyan-600 hover:bg-cyan-700"
+            >
+              {loading ? 'Connexion...' : 'Se connecter'}
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 p-4">
+      <div className="container mx-auto max-w-6xl">
+        <Card className="bg-slate-800/90 border-cyan-400/30">
+          <CardHeader>
+            <CardTitle className="text-2xl text-white flex items-center justify-between">
+              <span>📊 Historique des Questions Posées à l'IA</span>
+              <Button
+                onClick={() => {
+                  setIsAuthenticated(false);
+                  setPassword('');
+                  setQuestions([]);
+                }}
+                variant="outline"
+                size="sm"
+                className="border-red-400/30 text-red-300 hover:bg-red-400/10"
+              >
+                Déconnexion
+              </Button>
+            </CardTitle>
+            <p className="text-blue-200 text-sm mt-2">
+              Total de questions enregistrées: <span className="font-bold text-cyan-300">{totalCount}</span>
+            </p>
+          </CardHeader>
+          <CardContent>
+            {loading ? (
+              <div className="text-center text-blue-200 py-8">Chargement...</div>
+            ) : (
+              <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                {questions.map((q, index) => (
+                  <div key={index} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-xs text-cyan-400 font-mono">
+                        {formatDate(q.timestamp)}
+                      </span>
+                      <span className="text-xs text-slate-400">
+                        Session: {q.session_id.slice(0, 8)}...
+                      </span>
+                    </div>
+                    <div className="text-white bg-slate-800 rounded p-3">
+                      {q.question}
+                    </div>
+                  </div>
+                ))}
+                {questions.length === 0 && (
+                  <div className="text-center text-slate-400 py-8">
+                    Aucune question enregistrée pour le moment
+                  </div>
+                )}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
 // App principale
 function App() {
   // États de navigation et de contenu
