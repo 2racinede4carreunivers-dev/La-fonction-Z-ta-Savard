@@ -11790,6 +11790,13 @@ function App() {
     };
   }, [adminModeActivated]);
 
+  // Fonction pour activer le mode admin
+  const handleAdminIconClick = () => {
+    setAdminModeActivated(true);
+    // Notification visuelle discrète (optionnelle)
+    console.log('Mode admin activé - Utilisez Ctrl+Shift+A dans les 30 secondes');
+  };
+
   // Objet props pour partager les états des dossiers
   const folderProps = {
     folders, setFolders, currentFolder, setCurrentFolder
