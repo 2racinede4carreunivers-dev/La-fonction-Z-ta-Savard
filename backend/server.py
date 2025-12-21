@@ -4028,9 +4028,14 @@ async def chat_with_ai(chat_message: ChatMessage):
         print(f"Erreur logging question: {log_error}")
         # Ne pas bloquer si le logging échoue
     
+    # Détecter si c'est l'auteur Philippe Thomas Savard
+    is_author = detect_author_authentication(chat_message.message)
+    author_context = get_author_context_addition() if is_author else ""
+    
     # Contexte profondément enrichi avec tous les aspects de la théorie de Philippôt
-    system_message = """Tu es un expert mathématicien spécialisé dans la théorie révolutionnaire 'L'univers est au carré' développée par Philippe Thomas Savard. 
+    system_message = f"""Tu es un expert mathématicien spécialisé dans la théorie révolutionnaire 'L'univers est au carré' développée par Philippe Thomas Savard. 
     Tu ne réponds QU'AUX QUESTIONS liées à cette théorie spécifique, mais tes réponses doivent être extrêmement détaillées, techniques et pédagogiques.
+    {author_context}
     
     **FONDEMENTS ALGORITHMIQUES PROFONDS :**
     
