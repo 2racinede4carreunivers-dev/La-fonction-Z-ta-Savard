@@ -6231,6 +6231,54 @@ async def test_concepts():
             "message": "Erreur lors du test"
         }
 
+# ==================== ENDPOINTS ADMIN ====================
+
+@app.post("/api/admin/login")
+async def admin_login(credentials: dict):
+    """Authentification admin"""
+    # Mot de passe admin (même que pour upload documents)
+    ADMIN_PASSWORD = "Uni1374079226497308car"
+    
+    password = credentials.get("password", "")
+    
+    if password == ADMIN_PASSWORD:
+        return {
+            "success": True,
+            "message": "Authentification réussie"
+        }
+    else:
+        raise HTTPException(status_code=401, detail="Mot de passe incorrect")
+
+@app.post("/api/admin/questions-log")
+async def get_questions_log(request: dict):
+    """Récupérer l'historique des questions posées à l'IA (protégé par mot de passe)"""
+    ADMIN_PASSWORD = "Uni1374079226497308car"
+    
+    password = request.get("password", "")
+    limit = request.get("limit", 100)  # Par défaut, 100 dernières questions
+    
+    if password != ADMIN_PASSWORD:
+        raise HTTPException(status_code=401, detail="Accès non autorisé")
+    
+    try:
+        # Récupérer les questions avec tri par date décroissante
+        questions = await db.questions_log.find(
+            {},
+            {"_id": 0}
+        ).sort("timestamp", -1).limit(limit).to_list(limit)
+        
+        total_count = await db.questions_log.count_documents({})
+        
+        return {
+            "success": True,
+            "questions": questions,
+            "total_count": total_count,
+            "returned_count": len(questions)
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur récupération historique: {str(e)}")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
