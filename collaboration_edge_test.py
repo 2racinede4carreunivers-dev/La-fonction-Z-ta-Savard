@@ -6,7 +6,7 @@ import requests
 import json
 
 def test_collaboration_edge_cases():
-    base_url = "https://docschemagal.preview.emergentagent.com"
+    base_url = "https://author-identity-fix.preview.emergentagent.com"
     
     print("🧪 Testing Collaboration Edge Cases")
     print("=" * 50)
