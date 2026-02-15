@@ -46,7 +46,8 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 ## Fichiers Clés
 - `/app/backend/server.py` - Serveur API principal
 - `/app/frontend/src/App.js` - Frontend monolithique (>12,000 lignes)
-- `/app/data/isabelle_proofs/` - Scripts Isabelle HOL formels
+- `/app/data/isabelle_proofs/methode_spectral.thy` - Preuves spectrales (rapport 1/2, 1/3, 1/4, asymétries)
+- `/app/data/isabelle_proofs/methode_de_philippot.thy` - Méthode de Philippôt généralisée
 
 ## Mots de Passe Secrets
 - **Admin/Upload**: `Uni1098020238Arc1374079226497308\zetacar`
