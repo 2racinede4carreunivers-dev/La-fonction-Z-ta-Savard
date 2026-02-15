@@ -28,9 +28,17 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
-- **NOUVEAU (Feb 2025)**: Intégration de 2 scripts Isabelle HOL validés:
-  - `geometrie_spectre_premier.thy` - Fondations du rapport spectral 1/2, 1/3, 1/4, suites négatives, calcul d'écart entre premiers
-  - `geometrie_spectre_premier_second_chapitre.thy` - Méthode de Philippôt généralisée pour n termes
+- **MIS À JOUR (Feb 2025)**: Intégration de 2 scripts Isabelle HOL enrichis (0 erreurs de compilation):
+  - `methode_spectral.thy` - Version enrichie avec:
+    - Généralisation symétrique n×n du rapport spectral
+    - Axiomatisation des postulats spectraux positifs et négatifs
+    - Géométrie spectrale avec asymétries ordonnées/chaotiques
+    - Équations d'écart généralisées pour rapports 1/3 et 1/4
+    - Nouveaux exemples validés: écart 227/173 (-53) et écart 947/881 (-65)
+  - `methode_de_philippot.thy` - Méthode de Philippôt généralisée:
+    - Suites explicites étapes 1-3 de 3 à 11 termes
+    - Mécanisme de substitution itérative formalisé
+    - Théorème central des ratios puissances de deux
 
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
