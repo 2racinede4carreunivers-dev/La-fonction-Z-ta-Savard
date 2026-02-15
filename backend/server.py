@@ -4183,61 +4183,90 @@ async def chat_with_ai(chat_message: ChatMessage):
     - Méthode intuitive validée par calcul algorithmique
     - Approche révolutionnaire différente des méthodes classiques
     
-    **16. PREUVES FORMELLES ISABELLE/HOL - GÉOMÉTRIE DU SPECTRE PREMIER (Validation Mathématique Rigoureuse) :**
-    Philippe Thomas Savard a développé et validé des preuves formelles en Isabelle/HOL qui compilent sans erreur :
+    **16. PREUVES FORMELLES ISABELLE/HOL - GÉOMÉTRIE DU SPECTRE PREMIER (Validation Mathématique Rigoureuse - Version Enrichie) :**
+    Philippe Thomas Savard a développé et validé des preuves formelles en Isabelle/HOL qui compilent sans erreur (0 erreurs) :
     
-    **PREMIER SCRIPT - geometrie_spectre_premier.thy :**
+    **SCRIPT methode_spectral.thy - MÉTHODE SPECTRALE COMPLÈTE :**
     
     A) **RAPPORT SPECTRAL 1/2 - FONDATIONS :**
     - Définitions des suites SA et SB (type nat) : SA n = (3.25/2) × 2^n - 2; SB n = (6.5/2) × 2^n - 66
     - Lemme prouvé : RsP n1 n2 = (SA n1 - SA n2)/(SB n1 - SB n2) = 1/2 pour tout n1, n2 > 0, n1 ≠ n2
     - Points de résonance validés : nombres premiers 29, 31, 37, 41
     - Digamma calculé défini : digamma_calc n p = SB n - 64 × p
+    - **NOUVEAU** : prime_equation n p = (SB n - digamma_calc n p) / 64 = p (identité prouvée)
     
-    B) **MODÈLE SPECTRAL 1/3 - Premier 227 :**
+    B) **GÉNÉRALISATION SYMÉTRIQUE n×n (INNOVATION) :**
+    - Définition RsP_nn pour listes d'indices : RsP_nn A_indices B_indices = sum(map SA A_indices) / sum(map SB B_indices)
+    - Rapport spectral 1/2 maintenu même avec des combinaisons n×n d'indices
+    - Exemple 3×3 : A3 = [2, 9, 10], B3 = [3, 11, 15]
+    
+    C) **AXIOMATISATION SPECTRALE POSITIVE ET NÉGATIVE :**
+    - Postulat spectral positif : Pour n ≥ 1 et p premier, prime_equation n p = p
+    - Postulat spectral négatif : Pour n1, n2 ≤ -1 et n1 ≠ n2, RsP_neg n1 n2 = 1/2
+    - Extension formelle aux nombres premiers négatifs
+    
+    D) **MODÈLE SPECTRAL 1/3 - Premier 227 :**
     - Formes généralisées : A_1_3 n = ((73/9)/12) × 3^n - 1.5; B_1_3 n = ((219/9)/12) × 3^n - (487 × 1.5)
     - Somme suite A : 79824; Somme suite B : 238746; Digamma : 6561
     - Preuve formelle : (238746 - (79824 - 6561)) / 729 = 227 (premier validé)
-    - Théorème prouvé : RsP_1_3 n1 n2 = 1/3 constant
+    - Théorème prouvé : RsP_1_3 n1 n2 = 1/3 constant pour tout n1, n2 > 0
+    - **NOUVEAU** : Équation d'écart gap_equation_1_3 avec postulat spectral axiomatisé
     
-    C) **MODÈLE SPECTRAL 1/4 - Premier 947 :**
+    E) **MODÈLE SPECTRAL 1/4 - Premier 947 :**
     - Formes généralisées : A_1_4 n = ((241/16)/12) × 4^n - (4/3); B_1_4 n = ((964/16)/12) × 4^n - (3073 × 4/3)
     - Somme suite A : 1316180; Somme suite B : 5260628; Digamma : 65536
     - Preuve formelle : (5260628 - 1381716) / 4096 = 947 (premier validé)
-    - Théorème prouvé : RsP_1_4 n1 n2 = 1/4 constant
+    - Théorème prouvé : RsP_1_4 n1 n2 = 1/4 constant pour tout n1, n2 > 0
+    - **NOUVEAU** : Équation d'écart gap_equation_1_4 avec postulat spectral axiomatisé
     
-    D) **SUITES NÉGATIVES - ÉQUATIONS SPECTRALES (INNOVATION) :**
-    - SA_neg_eq n = 3.25 × 2^n - 2; SB_neg_eq n = 6.5 × 2^n - 66
-    - Généralisation validée pour les nombres premiers négatifs
-    - Formalisation des suites A et B pour n termes négatifs
+    F) **GÉOMÉTRIE SPECTRALE - ASYMÉTRIES ORDONNÉES/CHAOTIQUES (NOUVEAU) :**
+    - indice_valide(n) : n ≥ 1 ou n ≤ -1 (exclusion du zéro)
+    - liste_strictement_croissante : validation formelle de l'ordre des indices
+    - asymetrique_ordonnee : structure où last(A_indices) < hd(B_indices) et length(B) = length(A) + 1
+    - asymetrique_chaotique : structure désordonnée avec longueurs différentes
+    - Lemme prouvé : asymetrie_implique_indices_valides
     
-    E) **MÉTHODE DE CALCUL D'ÉCART ENTRE NOMBRES PREMIERS :**
-    - Formule unifiée : gap = (A_next - (B_high - D_high) - D_low) / 64
-    - **Exemple 1 (Positifs)** : Écart 23-7 = 15 nombres (validé Isabelle)
-    - **Exemple 2 (Négatifs)** : Écart -19 à -5 = 13 nombres (validé Isabelle)  
-    - **Exemple 3 (Mixte)** : Écart -31 à 17 = 47 nombres, incluant le zéro (validé Isabelle)
-    - Note : Le zéro n'est inclus QUE lorsque la progression traverse 0
+    G) **MÉTHODE DE CALCUL D'ÉCART ENTRE NOMBRES PREMIERS (COMPLÈTE) :**
+    - Formule unifiée rapport 1/2 : gap = (A_next - (B_high - D_high) - D_low) / 64
+    - Formule rapport 1/3 : gap_equation_1_3 = (A_next - (B_high - D_high) - D_low) / 729
+    - Formule rapport 1/4 : gap_equation_1_4 = (A_next - (B_high - D_high) - D_low) / 4096
+    - **Exemple 1 (Positifs 1/2)** : Écart 23-7 = -15 nombres (validé Isabelle)
+    - **Exemple 2 (Négatifs 1/2)** : Écart -19 à -5 = -13 nombres (validé Isabelle)
+    - **Exemple 3 (Mixte 1/2)** : Écart -31 à 17 = -47 nombres, incluant le zéro (validé Isabelle)
+    - **NOUVEAU Exemple 4 (Rapport 1/3)** : Écart 227 à 173 = -53 nombres (validé Isabelle)
+      • SA(179) = 96/9, SB(227) = 238746, D(227) = 73263, D(173) = -1141518/9
+    - **NOUVEAU Exemple 5 (Rapport 1/4)** : Écart 947 à 881 = -65 nombres (validé Isabelle)
+      • SA(883) = 75/4, SB(947) = 5260628, D(947) = 1381716, D(881) = -14450613/4
     
-    **SECOND SCRIPT - geometrie_spectre_premier_second_chapitre.thy :**
+    **SCRIPT methode_de_philippot.thy - MÉTHODE DE PHILIPPÔT GÉNÉRALISÉE :**
     
-    A) **MÉTHODE DE PHILIPPÔT GÉNÉRALISÉE :**
-    - Étape 1 : Suites explicites de 3 à 11 termes avec fractions géométriques
-    - Structure réglementaire : base = 1/2^i pour i ∈ [1, n-2], avant = 1/2^(n-2) × 2/3, dernier = avant/2
-    - Propriété fondamentale : sum_list xs = 1 (somme toujours égale à 1)
+    A) **ÉTAPE 1 - SUITES EXPLICITES DE 3 À 11 TERMES :**
+    - etape1_3 = [1/2, 1/3, 1/6], etape1_4 = [1/2, 1/4, 1/6, 1/12], ...
+    - Structure réglementaire formalisée : suite_reglementaire_etape1
+    - Fonction générale : etape1_general(n) avec base = 1/2^i, avant = 1/2^(n-2) × 2/3, dernier = avant/2
     
-    B) **THÉORÈME CENTRAL - RATIOS PUISSANCES DE DEUX :**
+    B) **ÉTAPE 2 - MÉCANISME DE SUBSTITUTION :**
+    - pos_substitution_petit(n) : positions 1-5 pour n = 3-7
+    - pos_substitution_grand(n) : position fixe 6 pour n ≥ 8
+    - Propriété : sum_list xs = 1 - xs!(pos_substitution - 1)
+    
+    C) **ÉTAPE 3 - SUBSTITUTION ITÉRATIVE (NOUVEAU) :**
+    - Mécanisme : position substituée × 1/2 et valeur substituée × 1/2 par rapport à l'étape précédente
+    - valeur_substituee_etape3 : 1/2+1/4 (n=3), 1/4+1/8 (n=4), 1/8+1/16 (n=5), 1/16+1/32 (n=6), 1/32+1/64 (n=7)
+    - Extension aux suites de 8+ termes : valeur_substituee_etape3_grand = 1/64 + 1/128
+    
+    D) **THÉORÈME CENTRAL - RATIOS PUISSANCES DE DEUX :**
     - Lemme prouvé : (1/(2^(n+1))) / (1/2^n) = 1/2 pour tout n
-    - Exemples validés : 1/128 ÷ 1/64 = 1/2, 1/64 ÷ 1/32 = 1/2, etc.
-    - Preuve formelle qu'il est possible de déterminer une infinité de 1/2 via la méthode de Philippôt
-    
-    C) **STRUCTURES RÉGLEMENTAIRES ÉTAPE 2 ET 3 :**
-    - Position de substitution définie formellement pour chaque taille de suite
-    - Valeurs substituées calculées : 1/2+1/4, 1/4+1/8, 1/8+1/16, etc.
-    - Extension aux suites de 8+ termes avec position fixe 6
+    - Exemples validés : 1/128÷1/64, 1/64÷1/32, 1/32÷1/16, 1/16÷1/8, 1/8÷1/4, 1/4÷1/2 = 1/2
+    - Preuve formelle : infinité de 1/2 déterminable via la méthode de Philippôt
     
     **SIGNIFICATION MATHÉMATIQUE :**
     Ces preuves Isabelle/HOL constituent une validation formelle rigoureuse, compilable et vérifiable par machine, 
-    de la théorie de Philippe Thomas Savard sur la géométrie du spectre premier et l'hypothèse de Riemann.
+    de la théorie de Philippe Thomas Savard. Elles établissent :
+    - L'universalité des rapports spectraux constants (1/2, 1/3, 1/4) via axiomatisation
+    - La méthode unifiée de calcul d'écart entre nombres premiers pour tous les rapports
+    - La structure géométrique des asymétries ordonnées et chaotiques
+    - La généralisation de la méthode de Philippôt avec substitutions itératives
     
     **10. ASPECTS COSMOLOGIQUES APPROFONDIS :**
     - Mécanique harmonique du chaos discret
