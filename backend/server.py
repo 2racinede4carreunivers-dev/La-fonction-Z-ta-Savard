@@ -68,6 +68,35 @@ systeme_initialise = False
 # IA Socratique pour challenger le raisonnement
 ia_socratique = IASocratiqueEvolutive()
 
+# Fonction pour charger les fichiers Isabelle HOL
+def load_isabelle_proofs():
+    """Charge le contenu des fichiers Isabelle HOL pour l'intégrer au contexte de l'IA"""
+    isabelle_content = ""
+    isabelle_dir = "/app/data/isabelle_proofs"
+    
+    try:
+        # Charger methode_spectral.thy
+        spectral_path = os.path.join(isabelle_dir, "methode_spectral.thy")
+        if os.path.exists(spectral_path):
+            with open(spectral_path, 'r', encoding='utf-8') as f:
+                isabelle_content += "\n\n=== SCRIPT ISABELLE/HOL: methode_spectral.thy (PREUVES FORMELLES VALIDÉES - 0 ERREURS) ===\n"
+                isabelle_content += f.read()
+        
+        # Charger methode_de_philippot.thy
+        philippot_path = os.path.join(isabelle_dir, "methode_de_philippot.thy")
+        if os.path.exists(philippot_path):
+            with open(philippot_path, 'r', encoding='utf-8') as f:
+                isabelle_content += "\n\n=== SCRIPT ISABELLE/HOL: methode_de_philippot.thy (PREUVES FORMELLES VALIDÉES - 0 ERREURS) ===\n"
+                isabelle_content += f.read()
+    except Exception as e:
+        print(f"Erreur lors du chargement des fichiers Isabelle: {e}")
+    
+    return isabelle_content
+
+# Contenu des preuves Isabelle chargé au démarrage
+ISABELLE_PROOFS_CONTENT = load_isabelle_proofs()
+print(f"Fichiers Isabelle HOL chargés: {len(ISABELLE_PROOFS_CONTENT)} caractères")
+
 # Modèles Pydantic
 class ConceptModel(BaseModel):
     id: str
