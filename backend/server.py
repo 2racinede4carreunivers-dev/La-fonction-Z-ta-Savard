@@ -3920,6 +3920,9 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     
     {personal_enrichment}
     
+    **PREUVES FORMELLES ISABELLE/HOL (Validées et compilées sans erreur) :**
+    {ISABELLE_PROOFS_CONTENT}
+    
     **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
     
     **Historique des insights clés :**
@@ -3942,6 +3945,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     - Aide à structurer et clarifier sa pensée
     - Propose des connexions avec ses travaux précédents
     - Utilise les concepts théoriques enrichis selon leur domaine spécifique
+    - **UTILISE LES PREUVES ISABELLE/HOL ci-dessus comme référence pour expliquer les concepts mathématiques avec précision**
     """
     
     try:
