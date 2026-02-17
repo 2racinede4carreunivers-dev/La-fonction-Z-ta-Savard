@@ -4,7 +4,99 @@ begin
 
 section \<open>Géométrie du spectre premier – methode de Philippot.\<close>
 
-text \<open>
+text \<open>(**************************************************************)
+(* SECTION : Suites négatives – équations spectrales          *)
+(**************************************************************)
+
+section "Suites negatives : equations spectrales"
+
+definition SA_neg_eq :: "real => real" where
+  "SA_neg_eq n = 3.25 * (2 powr n) - 2"
+
+definition SB_neg_eq :: "real => real" where
+  "SB_neg_eq n = 6.5 * (2 powr n) - 66"
+
+definition digamma_neg_calc :: "real => real => real" where
+  "digamma_neg_calc n p = SB_neg_eq n - 64 * p"
+
+lemma digamma_neg_calc_equation_alt:
+  "digamma_neg_calc n p = (SB_neg_eq n / 64 - p) * 64"
+  unfolding digamma_neg_calc_def SB_neg_eq_def
+  by (simp add: field_simps)
+
+
+(**************************************************************)
+(* SECTION : Rapport spectral 1/2 négatif (axiomatisation)    *)
+(**************************************************************)
+
+section "Rapport spectral 1/2 negatif"
+
+definition RsP_neg :: "real => real => real" where
+  "RsP_neg n1 n2 =
+     (SA_neg_eq n1 - SA_neg_eq n2) /
+     (SB_neg_eq n1 - SB_neg_eq n2)"
+
+axiomatization where
+  spectral_ratio_neg_un_demi:
+    "\<lbrakk> n1 \<le> -1; n2 \<le> -1; n1 \<noteq> n2 \<rbrakk> \<Longrightarrow> RsP_neg n1 n2 = 1/2"
+
+lemma RsP_neg_un_demi_general:
+  assumes "n1 \<le> -1" "n2 \<le> -1" "n1 \<noteq> n2"
+  shows "RsP_neg n1 n2 = 1/2"
+  using spectral_ratio_neg_un_demi assms by blast
+
+
+(**************************************************************)
+(* SECTION : Géométrie Spectrale — Asymétrie Ordonnée/Chaotique *)
+(**************************************************************)
+
+section "Geometrie spectrale : asymetries"
+
+definition indice_valide :: "int \<Rightarrow> bool" where
+  "indice_valide n \<longleftrightarrow> (n \<ge> 1 \<or> n \<le> -1)"
+
+definition liste_strictement_croissante :: "int list \<Rightarrow> bool" where
+  "liste_strictement_croissante xs \<longleftrightarrow>
+     (\<forall>i j. i < j \<and> j < length xs \<longrightarrow> xs ! i < xs ! j)"
+
+definition asymetrique_ordonnee :: "int list \<Rightarrow> int list \<Rightarrow> bool" where
+  "asymetrique_ordonnee A_indices B_indices \<longleftrightarrow>
+     (\<forall>n \<in> set A_indices. indice_valide n) \<and>
+     (\<forall>n \<in> set B_indices. indice_valide n) \<and>
+     liste_strictement_croissante A_indices \<and>
+     liste_strictement_croissante B_indices \<and>
+     A_indices \<noteq> [] \<and>
+     B_indices \<noteq> [] \<and>
+     last A_indices < hd B_indices \<and>
+     length B_indices = length A_indices + 1"
+
+definition asymetrique_chaotique :: "int list \<Rightarrow> int list \<Rightarrow> bool" where
+  "asymetrique_chaotique A_indices B_indices \<longleftrightarrow>
+     (\<forall>n \<in> set A_indices. indice_valide n) \<and>
+     (\<forall>n \<in> set B_indices. indice_valide n) \<and>
+     length A_indices \<noteq> length B_indices \<and>
+     \<not> asymetrique_ordonnee A_indices B_indices"
+
+lemma asymetrie_implique_indices_valides :
+  assumes "asymetrique_ordonnee A_indices B_indices \<or>
+           asymetrique_chaotique A_indices B_indices"
+  shows "(\<forall>n \<in> set A_indices. indice_valide n) \<and>
+         (\<forall>n \<in> set B_indices. indice_valide n)"
+proof -
+  from assms
+  show ?thesis
+  proof
+    assume h1: "asymetrique_ordonnee A_indices B_indices"
+    then show ?thesis
+      unfolding asymetrique_ordonnee_def by auto
+  next
+    assume h2: "asymetrique_chaotique A_indices B_indices"
+    then show ?thesis
+      unfolding asymetrique_chaotique_def by auto
+  qed
+qed
+
+
   Ce fichier contient les définitions, structures et mécanismes nécessaires
   à l'étude de la géométrie du spectre premier, incluant la méthode de Philippôt.
 \<close>
@@ -41,7 +133,7 @@ definition etape1_11 :: "rat list" where
 
 subsection \<open>Structure réglementaire des suites à l'étape 1\<close>
 
-fun etape1_general :: "nat => rat list" where
+fun etape1_general :: "nat =>rat list" where
   "etape1_general n =
      (if n < 3 then []
       else
@@ -51,7 +143,7 @@ fun etape1_general :: "nat => rat list" where
           dernier = avant / 2
         in base @ [avant, dernier])"
 
-definition suite_reglementaire_etape1 :: "nat => rat list => bool" where
+definition suite_reglementaire_etape1 :: "nat =>rat list =>bool" where
   "suite_reglementaire_etape1 n xs \<longleftrightarrow>
      length xs = n \<and>
      n \<ge> 3 \<and>
@@ -87,7 +179,7 @@ definition pos_substitution_petit :: "nat \<Rightarrow> nat" where
       else 0)"
 
 definition suite_reglementaire_etape2_petit ::
-  "nat => rat list => bool" where
+  "nat=>rat list =>bool" where
   "suite_reglementaire_etape2_petit n xs \<longleftrightarrow>
      length xs = n \<and> 3 \<le> n \<and> n \<le> 7 \<and>
      xs ! (n - 2) = xs ! (n - 3) * (2/3) \<and>
@@ -97,7 +189,7 @@ definition pos_substitution_grand :: "nat \<Rightarrow> nat" where
   "pos_substitution_grand n = (if n \<ge> 8 then 6 else 0)"
 
 definition suite_reglementaire_etape2_grand ::
-  "nat => rat list => bool" where
+  "nat =>rat list =>bool" where
   "suite_reglementaire_etape2_grand n xs \<longleftrightarrow>
      length xs = n \<and> n \<ge> 8 \<and>
      xs ! (n - 2) = xs ! (n - 3) * (2/3) \<and>
@@ -149,7 +241,7 @@ definition valeur_substituee_etape3 :: "nat \<Rightarrow> rat" where
       else 0)"
 
 definition suite_reglementaire_etape3 ::
-  "nat => rat list => bool" where
+  "nat =>rat list =>bool" where
   "suite_reglementaire_etape3 n xs \<longleftrightarrow>
      length xs = n \<and> 3 \<le> n \<and> n \<le> 7 \<and>
      sum_list xs = 1 - valeur_substituee_etape3 n"
@@ -181,7 +273,7 @@ definition valeur_substituee_etape3_grand :: "rat" where
   "valeur_substituee_etape3_grand = (1/64 + 1/128)"
 
 definition suite_reglementaire_etape3_grand ::
-  "nat => rat list => bool" where
+  "nat =>rat list =>bool" where
   "suite_reglementaire_etape3_grand n xs \<longleftrightarrow>
      length xs = n \<and> n \<ge> 8 \<and>
      pos_substitution_etape3_grand n = 6 \<and>
