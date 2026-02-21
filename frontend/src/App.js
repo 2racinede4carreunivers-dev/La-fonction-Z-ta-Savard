@@ -1367,7 +1367,7 @@ const ChatPage = () => {
                       id="file-upload"
                       type="file"
                       multiple
-                      accept=".pdf,.txt,.docx,.png,.jpg,.jpeg"
+                      accept=".pdf,.txt,.docx,.png,.jpg,.jpeg,.thy"
                       onChange={handleFileUpload}
                       style={{ display: 'none' }}
                     />
