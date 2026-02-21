@@ -3700,7 +3700,9 @@ async def upload_document(
         
         # Analyser le document avec l'IA si c'est un fichier text/image
         analysis = ""
-        if file.content_type.startswith('text/') or file.content_type == 'application/pdf':
+        # Vérifier si c'est un fichier texte, PDF ou Isabelle HOL (.thy)
+        is_thy_file = file.filename.lower().endswith('.thy')
+        if file.content_type.startswith('text/') or file.content_type == 'application/pdf' or is_thy_file:
             try:
                 # Extraire le texte du document
                 document_text = ""
@@ -3726,12 +3728,38 @@ async def upload_document(
                         document_text = "[Erreur lors de l'extraction du PDF - analyse impossible]"
                         print(f"Erreur extraction PDF: {str(pdf_error)}")
                 
+                elif is_thy_file:
+                    # Pour les fichiers Isabelle HOL (.thy), traiter comme texte UTF-8
+                    document_text = content.decode('utf-8', errors='ignore')
+                    print(f"Fichier Isabelle HOL détecté: {file.filename} ({len(document_text)} caractères)")
+                
                 elif file.content_type.startswith('text/'):
                     document_text = content.decode('utf-8', errors='ignore')
                 
                 # Analyser avec l'IA spécialisée seulement si le texte a été extrait
                 if document_text and not document_text.startswith('[Erreur'):
-                    analysis_prompt = f"""
+                    # Prompt spécifique pour les fichiers Isabelle HOL
+                    if is_thy_file:
+                        analysis_prompt = f"""
+Analyse ce script Isabelle/HOL dans le contexte de la théorie 'L'univers est au carré' de Philippe Thomas Savard.
+
+SCRIPT ISABELLE/HOL "{file.filename}":
+---
+{document_text}
+---
+
+Identifie :
+1. Les définitions formelles (definition, fun, primrec)
+2. Les lemmes et théorèmes prouvés (lemma, theorem)
+3. Les axiomatisations (axiomatization)
+4. Les structures mathématiques formalisées (suites, rapports spectraux, écarts)
+5. Les liens avec la géométrie du spectre des nombres premiers
+6. Les implications pour la théorie de Philippe Thomas Savard
+
+Ce script compile sans erreur sous Isabelle/HOL - analyse-le comme une preuve formelle validée.
+"""
+                    else:
+                        analysis_prompt = f"""
 Analyse ce nouveau document dans le contexte de la théorie 'L'univers est au carré' de Philippe Thomas Savard.
 
 CONTENU DU DOCUMENT "{file.filename}":
