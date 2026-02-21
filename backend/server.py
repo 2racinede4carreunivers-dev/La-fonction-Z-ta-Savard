@@ -3793,6 +3793,25 @@ Sois précis et technique dans ton analyse.
                     {"$set": {"analysis": analysis}}
                 )
                 
+                # Si c'est un fichier Isabelle HOL, le sauvegarder et recharger le contexte
+                if is_thy_file:
+                    try:
+                        global ISABELLE_PROOFS_CONTENT
+                        isabelle_dir = "/app/data/isabelle_proofs"
+                        os.makedirs(isabelle_dir, exist_ok=True)
+                        
+                        # Sauvegarder le fichier
+                        thy_path = os.path.join(isabelle_dir, file.filename)
+                        with open(thy_path, 'w', encoding='utf-8') as f:
+                            f.write(document_text)
+                        
+                        # Recharger tous les fichiers Isabelle
+                        ISABELLE_PROOFS_CONTENT = load_isabelle_proofs()
+                        print(f"Fichier Isabelle HOL sauvegardé: {thy_path}")
+                        print(f"Contexte Isabelle rechargé: {len(ISABELLE_PROOFS_CONTENT)} caractères")
+                    except Exception as thy_error:
+                        print(f"Erreur lors de la sauvegarde du fichier .thy: {str(thy_error)}")
+                
             except Exception as e:
                 print(f"Erreur lors de l'analyse : {str(e)}")
         
