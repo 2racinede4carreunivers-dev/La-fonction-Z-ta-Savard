@@ -28,19 +28,13 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
-- **MIS À JOUR (Feb 2025)**: Intégration complète de 2 scripts Isabelle HOL validés (0 erreurs, compilation Cygwin-Terminal):
-  - `methode_spectral.thy` (47KB, 1280 lignes) - Géométrie du spectre des nombres premiers:
-    - Suites A et B formalisées et généralisées
-    - Rapport spectral 1/2, 1/3, 1/4 (cas 1×1, n×n, asymétrique ordonné/chaotique)
-    - Exemples 29, 31, 37, 41 avec Digamma généralisé
-    - Suites négatives définies et généralisées
-    - Axiomatisation: "n≥1 ou n≤-1 → rapport 1/k numériquement valide, algébriquement incohérent"
-    - Écarts: 23/7, -19/-5, 17/-31 (1/2), 227/173 (1/3), 947/881 (1/4)
-    - Inclusion du zéro pour écarts mixtes
-  - `methode_de_philippot.thy` (7KB, 206 lignes) - Méthode de Philippôt:
-    - Étapes 1-3 pour suites 3-11 termes
-    - Structure réglementaire généralisée
-    - Théorème des ratios puissances de deux
+- **NOUVEAU**: Support des fichiers Isabelle HOL (.thy) via le bouton "Ajouter document"
+  - Les fichiers .thy sont automatiquement analysés par l'IA avec un prompt spécialisé
+  - Sauvegarde automatique dans `/app/data/isabelle_proofs/`
+  - Rechargement automatique du contexte IA après upload
+- **Fichiers Isabelle intégrés** (0 erreurs, compilation Cygwin-Terminal):
+  - `methode_spectral.thy` (47KB): Géométrie du spectre des nombres premiers
+  - `methode_de_philippot.thy` (7KB): Méthode de Philippôt formalisée
 
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
