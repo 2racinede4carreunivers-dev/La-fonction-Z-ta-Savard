@@ -22,7 +22,7 @@ begin
 (* III. MeTHODE SAVARD – UNIFICATION GeNeRALE                   *)
 (*     1. Les quatre equations spectrales (SA & SB reels)       *)
 (*        - Equations positives                                 *)
-(*        -Equations negatives                                 *)
+(*        -Equations negatives                                  *)
 (*     2. Demonstration des suites negatives (n < 0)            *)
 (*        - Structure geometrique                               *)
 (*        - Exemples explicites SA_neg                          *)
@@ -56,12 +56,10 @@ begin
 (*        - Digamma(-31)                                        *)
 (*        - Résultat final : -47                                *)
 (*                                                              *)
-
-
-
 (****************************************************************)
 (* Sous-bloc 1 : formes generales des suites A et B *)
 (****************************************************************)
+
 section "Forme genrale des suites A et B"
 
 definition SA :: "nat \<Rightarrow> real" where
@@ -85,15 +83,11 @@ lemma SB_forme_generale:
   shows "SB n = (6.5 / 2) * (2 ^ n) - 66"
   using assms by (simp add: SB_def)
 
-(**************************************************************)
-(* Definition generale de Kn : 6e position de la suite A      *)
-(**************************************************************)
 
-definition K_n :: "(nat \<Rightarrow> real) \<Rightarrow> real" where
-  "K_n A = A 6"
 (****************************************************************)
 (* Sous-bloc 3 : rapport spectral = 1/2 (cas 1\<times>1) *)
 (****************************************************************)
+
 section "Rapport spectral 1/2"
 
 definition RsP :: "nat \<Rightarrow> nat \<Rightarrow> real" where
@@ -132,6 +126,7 @@ qed
 (****************************************************************)
 (* AJOUT : généralisation symétrique n\<times>n *)
 (****************************************************************)
+
 section "Rapport spectral n\<times>n (généralisation symétrique)"
 
 definition RsP_nn :: "nat list \<Rightarrow> nat list \<Rightarrow> real" where
@@ -156,12 +151,13 @@ lemma exemple_3x3_spectral:
             RsP_nn_def A3_def B3_def
   by admit
 *)
-
+(* L'exemple est volontairement commenté pour garantir la compilation *)
 
 
 (****************************************************************)
 (* Sous-bloc 4 : Digamma calcule a partir de SB et du nombre premier *)
 (****************************************************************)
+
 section "Section du Digamma calcule."
 
 definition digamma_calc :: "nat \<Rightarrow> nat \<Rightarrow> real" where
@@ -183,6 +179,7 @@ lemma prime_equation_identity:
 (****************************************************************)
 (* Postulat spectral 1/2 (régime positif) *)
 (****************************************************************)
+
 section "Axiomatisation positive"
 
 axiomatization where
@@ -193,11 +190,10 @@ lemma prime_equation_for_primes_pos:
   assumes "n \<ge> 1" "prime p"
   shows "prime_equation n p = real p"
   using spectral_postulate_pos assms by blast
-
-
 (****************************************************************)
-(* Sous-bloc 5 : Exemples concrets pour 29, 31, 37, 41 *)
+(* Sous-bloc 5 : Exemples concrets pour 29, 31, 37, 41         *)
 (****************************************************************)
+
 section "Exemple complet pour les nombres premiers 29 31 37 et 41."
 
 definition n29 :: nat where "n29 = 10"
@@ -267,11 +263,13 @@ lemma relation_37:
 lemma relation_41:
   "digamma_calc n41 41 = SA n41 + D41"
   unfolding digamma_calc_def SA_def SB_def n41_def D41_def by simp
+
+
 (**************************************************************)
 (* SECTION : Modele Spectral 1/4 – Definitions completes      *)
 (**************************************************************)
 
-section " Modele spectrale 1/4 : Forme generale des suite A et B."
+section "Modele spectral 1/4 : Forme generale des suites A et B."
 
 text \<open>
   Formes generalisees pour le rapport 1/4.
@@ -282,11 +280,11 @@ text \<open>
 
 (* --- Definition des suites A_1_4 et B_1_4 --- *)
 
-definition A_1_4 :: "nat => real" where
-  "A_1_4 n = ((241 / 16) / 12) * (4^n) - (4 / 3)"
+definition A_1_4 :: "nat \<Rightarrow> real" where
+  "A_1_4 n = ((241 / 16) / 12) * (4 ^ n) - (4 / 3)"
 
-definition B_1_4 :: "nat => real" where
-  "B_1_4 n = ((964 / 16) / 12) * (4^n) - (3073 * (4 / 3))"
+definition B_1_4 :: "nat \<Rightarrow> real" where
+  "B_1_4 n = ((964 / 16) / 12) * (4 ^ n) - (3073 * (4 / 3))"
 
 
 (**************************************************************)
@@ -304,10 +302,12 @@ lemma prime_equation_1_4_identity:
 (**************************************************************)
 (* SECTION : Postulat spectral 1/4                            *)
 (**************************************************************)
-section " Axiomatisation spectral 1/4"
+
+section "Axiomatisation spectral 1/4"
+
 axiomatization where
   spectral_postulate_1_4:
-    "\<And>n p. n > 0==>rime p ==prime_equation_1_4 n p = real p"
+    "\<And>n p. n > 0 \<Longrightarrow> prime p \<Longrightarrow> prime_equation_1_4 n p = real p"
 
 
 (**************************************************************)
@@ -324,7 +324,7 @@ lemma prime_equation_1_4_for_primes:
 (* SECTION : Exemple concret pour 947                         *)
 (**************************************************************)
 
-section "Modèle spectral 1/4: Sommes de suite A et B, Digamma, Digamma calcule et determination du premier 947."
+section "Modele spectral 1/4: Sommes de suite A et B, Digamma, Digamma calcule et determination du premier 947."
 
 text \<open>
   Donnees numeriques globales pour le modele 1/4 :
@@ -351,11 +351,14 @@ lemma preuve_premier_947:
   "(suite_B_1_4_somme - digamma_calcule_1_4) / 4096 = 947"
   by (simp add: suite_A_1_4_somme_def suite_B_1_4_somme_def
                 digamma_1_4_def digamma_calcule_1_4_def)
+
+
 (**************************************************************)
 (* SECTION : Modele Spectral 1/3 – Définitions completes      *)
 (**************************************************************)
 
-section " Rapport 1/3 forme generaliser pour les suites A et B."
+section "Rapport 1/3 forme generaliser pour les suites A et B."
+
 text \<open>
   Formes généralisées pour le rapport 1/3.
   On suit les équations :
@@ -363,11 +366,11 @@ text \<open>
     ((219/9)/12 * 3^n) - (487 * 1.5)
 \<close>
 
-definition A_1_3 :: "nat => real" where
-  "A_1_3 n = ((73 / 9) / 12) * (3^n) - 1.5"
+definition A_1_3 :: "nat \<Rightarrow> real" where
+  "A_1_3 n = ((73 / 9) / 12) * (3 ^ n) - 1.5"
 
-definition B_1_3 :: "nat => real" where
-  "B_1_3 n = ((219 / 9) / 12) * (3^n) - (487 * 1.5)"
+definition B_1_3 :: "nat \<Rightarrow> real" where
+  "B_1_3 n = ((219 / 9) / 12) * (3 ^ n) - (487 * 1.5)"
 
 
 (**************************************************************)
@@ -385,10 +388,12 @@ lemma prime_equation_1_3_identity:
 (**************************************************************)
 (* SECTION : Postulat spectral 1/3                            *)
 (**************************************************************)
-section " Axiomatisation rapport 1/3."
+
+section "Axiomatisation rapport 1/3."
+
 axiomatization where
   spectral_postulate_1_3:
-    "\<And>n p. n > 0==>prime p==>prime_equation_1_3 n p = real p"
+    "\<And>n p. n > 0 \<Longrightarrow> prime p \<Longrightarrow> prime_equation_1_3 n p = real p"
 
 
 (**************************************************************)
@@ -405,7 +410,7 @@ lemma prime_equation_1_3_for_primes:
 (* SECTION : Exemple concret pour 227                         *)
 (**************************************************************)
 
-section " Rapport spectal 1/3 validation numerique pour les suite A et B, Digamma, Digamma calcule et la determination du premier 227."
+section "Rapport spectal 1/3 : validation numerique pour les suites A et B, Digamma, Digamma calcule et la determination du premier 227."
 
 definition suite_A_1_3_somme :: real where
   "suite_A_1_3_somme = 79824"
@@ -413,7 +418,8 @@ definition suite_A_1_3_somme :: real where
 definition suite_B_1_3_somme :: real where
   "suite_B_1_3_somme = 238746"
 
-section "Rapport 1/3" 
+section "Rapport 1/3"
+
 definition digamma_1_3 :: real where
   "digamma_1_3 = 6561"
 
@@ -424,24 +430,27 @@ lemma preuve_premier_227:
   "(suite_B_1_3_somme - digamma_calcule_1_3) / 729 = 227"
   by (simp add: suite_A_1_3_somme_def suite_B_1_3_somme_def
                 digamma_1_3_def digamma_calcule_1_3_def)
-
 (**************************************************************)
 (* SECTION 6 : Rapport Spectral 1/3 et 1/4                    *)
 (**************************************************************)
-section " Rapport spectral constant 1/3 et 1/4."
+
+section "Rapport spectral constant 1/3 et 1/4."
+
 text \<open>
   Définition du Rapport Spectral pour les modèles 1/3 et 1/4.
 \<close>
-section "Rapport spectral 1/3 Validation généralisé."
+
+section "Rapport spectral 1/3 – validation généralisée."
+
 (* Rapport spectral 1/3 *)
 
-definition RsP_1_3 :: "nat => nat => real" where
+definition RsP_1_3 :: "nat \<Rightarrow> nat \<Rightarrow> real" where
   "RsP_1_3 n1 n2 =
     (A_1_3 n1 - A_1_3 n2) /
     (B_1_3 n1 - B_1_3 n2)"
 
 theorem RsP_un_tiers_constant:
-  assumes "n1 > 0" and "n2 > 0" and "n1 ~= n2"
+  assumes "n1 > 0" and "n2 > 0" and "n1 \<noteq> n2"
   shows "RsP_1_3 n1 n2 = 1/3"
 proof -
   have diff_A:
@@ -468,17 +477,20 @@ proof -
   finally show ?thesis .
 qed
 
+
 (* Rapport spectral 1/4 *)
 
-section" Rapport spectral constant 1/4."
+section "Rapport spectral constant 1/4."
 
-definition RsP_1_4 :: "nat => nat => real" where
+definition RsP_1_4 :: "nat \<Rightarrow> nat \<Rightarrow> real" where
   "RsP_1_4 n1 n2 =
     (A_1_4 n1 - A_1_4 n2) /
     (B_1_4 n1 - B_1_4 n2)"
-section " Rapport spectral 1/4 validation généralisé."
+
+section "Rapport spectral 1/4 – validation généralisée."
+
 theorem RsP_un_quart_constant:
-  assumes "n1 > 0" and "n2 > 0" and "n1 ~= n2"
+  assumes "n1 > 0" and "n2 > 0" and "n1 \<noteq> n2"
   shows "RsP_1_4 n1 n2 = 1/4"
 proof -
   have diff_A:
@@ -505,19 +517,20 @@ proof -
   finally show ?thesis .
 qed
 
+
 (**************************************************************)
 (* SECTION : Suites négatives – équations spectrales          *)
 (**************************************************************)
 
-section "Suites negatives : equations spectrales"
+section "Suites négatives : équations spectrales"
 
-definition SA_neg_eq :: "real => real" where
+definition SA_neg_eq :: "real \<Rightarrow> real" where
   "SA_neg_eq n = 3.25 * (2 powr n) - 2"
 
-definition SB_neg_eq :: "real => real" where
+definition SB_neg_eq :: "real \<Rightarrow> real" where
   "SB_neg_eq n = 6.5 * (2 powr n) - 66"
 
-definition digamma_neg_calc :: "real => real => real" where
+definition digamma_neg_calc :: "real \<Rightarrow> real \<Rightarrow> real" where
   "digamma_neg_calc n p = SB_neg_eq n - 64 * p"
 
 lemma digamma_neg_calc_equation_alt:
@@ -530,16 +543,16 @@ lemma digamma_neg_calc_equation_alt:
 (* SECTION : Rapport spectral 1/2 négatif (axiomatisation)    *)
 (**************************************************************)
 
-section "Rapport spectral 1/2 negatif"
+section "Rapport spectral 1/2 négatif"
 
-definition RsP_neg :: "real => real => real" where
+definition RsP_neg :: "real \<Rightarrow> real \<Rightarrow> real" where
   "RsP_neg n1 n2 =
      (SA_neg_eq n1 - SA_neg_eq n2) /
      (SB_neg_eq n1 - SB_neg_eq n2)"
 
 axiomatization where
   spectral_ratio_neg_un_demi:
-    "\<lbrakk> n1 \<le> -1; n2 \<le> -1; n1 \<noteq> n2 \<rbrakk> \<Longrightarrow> RsP_neg n1 n2 = 1/2"
+    "\<And>n1 n2. n1 \<le> -1 \<Longrightarrow> n2 \<le> -1 \<Longrightarrow> n1 \<noteq> n2 \<Longrightarrow> RsP_neg n1 n2 = 1/2"
 
 lemma RsP_neg_un_demi_general:
   assumes "n1 \<le> -1" "n2 \<le> -1" "n1 \<noteq> n2"
@@ -596,12 +609,11 @@ proof -
       unfolding asymetrique_chaotique_def by auto
   qed
 qed
-
 (**************************************************************)
 (* SECTION : Methode de comparaison asymetrique (1/2 et 1/4)  *)
 (**************************************************************)
 
-section "Methode de comparaison asymetrique pour 1/2 et 1/4"
+section \<open>Methode de comparaison asymetrique pour 1/2 et 1/4\<close>
 
 text \<open>
   La methode de comparaison asymetrique relie :
@@ -634,25 +646,25 @@ definition indice_valide_nat :: "nat \<Rightarrow> bool" where
 
 definition liste_strictement_croissante_nat :: "nat list \<Rightarrow> bool" where
   "liste_strictement_croissante_nat xs \<longleftrightarrow>
-     (\<forall>i j. i < j \<and> j < length xs \<longrightarrow> xs ! i < xs ! j)"
+      (\<forall>i j. i < j \<and> j < length xs \<longrightarrow> xs ! i < xs ! j)"
 
 definition asymetrique_ordonnee_nat :: "nat list \<Rightarrow> nat list \<Rightarrow> bool" where
   "asymetrique_ordonnee_nat A_indices B_indices \<longleftrightarrow>
-     (\<forall>n \<in> set A_indices. indice_valide_nat n) \<and>
-     (\<forall>n \<in> set B_indices. indice_valide_nat n) \<and>
-     liste_strictement_croissante_nat A_indices \<and>
-     liste_strictement_croissante_nat B_indices \<and>
-     A_indices \<noteq> [] \<and>
-     B_indices \<noteq> [] \<and>
-     last A_indices < hd B_indices \<and>
-     length B_indices = length A_indices + 1"
+      (\<forall>n \<in> set A_indices. indice_valide_nat n) \<and>
+      (\<forall>n \<in> set B_indices. indice_valide_nat n) \<and>
+      liste_strictement_croissante_nat A_indices \<and>
+      liste_strictement_croissante_nat B_indices \<and>
+      A_indices \<noteq> [] \<and>
+      B_indices \<noteq> [] \<and>
+      last A_indices < hd B_indices \<and>
+      length B_indices = length A_indices + 1"
 
 definition asymetrique_chaotique_nat :: "nat list \<Rightarrow> nat list \<Rightarrow> bool" where
   "asymetrique_chaotique_nat A_indices B_indices \<longleftrightarrow>
-     (\<forall>n \<in> set A_indices. indice_valide_nat n) \<and>
-     (\<forall>n \<in> set B_indices. indice_valide_nat n) \<and>
-     length A_indices \<noteq> length B_indices \<and>
-     \<not> asymetrique_ordonnee_nat A_indices B_indices"
+      (\<forall>n \<in> set A_indices. indice_valide_nat n) \<and>
+      (\<forall>n \<in> set B_indices. indice_valide_nat n) \<and>
+      length A_indices \<noteq> length B_indices \<and>
+      \<not> asymetrique_ordonnee_nat A_indices B_indices"
 
 lemma asymetrie_nat_implique_indices_valides :
   assumes "asymetrique_ordonnee_nat A_indices B_indices \<or>
@@ -660,9 +672,8 @@ lemma asymetrie_nat_implique_indices_valides :
   shows "(\<forall>n \<in> set A_indices. indice_valide_nat n) \<and>
          (\<forall>n \<in> set B_indices. indice_valide_nat n)"
 proof -
-  from assms
-  show ?thesis
-  proof
+  from assms show ?thesis
+  proof (elim disjE)
     assume h1: "asymetrique_ordonnee_nat A_indices B_indices"
     then show ?thesis
       unfolding asymetrique_ordonnee_nat_def by auto
@@ -792,6 +803,8 @@ text \<open>
   vers 1, sans que ces valeurs puissent etre obtenues par une
   simplification algébrique directe des equations generales.
 \<close>
+
+
 (**************************************************************)
 (* SECTION : Rapport spectral 1/3 négatif (axiomatisation)     *)
 (**************************************************************)
@@ -826,16 +839,13 @@ definition RsP_neg_un_tiers :: "real \<Rightarrow> real \<Rightarrow> real" wher
 
 axiomatization where
   spectral_ratio_neg_un_tiers:
-    "\<lbrakk> n1 \<le> -1; n2 \<le> -1; n1 \<noteq> n2 \<rbrakk> \<Longrightarrow> RsP_neg_un_tiers n1 n2 = 1/3"
+    "\<And>n1 n2. n1 \<le> -1 \<Longrightarrow> n2 \<le> -1 \<Longrightarrow> n1 \<noteq> n2 \<Longrightarrow> RsP_neg_un_tiers n1 n2 = 1/3"
 
 lemma RsP_neg_un_tiers_general:
   assumes "n1 \<le> -1" "n2 \<le> -1" "n1 \<noteq> n2"
   shows "RsP_neg_un_tiers n1 n2 = 1/3"
   using spectral_ratio_neg_un_tiers assms by blast
-
-
-
-(**************************************************************)
+ (**************************************************************)
 (* SECTION : Rapport spectral 1/4 négatif (axiomatisation)     *)
 (**************************************************************)
 
@@ -862,18 +872,19 @@ definition RsP_neg_un_quart :: "real \<Rightarrow> real \<Rightarrow> real" wher
   Axiomatisation :
   Comme pour 1/2 et 1/3, le rapport spectral numerique vaut 1/4.
   Mais aucune reduction algébrique ne permet d'obtenir cette valeur.
-  On encode donc cette valeur comme un axiome spectral,
-  parallele aux plateaux fractionnaires de l'effet Hall.
 *)
 
 axiomatization where
   spectral_ratio_neg_un_quart:
-    "\<lbrakk> n1 \<le> -1; n2 \<le> -1; n1 \<noteq> n2 \<rbrakk> \<Longrightarrow> RsP_neg_un_quart n1 n2 = 1/4"
+    "\<And>n1 n2. n1 \<le> -1 \<Longrightarrow> n2 \<le> -1 \<Longrightarrow> n1 \<noteq> n2 \<Longrightarrow>
+                 RsP_neg_un_quart n1 n2 = 1/4"
 
 lemma RsP_neg_un_quart_general:
   assumes "n1 \<le> -1" "n2 \<le> -1" "n1 \<noteq> n2"
   shows "RsP_neg_un_quart n1 n2 = 1/4"
   using spectral_ratio_neg_un_quart assms by blast
+
+
 (**************************************************************)
 (* SECTION : Forme générale de l'écart négatif                *)
 (**************************************************************)
@@ -881,7 +892,7 @@ lemma RsP_neg_un_quart_general:
 section "Forme générale de l'écart négatif"
 
 definition gap_neg_val ::
-  "real => real => real => real => real => real" where
+  "real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real" where
   "gap_neg_val A_next B_high D_high D_low dummy =
       (A_next - (B_high - D_high) - D_low) / 64"
 
@@ -891,13 +902,6 @@ definition gap_neg_val ::
 (**************************************************************)
 
 section "Exemple complet : écart entre -19 et -5"
-
-text \<open>
-  Pour l’écart entre -19 et -5 :
-    le premier suivant -5 est -7  -> SA(-7)
-    le rang spectral de -5 est -3 -> SB(-3)
-    le rang spectral de -19 est -8 -> SB(-8)
-\<close>
 
 definition n_m7  :: real where "n_m7  = -7"
 definition n_m3  :: real where "n_m3  = -3"
@@ -939,18 +943,12 @@ lemma gap_m19_m5:
             D_m5_val_def D_m19_val_def
   by simp
 
+
 (**************************************************************)
 (* SECTION : Exemple complet – écart entre -31 et 17          *)
 (**************************************************************)
 
 section "Exemple complet : écart entre -31 et 17"
-
-text \<open>
-  Exemple mixte : quantité de nombres entre -31 et 17.
-  Le premier suivant -31 est -29  -> SA(-29)
-  Le rang spectral de 17 est 8    -> SB(8)
-  Le rang spectral de -31 est -11 -> SB(-11)
-\<close>
 
 definition n_m29 :: real where "n_m29 = -10"
 definition n_p17 :: real where "n_p17 = 8"
@@ -986,7 +984,7 @@ definition D_m31_val :: real where
 section "Forme générale de l'écart mixte"
 
 definition gap_mix_val ::
-  "real => real => real => real => real => real" where
+  "real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real" where
   "gap_mix_val A_next B_high D_high D_low dummy =
       (A_next - (B_high - D_high) - D_low) / 64"
 
@@ -1003,42 +1001,6 @@ lemma gap_m31_17:
             SA_m29_val_def SB_p17_val_def
             D_p17_val_def D_m31_val_def
   by simp
-
-
-(**************************************************************)
-(* SECTION : Exemple complet – écart entre 23 et 7            *)
-(**************************************************************)
-
-section "Exemple complet : écart entre les premiers 23 et 7"
-
-text \<open>
-  Exemple positif : quantité de nombres entre les deux premiers 23 et 7.
-
-  On utilise la même méthode que pour les écarts -19 / -5 et -31 / 17 :
-
-    - Le premier suivant 7 est 11
-    - Le rang spectral de 7 est 4
-    - Le rang spectral de 23 est 9
-
-  Calculs numériques :
-
-    SA(11) = 50
-    SB(23) = 1598
-    D(23)  = 126
-    SB(7)  = -14
-    D(7)   = -464
-
-  Formule générale :
-
-    (A_next - (B_high - D_high) - D_low) / 64
-
-  Résultat :
-
-    (50 - (1598 - 126) - (-464)) / 64 = -15
-
-  Ce qui correspond aux 15 nombres entre 23 et 7.
-\<close>
-
 (**************************************************************)
 (* SECTION : Valeurs spectrales exactes pour 23 et 7          *)
 (**************************************************************)
@@ -1047,9 +1009,9 @@ section "Valeurs spectrales exactes pour 23 et 7"
 
 definition SA_11_val :: real where "SA_11_val = 50"
 definition SB_23_val :: real where "SB_23_val = 1598"
-definition D_23_val :: real where "D_23_val = 126"
-definition SB_7_val :: real where "SB_7_val = -14"
-definition D_7_val :: real where "D_7_val = -464"
+definition D_23_val  :: real where "D_23_val = 126"
+definition SB_7_val  :: real where "SB_7_val = -14"
+definition D_7_val   :: real where "D_7_val = -464"
 
 
 (**************************************************************)
@@ -1063,6 +1025,7 @@ text \<open>
   Dans les écarts du même signe (-19 / -5 et 23 / 7), la progression
   spectrale ne traverse pas 0, donc il n'est pas compté.
 \<close>
+
 
 (**************************************************************)
 (* SECTION : Exemple complet – écart entre 227 et 173 (1/3)   *)
@@ -1117,10 +1080,8 @@ definition SB_227_val :: real where
 definition D_227_val :: real where
   "D_227_val = 73263"
 
-
 definition SA_179_val :: real where
   "SA_179_val = 96/9"
-
 
 definition SB_173_val :: real where
   "SB_173_val = -2155/3"
@@ -1138,6 +1099,7 @@ section "Validation numérique de l'écart entre 227 et 173 (1/3)"
 lemma ecart_227_173_1_3:
   "((SA_179_val - (SB_227_val - D_227_val) - D_173_val) / 729) = -53"
   by (simp add: SA_179_val_def SB_227_val_def D_227_val_def D_173_val_def)
+
 
 (**************************************************************)
 (* SECTION : Equation generale d'ecart pour le rapport 1/3    *)
@@ -1164,7 +1126,7 @@ text \<open>
   Le resultat correspond a la quantite de nombres entiers entre les deux premiers.
 \<close>
 
-definition gap_equation_1_3 :: "real =>real =>real =>real =>real" where
+definition gap_equation_1_3 :: "real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real" where
   "gap_equation_1_3 A_next B_high D_high D_low =
      (A_next - (B_high - D_high) - D_low) / 729"
 
@@ -1192,7 +1154,7 @@ text \<open>
 axiomatization where
   spectral_gap_postulate_1_3:
     "\<And>p_high p_low A_next B_high D_high D_low.
-       prime p_high==>prime p_low==>
+       prime p_high \<Longrightarrow> prime p_low \<Longrightarrow>
        gap_equation_1_3 A_next B_high D_high D_low =
          real (p_low - p_high)"
 
@@ -1246,7 +1208,7 @@ definition D_881_val :: real where
 
 section "Equation generale d'ecart pour le rapport spectral 1/4"
 
-definition gap_equation_1_4 :: "real =>real =>real =>real =>real" where
+definition gap_equation_1_4 :: "real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real \<Rightarrow> real" where
   "gap_equation_1_4 A_next B_high D_high D_low =
      (A_next - (B_high - D_high) - D_low) / 4096"
 
@@ -1274,7 +1236,7 @@ text \<open>
 axiomatization where
   spectral_gap_postulate_1_4:
     "\<And>p_high p_low A_next B_high D_high D_low.
-       prime p_high==>prime p_low==>
+       prime p_high \<Longrightarrow> prime p_low \<Longrightarrow>
        gap_equation_1_4 A_next B_high D_high D_low =
          real (p_low - p_high)"
 
@@ -1301,6 +1263,7 @@ lemma ecart_947_881_1_4_via_gap_equation:
   by (simp add: gap_equation_1_4_def
                 SA_883_val_def SB_947_val_def
                 D_947_val_def D_881_val_def)
+
 
 (****************************************************************)
 (* Mentions légales                                             *)
