@@ -28,17 +28,19 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
-- **MIS À JOUR (Feb 2025)**: Intégration de 2 scripts Isabelle HOL enrichis (0 erreurs de compilation):
-  - `methode_spectral.thy` - Version enrichie avec:
-    - Généralisation symétrique n×n du rapport spectral
-    - Axiomatisation des postulats spectraux positifs et négatifs
-    - Géométrie spectrale avec asymétries ordonnées/chaotiques
-    - Équations d'écart généralisées pour rapports 1/3 et 1/4
-    - Nouveaux exemples validés: écart 227/173 (-53) et écart 947/881 (-65)
-  - `methode_de_philippot.thy` - Méthode de Philippôt généralisée:
-    - Suites explicites étapes 1-3 de 3 à 11 termes
-    - Mécanisme de substitution itérative formalisé
-    - Théorème central des ratios puissances de deux
+- **MIS À JOUR (Feb 2025)**: Intégration complète de 2 scripts Isabelle HOL validés (0 erreurs, compilation Cygwin-Terminal):
+  - `methode_spectral.thy` (47KB, 1280 lignes) - Géométrie du spectre des nombres premiers:
+    - Suites A et B formalisées et généralisées
+    - Rapport spectral 1/2, 1/3, 1/4 (cas 1×1, n×n, asymétrique ordonné/chaotique)
+    - Exemples 29, 31, 37, 41 avec Digamma généralisé
+    - Suites négatives définies et généralisées
+    - Axiomatisation: "n≥1 ou n≤-1 → rapport 1/k numériquement valide, algébriquement incohérent"
+    - Écarts: 23/7, -19/-5, 17/-31 (1/2), 227/173 (1/3), 947/881 (1/4)
+    - Inclusion du zéro pour écarts mixtes
+  - `methode_de_philippot.thy` (7KB, 206 lignes) - Méthode de Philippôt:
+    - Étapes 1-3 pour suites 3-11 termes
+    - Structure réglementaire généralisée
+    - Théorème des ratios puissances de deux
 
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
