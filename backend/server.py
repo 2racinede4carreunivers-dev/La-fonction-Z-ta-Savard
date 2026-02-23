@@ -3109,8 +3109,17 @@ async def dialoguer_avec_ia_evolutif(dialogue: DialogueRequest):
         raise HTTPException(status_code=400, detail="Système non initialisé. Appelez d'abord /api/ia-evolutif/initialiser")
     
     try:
+        # Détecter si c'est l'auteur
+        is_author = detect_author_authentication(dialogue.question)
+        author_context = get_author_context_addition() if is_author else ""
+        
+        # Si l'auteur est détecté, ajouter le contexte à la question
+        question_enrichie = dialogue.question
+        if is_author:
+            question_enrichie = f"{author_context}\n\nQuestion de l'auteur: {dialogue.question}"
+        
         # Dialogue avec évolution automatique
-        reponse = await ia_evolutif.dialoguer(dialogue.question)
+        reponse = await ia_evolutif.dialoguer(question_enrichie)
         
         # Extraction des concepts utilisés (simulation)
         concepts_utilises = []
