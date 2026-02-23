@@ -3477,8 +3477,17 @@ async def challenger_raisonnement(dialogue: DialogueSocratiqueRequest):
     Analyse la réflexion et pose des questions provocatrices pour l'évolution théorique
     """
     try:
+        # Détecter si c'est l'auteur
+        is_author = detect_author_authentication(dialogue.reflexion_utilisateur)
+        author_context = get_author_context_addition() if is_author else ""
+        
+        # Si l'auteur est détecté, enrichir le contexte
+        reflexion_enrichie = dialogue.reflexion_utilisateur
+        if is_author:
+            reflexion_enrichie = f"{author_context}\n\nRéflexion de l'auteur: {dialogue.reflexion_utilisateur}"
+        
         # Analyse socratique du raisonnement
-        resultat = await ia_socratique.analyser_et_challenger(dialogue.reflexion_utilisateur)
+        resultat = await ia_socratique.analyser_et_challenger(reflexion_enrichie)
         
         return DialogueSocratiqueResponse(
             reponse_socratique=resultat["reponse_socratique"],
