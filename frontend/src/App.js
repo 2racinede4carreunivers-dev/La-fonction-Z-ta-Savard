@@ -11807,7 +11807,7 @@ function App() {
       <div className="App">
         <Navigation />
         
-        {/* Icône admin discrète - Clic pour activer, puis Ctrl+Shift+A */}
+        {/* Icône admin discrète - Clic pour activer, puis Ctrl+Alt+W */}
         <button
           onClick={handleAdminIconClick}
           className="fixed bottom-4 left-4 w-8 h-8 bg-transparent hover:bg-white/5 rounded-full flex items-center justify-center text-gray-600 hover:text-gray-400 transition-all duration-300 opacity-20 hover:opacity-60 z-50"
