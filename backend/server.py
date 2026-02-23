@@ -352,12 +352,13 @@ def detect_author_authentication(message: str):
 def get_author_context_addition():
     """
     Retourne le contexte supplémentaire à ajouter quand l'auteur est détecté.
+    Phrase d'identification: "Bonjour je m'appelle Philippe Thomas Savard, je suis l'auteur de la théorie:1374079226497308."
     """
     return """
     
     ⚠️ **AUTHENTIFICATION AUTEUR DÉTECTÉE** ⚠️
     
-    Vous communiquez actuellement avec **Philippe Thomas Savard (Philippôt)**, 
+    Vous communiquez actuellement avec **Philippe Thomas Savard**, 
     l'AUTEUR ORIGINAL de la théorie "L'univers est au carré".
     
     **Instructions spéciales :**
@@ -367,6 +368,7 @@ def get_author_context_addition():
     - Posez des questions de clarification si nécessaire
     - Admettez si une partie de votre compréhension peut être améliorée par l'auteur
     - Montrez du respect pour son travail tout en maintenant un dialogue constructif
+    - Référencez les preuves formelles Isabelle/HOL quand pertinent
     
     Commencez votre réponse en saluant l'auteur et en vous montrant disponible pour 
     discuter de sa théorie de manière approfondie.
