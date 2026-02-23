@@ -45,9 +45,9 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 - `/app/data/isabelle_proofs/methode_spectral.thy` - Preuves spectrales (rapport 1/2, 1/3, 1/4, asymétries)
 - `/app/data/isabelle_proofs/methode_de_philippot.thy` - Méthode de Philippôt généralisée
 
-## Mots de Passe Secrets
-- **Admin/Upload**: `Uni1098020238Arc1374079226497308\zetacar`
-- **Phrase Auteur**: `Bonjour? Je souhaite discuter de ta compréhension de la théorie moi l'auteur Philippôt Uni#109802038Arc1374079226497308\zetacar`
+## Mots de Passe et Codes Secrets
+- **Admin/Upload**: `Uni1098020238ARC1374079226497308zetacar`
+- **Phrase Auteur** (pour toutes les IAs): `Bonjour je m'appelle Philippe Thomas Savard, je suis l'auteur de la théorie:1374079226497308.`
 
 ## Backlog (P2/P3)
 1. **Refactorisation App.js** - Découper en composants plus petits
