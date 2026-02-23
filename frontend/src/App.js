@@ -11764,11 +11764,11 @@ function App() {
   const [folders, setFolders] = useState([]);
   const [currentFolder, setCurrentFolder] = useState('root');
 
-  // Effet pour le raccourci clavier admin (Ctrl+Shift+A)
+  // Effet pour le raccourci clavier admin (Ctrl+Alt+W)
   useEffect(() => {
     const handleKeyPress = (e) => {
-      // Ctrl+Shift+A ET mode admin activé
-      if (e.ctrlKey && e.shiftKey && e.key === 'A' && adminModeActivated) {
+      // Ctrl+Alt+W ET mode admin activé
+      if (e.ctrlKey && e.altKey && (e.key === 'w' || e.key === 'W') && adminModeActivated) {
         e.preventDefault();
         window.location.href = '/admin-questions';
       }
@@ -11794,7 +11794,7 @@ function App() {
   const handleAdminIconClick = () => {
     setAdminModeActivated(true);
     // Notification visuelle discrète (optionnelle)
-    console.log('Mode admin activé - Utilisez Ctrl+Shift+A dans les 30 secondes');
+    console.log('Mode admin activé - Utilisez Ctrl+Alt+W dans les 30 secondes');
   };
 
   // Objet props pour partager les états des dossiers
