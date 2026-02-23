@@ -6444,7 +6444,7 @@ async def test_concepts():
 async def admin_login(credentials: dict):
     """Authentification admin"""
     # Mot de passe admin (même que pour upload documents)
-    ADMIN_PASSWORD = "Uni1098020238Arc1374079226497308\\zetacar"
+    ADMIN_PASSWORD = "Uni1098020238ARC1374079226497308zetacar"
     
     password = credentials.get("password", "")
     
