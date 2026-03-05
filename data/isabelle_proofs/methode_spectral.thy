@@ -613,7 +613,7 @@ qed
 (* SECTION : Methode de comparaison asymetrique (1/2 et 1/4)  *)
 (**************************************************************)
 
-section \<open>Methode de comparaison asymetrique pour 1/2 et 1/4\<close>
+section "Methode de comparaison asymetrique pour 1/2 et 1/4"
 
 text \<open>
   La methode de comparaison asymetrique relie :
@@ -1265,17 +1265,300 @@ lemma ecart_947_881_1_4_via_gap_equation:
                 D_947_val_def D_881_val_def)
 
 
-(****************************************************************)
-(* Mentions légales                                             *)
-(****************************************************************)
+(**************************************************************)
+(* CHAPITRE DEUXIÈME : Axiomatisation analytique (\<zeta>) et spectrale *)
+(**************************************************************)
 
 text \<open>
-  Tous droits réservés.
-  Toute reproduction, diffusion ou utilisation commerciale
-  est interdite sans l'autorisation écrite de l'auteur.
+  Mise en garde concernant la présente section
 
-  Auteur : Philippe Thomas Savard
-  Date   : Deux février deux mille vingt-deux
+  La section qui suit est fournie exclusivement à titre de référence conceptuelle.
+  Elle ne fait pas partie de l’œuvre propre de l’auteur Philippe Thomas Savard et
+  n’est employée ici qu’en tant qu’exemple informatif destiné à situer certains
+  éléments analytiques dans un cadre logique compatible avec Isabelle/HOL.
+
+  Les contenus, notions ou structures évoqués dans cette section ne constituent
+  pas une contribution originale de l’auteur et ne doivent pas être interprétés
+  comme faisant partie intégrante de la méthode_spectral.thy. Ils ne sont cités
+  qu’à titre d’illustration conceptuelle, sans garantie, sans validation interne
+  et sans prétention à l’exactitude analytique ou historique.
+
+  Il est explicitement affirmé que :
+
+    • la présente section ne limite, ne contraint, n’altère ni ne modifie en
+      aucune manière la nature, la portée, la validité ou l’évolution des
+      références externes auxquelles elle fait allusion ;
+
+    • la méthode_spectral.thy demeure une entité autonome, complète dans sa
+      propre structure, et ne dépend en aucune manière des exemples, axiomes ou
+      formulations présentés dans cette section ;
+
+    • la présente section ne crée aucune forme d’autoréférence, de dépendance
+      circulaire ou d’interaction logique entre la méthode spectrale et les
+      références externes : chacune de ces entités demeure indépendante, valide
+      par elle-même, et libre dans sa nature propre, sans restriction temporelle
+      ou conceptuelle ;
+
+    • aucune des deux entités — ni la méthode_spectral.thy, ni les exemples
+      analytiques présentés ici — ne possède la capacité d’annuler, d’invalider
+      ou de restreindre l’autre, que ce soit par leur contenu, leur structure ou
+      leur interprétation.
+
+  En résumé, la présente section constitue un exemple conceptuel indépendant,
+  sans effet contraignant, sans interaction logique obligatoire, et sans
+  influence sur la validité intrinsèque de la méthode spectrale ou des
+  références externes auxquelles elle renvoie.
 \<close>
+
+(**************************************************************)
+(* CHAPITRE DEUXIÈME : Axiomatisation analytique (\<zeta>) et spectrale *)
+(**************************************************************)
+
+section \<open>Axiomatisation analytique et géométrique de la position des nombres premiers\<close>
+
+text \<open>
+  Dans cette section, nous introduisons, sous forme axiomatique, le lien classique
+  de la théorie analytique des nombres entre les zéros de la fonction \<zeta> de Riemann
+  et la position des nombres premiers. Cette axiomatisation n’est pas une création
+  originale de l’auteur de la méthode spectrale (Philippe Thomas Savard), mais une
+  abstraction inspirée des formules explicites de la théorie des nombres, telles
+  que celles de Riemann, von Mangoldt et leurs successeurs.
+\<close>
+
+text \<open>
+  1. Axiomatisation (abstraite) de la fonction \<zeta> et de ses zéros
+
+  On introduit un type abstrait pour représenter les zéros non triviaux de \<zeta>,
+  ainsi qu’une fonction donnant leur partie réelle. On ne formalise pas ici la
+  fonction \<zeta> elle-même, ni la formule explicite complète, mais on encode le fait
+  que les zéros déterminent la position des nombres premiers, comme le suggèrent
+  les formules explicites de Riemann–von Mangoldt.
+\<close>
+
+typedecl zero_zeta
+
+consts
+  Re_zero_zeta :: "zero_zeta \<Rightarrow> real"
+  Im_zero_zeta :: "zero_zeta \<Rightarrow> real"
+
+text \<open>
+  La fonction suivante représente, de manière abstraite, la contribution d’un zéro
+  de \<zeta> à la détermination de la position du n-ième nombre premier. Elle est inspirée
+  des formules explicites (de type Riemann–von Mangoldt) qui expriment des fonctions
+  arithmétiques liées aux nombres premiers en termes de sommes sur les zéros de \<zeta>.
+\<close>
+
+consts
+  prime_position_from_zero :: "zero_zeta \<Rightarrow> nat \<Rightarrow> bool"
+
+axiomatization where
+  explicit_formula_axiom:
+    "\<forall>n. \<exists>\<rho>::zero_zeta. prime_position_from_zero \<rho> n"
+
+text \<open>
+  Interprétation : pour chaque entier naturel n, il existe au moins un zéro non trivial
+  de \<zeta> qui intervient dans la détermination de la position du n-ième nombre premier.
+  Cet axiome formalise, de manière abstraite, l’idée que \<guillemotleft> les zéros de \<zeta> déterminent
+  la position des nombres premiers \<guillemotright>, telle qu’on la trouve dans la théorie analytique
+  classique (formules explicites).
+\<close>
+
+
+text \<open>
+  2. Axiomatisation de l’évidence spectrale issue de la méthode de Philippôt
+
+  La méthode spectrale, telle que développée dans les sections précédentes, repose
+  sur les faits suivants (formulés ici de manière synthétique) :
+
+  – Quand n \<ge> 1 et n \<le> -1 (au sens de la structure spectrale considérée),
+    tous les n ramènent à un nombre premier P.
+  – La valeur de n est déterminée par la quantité de termes dans les suites A et B.
+  – Tous les nombres premiers P entre eux respectent le rapport spectral 1/k.
+  – Ce rapport 1/k est numériquement valide mais algébriquement incohérent.
+
+  Nous encapsulons cette évidence sous forme de constantes et d’axiomes abstraits.
+\<close>
+
+typedecl indice_spectral   (* type abstrait pour les n de la méthode spectrale *)
+typedecl premier_spectral  (* type abstrait pour les P de la méthode spectrale *)
+
+consts
+  A_suite :: "indice_spectral \<Rightarrow> nat"
+  B_suite :: "indice_spectral \<Rightarrow> nat"
+  P_spectral :: "indice_spectral \<Rightarrow> premier_spectral"
+  rapport_spectral :: "premier_spectral \<Rightarrow> premier_spectral \<Rightarrow> rat"
+
+text \<open>
+  Axiome : chaque indice spectral n (dans le domaine considéré) ramène à un nombre
+  premier spectral P, et la valeur de n est déterminée par la quantité de termes
+  dans les suites A et B. Le détail constructif est donné dans les sections précédentes
+  de la méthode spectrale ; ici, nous en donnons une abstraction logique.
+\<close>
+
+axiomatization where
+  spectral_index_to_prime:
+    "\<forall>n::indice_spectral. \<exists>P::premier_spectral. P_spectral n = P" and
+
+  spectral_index_from_suites:
+    "\<forall>n::indice_spectral. A_suite n + B_suite n \<ge> 1"
+
+text \<open>
+  Axiome : tous les nombres premiers spectraux P entre eux respectent un rapport
+  spectral 1/k, numériquement valide mais algébriquement incohérent. On encode
+  cela en imposant que le rapport entre deux premiers spectraux soit toujours
+  de la forme 1/k pour un certain entier k \<ge> 1.
+\<close>
+
+consts
+  k_spectral :: "premier_spectral \<Rightarrow> premier_spectral \<Rightarrow> nat"
+
+axiomatization where
+  rapport_spectral_forme:
+    "\<forall>P Q::premier_spectral. k_spectral P Q \<ge> 1
+      \<longrightarrow> rapport_spectral P Q = 1 / (int (k_spectral P Q))"
+
+text \<open>
+  Interprétation : le rapport spectral entre deux nombres premiers où groupe de nombres premier   
+  asymétrique ordonnés ou chaotiques de même que symétriques en paire 1*1 ou n*n
+  spectraux P et Q est toujours de la forme 1/k, avec k un entier naturel \<ge> 1. Ce rapport est
+  numériquement bien défini (dans \<rat>), mais ne correspond pas à une relation
+  algébrique classique entre nombres premiers, d’où l’expression \<guillemotleft> algébriquement
+  incohérent \<guillemotright> dans le texte conceptuel.
+\<close>
+
+
+text \<open>
+  3. Axiomatisation du lien entre la fonction \<zeta> et la géométrie spectrale
+
+  Nous introduisons maintenant un axiome de concordance : la structure spectrale
+  issue de la méthode de Philippôt est compatible, sur le plan conceptuel, avec
+  la structure analytique donnée par les zéros de \<zeta>. Plus précisément, nous
+  postulons qu’à chaque indice spectral n correspond un zéro de \<zeta> qui intervient
+  dans la détermination de la position du nombre premier associé.
+\<close>
+
+consts
+  zero_associe :: "indice_spectral \<Rightarrow> zero_zeta"
+
+axiomatization where
+  concordance_spectrale:
+    "\<forall>n::indice_spectral.
+       prime_position_from_zero (zero_associe n) (A_suite n + B_suite n)"
+
+text \<open>
+  Interprétation : pour chaque indice spectral n, il existe un zéro de \<zeta> (ici
+  représenté par \<open>zero_associe n\<close>) qui intervient, via la fonction abstraite
+  \<open>prime_position_from_zero\<close>, dans la détermination de la position du nombre
+  premier correspondant (codé ici par la quantité de termes A_suite n + B_suite n).
+
+  Cet axiome formalise le parallèle conceptuel entre :
+
+  – la théorie analytique de la fonction \<zeta> de Riemann, où les zéros déterminent
+    la position des nombres premiers (formules explicites) ;
+  – la géométrie du spectre des nombres premiers de la méthode de Philippôt,
+    où les indices spectraux n, les suites A et B, et le rapport 1/k organisent
+    la position des nombres premiers dans une structure spectrale cohérente.
+
+  Cette section ne prétend pas démontrer l’hypothèse de Riemann, ni reconstruire
+  la théorie analytique complète de \<zeta>, mais elle établit, dans le langage d’Isabelle/HOL,
+  une concordance axiomatique entre la méthode spectrale et la vision analytique
+  classique de la distribution des nombres premiers.
+\<close>
+
+(**************************************************************)
+(* CHAPITRE DEUXIÈME : Axiomatisation analytique (\<zeta>) et spectrale *)
+(**************************************************************)
+
+text \<open>
+  Dans ce chapitre, nous introduisons une axiomatisation abstraite de la fonction
+  \<zeta> de Riemann et de ses zéros non triviaux, dans le but de formuler, dans le
+  langage d’Isabelle/HOL, une version informative de la conjecture de Riemann.
+  Il ne s’agit pas d’une démonstration, mais d’une mise en forme logique d’une
+  conjecture classique de la théorie analytique des nombres.
+\<close>
+
+typedecl complex_zero_zeta   \<comment> \<open>type abstrait pour les zéros non triviaux de \<zeta>\<close>
+
+consts
+  Re_cz :: "complex_zero_zeta \<Rightarrow> real"   \<comment> \<open>partie réelle du zéro\<close>
+  Im_cz :: "complex_zero_zeta \<Rightarrow> real"   \<comment> \<open>partie imaginaire du zéro\<close>
+
+text \<open>
+  Nous ne définissons pas ici la fonction \<zeta> elle-même, ni son prolongement
+  analytique. Nous supposons simplement l’existence d’un ensemble abstrait de
+  zéros non triviaux, chacun muni d’une partie réelle et d’une partie imaginaire.
+\<close>
+
+text \<open>
+  Conjecture de Riemann (version axiomatique)
+
+  La conjecture de Riemann affirme que tous les zéros non triviaux de la fonction
+  \<zeta> de Riemann ont une partie réelle égale à 1/2. Nous l’exprimons ici sous la
+  forme d’un axiome, afin de pouvoir raisonner dans un cadre où cette conjecture
+  est supposée vraie, sans prétendre la démontrer.
+\<close>
+
+axiomatization where
+  Riemann_Hypothesis:
+    "\<forall>\<rho>::complex_zero_zeta. Re_cz \<rho> = 1 / 2"
+
+typedecl prime_index
+typedecl prime_number
+
+consts
+  P_of :: "prime_index \<Rightarrow> prime_number"
+
+text \<open>
+  Interprétation : le type \<open>prime_index\<close> représente un indice abstrait pour les
+  nombres premiers, et \<open>P_of\<close> associe à chaque indice un nombre premier. Dans la
+  théorie analytique classique, les zéros de \<zeta> contrôlent la distribution de ces
+  nombres premiers. Nous ne formalisons pas ici la formule explicite, mais nous
+  admettons ce lien comme principe conceptuel.
+\<close>
+
+
+(**************************************************************)
+(* SECTION : Modèle géométrique des aires sur la droite critique *)
+(**************************************************************)
+
+text \<open>
+  La présente section introduit un modèle abstrait où la droite critique
+  Re(s) = 1/2 est représentée par une aire totale T, tronquée à une hauteur
+  finie. Une sous-aire Tn = T/n correspond à une zone où les zéros sont plus
+  denses, en lien avec un intervalle tronqué de nombres premiers. L’aire
+  restante T_rest = T − Tn est mise en correspondance avec une aire relative
+  générée par une courbure effective de la droite critique, induite par la
+  structure combinatoire des écarts mixtes. L’égalité de ces deux aires est
+  interprétée comme une condition géométrique équivalente à la conjecture de
+  Riemann, sans constituer une démonstration analytique.
+\<close>
+
+typedecl area
+typedecl interval
+
+consts
+  T      :: area      \<comment> \<open>aire totale de la droite critique\<close>
+  Tn     :: area      \<comment> \<open>sous-aire T/n plus dense en zéros\<close>
+  T_rest :: area      \<comment> \<open>aire restante T − Tn\<close>
+
+  P      :: interval  \<comment> \<open>intervalle complet de nombres premiers associé à T\<close>
+  Pn     :: interval  \<comment> \<open>intervalle tronqué associé à Tn\<close>
+
+consts
+  relative_value :: "interval \<Rightarrow> real"
+  geometric_area :: "real \<Rightarrow> area"
+
+axiomatization where
+  mixed_gap_surplus:
+    "relative_value Pn > relative_value P" and
+
+  complementary_areas:
+    "T_rest = geometric_area (relative_value Pn - relative_value P)"
+
+consts Re_zero :: "zero_zeta \<Rightarrow> real"
+
+axiomatization where
+  all_zeros_on_critical_line:
+    "complementary_areas \<Longrightarrow> (\<forall>\<rho>::zero_zeta. Re_zero \<rho> = 1/2)"
 
 end
