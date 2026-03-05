@@ -120,6 +120,28 @@ def load_github_guides():
             with open(spectrale_guide_path, 'r', encoding='utf-8') as f:
                 guides_content += "\n\n=== GUIDE MÉTHODOLOGIQUE: Méthode Spectrale (guide_methode_spectrale.md) ===\n"
                 guides_content += f.read()
+        
+        # Charger le PDF français (extrait texte)
+        pdf_fr_path = os.path.join(github_dir, "geometrie_spectre_premier_fr.txt")
+        if os.path.exists(pdf_fr_path):
+            with open(pdf_fr_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== DOCUMENT PDF: Géométrie du Spectre Premier (Version Française) ===\n"
+                guides_content += f.read()
+        
+        # Charger le PDF anglais (extrait texte)
+        pdf_en_path = os.path.join(github_dir, "geometrie_spectre_premier_en.txt")
+        if os.path.exists(pdf_en_path):
+            with open(pdf_en_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== DOCUMENT PDF: Prime Spectrum Geometry (English Version) ===\n"
+                guides_content += f.read()
+        
+        # Charger le PDF philosophie (extrait texte)
+        pdf_philo_path = os.path.join(github_dir, "philosophie_geometrie_spectre_premier.txt")
+        if os.path.exists(pdf_philo_path):
+            with open(pdf_philo_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== DOCUMENT PDF: Philosophie de la Géométrie du Spectre Premier ===\n"
+                guides_content += f.read()
+                
     except Exception as e:
         print(f"Erreur lors du chargement des guides GitHub: {e}")
     
