@@ -93,9 +93,45 @@ def load_isabelle_proofs():
     
     return isabelle_content
 
+# Fonction pour charger les guides méthodologiques du dépôt GitHub
+def load_github_guides():
+    """Charge les guides méthodologiques du dépôt GitHub de Philippe Thomas Savard"""
+    guides_content = ""
+    github_dir = "/app/data/github_repo"
+    
+    try:
+        # Charger le README
+        readme_path = os.path.join(github_dir, "README.md")
+        if os.path.exists(readme_path):
+            with open(readme_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== DÉPÔT GITHUB: README - Géométrie du spectre des nombres premiers ===\n"
+                guides_content += f.read()
+        
+        # Charger guide_methode_de_philippot.md
+        philippot_guide_path = os.path.join(github_dir, "guide_methode_de_philippot.md")
+        if os.path.exists(philippot_guide_path):
+            with open(philippot_guide_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== GUIDE MÉTHODOLOGIQUE: Méthode de Philippôt (guide_methode_de_philippot.md) ===\n"
+                guides_content += f.read()
+        
+        # Charger guide_methode_spectrale.md
+        spectrale_guide_path = os.path.join(github_dir, "guide_methode_spectrale.md")
+        if os.path.exists(spectrale_guide_path):
+            with open(spectrale_guide_path, 'r', encoding='utf-8') as f:
+                guides_content += "\n\n=== GUIDE MÉTHODOLOGIQUE: Méthode Spectrale (guide_methode_spectrale.md) ===\n"
+                guides_content += f.read()
+    except Exception as e:
+        print(f"Erreur lors du chargement des guides GitHub: {e}")
+    
+    return guides_content
+
 # Contenu des preuves Isabelle chargé au démarrage
 ISABELLE_PROOFS_CONTENT = load_isabelle_proofs()
 print(f"Fichiers Isabelle HOL chargés: {len(ISABELLE_PROOFS_CONTENT)} caractères")
+
+# Contenu des guides GitHub chargé au démarrage
+GITHUB_GUIDES_CONTENT = load_github_guides()
+print(f"Guides GitHub chargés: {len(GITHUB_GUIDES_CONTENT)} caractères")
 
 # Modèles Pydantic
 class ConceptModel(BaseModel):
