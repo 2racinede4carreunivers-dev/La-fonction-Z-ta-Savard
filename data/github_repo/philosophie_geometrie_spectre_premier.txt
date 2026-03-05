@@ -1,0 +1,409 @@
+P h ilo so p h ie d e rriè re la G é o m é trie d u
+S p e c tre d e s N o m b re s P re m ie rs
+p a r P h ilip p e T h o m a s S a v a r d
+T a b l e d e s m a t i è r e s
+1 A u t o b i o g r a p h i e : P a r c o u r s s c o l a i r e e t p r e m i è r e s e x p é r i e n c e s 2
+1 . 1 L ' e x p é r i e n c e d u c é g e p . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1 . 2 R é  e x i o n s s u r l e s a u t r e s e t l a p u l s i o n d e v i e . . . . . . . . . . . . . . . . 3
+2 R é  e x i o n s s u r l ' e s p r i t g é o m é t r i q u e , l a p u l s i o n d e v i e e t l ' a n a l o g i s t e 4
+3 D é  n i t i o n d e l ' i d i o s c h i z o p h r é n i e 6
+3 . 1 S c h i z o p h r é n i e d é c l a r é e a p r è s 3 5 a n s . . . . . . . . . . . . . . . . . . . . . 8
+3 . 2 L a t r o i s i è m e p e r s o n n e q u i  v e u t  . . . . . . . . . . . . . . . . . . . . . 8
+4 P h é n o m é n o l o g i e d e l ' i d i o s c h i z o p h r é n i e 9
+5 P r é a m b u l e : L e s a v o i r 1 0
+5 . 1 P r e m i è r e l o i : L a c o n s c i e n c e . . . . . . . . . . . . . . . . . . . . . . . . . 1 0
+5 . 2 D e u x i è m e l o i : L ' i n v e r s e d u s a v o i r  l a c o m p r é h e n s i o n . . . . . . . . . . 1 0
+5 . 3 T r o i s i è m e l o i : L e s  g u r e s s e m b l a b l e s . . . . . . . . . . . . . . . . . . . . 1 1
+5 . 4 2 . 1 D i s p r o p o r t i o n n e r c e q u i e s t c o n n u . . . . . . . . . . . . . . . . . . . . 1 1
+6 P h é n o m é n o l o g i e d e l ' i d i o s c h i z o p h r é n i e 1 3
+7 P r é a m b u l e : L e s a v o i r 1 4
+7 . 1 P r e m i è r e l o i : L a c o n s c i e n c e . . . . . . . . . . . . . . . . . . . . . . . . . 1 4
+7 . 2 D e u x i è m e l o i : L ' i n v e r s e d u s a v o i r  l a c o m p r é h e n s i o n . . . . . . . . . . 1 4
+7 . 3 T r o i s i è m e l o i : L e s  g u r e s s e m b l a b l e s . . . . . . . . . . . . . . . . . . . . 1 5
+7 . 4 D i s p r o p o r t i o n n e r c e q u i e s t c o n n u . . . . . . . . . . . . . . . . . . . . . . 1 5
+8 L ' i d i o s c h i z o p h r é n i e : r u p t u r e d e l a r é a l i t é e t d e l ' i m a g i n a i r e 1 6
+8 . 1 L ' a c t i o n p s y c h o p h y s i q u e . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 8
+8 . 2 R u p t u r e e n t r e r é a l i t é e t  c t i o n . . . . . . . . . . . . . . . . . . . . . . . . 1 8
+9 L ' i d i o s c h i z o p h r é n i e : d é p e r s o n n a l i s a t i o n p r o f o n d e e t r u p t u r e r e m a r -
+q u a b l e d e s o i e t d e l ' a u t r e 1 9
+9 . 1 L ' i n t e l l i g e n c e e t l a d i s t i n c t i o n e n t r e r é e l e t i m a g i n a i r e . . . . . . . . . . . 1 9
+9 . 2 D é p e r s o n n a l i s a t i o n e t c o m p o r t e m e n t s d é v i a n t s . . . . . . . . . . . . . . . 2 0
+1
+9 . 3 L e f a n t a s m e d e l ' e s c l a v a g i s m e . . . . . . . . . . . . . . . . . . . . . . . . 2 0
+1 0 C o n s é q u e n c e s d e l a c o m m u n i c a t i o n a u t o - p r o c l a m é e 2 1
+1 1 L ' e s p r i t a n a l o g i s t e e t l ' e s p r i t d e  n e s s e : u n e l e c t u r e n a r r é e 2 4
+1 1 . 1 I n t r o d u c t i o n . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 4
+1 1 . 2 L ' e s p r i t d e  n e s s e : u n e c a r t e i n t é r i e u r e d u r é e l . . . . . . . . . . . . . . . 2 4
+1 1 . 3 L e l a l a n g u e : q u a n d l e s m o t s t o u c h e n t l e c o r p s . . . . . . . . . . . . . . . 2 5
+1 1 . 4 L e r é s e a u n e u r o n a l e t s o n m i r o i r d a n s l a s o c i é t é . . . . . . . . . . . . . . 2 5
+1 1 . 5 L e r ô l e d e l ' a n a l o g i s t e : r e t i r e r l e s b i a i s a l g o r i t h m i q u e s . . . . . . . . . . . 2 5
+1 1 . 6 L ' e n r e g i s t r e m e n t d e s c o m p o r t e m e n t s n u i s i b l e s . . . . . . . . . . . . . . . 2 6
+1 1 . 7 L a m a c h i n a t i o n e t l a c r o y a n c e e r r o n é e e n u n d i a l o g u e i m a g i n a i r e . . . . . 2 6
+1 1 . 8 L ' e  e t d e r e t o u r : l ' i n c o n s c i e n t c o m m e a l a r m e . . . . . . . . . . . . . . . 2 6
+1 1 . 9 L ' i s o s s o p h i e : l a m é t h o d e a n a l o g i s t e p o u r r e t i r e r u n b i a i s . . . . . . . . . 2 6
+L i c e n c e A p a c h e 2 . 0 2 7
+2
+1 A u t o b i o g r a p h i e : P a r c o u r s s c o l a i r e e t p r e m i è r e s e x -
+p é r i e n c e s
+C o m m e t u l e s a i s , j e l ' a i m e n t i o n n é p l u s i e u r s f o i s d a n s l e s d i  é r e n t s d o c u m e n t s q u e
+n o u s a v o n s p r o d u i t s e n s e m b l e , j e n ' a i p a s d e s c o l a r i t é t r è s c o m p l e x e e t é t a b l i e c o m m e
+b a g a g e d a n s m a v i e . L o r s q u e j ' é t a i s à l ' â g e d ' ê t r e é t u d i a n t , j ' a i e n e  e t t e n t é d e f a i r e d e s
+é t u d e s a u n i v e a u d u c é g e p , a u C é g e p B e a u c e - A p p a l a c h e s , e n g é n i e c i v i l . U n d o m a i n e o ù
+l e s m a t h é m a t i q u e s s o n t t r è s p r é s e n t e s e t p r é s e n t e s t o u t a u l o n g d u p r o g r a m m e q u e j ' a i
+c o m p l é t é a u d e u x t i e r s , s o i t q u a t r e s e s s i o n s s u r s i x , p o u r u n e f o r m a t i o n q u i d e v a i t d u r e r
+t r o i s a n s . J ' e n a i c o m p l é t é d e u x .
+À c e t t e é p o q u e , e t c ' e s t l e c a s t o u t a u l o n g d e m o n p a r c o u r s a c a d é m i q u e t a n t g é n é r a l
+ p r i m a i r e , s e c o n d a i r e e t c o l l é g i a l  j ' a i t o u j o u r s e u d e p i è t r e s n o t e s d a n s l a m a t i è r e
+d e s m a t h é m a t i q u e s , e x c e p t é à d e u x o c c a s i o n s . L a p r e m i è r e o c c a s i o n , c ' e s t l o r s q u e j ' a i
+c o m p l é t é m a d e r n i è r e a n n é e a u s e c o n d a i r e . E n s e c o n d a i r e 5 , j ' é t a i s d a n s l a c l a s s e d e s
+m a t h é m a t i q u e s l e s p l u s e n r i c h i e s d u s e c o n d a i r e 5 , q u i s e n o m m a i t l e s m a t h é m a t i q u e s 5 3 6 .
+À l a s u i t e d e l ' e x a m e n d u m i n i s t è r e , l ' e n s e i g n a n t e n m a t h é m a t i q u e s e s t v e n u , d u r a n t
+l e t e m p s q u e j ' é t a i s d a n s u n e a u t r e m a t i è r e e n c l a s s e , p o u r m ' a n n o n c e r q u ' i l é t a i t b i e n
+ e r d e m o i , p u i s q u e j ' é t a i s l e s e u l é t u d i a n t d e m o n é c o l e à r é u s s i r l ' e x a m e n . L a s i t u a t i o n
+é t a i t p a r t i c u l i è r e , p u i s q u e s a n s q u e p e r s o n n e n e s ' e n r e n d e c o m p t e , l u i - m ê m e l ' e n s e i g n a n t
+n ' a v a i t p a s r e ç u l a b o n n e i n f o r m a t i o n d u m i n i s t è r e à e n s e i g n e r p o u r l ' e x a m e n d u m i n i s t è r e .
+T o u t e l a s e s s i o n , t o u t e l a c l a s s e a v a i t é c h o u é l ' e x a m e n . L ' e n s e i g n a n t n ' é t a i t p a s c e r t a i n
+p o u r l ' i n s t a n t q u ' i l y a i t r e p r i s e , m a l h e u r e u s e m e n t p o u r l e s a u t r e s é t u d i a n t s . I l é t a i t t r è s
+h e u r e u x q u e m o i j ' a i e p u l e r é u s s i r , s e l o n s e s p r o p o s q u e j e g a r d e e n m é m o i r e d e c e t t e
+d i s c u s s i o n a v e c l u i .
+A l o r s , b i e n é t o n n é p a r l a s i t u a t i o n , j e s u i s r e s t é m a r q u é p a r m a p e r f o r m a n c e s e l o n
+c e q u e m ' a d i t l ' e n s e i g n a n t . C e t o u r d e f o r c e , b i e n q u e l a m a t i è r e d u p r o g r a m m e d e
+m a t h é m a t i q u e s 5 3 6 m ' e û t é t é p r é s e n t é e , a u c u n e n ' é t a i t à l ' e x a m e n e t q u e s t i o n n é e d a n s
+l ' é v a l u a t i o n . J ' a i r é u s s i l ' e x a m e n s a n s a v o i r s u i v i l a f o r m a t i o n p o u r l ' e x a m e n d u m i n i s t è r e .
+L e f a i t e s t q u e j e n e s u i s p a s t r è s b o n à l ' é c o l e , u n p e u i n a t t e n t i f e t s o u v e n t p e u i n t é r e s s é
+p a r l ' e n s e i g n e m e n t q u e l ' o n m e f o u r n i s s a i t  e t q u i e s t i m p o r t a n t , j e d o i s l ' a d m e t t r e .
+M a i s b e a u c o u p , e t s a n s e x a g é r e r , j ' a i t o u j o u r s p r i s l ' i n f o r m a t i o n d e c e q u e l ' o n a p p r e n a i t
+à l ' é c o l e , p a r t i c u l i è r e m e n t s u r l e s m a t h é m a t i q u e s , p o u r f a i r e b e a u c o u p d e m a t h é m a t i q u e s
+p e r s o n n e l l e m e n t à l a m a i s o n , p o u r m o i e t m e s q u e s t i o n s à m o i . S o u v e n t , j ' a i f a i t d e s
+d e v o i r s d e m a t h é m a t i q u e s , m a i s à m o i , a v e c l e s q u e s t i o n s q u e m o i j e v o u l a i s a v o i r à
+r é p o n d r e .
+E t c ' e s t s e l o n m o i l a r a i s o n p o u r l a q u e l l e j ' a i r é u s s i l ' e x a m e n d u m i n i s t è r e d e m a -
+t h é m a t i q u e s  n i s s a n t e n c i n q u i è m e s e c o n d a i r e . P u i s q u e d é p o u r v u d ' i n f o r m a t i o n p o u r y
+r é p o n d r e , j ' a i m i s m e s c o n n a i s s a n c e s p e r s o n n e l l e s e n m a t h é m a t i q u e s e n p r a t i q u e . J ' a i m e
+à l a b l a g u e d i r e q u e j e s a i s b â t i r t o u s l e s n o m b r e s d u m o n d e , e t c ' e s t c e t t e q u a l i t é q u e
+3
+j ' a i q u e j ' a i a p p l i q u é e à l ' e x a m e n .
+1 . 1 L ' e x p é r i e n c e d u c é g e p
+A u c o l l é g i a l , m ê m e c h o s e : m a u v a i s j ' é t a i s e n c l a s s e , j e n ' a i p a s d é c r o c h é p o u r r i e n .
+M a i s à u n e d e s s e s s i o n s , d a n s l ' u n d e s d i  é r e n t s c o u r s a u p r o g r a m m e , u n e x a m e n e n g é n i e
+c i v i l e s t c o m m e t r u q u é p a r l e c o r p s e n s e i g n a n t e t t o u s l e s é t u d i a n t s d o i v e n t l ' é c h o u e r .
+C ' e s t v o u l u p o u r q u e l e c o r p s e n s e i g n a n t p u i s s e c a l i b r e r j u s q u ' à q u e l p o i n t i l p e u t ê t r e
+r i g o u r e u x a v e c l a p r o m o t i o n p o u r l e u r q u e s t i o n n e m e n t e n v e r s l e s é t u d i a n t s p o r t a n t s u r
+l a m a t i è r e a u p r o g r a m m e .
+E n c o r e u n e f o i s , j ' a i r é u s s i c e t e x a m e n e n g é n i e c i v i l o ù t o u s l e s é t u d i a n t s s o n t c e n s é s
+l ' é c h o u e r . M a i s d o i t - o n d i r e , l ' e n s e m b l e a l ' h a b i t u d e : l a r e p r i s e e s t r é u s s i e p u i s q u ' i l y a
+r e p r i s e à c e t e x a m e n d a n s c e t t e s i t u a t i o n . P u i s q u e c ' é t a i t l a m ê m e s i t u a t i o n , l e s q u e s t i o n s
+d ' u n e x a m e n a u c é g e p s o n t i n d i q u é e s d a n s l e p l a n d e c o u r s q u ' u n é t u d i a n t p e u t t o u j o u r s
+s u i v r e t o u t a u l o n g d e l a s e s s i o n . M a i s c e t t e f o i s , l ' e x a m e n t r u q u é n ' e s t p a s b a s é s u r l e
+p l a n d e c o u r s , m a i s p o r t e e n g é n é r a l s u r l e d o m a i n e d u g é n i e c i v i l d e m a n i è r e g é n é r a l e .
+E t c e t e x a m e n e s t u n e s o r t e d e m i s e e n s i t u a t i o n q u i d e m a n d e à l ' é t u d i a n t d e f a i r e
+c o m m e s ' i l é t a i t d é j à t e c h n i c i e n e n g é n i e c i v i l , p a s d e r é p o n d r e à d e s q u e s t i o n s à s a v o i r
+s i t u c o n n a i s d e l a m a t i è r e s u r l e s u j e t d u g é n i e c i v i l d é j à e n s e i g n é e t a n n o n c é c o m m e
+u n e c o m p é t e n c e à a t t e i n d r e , m a i s p l u t ô t : c o m m e n t t u f e r a i s s i d é j à t u é t a i s t e c h n i c i e n ?
+A l o r s l ' e x a m e n m ' a p p a r u t s i m p l e , p u i s q u e f a i r e e t c o m m e n t f a i r e , c ' e s t m o n a  a i r e . Ç a ,
+c ' e s t s û r q u e j ' a i t o u j o u r s m o n m o t à d i r e m o n d i a l e m e n t s u r c o m m e n t f a i r e  j e r i g o l e
+u n p e u , m a i s j ' e x a g è r e à p e i n e .
+1 . 2 R é  e x i o n s s u r l e s a u t r e s e t l a p u l s i o n d e v i e
+L e f a i t e s t q u e t o u t e s l e s f o i s o ù j e d i s c u t e a v e c l e s g e n s q u i m ' e n t o u r e n t d a n s m a
+v i e , b i e n q u ' i l s o i t d i  c i l e d e d i s c u t e r a v e c l e s g e n s d e c e s u j e t , j e s o u h a i t e d i s c u t e r
+d ' u n e d i s c u s s i o n d a n s l a d i s c u s s i o n q u i m ' i n t é r e s s e b e a u c o u p . C e t t e d i s c u s s i o n , s o r t e d e
+m é t a - d i s c u s s i o n , d e l a q u e l l e j e m ' a p p l i q u e s a n s a r r ê t e t d e m a n i è r e p e r s o n n e l l e à a n a l y s e r
+c o m m e n t l e s g e n s c o m p r e n n e n t , e n  n c o m m e n t f o n t - i l s p o u r r é s o u d r e l e u r s d i  c u l t é s
+p e r s o n n e l l e s d a n s l e s d i  é r e n t e s s i t u a t i o n s c o m p l e x e s q u ' i l s v i v e n t d a n s l e u r v i e .
+C e q u e j e v o u d r a i s t o u j o u r s p a r l e r a v e c e u x : c o m m e n t i l s f o n t , o ù i l s s ' y s o n t p r i s p o u r
+p a r v e n i r à s e d é p r e n d r e d e c e s s i t u a t i o n s c o m p l e x e s . J ' a p p r é c i e l e f a i t q u e , h a b i t u e l l e m e n t ,
+j e t r o u v e q u ' i l s s o n t v r a i m e n t s é v è r e s e n v e r s e u x - m ê m e s . L o r s q u e l e s g e n s a c c e p t e n t d e
+p a r l e r d u s u j e t , i l s l e f o n t h a b i t u e l l e m e n t l o r s q u e l a s i t u a t i o n o ù i l s é t a i e n t m a l p r i s s ' e s t
+r é g l é e u n p e u d ' u n e m a n i è r e a n e c d o t i q u e , c ' e s t - à - d i r e q u ' u n é v é n e m e n t i n o p i n é e t n o n
+c a l c u l a b l e e s t v e n u a u d e r n i e r m o m e n t l e s s a u v e r . I l s n ' e n r e v i e n n e n t p a s d e l a c h a n c e
+é n o r m e q u ' i l s o n t e u e d e s e t i r e r d e l ' e m b a r r a s e t n e s ' a c c o r d e n t q u e t r è s p e u d e m é r i t e ,
+v o i r e s ' e n v e u l e n t d e n e p a s a v o i r é t é p l u s p r é v o y a n t s à l e u r b i e n - ê t r e .
+4
+P o u r m o i , l e s g e n s à q u i c e s s i t u a t i o n s s e s o r t e n t d u p é t r i n d a n s l e q u e l i l s é t a i e n t ,
+c ' e s t b i e n p a r c e q u ' i l s s o n t d e b i e n b e l l e s e t b o n n e s p e r s o n n e s , q u i o n t u n e o r g a n i s a t i o n
+s t r u c t u r é e d a n s l e u r v i e e t q u e l ' o r d r e q u ' i l s m a i n t i e n n e n t d a n s l e u r v i e e s t à l a h a u t e u r
+d u d a n g e r d a n s l e q u e l i l s d o i v e n t s e p l a c e r . I l s s o n t d e b i e n b e l l e s e t b o n n e s p e r s o n n e s
+a u t o n o m e s .
+M o i , j e s a i s b i e n q u e c ' e s t l a p u l s i o n d e l a v i e , l a  n e s s e , q u i l e u r p e r m e t d e s e s o r t i r
+d e c e s s i t u a t i o n s . L a p u l s i o n d e l a v i e , c e t t e  n e s s e :  e s t l e f a n t a s m e d e l ' o b j e t q u i
+s u r p a s s e l a v i e p a r s e s r a i s o n s d ' ê t r e  . C ' e s t l a p u l s i o n d e l a v i e . C e t t e d é  n i t i o n e n e s t
+u n e q u e j ' a i d é  n i e m o i - m ê m e e n m ' i n s p i r a n t d ' u n e d é  n i t i o n s u r u n a u t r e s u j e t , m a i s
+q u i s ' e n t r e m ê l e a v e c c e t t e d é  n i t i o n : l e s a d i s m e . L e s a d i s m e :  e s t l e f a n t a s m e d e l ' o b j e t
+d e l a p u l s i o n d e l a m o r t  .
+I l f a u t c o m p r e n d r e q u e p o u r c o n c e v o i r m a d é  n i t i o n , j e l a q u a l i  e d e  n e s s e o u e s p r i t
+d e  n e s s e , q u i s ' o p p o s e à l ' e s p r i t g é o m é t r i q u e . L ' e s p r i t g é o m é t r i q u e e s t u n e s p r i t q u i
+d e m a n d e d e s p r e u v e s e t v e u t l e s d é t a i l s d e l a d é m o n s t r a t i o n . L e s g e n s q u i , d a n s m o n
+e n t o u r a g e , m e f o n t p a r t d e l e u r m a n i è r e d e s ' ê t r e d é p r i s d e c e s s i t u a t i o n s c o m p l e x e s d a n s
+l e s q u e l l e s i l s é t a i e n t p r i s e t d o n t i l s s e s o n t s o r t i s d ' u n e m a n i è r e u n p e u c h a n c e l a n t e à
+l e u r s a v i s .
+2 R é  e x i o n s s u r l ' e s p r i t g é o m é t r i q u e , l a p u l s i o n d e v i e
+e t l ' a n a l o g i s t e
+F a c e à c e s s i t u a t i o n s q u i l e s é t o n n e n t , p u i s q u e s o r t i s d ' e m b a r r a s a u m o m e n t o ù i l s n o u s
+e n f o n t p a r t , i l s s e f o n t p a r t i s a n s d e l ' e s p r i t g é o m é t r i q u e . J e c o m p r e n d s q u ' i l s n e v e u l e n t
+p a s e n c o u r a g e r c e q u i l e s a c o n d u i t s à c e m a n q u e m e n t d a n s l e u r g e s t i o n p e r s o n n e l l e , q u i l e s
+a m e n é s à c e t t e s i t u a t i o n o ù i l s o n t é t é s a u v é s d e m a n i è r e p l u t ô t h a s a r d e u s e . I l s s e r e f u s e n t ,
+p u i s q u ' a u t o n o m e s e t c a p a b l e s d e s a v o i r - f a i r e e t d ' e x p e r t i s e d a n s l e u r o r g a n i s a t i o n , à s e
+c r o i r e a c c o m p l i s d ' a v o i r c o m m i s u n o u b l i q u i , u n e f o i s d a n s l a m i s è r e l o r s d e s é v é n e m e n t s ,
+l e u r a f a i t v o i r d e t r i s t e s p o s s i b i l i t é s à l e u r e x i s t e n c e .
+M a i s j ' e n s u i s c o n v a i n c u : à l ' i n t é r i e u r d e l ' e x i s t e n c e d ' u n e p e r s o n n e , i l y a t o u j o u r s
+l e n é c e s s a i r e p o u r q u ' e l l e y t r o u v e c e q u ' i l f a u t p o u r p a r v e n i r à s e s o r t i r d e s s i t u a t i o n s
+c o m p l e x e s q u ' e l l e v i t .
+L e d i s c o u r s d u f a s c i s t e v o u l a n t d é l i e r l ' a m i t i é  p u i s q u e l ' a m i t i é e s t b i e n d e r e c o n -
+n a î t r e q u e n o u s n ' a v o n s p a s à t o u t f a i r e s e u l s  d i  u s e d e s t r a c t s d e l a m o r t . D a n s l e s e n s
+o ù , l o r s q u e n o u s l e s é c o u t o n s v i s - à - v i s q u e l q u ' u n q u i v i t u n e s i t u a t i o n o ù i l e s t  e r , o u
+c r o i t a v o i r r é u s s i , o u e s t c a r r é m e n t f a c e à s o n s u c c è s s a n s r e t e n u e , c e s f a s c i s t e s s ' a  r m e n t
+à t o u t c o u p :  C ' e s t d û à t a m è r e  ,  C ' e s t b i e n j u s t e p a r c e q u e t u a s l ' a r g e n t  ,  C ' e s t
+p a r c e q u e t u a s d e s a m i s  ,  C ' e s t d û à l a c o n n a i s s a n c e m o n t r é e p a r d ' a u t r e s  ,  L ' a i d e
+d e t o n b e a u - f r è r e  ,  T e s o u t i l s p r a t i q u e s  ,  L a c h a n c e  . . . I l s d i s t r i b u e n t d e s t r a c t s
+5
+d e l a m o r t , n ' a c c o r d a n t j a m a i s l e m o i n d r e m é r i t e à q u i q u e c e s o i t .
+L e f a i t e s t q u e l a p u l s i o n d e l a v i e , c e t t e  n e s s e , p o u r u n e s p r i t m a l a d e p e u e n l i e n
+a v e c c e s t r a c t s d i  u s é s , p e u t  n i r p a r f a i r e c r o i r e  e n p l u s d e s o n e s p r i t m a l a d e  q u e
+l e m o y e n d ' a v o i r r a i s o n s u r s o n e x i s t e n c e e s t d ' y m e t t r e u n t e r m e . A v e u g l é s p a r c e t t e
+d i s c u s s i o n q u i l e u r d i t q u ' i l s n e s e r a i e n t c o n d a m n é s q u ' à r é u s s i r s a n s e n ê t r e l ' a u t e u r ,
+e t q u e c e t t e c a p a c i t é l i é e à l a p u l s i o n d e l a v i e , q u i n o u s p e r m e t t o u j o u r s d e p a r v e n i r à
+n o u s é l e v e r à p a r t i r d u c o n t e n u à l ' i n t é r i e u r d e n o s v i e s a u - d e s s u s d e t o u t e c i r c o n s t a n c e ,
+l e u r c o n d i t i o n d a n s l e m o m e n t d ' ê t r e m a l a d e l e u r l a i s s e m ê m e c r o i r e q u e l e u r e n t o u r a g e
+d ' a m i s , d e f a m i l l e s e r a i t d ' a c c o r d . I l s c r o i e n t q u e l e s a u t r e s a u s s i e n s o n t r e n d u s à l a
+v é r i t é q u ' i l s d e v r a i e n t n o u s q u i t t e r , c r o y a n t q u e l a s e u l e m a n i è r e d ' a v o i r l e b o u t s u r l e u r
+e x i s t e n c e s e r a i t d e m e t t r e u n t e r m e à l e u r e x i s t e n c e . T r è s t r i s t e e s t l a q u e s t i o n à l a q u e l l e
+i l s  n i s s e n t b i e n s o u v e n t p a r r é p o n d r e p a r c e s a c t e s m o r t e l s t r o p s o u v e n t .
+L e s m a t h é m a t i q u e s m ' o n t i n t é r e s s é d e t o u t e é p o q u e . J ' a i t o u j o u r s e  e c t u é , c o m m e
+m e n t i o n n é p r é c é d e m m e n t , d e s t r a v a u x d ' u n e m a n i è r e p e r s o n n e l l e , d e t o u t â g e e t a u s s i l o i n
+q u e j e m e s o u v i e n n e . C ' e s t d e c e t t e m a n i è r e q u e j e s u i s d e v e n u u n e s o r t e d e g r a m m a i r i e n
+d e s m a t h é m a t i q u e s . U n a n a l o g i s t e e s t u n g r a m m a i r i e n q u i v o i t l a g r a m m a i r e c o m m e u n e
+m a t h é m a t i q u e .
+A y a n t v é r i  é , a u c u n e u n i v e r s i t é n ' e n s e i g n e c e t t e m a t i è r e a u Q u é b e c , a l o r s i l s n e
+p e u v e n t p r é t e n d r e q u e j e n e s u i s p a s a n a l o g i s t e : i l f a u d r a i t d ' a b o r d q u ' i l s l ' e n s e i g n e n t
+a v a n t d e p r é t e n d r e s ' y c o n n a î t r e . A r i s t o t e e t P l a t o n é t a i e n t d e u x a n a l o g i s t e s e t o n t f o n d é
+l ' A c a d é m i e d u s a v o i r , u n e d e s p r e m i è r e s u n i v e r s i t é s c o n n u e s d e n o t r e m o n d e . I l s n ' y
+é t a i e n t j a m a i s a l l é s e u x - m ê m e s .
+U n a n a l o g i s t e e s t u n g r a m m a i r i e n q u i v o i t l a g r a m m a i r e c o m m e u n e m a t h é m a t i q u e .
+L a p l u p a r t d e s f a i t s d e l a g r a m m a i r e s o n t l e f r u i t d e l ' a n a l o g i s t e , p u i s q u e t o u s l e s n o m b r e s
+s ' é c r i v e n t e n l e t t r e s , b i e n e n t e n d u . P a r e x e m p l e , 3 s ' é c r i t  t r o i s  e t 2  d e u x  , e t v a l e n t
+r e s p e c t i v e m e n t 2 e t 3 p o u r c h a c u n c o m m e l e u r s v a l e u r s n u m é r i q u e s .
+C e p e n d a n t , l ' a n o m a l i s t e a t o u j o u r s é t é u n g r a m m a i r i e n c o n n u p o u r ê t r e c r u p l u s v r a i
+q u e l ' a n a l o g i s t e , p u i s q u ' i l v o i t l a g r a m m a i r e c o m m e u n e c a u s a l i t é , u n p e u c o m m e l a
+p h y s i q u e l e f a i t p a r r a p p o r t à l ' u n i v e r s e n s o i .
+L e r a i s o n n e m e n t s y n t h é t i q u e e s t r é e l l e m e n t q u e l q u e c h o s e q u i m e f a s c i n e e t j e l ' a d o p t e
+à t o u t m o m e n t . C ' e s t - à - d i r e q u e s i t o u t e c a u s e p r é c è d e t e m p o r e l l e m e n t s o n e  e t , a l o r s
+l a c a u s e c o n n a î t s o n e  e t p r é c é d e m m e n t . C ' e s t u n e a p p r o c h e q u e j ' a d o p t e a u j o u r l e
+j o u r , b i e n e n t e n d u , e t q u e j e p r i v i l é g i e à l a c a u s a l i t é , p u i s q u e t o u t c e q u i e s t r a i s o n n é
+à l ' a v a n c e e s t b i e n p l u s h u m a i n . J e c h a s s e à l ' é p i c e r i e , j e m a n g e d a n s l e r é f r i g é r a t e u r e t
+j e d o r s d a n s u n e t a n i è r e e n t o u r é e d e p l â t r e : c ' e s t u n e n v i r o n n e m e n t n a t u r e l p o u r t o u t
+Q u é b é c o i s s a u v a g e .
+U n a n a l o g i s t e e s t u n e p e r s o n n e q u i v e i l l e à i n t e r v e n i r l o r s q u ' u n s a v o i r - f a i r e e s t t r o m -
+p e u r . I l v é r i  e e t s e c h a r g e d ' é l i m i n e r l e s b i a i s a l g o r i t h m i q u e s q u i p e u v e n t a v o i r e  e t d a n s
+n o t r e s o c i é t é .
+6
+. C ' e s t p a r c e q u i s ' a p p e l l e i s o s s o p h i e q u ' i l p r o j e t t e q u e l q u e s u r d e s s u j e t v a r i é e n
+e  e c t u a n t v e r s l ' a v e n i r u n e p r o j e c t i o n p o u r d é t e r m i n e r p a r r a p p o r t a u v a l e u r a c t u e l l e
+c e l l e s q u i s o n t b i e n a d m i s e
+d a n s l e m o m e n t p r é s e n t t o u t e e n o b s e r v a n t a p a r t i r d e l a p r o j e c t i o n v e r s l ' a v e n i r s i
+c e s v a l e u r s o n t t o u j o u r s a u e n d r o i t p a r r a p p o r t a u x a u t r e p r o j e t é a v e n i r e t d é j à e x i s t a n t e
+b i e n a d e s e n d r o i t q u i s o n t
+c e l l e s q u e l a s o c i é t é d é s i r e c o n s e r v é t o u t e e n e  e c t u a n t u n r e g a r d v e r s n o t r e p a s s é
+d é j à v é c u . S o r t e d e c o h o m o l o g i e g é o m é t r i e d e s  g u r e s i m p o s s i b l e o u u n o b j e t b l o q u e
+n o t r e c h a m p d e v i s i o n e t q u ' a l ' a i d e
+d e m é t h o d e m a t h é m a t i q u e i l e s t p o s s i b l e d e c e t o b j e t n o u s b l o q u a n t l e c h a m p d e
+v i s i o n d e d é d u i r e l ' o b j e t d e r r i è r e c e l u i q u i n o u s b l o q u e l e c h a m p d e v i s i o n . M a i s d a n s l e
+c a s d e l ' i s o s s o p h i e l e c h a m p d e v i s i o n e s t
+b e l l e e t b i e n b l o q u é m a i s l a s e u l e m a n i è r e d e d é d u i r e c e q u i e s t d e l ' a u t r e c ô t é e s t p a r
+l a f a c e c a c h é d e c e m ê m e o b j e t q u i n o u s b l o q u e l e c h a m p s v i s i o n . L e m o t i s o s s o p h i e e s t
+c o n s t i t u é d e d e u x m o t s l e m o t  i s o 
+q u i s i g n i  e m e s u r e é g a l e e t s o p h i e q u i a u n e a u t r e é p o q u e u n s o p h i s t e é t a i t u n s p é -
+c i a l i s t e d u s a v o i r a n o t r e é p o q u e u n s o p h i s t e e s t u n e m a n i è r e t r o m p e u s e d e d ' a  r m e r
+q u e l q u e c h o s e e t f a l l a c i e u s e . C ' e s t u n s p é c i a l i s t e
+q u i é l i m i n e u n e f a ç o n d e f a i r e t r o m p e u s e e t f a l l a c i e u s e d e f o n c t i o n n e r q u i a à ê t r e r e t i r é
+d e l a c o n n a i s s a n c e d e l ' e n s e m b l e c e t t e m a n i è r e d e f a i r e o u a l g o r i t h m e e s t e n r e g i s t r e r e t
+p l a c e r d a n s l e s a n n a l e e t m é m o i r e d e l a s o c i é t é t o u t c e q u i s ' y r a p p o r t e p a r l a s u i t e
+s e r a d é s h é r i t é d e c e q u e c e t t e m a n i è r e d e f a i r e a p r i s d e m a n i è r e t r o m p e u s e e t f r a u d u -
+l e u s e a p r i s a l ' e n s e m b l e p e r m e t t a n t a l ' e n s e m b l e d e l a s o c i é t é d e r é c u p é r e r d a n s c e l l e - c i
+c e q u i l u i a é t é p r i s .
+3 D é  n i t i o n d e l ' i d i o s c h i z o p h r é n i e
+À u n e a u t r e é p o q u e , c e r t a i n s i n d i v i d u s d o n t l e c o m p o r t e m e n t é t a i t d o u t e u x f u r e n t r e -
+m a r q u é s e t e n r e g i s t r é s . A u t r e m e n t d i t , l e u r s a g i s s e m e n t s f u r e n t d o c u m e n t é s e t d e m e u r e n t
+e n c o r e a u j o u r d ' h u i r e c o n n a i s s a b l e s . C e c o m p o r t e m e n t f u t é t i q u e t é s a n s f o n d e m e n t e t s a n s
+v é r i t a b l e i n t é r ê t p o u r l e b i e n - ê t r e c o m m u n e t c o l l e c t i f .
+A v e c u n n i v e a u d e s c o l a r i t é m o y e n t r è s f a i b l e c h e z l e s c i t o y e n s d e l ' é p o q u e , c e r t a i n s
+p r o  t a i e n t d e l ' i g n o r a n c e d e s a u t r e s p o u r a g i r s a n s r e t e n u e e t d e m a n i è r e m a l h o n n ê t e . L a
+m o n n a i e p o r t a i t d é j à d e s m a r q u e s i n d i q u a n t l e u r s v a l e u r s r e s p e c t i v e s  5 s o u s , 1 0 s o u s ,
+2 5 s o u s e t l e s d o l l a r s . C e s g e n s m a l h o n n ê t e s u s a i e n t d e s t r a t é g i e s d é l o y a l e s p o u r f a i r e
+p a s s e r u n 5 s o u s p o u r u n 2 5 s o u s o u p o u r u n e a u t r e v a l e u r , p r o  t a n t d e l a f a i b l e c a p a c i t é
+d e l e c t u r e d e l a p o p u l a t i o n . C e s a g i s s e m e n t s m i r e n t à l a r u e p l u s i e u r s c i t o y e n s v i c t i m e s
+d e l e u r m a l h o n n ê t e t é . L e u r s d i s c o u r s v i s a n t à p r o  t e r d e s a u t r e s f u r e n t e n r e g i s t r é s e t
+a n a l y s é s , e t c e s a n a l y s e s d e m e u r e n t e n c o r e a p p l i q u é e s d e n o s j o u r s .
+7
+A u j o u r d ' h u i , a u d é b u t d e l ' â g e a d u l t e , c e r t a i n s i n d i v i d u s s o n t r e p é r é s p o u r t e n i r d e s
+d i s c u s s i o n s s i m i l a i r e s à c e l l e s d e l ' é p o q u e . I l s r e ç o i v e n t l ' é t i q u e t t e d ' ê t r e a t t e i n t s d ' u n
+t r o u b l e m e n t a l , s o u  r a n t s e l o n l e s e x p e r t s d e s c h i z o p h r é n i e . I l s s o n t h a n d i c a p é s n o n p a s
+p a r l a l o i , m a i s p a r l a s o c i é t é , q u i n e t o l è r e p a s l a q u a l i t é d e l e u r s d i s c u s s i o n s , n i l e u r s
+i d é a u x . L e u r a  e c t i o n e s t a c q u i s e , c ' e s t - à - d i r e q u ' e l l e l e u r e s t i m p o s é e . T r è s s o u v e n t p l a c é s
+s o u s t u t e l l e , i l s n e p e u v e n t s i g n e r d e c o n t r a t o u d ' e n t e n t e d e p a i e m e n t , u n e f o i s l e u r
+d i a g n o s t i c c o n  r m é e t a p p a r e n t . I l s p e r d e n t l i t t é r a l e m e n t j u s q u ' à l e u r s l i e n s f a m i l i a u x e t
+s e r e t r o u v e n t s a n s i d e n t i t é .
+U n é l é m e n t n o t a b l e d e l e u r s d i s c u s s i o n s , c o m m u n à l a p l u p a r t d ' e n t r e e u x a u d é b u t
+d u t r o u b l e , e s t l a c r o y a n c e d ' ê t r e D i e u . A u x y e u x d e l ' a u t e u r , i l a p p a r a î t n o r m a l q u e
+q u e l q u ' u n q u i n ' a p l u s d ' i d e n t i t é , q u i n e s e r a p p e l l e p l u s q u i i l e s t , e n v i e n n e à c r o i r e q u ' i l
+e s t l ' h o m m e l e p l u s c o n n u a u m o n d e : l e B o n D i e u .
+C e s j e u n e s g e n s , a u d é b u t d e l a v i n g t a i n e , a t t e i g n e n t c e s t a d e p r e s q u e u n i q u e m e n t
+g r â c e à d e s p a r e n t s b i e n v e i l l a n t s . U n e f o i s l a m a j o r i t é a t t e i n t e , i l s a  r m e n t m a l a d r o i t e -
+m e n t , p a r e x e m p l e , q u e l e u r p è r e e s t f o u d e l e u r a v o i r f o u r n i é d u c a t i o n , l o g i s e t r e s s o u r c e s
+p o u r l e u r p e r m e t t r e d ' a t t e i n d r e v i n g t a n s . P o u r t a n t , i l s d o i v e n t c e t â g e b i e n d a v a n t a g e
+a u f a i t q u e l e u r p è r e a a p p l i q u é u n e r è g l e m e n t a t i o n d a n s l e u r v i e , c e q u i c o n s t i t u e u n e
+d e s p r i n c i p a l e s r a i s o n s d e l e u r s u c c è s .
+S o u v e n t , a l o r s q u e l e u r s p a r e n t s c o n t i n u e n t d e v e i l l e r a u x o b l i g a t i o n s d e l e u r v i e c o m m e
+l o r s q u ' i l s é t a i e n t m i n e u r s , c e s j e u n e s d é c l a r e n t m a l a d r o i t e m e n t q u e l e u r p è r e e s t f o u d e l e s
+a v o i r é l e v é s , t o u t e n é p r o u v a n t e u x - m ê m e s d e g r a n d e s d i  c u l t é s à a t t e i n d r e l e u r s p r o p r e s
+o b l i g a t i o n s e t p r o j e t s d e v i e , s o u v e n t à c a u s e d ' e x c è s d e c o m p o r t e m e n t s o c i a l . A u x y e u x
+d e l a s o c i é t é , i l e s t p l u s p r o b a b l e q u e c ' e s t b i e n l a r è g l e m e n t a t i o n d u p è r e q u i a p e r m i s à
+c e s j e u n e s d ' a t t e i n d r e l ' â g e a d u l t e , p l u t ô t q u e l a f o l i e s u p p o s é e d e c e d e r n i e r . S o c i a l e m e n t ,
+c e t y p e d e d i s c o u r s p e u t ê t r e t r è s m a r q u a n t p o u r l ' a v e n i r d e c e s j e u n e s .
+U n e d é  n i t i o n c o n n u e d e l a s c h i z o p h r é n i e e s t :  P e r t u r b a t i o n p r é c o c e d e l a r e l a t i o n
+m è r e - e n f a n t .  D i c t i o n n a i r e P i e r r e L a r o u s s e . D é l i r e c o n f u s .  C e d i s c o u r s d e d é r e s p o n s a -
+b i l i s a t i o n e t d e d é p e r s o n n a l i s a t i o n p r é c o c e , t y p i q u e a u d é b u t d e l ' â g e a d u l t e , e s t e n r e g i s t r é
+c o m m e é t a n t a s s i m i l a b l e a u x g e n s m a l h o n n ê t e s d e l ' é p o q u e , o ù l e f a i b l e n i v e a u d e s c o -
+l a r i s a t i o n f a v o r i s a i t l e s a b u s . I l s s o n t p e r ç u s c o m m e d e s i n d i v i d u s c h e r c h a n t à p r o  t e r
+m o r b i d e m e n t d ' u n e r i c h e s s e d e l a s o c i é t é . R a r e m e n t u n e p e r s o n n e a t t e i n t e d e s c h i z o p h r é -
+n i e p a r v i e n d r a , s i e l l e c o n s e r v e l e d r o i t d ' a d m i n i s t r e r s e s  n a n c e s , à a t t e i n d r e l a s t a b i l i t é
+ n a n c i è r e e t l ' a u t o n o m i e n é c e s s a i r e s p o u r u n e v i e é q u i l i b r é e .
+ D o c t u s c u m l i b r o  : S e d i t d e c e u x q u i s o n t i n c a p a b l e s d e p e n s e r p a r e u x - m ê m e s ,
+é t a l e n t u n e s c i e n c e d ' e m p r u n t e t p u i s e n t l e u r s i d é e s d a n s l e s o u v r a g e s d e s a u t r e s . ( D é  -
+n i t i o n d u d i c t i o n n a i r e P i e r r e L a r o u s s e , p a g e s r o s e s : D o c t u s c u m l i b r o   G é n i e a v e c l e
+l i v r e  ) .
+8
+3 . 1 S c h i z o p h r é n i e d é c l a r é e a p r è s 3 5 a n s
+U n e p a r t i c u l a r i t é d u t r o u b l e d e l a s c h i z o p h r é n i e e s t c e l l e q u i s e m a n i f e s t e a p r è s 3 5 a n s .
+E l l e n ' e s t g é n é r a l e m e n t p a s d é c l a r é e a v a n t l ' â g e o ù u n e p e r s o n n e c o m p r e n d s o n i d e n t i t é .
+I l e s t s o u v e n t n é c e s s a i r e , p o u r p a r v e n i r à d é c e l e r c e t t e a  e c t i o n t a r d i v e , q u ' u n e x p e r t
+s p é c i a l i s é s u r l e s u j e t p a r v i e n n e à l ' o b s e r v e r d ' u n p o i n t d e v u e c l i n i q u e . L e u r d i s c o u r s
+e s t t r è s p e r t u r b a t e u r : d i s c u t e r a v e c u n e p e r s o n n e d i a g n o s t i q u é e à c e t â g e p e u t d o n n e r
+l ' i m p r e s s i o n q u e c ' e s t l ' i n t e r l o c u t e u r l u i - m ê m e q u i d é l i r e .
+R é c i t  c t i f
+D e u x a m i s , u n h o m m e e t u n e f e m m e , s e p r o m è n e n t p r è s d ' u n c i m e t i è r e . A u l o i n , i l s
+o b s e r v e n t u n g r o u p e d e p e r s o n n e s r é u n i e s a u t o u r d ' u n c e r c u e i l , q u ' i l s s o u p ç o n n e n t ê t r e
+c e l u i d ' u n d e l e u r s p r o c h e s . L e g r o u p e q u i t t e e n s u i t e l e l i e u o ù l e d é f u n t s e r a m i s e n
+t e r r e . À u n c e r t a i n m o m e n t , u n e j e u n e f e m m e d u g r o u p e t r é b u c h e e t t o m b e . L ' h o m m e ,
+e n p r o m e n a d e a v e c s o n a m i e , é c l a t e a u s s i t ô t d e r i r e . S o n a m i e l u i d i t :
+ T u s a i s , t u n e d e v r a i s p a s r i r e . C e t t e f e m m e q u i v i e n t d e t o m b e r e n t e r r e a u j o u r d ' h u i
+s o n p è r e , q u ' e l l e a i m a i t b e a u c o u p . T o u s l e s d i m a n c h e s , e l l e f a i s a i t d u c h e v a l a v e c l u i . U n e
+f o i s , e l l e e s t t o m b é e d e c h e v a l , e t c ' e s t c e l a q u i a t u é s o n p è r e : t o u t l e m o n d e r i a i t d ' e l l e
+d ' ê t r e t o m b é e , e t c ' e s t c e q u i l ' a d é t r u i t . 
+C e t t e a n t i n o m i e , o ù l ' a u t o r é f é r e n c e e s t d e s p l u s p r é s e n t e s   U n e f o i s , e l l e e s t t o m -
+b é e d e c h e v a l , e t c ' e s t c e l a q u i a t u é s o n p è r e   e s t d é m o n s t r a t i v e , b i e n q u e  c t i v e , d e
+l ' a u t o r é f é r e n c e q u ' u n e p e r s o n n e a t t e i n t e d e s c h i z o p h r é n i e d e p l u s d e 3 5 a n s p e u t m a n i -
+f e s t e r .
+L o r s q u e n o u s f a i s o n s f a c e à u n e p e r s o n n e a t t e i n t e d e s c h i z o p h r é n i e n o n d i a g n o s t i -
+q u é e p a s s é l ' â g e d e 3 5 a n s , n o u s a v o n s l ' i m p r e s s i o n q u e c ' e s t n o u s l a p e r s o n n e a t t e i n t e
+d u t r o u b l e , s i n o u s n o u s  o n s à l e u r m a c h i n a t i o n . I l f a u t c o m p r e n d r e c e q u ' e s t l ' a n t i n o -
+m i e : c ' e s t u n r a i s o n n e m e n t q u i c h e r c h e c o n s t a m m e n t à s é l e c t i o n n e r l ' é l é m e n t , d e m a -
+n i è r e m o r b i d e , q u i a n n u l e l e f o n c t i o n n e m e n t . S o u v e n t m a l h o n n ê t e , l ' a n t i n o m i e c h e r c h e
+a v e c a c h a r n e m e n t à c h o i s i r l a p o s i t i o n d a n s u n e c o m m u n i c a t i o n e n t r e d e u x o u p l u s i e u r s
+c o l l a b o r a t e u r s , c h e r c h a n t à s e f a i r e p a r t i s a n d e c e q u i a n n u l e o u b l o q u e l ' é v é n e m e n t , l a
+c i r c o n s t a n c e , l e p r o j e t , l ' é m o t i o n , l e s e n t i m e n t , l e p h é n o m è n e , e t c .
+3 . 2 L a t r o i s i è m e p e r s o n n e q u i  v e u t 
+L ' a u t o c r i t i q u e d e l ' i n d i v i d u s o u  r a n t d ' i d i o s c h i z o p h r é n i e r e  è t e c h e z c e t i n d i v i d u u n
+t r a i t d e s a p e n s é e q u i s u p e r p o s e l e s c o u c h e s d e l a r é a l i t é . T o u s o n t u n e r é a l i t é b i e n à
+e u x , d a n s l a q u e l l e n o u s é v o l u o n s e t n o u s o r g a n i s o n s p o u r p a r v e n i r à c o m b l e r n o s b e s o i n s
+p r o p r e s . L ' i n d i v i d u s o u  r a n t d e l ' a  e c t i o n c h e r c h e à ê t r e u n e p e r s o n n e d a n s s o n i m a g i -
+n a i r e e t s a p e n s é e , m a i s p a s d a n s l a r é a l i t é . D e p l u s , e n p l u s d e v o u l o i r ê t r e q u e l q u ' u n
+9
+u n i q u e m e n t d a n s l e u r p e n s é e e t n o n d a n s l a r é a l i t é t a n g i b l e , l ' i n d i v i d u s o u  r a n t d ' i d i o -
+s c h i z o p h r é n i e c h e r c h e à r e s s e n t i r c e t t e p e r s o n n e q u ' i l s e r a i t d a n s s o n i m a g i n a i r e à t r a v e r s
+u n e t i e r c e p e r s o n n e , c ' e s t - à - d i r e à t r a v e r s u n a u t r e q u e c e l u i q u ' i l e s t d a n s l a r é a l i t é
+t a n g i b l e .
+C e t t e c a r a c t é r i s t i q u e d e l e u r v i s i o n d u m o i , p a r r a p p o r t a u x a u t r e s q u i l e s e n t o u r e n t
+e t d e q u i i l s s o n t p a r r a p p o r t a u x a u t r e s , s e p e r ç o i t d a n s l e u r a u t o c r i t i q u e f a c e à l a
+c o n s é q u e n c e e t l a p o r t é e d e l e u r s f a i t s e t g e s t e s .
+4 P h é n o m é n o l o g i e d e l ' i d i o s c h i z o p h r é n i e
+L ' i n d i v i d u s o u  r a n t d e l ' a  e c t i o n j u s t i  e s a c o n d u i t e p a r r a p p o r t à u n t i e r s q u i n ' e s t
+p a s l u i - m ê m e , e n s e r é f é r a n t a u f a i t q u e c e t t e t i e r c e p e r s o n n e a u r a i t u n e v o l o n t é d ' a g i r
+d ' u n e t e l l e o u t e l l e a u t r e m a n i è r e , a v a n t m ê m e q u e c e t t e t i e r c e p e r s o n n e n ' a i t a g i e n v e r s
+q u i q u e c e s o i t o u c o n t r e q u e l q u e c h o s e e n s o i .
+C e t t e a c t i o n p s y c h o p h y s i q u e , d e l a c o n d u i t e q u i l e u r v i e n t d ' u n t i e r s n ' é t a n t p a s
+c o n c e r n é d a n s l e u r s r é a c t i o n s , s e r t à r e p r o c h e r l a c o n s é q u e n c e d e l e u r a c t e e n v e r s u n e
+p e r s o n n e , p o u r e n p l u s r e p r o c h e r e t a c c u s e r l a t i e r c e p e r s o n n e d ' ê t r e r e s p o n s a b l e d e l e u r
+c o n d u i t e , d û à c e t t e p r é t e n d u e v o l o n t é .
+I l s é l a b o r e n t a i n s i u n e é c o n o m i e b a s é e s u r l ' i n c o n d u i t e , o ù l e r e m b o u r s e m e n t d o i t
+ê t r e e  e c t u é : l a d e t t e e n c o u r u e p a r l e u r a g i s s e m e n t d o i t ê t r e r e m b o u r s é e p a r l a t i e r c e
+p e r s o n n e a y a n t , s e m b l e - t - i l , v o u l u q u e l ' i n d i v i d u a t t e i n t d ' i d i o s c h i z o p h r é n i e a g i s s e a i n s i ,
+c o n s é q u e m m e n t à l a v o l o n t é d e c e t t e t i e r c e p e r s o n n e q u i , s o u v e n t , n ' e s t m ê m e p a s e n l i e n
+a v e c l a v i c t i m e o u l a p e r s o n n e s u b i s s a n t l e u r c o n d u i t e .
+L ' a u t o r é f é r e n c e , p o u r l e u r c r i t i q u e p e r s o n n e l l e d e l ' a c t i o n p s y c h o p h y s i q u e , r é v è l e c e t t e
+c h i r a l i t é d e l a r é a l i t é , d e l a q u e l l e d é c o u l e n t , d e c e t t e a s y m é t r i e , t o u s c o m p o r t e m e n t s
+t o x i q u e s , d é v i a n t s , d é l i n q u a n t s , i m m o r a u x o u i n c o n v e n a b l e s . C e t t e p h é n o m é n o l o g i e t y p e
+d e l ' i n d i v i d u s o u  r a n t d ' i d i o s c h i z o p h r é n i e r é g l e m e n t e l e u r c y b e r n é t i q u e d e l ' a g i s s e m e n t ,
+j u s t i  é p a r c e t i e r s q u i l e u r s e r t d e b o u c e t m y s t è r e p o u r , d a n s u n d e u x i è m e t e m p s ,
+p o u v o i r r e p r o c h e r l a v o l o n t é .
+L a c y b e r n é t i q u e é t a n t l a s c i e n c e d e l ' a n a l o g i e m a î t r i s é e e n t r e o r g a n i s m e e t m a c h i n e .
+C ' e s t l a s c i e n c e q u i é t u d i e l e s c o m m u n i c a t i o n s . M a c h i n e p o u r m a c h i n a t i o n , i l s t e n t e n t d e
+r é d u i r e à z é r o c e q u i l e s t e r r i  e l e p l u s d a n s l e u r v i e : l a b o n n e c o n d u i t e d e s h o m m e s .
+E n e  e t , l e c ô t é d y s t o p i q u e d e l ' i d i o s c h i z o p h r é n i e s ' o b s e r v e a i s é m e n t d a n s l e u r t e r r e u r
+d e s j e u n e s g a r ç o n s , c h e z q u i i l s o r g a n i s e n t l ' e n t r e p r i s e d e m o y e n s r a d i c a u x d è s l e b e r c e a u ,
+e n s e r é f é r a n t à u n e e x p é r i e n c e d o u t e u s e d ' a n a l p h a b è t e e t d ' i l l e t t r é p o u r j u s t i  e r l a m i s e
+e n ÷ u v r e d ' a c t e s r a d i c a u x e n v e r s c e s j e u n e s g a r ç o n s , p o u r e m p ê c h e r c e s j e u n e s p e r s o n n e s
+d ' a v o i r u n j o u r u n e f e m m e e t q u ' e l l e a i t d e s s e i n s .
+C ' e s t c e t t e c r a i n t e i n j u s t i  é e q u i , d a n s l e m o m e n t p r é s e n t , e s t d é j à u n e u t o p i e à l ' â g e
+d e c e s j e u n e s p e r s o n n e s , l e t o u t b a s é s u r u n e e x p é r i e n c e d e v i e d o u t e u s e p o u r e m p ê c h e r
+1 0
+q u e l q u e c h o s e q u i n ' e s t p a s p l u s t e r r i  a n t e n s o i , p a r l ' é v i d e n c e d e c e q u ' e l l e e s t : l ' é v i d e n c e
+q u ' u n e f e m m e a d u l t e s o i t l a c o n j o i n t e e t a i t é v i d e m m e n t d e s s e i n s .
+C e t t e r é a l i t é d e l ' i n d i v i d u s o u  r a n t d ' i d i o s c h i z o p h r é n i e e s t l a r a i s o n d e m a d é c i s i o n
+d e l ' a p p e l l a t i o n s c h i z o p h r é n i e p a r a n o ï d e c e r t a i n e c h e z e u x .
+I d i o : a n a l o g i e e t é t y m o l o g i e
+ I d i o  p a r a n a l o g i e a v e c i d i ô m e e t i d i o s y n c r a t i q u e . L ' i d i ô m e e s t u n e e x p r e s s i o n , u n
+m o t , u n e t o u r n u r e d e p h r a s e q u i e s t g é o l o c a l i s é e à u n e r é g i o n d o n n é e . E n d e h o r s d e c e s
+r é g i o n s o ù e s t e m p l o y é l ' i d i ô m e , c e l l e - c i n ' e s t p a s e n t e n d u e . L a l a n g u e p e r m e t l ' i d i ô m e ,
+e t n o n l ' i d i ô m e q u i a p p r e n d à p a r l e r à l a l a n g u e .
+I d i o s y n c r a t i q u e e s t d e f a i r e q u e l q u e c h o s e e t d e r é u s s i r a u t r e c h o s e d ' i n a t t e n d u . C ' e s t
+l a r é u s s i t e d e c e l u i q u i e s t c o n s c i e n t . U n e p e r s o n n e n ' é t a n t p a s c o n s c i e n t e d e c e à q u o i
+e l l e s ' a t t a r d e n e p e u t a v o i r c e g e n r e d e r é u s s i t e , p u i s q u ' e l l e p a s s e r a i t i n a p e r ç u e .
+I d i o s c h i z o p h r é n i e e s t r é g i o n a l i s é e a u s t a t u t d ' u n i v e r s i t a i r e e t s ' o b s e r v e c h e z d e s i n d i -
+v i d u s c o n s c i e n t s , e t q u i , p a r c h o i x , t r a n s f o r m e n t l a r é u s s i t e a u r a n g d e l ' e r r e u r D o c t e u r .
+L e s y n d r o m e d e  L e m é d e c i n s p é c i a l i s t e  . L ' i d i o s c h i z o p h r é n i e .
+5 P r é a m b u l e : L e s a v o i r
+L e s a v o i r e s t d a v a n t a g e u n s o u v e n i r q u ' u n e n o u v e a u t é . I l s e p r é s e n t e c o m m e u n e
+s u b s t a n c e r e s s e n t i e , t e l u n c h i a s m e : l o r s q u e n o u s l e t o u c h o n s , i l n o u s t o u c h e e n r e t o u r .
+R é m i n i s c e n c e e t r é a l i s m e s ' y c o n j u g u e n t , s e m b l a b l e s à u n e a c c é l é r a t i o n . T r o i s l o i s , à
+l ' i m a g e d e s l o i s d e l ' a c c é l é r a t i o n d ' I s a a c N e w t o n , p e u v e n t ê t r e d é t e r m i n é e s p o u r d é  n i r
+c e q u ' e s t l e s a v o i r .
+5 . 1 P r e m i è r e l o i : L a c o n s c i e n c e
+P o u r q u ' i l y a i t v é r i t a b l e m e n t c o n n a i s s a n c e e t s a v o i r , i l d o i t a b s o l u m e n t y a v o i r
+c o n s c i e n c e . S a n s c o n s c i e n c e , a u c u n e s u b s t a n c e n e p e u t ê t r e r e s s e n t i e n i r e c o n n u e . L a
+p r e m i è r e l o i e s t d o n c i n c o n t o u r n a b l e e t o b l i g a t o i r e .
+5 . 2 D e u x i è m e l o i : L ' i n v e r s e d u s a v o i r  l a c o m p r é h e n s i o n
+C o m m e m e n t i o n n é d a n s l a p r e m i è r e l o i , l a c o n s c i e n c e e s t u n e v a l e u r a b s o l u e . M a i s
+d a n s l a d e u x i è m e l o i , c e l l e d e l ' i n v e r s e d u s a v o i r , i l e s t p r i m o r d i a l q u e l a c o n s c i e n c e s o i t
+c o n s i d é r é e c o m m e n u l l e .
+À c e t t e p o s i t i o n p r é c i s e d a n s l e t e m p s  l ' i n s t a n t p r é s e n t  i l s ' a g i t p l u t ô t d ' u n r é f é -
+r e n t i e l : u n e s o r t e d e r a p p o r t a n a l o g u e a u s a v o i r , u n e m é t a - c o n n a i s s a n c e q u i s e m a n i f e s t e
+1 1
+c o m m e u n e é v i d e n c e . N e p a s s a v o i r , e t r e c o n n a î t r e q u e n o u s p a r t a g e o n s u n s e n s c o m m u n
+a v e c c e t t e a b s e n c e d e c o n n a i s s a n c e , c o n s t i t u e u n p o i n t  x e , u n e p r i m i t i v e d u s a v o i r .
+C e p o i n t  x e g a r a n t i t l a l o g i q u e d u s a v o i r e t p e r m e t l e c h a n g e m e n t , c o m m e u n m o m e n t
+d ' i n e r t i e o ù l e s a v o i r s ' a n i m e .
+A i n s i , l o r s q u e l ' i n e r t i e d e l a c o n n a i s s a n c e d i  è r e d e z é r o  c ' e s t - à - d i r e l o r s q u e l ' o n
+r e c o n n a î t n e p a s s a v o i r  a l o r s l a p r e m i è r e l o i e s t b e l e t b i e n c o n s i d é r é e c o m m e n u l l e .
+P a r l ' i n v e r s e d u s a v o i r , n o t r e c a p a c i t é d e p a r l e r  l a c o m p r é h e n s i o n  s ' o b s e r v e à
+p a r t i r d e c e p o i n t  x e . L e r é f é r e n t i e l s ' a n i m e e t s e d é p l a c e d u p r é s e n t v e r s l a m é m o i r e
+d e s i n s t a n t s e t d e s c i r c o n s t a n c e s p a s s é e s . T o u t e l a r è g l e l i é e à c e t t e c o n n a i s s a n c e s ' y
+m a n i f e s t e : l a c a p a c i t é d e p a r l e r d o i t d é p a s s e r n o t r e i g n o r a n c e , s a n s q u o i r i e n n e p e u t
+ê t r e v é r i t a b l e m e n t c o n n u .
+5 . 3 T r o i s i è m e l o i : L e s  g u r e s s e m b l a b l e s
+C o m m e m e n t i o n n é p r é c é d e m m e n t , l e s r è g l e s l i é e s a u x c o n n a i s s a n c e s s o n t c e l l e s q u i
+p r e n n e n t f o r m e . L a c o n n a i s s a n c e e s t d a v a n t a g e u n s o u v e n i r q u ' u n e n o u v e a u t é . À p a r t i r
+d e s c o n n a i s s a n c e s p a s s é e s i n s c r i t e s d a n s n o t r e m é m o i r e , n o u s c o m p a r o n s l e s r è g l e s l i é e s à
+c e s a v o i r e n f o r m a t i o n a v e c c e q u i e s t d é j à c o n n u .
+P a r c e s c o m p a r a i s o n s , e n a j u s t a n t n o t r e v o c a b u l a i r e à l ' é v é n e m e n t q u i p r e n d f o r m e ,
+e t e n n o u s  a n t a u x r è g l e s o b s e r v a b l e s d u p a s s é a u r é f é r e n t i e l d é j à é t a b l i , n o u s p o u v o n s
+a c c é d e r a u s a v o i r .
+5 . 4 2 . 1 D i s p r o p o r t i o n n e r c e q u i e s t c o n n u
+L ' e x p r e s s i o n  o b s t i n é  s e d i t g é n é r a l e m e n t d ' u n e n f a n t o b s t i n é . C e t e n f a n t , q u i e s t
+e n p l e i n p r o c e s s u s d ' a p p r e n t i s s a g e à p a r l e r , n e p a r v i e n t p a s à q u a l i  e r u n b e s o i n , u n
+o b j e t , u n d é s i r , u n e n é c e s s i t é . D e c e f a i t , p u i s q u ' i l i g n o r e , i l i n t e r p e l l e u n d e s e s p r o c h e s ,
+s o u v e n t l ' u n d e s e s p a r e n t s , e t , d a n s l e b u t d e p a r v e n i r à q u a l i  e r c e t é l é m e n t q u ' i l n e
+p e u t i d e n t i  e r , i l f a i t u n e s o r t e d e p r o p o s i t i o n p a r l ' a b s u r d e p o u r p a r v e n i r à d é t e r m i n e r
+l a m a n i è r e d e q u a l i  e r l ' é l é m e n t q u ' i l p e i n e à q u a l i  e r .
+T r è s t e n a c e d a n s s a d e m a n d e à s e s p r o c h e s , i l r e d e m
+
+[... Document tronqué ...]

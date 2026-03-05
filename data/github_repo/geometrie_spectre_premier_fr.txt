@@ -1,0 +1,1107 @@
+L a G é o m é t r ie d u S p e c t r e
+d e s N o m b r e s P r e m ie r s
+A v e c v a l i d a t i o n s f o r m e l l e s I s a b e l l e / H O L
+P h i l i p p e T h o m a s S a v a r d
+L é v i s , C h a u d i è r e - A p p a l a c h e s , Q u é b e c , C a n a d a
+5 3 5 4 r u e d u M e n u e t , L é v i s , Q u é b e c , G 6 X 2 Y 6
+T é l é p h o n e : 4 1 8 - 4 8 7 - 8 7 9 8
+D a t e o r i g i n a l e : 8 n o v e m b r e 2 0 2 5
+R é v i s i o n : 1 8 j a n v i e r 2 0 2 6
+C o m p i l a t i o n H O L : F é v r i e r 2 0 2 6
+R é s u m é
+C e d o c u m e n t p r é s e n t e l a g é o m é t r i e d u s p e c t r e d e s n o m b r e s p r e m i e r s , u n e m é -
+t h o d e o r i g i n a l e d é v e l o p p é e p a r P h i l i p p e T h o m a s S a v a r d p o u r é t u d i e r l a d i s t r i b u t i o n d e s
+n o m b r e s p r e m i e r s . L ' a p p r o c h e c o m b i n e d e s s u i t e s f r a c t i o n n a i r e s , d e s r a p p o r t s t r i a n g u l a i r e s
+e t u n e a n a l y s e n u m é r i q u e m é t r i q u e i n s p i r é e d e l a g r a n u l o m é t r i e . T o u t e s l e s d é m o n s t r a t i o n s
+m a t h é m a t i q u e s s o n t a c c o m p a g n é e s d e l e u r s v a l i d a t i o n s f o r m e l l e s e n I s a b e l l e / H O L , g a -
+r a n t i s s a n t l a r i g u e u r l o g i q u e d e s r é s u l t a t s p r é s e n t é s .
+T a b l e d e s m a t i è r e s
+1 I n t r o d u c t i o n e t D é c l a r a t i o n d e l ' A u t e u r 3
+1 . 1 C o o r d o n n é e s d e l ' a u t e u r . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+1 . 2 U n m o t d e l ' a u t e u r . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+2 P r e m i è r e P a r t i e : L a G é o m é t r i e d u S p e c t r e d e s N o m b r e s P r e m i e r s 5
+2 . 1 M o u v e m e n t d u p l a n c a r t é s i e n e t T e s s e r a c t . . . . . . . . . . . . . . . . . . . . . . 5
+2 . 2 M o u v e m e n t d e l ' h y p e r c u b e s u r f a c e p a r s u r f a c e . . . . . . . . . . . . . . . . . . . . 6
+2 . 2 . 1 P r o d u i t a l t e r n a t i f s y m é t r i q u e . . . . . . . . . . . . . . . . . . . . . . . . . 6
+2 . 2 . 2 P r o d u i t a l t e r n a t i f a s y m é t r i q u e . . . . . . . . . . . . . . . . . . . . . . . . 7
+3 A n a l y s e N u m é r i q u e M é t r i q u e 8
+3 . 1 A n a l y s e n u m é r i q u e m é t r i q u e e n 3 d i m e n s i o n s . . . . . . . . . . . . . . . . . . . . 9
+3 . 2 G é o m é t r i e d e s s u i t e s . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 0
+4 L a M é t h o d e d e P h i l i p p ô t  V a l i d a t i o n I s a b e l l e / H O L 1 2
+4 . 1 S c r i p t H O L C o m p l e t : m e t h o d e _ d e _ p h i l i p p o t . t h y . . . . . . . . . . . . . . . . . 1 2
+4 . 2 T a b l e a u f r a c t i o n n a i r e  E t a p e 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 6
+4 . 3 M e t h o d e d e P h i l i p p ô t  T a b l e a u x d e s E t a p e s 2 e t 3 . . . . . . . . . . . . . . . . . 1 7
+5 L e s N o m b r e s P r e m i e r s e t l ' E m p l o i d u D i g a m m a 1 8
+5 . 1 E x e m p l e : D e t e r m i n e r l e n o m b r e p r e m i e r ( 5 ) . . . . . . . . . . . . . . . . . . . . . 1 8
+5 . 2 T a b l e a u d e s v a l e u r s d e l ' i n t e r v a l l e 2 9 , 3 1 , 3 7 , 4 1 . . . . . . . . . . . . . . . . . . . 1 8
+5 . 3 E x e m p l e c o m p l e t : D e t e r m i n e r l e n o m b r e p r e m i e r ( 3 1 ) . . . . . . . . . . . . . . . 1 9
+5 . 3 . 1 V e r i  c a t i o n . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 9
+5 . 3 . 2 V e r i  c a t i o n a l t e r n a t i v e . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 1 9
+5 . 3 . 3 E x e m p l e s n u m e r i q u e s d e m o n t r a n t l ' i n c o h e r e n c e . . . . . . . . . . . . . . . 2 2
+5 . 3 . 4 E x p l i c a t i o n d e l ' i n c o h e r e n c e . . . . . . . . . . . . . . . . . . . . . . . . . . 2 3
+5 . 3 . 5 A x i o m a t i s a t i o n . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 2 5
+6 F o r m e G e n e r a l e d e s S u i t e s  S c r i p t H O L C o m p l e t 2 6
+6 . 1 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 1 ) . . . . . . . . . . . . . . 2 6
+6 . 2 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 2 ) . . . . . . . . . . . . . . 3 0
+6 . 3 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 3 ) . . . . . . . . . . . . . . 3 3
+6 . 4 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 5 ) . . . . . . . . . . . . . . 3 9
+6 . 5 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 6 - F i n ) . . . . . . . . . . . 4 2
+7 T a b l e a u x C o m p l e t s d e s D e u x S u i t e s 5 4
+7 . 1 T a b l e a u p o u r l e n o m b r e p r e m i e r 2 9 ( 1 0en o m b r e p r e m i e r ) . . . . . . . . . . . . . 5 4
+2
+1 I n t r o d u c t i o n e t D é c l a r a t i o n d e l ' A u t e u r
+1 . 1 C o o r d o n n é e s d e l ' a u t e u r
+L i e u : L é v i s , C h a u d i è r e - A p p a l a c h e s
+A d r e s s e : 5 3 5 4 r u e d u M e n u e t , L é v i s , Q u é b e c , C a n a d a , G 6 X 2 Y 6
+T é l é p h o n e : 4 1 8 - 4 8 7 - 8 7 9 8
+C e d o c u m e n t a é t é r é d i g é s a n s  n a n c e m e n t , s a n s a v a n t a g e s m a t é r i e l s o u s y m b o l i q u e s , e t d a n s
+u n e t o t a l e l i b e r t é d e c o n s c i e n c e e t d e j u g e m e n t . C e t e x t e e s t l e f r u i t d ' u n e e x p é r i e n c e d e p e n s é e ,
+i l l u s t r é e p a r d e s c a l c u l s m a t h é m a t i q u e s , d e s s c h é m a s , d e s t a b l e a u x , a i n s i q u e d e s e x e m p l e s e t
+e x p l i c a t i o n s . L ' a u t e u r n ' e s t p a s i n i t i é a u x m a t h é m a t i q u e s a u s e n s a c a d é m i q u e : i l n e p o s s è d e
+a u c u n e f o r m a t i o n s p é c i a l i s é e d a n s c e d o m a i n e . I l e s t o u v r i e r , e t c ' e s t e n d e h o r s d e s s e n t i e r s
+b a l i s é s q u ' i l a c o n ç u c e d o c u m e n t p a r p u r p l a i s i r i n t e l l e c t u e l e t e n c o n s é q u e n c e d ' u n i n t é r ê t
+p r o f o n d p o u r l e s m a t h é m a t i q u e s .
+1 . 2 U n m o t d e l ' a u t e u r
+L e d o c u m e n t q u e v o u s v o u s a p p r ê t e z à l i r e s ' i n s c r i t d a n s u n e q u ê t e q u o t i d i e n n e , i n t i m e e t
+p e r s i s t a n t e , q u i h a b i t e l ' a u t e u r d e p u i s t o u j o u r s . U n e q u ê t e q u i , p r o b a b l e m e n t , n e l e q u i t t e r a
+j a m a i s .
+R é s u m é v i s u e l
+I m a g i n e z u n j e u n e é l è v e f a s c i n é p a r u n e p r o p r i é t é s i m p l e m a i s i n t r i g a n t e : e n t r e d e u x
+n o m b r e s e n t i e r s c o n s é c u t i f s , i l n e p e u t j a m a i s y a v o i r m o i n s q u ' u n e u n i t é . C e t t e o b s e r v a t i o n
+é l é m e n t a i r e , e n s e i g n é e d è s l ' é c o l e p r i m a i r e , é v e i l l a u n e p r o f o n d e c u r i o s i t é q u i m e n a , d e s
+a n n é e s p l u s t a r d , à l a d é c o u v e r t e p r é s e n t é e d a n s c e d o c u m e n t .
+T r è s j e u n e , l ' a u t e u r s ' i n t é r e s s a à l a d i s t r i b u t i o n d e s n o m b r e s e n t i e r s . I l t e n t a u n e e x p é r i e n c e
+n a ï v e m a i s r é v é l a t r i c e : a j o u t e r s u c c e s s i v e m e n t l a v a l e u r d e 1 u n i t é à d e s n o m b r e s p a i r s . P a r
+e x e m p l e :
+1+50=51
+1 +100=101
+1 +200=201
+1 +800=801
+I l o b s e r v a q u e l e s r a p p o r t s e n t r e c e s a j o u t s d o n n a i e n t t o u s1
+2:
+50
+100=100
+200=200
+400=400
+800=1
+2
+R é s u m é v i s u e l
+V i s u a l i s e z c e t t e d é c o u v e r t e c o m m e u n e é c h e l l e o ù c h a q u e b a r r e a u e s t e x a c t e m e n t à m i -
+c h e m i n e n t r e l e p r é c é d e n t e t l e s u i v a n t . C e t t e f r a c t i o n c o n s t a n t e1
+2a p p a r a î t c o m m e u n  l
+c o n d u c t e u r r e l i a n t t o u s l e s n o m b r e s e n t i e r s e n t r e e u x .
+P l u s t a r d , a u d é b u t d u s e c o n d a i r e , l ' a u t e u r d é c o u v r i t l e s n o m b r e s p r e m i e r s . U n n o m b r e
+p r e m i e r e s t d i v i s i b l e u n i q u e m e n t p a r 1 e t p a r l u i - m ê m e . L e s d i x p r e m i e r s n o m b r e s p r e m i e r s
+s o n t : 2 , 3 , 5 , 7 , 1 1 , 1 3 , 1 7 , 1 9 , 2 3 e t 2 9 .
+C e s o u v e n i r r e s t a e n f o u i p e n d a n t p r è s d e v i n g t a n s , j u s q u ' e n 2 0 1 6 . L ' a u t e u r r e p r i t l ' e x p é r i e n c e
+a v e c l e s n o m b r e s p r e m i e r s d e 0 à 1 0 9 , e n e x c l u a n t 2 e t 5 . I l c o n s t a t a q u e 6 6 , 6 6 % d e s n o m b r e s
+3
+a i n s i g é n é r é s é t a i e n t p r e m i e r s e n e  e c t u a n t + / - 5 0 , 1 0 0 , 2 0 0 , 4 0 0 e t 8 0 0 a c e s n o m b r e s . D e p l u s
+e n p l u s d e c e n o m b r e é l e v é d e n o m b r e s p r e m i e r s a i n s i d é v o i l é . i l a v a i t t o u s e n t r e e u x 1 / 2 l o r s q u e
+p l a c é s e n r e l a t i o n .
+C ' e s t à c e t t e é p o q u e q u ' i l c o m m e n ç a à s ' i n t é r e s s e r à l ' h y p o t h è s e d e R i e m a n n e t à s e p o s e r l a
+q u e s t i o n f o n d a m e n t a l e :
+L ' é n i g m e d e B e r n h a r d R i e m a n n :
+ E s t - c e q u e t o u s l e s z é r o s n o n t r i v i a u x d e l a f o n c t i o n z ê t a d e B e r n h a r d
+R i e m a n n o n t t o u s p o u r p a r t i e r é e l l e1
+2? 
+4
+2 P r e m i è r e P a r t i e : L a G é o m é t r i e d u S p e c t r e d e s N o m b r e s P r e -
+m i e r s
+F i g u r e 1  R e p r é s e n t a t i o n d e l a f o n c t i o n Z ê t a d e P h i l i p p ô t d a n s u n p l a n(x,y,z)  L ' h y p e r c u b e
+( T e s s e r a c t ) t o u r n e s u r l u i - m ê m e p e r p é t u e l l e m e n t à 3 6 0 d e g r é s .
+R é s u m é v i s u e l
+I m a g i n e z u n h y p e r c u b e ( t e s s e r a c t )  u n e  g u r e g é o m é t r i q u e à q u a t r e d i m e n s i o n s  t o u r -
+n a n t p e r p é t u e l l e m e n t s u r l u i - m ê m e d a n s l ' e s p a c e t r i d i m e n s i o n n e l . C e t t e r o t a t i o n c r é e d e s
+p r o j e c t i o n s d y n a m i q u e s q u i , s e l o n l ' a u t e u r , e n c o d e n t l a d i s t r i b u t i o n d e s n o m b r e s p r e m i e r s .
+2 . 1 M o u v e m e n t d u p l a n c a r t é s i e n e t T e s s e r a c t
+E n e  e t , l e p r o d u i t e n t r e l e p é r i m è t r e d ' u n c a r r é A e t l a m e s u r e d u d i a m è t r e d ' u n c a r r é B
+e s t é g a l a u p r o d u i t d u p é r i m è t r e d u c a r r é B e t d e l a m e s u r e d u d i a m è t r e d u c a r r é A . L a  g u r e
+d e l ' h y p e r c u b e a u r e p l i t y p e d e l a  g u r e e s t d é m o n t r é a l ' a i d e d e c e p r o d u i t a l t e r n a t i f . L e p r o -
+d u i t e n t r e l e d i a m è t r e d u c a r r é A p a r l e p é r i m è t r e d u c a r r é B é g a l e a u p r o d u i t d u d i a m è t r e d u
+c a r r é B p a r l e p é r i m è t r e d u c a r r é A , d o n n e n a i s s a n c e a l ' a n a l y s e n u m é r i q u e m é t r i q u e q u i s e r a
+d é t a i l l é d a n s c e d o c u m e n t p l u s e n p r o f o n d e u r . D e u x p r o d u i t a l t e r n a t i f s d i s t i n c t s d é  n i s s e n t l e
+r e p l i e n t t y p i q u e d e l ' h y p e r c u b e ? L e p r o d u i t a l t e r n a t i f s y m é t r i q u e e t l e p r o d u i t a l t e r n a t i f a s y -
+m é t r i q u e . L e s p r o p r i é t é e d u p r o d u i t a l t e r n a t i f a s s y m é t r i q u e s o n t d i  é r e n t e s d e c e l u i s y m é t r i q u e .
+L e p r o d u i t a l t e r n a t i f a s y m é t r i q u e p a s d u r é s u l t a t d u p r o d u i t e n t r e d e u x c a r r é s , m a i s b i e n l e f r u i t
+d u p r o d u i t r é s u l t a n t d e l a d é f o r m a t i o n d e l ' h y p e r c u b e f o r m a n t u n r e c t a n g l e ? C e r e c t a n g l e e s t
+d i v i s é e n s e c t i o n s . 4 s e c t i o n s d i  é r e n t e s d o n t l e p r o d u i t d e s a i r e s d i a g o n a l e m e n t o p p o s é f o r m e
+l e p r o d u i t a l t e r n a t i f . C e s a i r e s c o m m e l e d é m o n t r e l ' e x e m p l e p r é s e n t é d a n s l e d o c u m e n t d o n t
+l e s v a l e u r n u m é r i q u e d e s a i r e s c o r e s p o n d r e a u x p r o p r i é t é s p é r i m è t r e s d i a m è t r e s c a r a c t é r i s a n t
+l e p r o d u i t a l t e r n a t i f s y m é t r i q u e . L e r é s u l t a t d e c e p r o d u i t a l t e r n a t i f a s y m é t r i q u e d o n t l e s a i r e s
+o p p o s é d i a g o n a l e m e n t p o s s è d e n t l e s c a r a c t é r i s t i q u e s p é r i m è t r e s d i a m è t r e s d u p r o d u i t a l t e r n a t i f
+s y m é t r i q u e .
+5
+D é  n i t i o n : P r o d u i t a l t e r n a t i f
+C e p r o d u i t a l t e r n a t i f à d r o i t e e s t , p o u r S a v a r d , l e r é s u l t a t d u m o u v e m e n t d u T e s s e r a c t .
+D e u x c a r r é s s o n t r e p r é s e n t é s :
+ U n c a r r é d e1×1
+ U n c a r r é d e1.5×1.5
+F i g u r e 2  A n a l y s e d u m o u v e m e n t d e l ' h y p e r c u b e s u r f a c e p a r s u r f a c e  P r o d u i t a l t e r n a t i f
+s y m é t r i q u e e t a s y m é t r i q u e
+2 . 2 M o u v e m e n t d e l ' h y p e r c u b e s u r f a c e p a r s u r f a c e
+2 . 2 . 1 P r o d u i t a l t e r n a t i f s y m é t r i q u e
+E x e m p l e : C a l c u l d u p r o d u i t a l t e r n a t i f s y m é t r i q u e
+C a r r é A :
+ C ô t é C a r r é A=1
+ D i a m è t r e C a r r é A=√
+2
+C a r r é B :
+ C ô t é C a r r é B=1.5
+ D i a m è t r e C a r r é B=√
+4.5
+P r o d u i t a l t e r n a t i f à a j o u t e r :
+(1.5×4)×√
+2 =√
+4.5×4
+R é s u l t a t d u p r o d u i t :√
+72
+6
+2 . 2 . 2 P r o d u i t a l t e r n a t i f a s y m é t r i q u e
+E x e m p l e : C a l c u l d e s a i r e s  C o r r i g é
+L e s a i r e s d e s d i  é r e n t e s s u r f a c e s s o n t c a l c u l é e s c o m m e s u i t :
+A i r e A= (√
+8−2)2=0.686291501( 1 )
+A i r e B=2×(4−√
+8)( 2 )
+A i r e C= (√
+8−2)×(4−√
+8)=0.9705627485( 3 )
+A i r e D= 2×(√
+8−2)=√
+32−4( 4 )
+T r a n s p o s i t i o n e n r e l a t i o n p é r i m è t r e - d i a m è t r e :
+C e q u i s e t r a n s p o s e e n :
+P é r i m è t r e A× D i a m è t r e B= D i a m è t r e A× P é r i m è t r e B ( p o u r l e s a i r e s )
+P r o d u i t a l t e r n a t i f c o r r i g é :
+0.9705627485×(√
+32−4)=0.686291501×2×(4−√
+8)
+V o l u m e d e l ' h y p e r c u b e :
+(4−√
+8)3=(4−√
+8)3V o l u m e d e l ' h y p e r c u b e
+R é s u m é v i s u e l
+L e r é s u l t a t  n a l p o u r l e p r o d u i t a l t e r n a t i f a s y m é t r i q u e r é v è l e u n e v a l e u r a s s o c i a b l e à u n
+c u b e ( p u i s s a n c e 3 ) . C e p o i n t p e r m e t d ' a s s o c i e r l e p r o d u i t a l t e r n a t i f , à p a r t i r d e s u r f a c e s
+d e  g u r e s s y m é t r i q u e s e t a s y m é t r i q u e s , a u m o u v e m e n t d ' u n t e s s e r a c t e n a n a l y s a n t s o n
+m o u v e m e n t u n e s u r f a c e à l a f o i s .
+7
+3 A n a l y s e N u m é r i q u e M é t r i q u e
+C e t t e s e c t i o n p r é s e n t e u n e a n a l y s e n u m é r i q u e m é t r i q u e e n l i e n a v e c l a f o n c t i o n Z ê t a d e
+P h i l i p p ô t .
+F i g u r e 3  R e p r é s e n t a t i o n 3 D d e l ' a n a l y s e n u m é r i q u e m é t r i q u e  L e s c u b e s e t p y r a m i d e s i n t e r n e s
+R é s u m é v i s u e l
+V i s u a l i s e z u n m o n t i c u l e d e g r a n u l a t s , c o m m e c e l u i q u ' o n a n a l y s e e n g r a n u l o m é t r i e . I m a -
+g i n e z q u e c h a q u e g r a i n , m ê m e l e s p l u s i n  m e s p o u s s i è r e s , p o r t e u n n o m b r e d i s t i n c t . C e
+m o n t i c u l e r e p r é s e n t e l ' e n s e m b l e d e s n o m b r e s d e z é r o à l ' i n  n i . L ' a n a l y s e n u m é r i q u e m é -
+t r i q u e f o n c t i o n n e c o m m e u n t a m i s a g e m a t h é m a t i q u e d e c e s n o m b r e s o u l e s n o m b r e p r e -
+m i e r s e t c o m p o s é s c e s d e u x e n t i t é e s d i s t i n c t j u s t i  e l a s u b s t i t u t i o n e  e c t u é d a n s l a s u i t e
+B q u i e s t t o u j o u r s a l a p o s i t o n d u 6 i è m e t e r m e s .
+8
+3 . 1 A n a l y s e n u m é r i q u e m é t r i q u e e n 3 d i m e n s i o n s
+F i g u r e 4  V u e d e h a u t d e l ' a n a l y s e n u m é r i q u e m é t r i q u e
+F i g u r e 5  A n a l y s e n u m é r i q u e m é t r i q u e  V u e c e n t r a l e a v e c p r o g r e s s i o n d u D i g a m m a
+9
+D é  n i t i o n : L e D i g a m m a
+D a n s l e s y s t è m e d e n u m é r a t i o n g r e c q u e , l e Z ê t a v a u t 7 , b i e n q u ' i l o c c u p e l a s i x i è m e
+p o s i t i o n . C e c i e s t d û à l ' a n c i e n n e e x i s t e n c e d u D i g a m m a , s i t u é e n t r e l ' E p s i l o n e t l e Z ê t a .
+( D é  n i t i o n t i r é e d e l ' e n c y c l o p é d i e l i b r e W i k i p é d i a )
+C e t t e p a r t i c u l a r i t é  u n e v a l e u r q u i n e c o r r e s p o n d p a s à l a p o s i t i o n  r e j o i n t l ' i d é e d e
+s u b s t i t u t i o n é v o q u é e d a n s l ' a n a l y s e g r a n u l o m é t r i q u e q u i c o m m e p o u r l a m é t h o d e l i é a u
+s o l p e r m e t l e t a m i s a g e d ' u n s o l c o m p o s é d e d e u x g r a n u l a t p e r m e t d u a l a s u b s t i t u t i o n
+d a n s l a s u i t e B d e c o m p a r e r l e s n o m b r e s c o m p o s é s e t l e s n o m b r e s p r e m i e r s .
+3 . 2 G é o m é t r i e d e s s u i t e s
+F i g u r e 6  A n a l y s e n u m é r i q u e m é t r i q u e e n d e u x d i m e n s i o n s  A i r e s d e s t r a p è z e s
+L e s d e u x s u i t e s ( l a p r e m i è r e A e t l a d e u x i è m e B ) u t i l i s é e s p o u r d é t e r m i n e r l a v a l e u r d e s
+n o m b r e s p r e m i e r s s o n t d é  n i e s p a r l e s p a r a l l é l o g r a m m e s q u i c o n s t i t u e l ' a n a l y s e n u m é r i q u e m é -
+t r i q u e à l ' i n t é r i e u r d e s r e c t a n g l e s . C e s p a r a l l é l o g r a m m e s s o n t t r a v e r s é s l e l o n g d e l a g r a n d e
+d i a g o n a l , p a s s a n t p a r l e u r s c e n t r e s l o n g i t u d i n a u x .
+1 0
+E x e m p l e : C a l c u l d e s a i r e s d e s t r a p è z e s
+L e s l e t t r e s A , B , C , D , E , F , G , H f o r m e n t t r o i s t r a p è z e s s u c c e s s i f s : A B C D , C D E F e t
+E F G H . L e s a i r e s d e c e s t r a p è z e s p r é s e n t e n t u n e p r o p r i é t é r e m a r q u a b l e : u n e f o i s m i s e s e n
+r e l a t i o n , e l l e s e n t r e t i e n n e n t e n t r e e l l e s u n r a p p o r t c o n s t a n t d e1
+2.
+C a l c u l s :
+A i r e A B C D=(√
+2−1)+(2−√
+2)
+2×1=0.5( 5 )
+A i r e C D E F=(2−√
+2)+(√
+8−2)
+2×√
+2 =1( 6 )
+A i r e E F G H=(√
+8−2)+(4−√
+8)
+2×2=2( 7 )
+M i s e e n r e l a t i o n d e s a i r e s :
+0.5
+1=1
+2e t1
+2=1
+2
+R é s u m é v i s u e l
+À c e t t e é t a p e , l e s a i r e s d e s t r a p è z e s u n e é v i d e n c e i n t u i t i v e  q u e l e s p a r t i e s r é e l l e s d e s
+z é r o s n o n t r i v i a u x d e l a f o n c t i o n z ê t a p o u r r a i e n t t o u t e s ê t r e é g a l e s à1
+2.
+1 1
+4 L a M é t h o d e d e P h i l i p p ô t  V a l i d a t i o n I s a b e l l e / H O L
+L a m é t h o d e d e P h i l i p p ô t c o n s t i t u e l a p r e m i è r e é t a p e d a n s u n e  o r t v i s a n t à d é t e r m i n e r l e s
+n o m b r e s p r e m i e r s . I l s ' a g i t d ' u n e a p p r o c h e i t é r a t i v e , f o n d é e s u r d e s s u i t e s f r a c t i o n n a i r e s , d o n t l a
+s o m m e p r o d u i t u n r é s u l t a t  n i à c h a q u e é t a p e .
+R é s u m é v i s u e l
+I m a g i n e z u n e s é r i e d e f r a c t i o n s c o m m e l e s m a r c h e s d ' u n e s c a l i e r : c h a q u e m a r c h e e s t
+e x a c t e m e n t l a m o i t i é d e l a p r é c é d e n t e . E n m o n t a n t c e t e s c a l i e r , v o u s v o u s r a p p r o c h e z
+t o u j o u r s p l u s d ' u n p l a f o n d ( l a v a l e u r 1 ) , s a n s j a m a i s l ' a t t e i n d r e c o m p l è t e m e n t , s a u f s i
+v o u s s u i v e z l e s r è g l e s p r é c i s e s d e l a m é t h o d e .
+4 . 1 S c r i p t H O L C o m p l e t : m e t h o d e _ d e _ p h i l i p p o t . t h y
+F i c h i e r : m e t h o d e _ d e _ p h i l i p p o t . t h y  C O M P L E T
+t h e o r y m e t h o d e _ d e _ p h i l i p p o t
+i m p o r t s M a i n  H O L . R a t 
+b e g i n
+s e c t i o n  G é o m é t r i e d u s p e c t r e p r e m i e r  m e t h o d e d e P h i l i p p o t . 
+t e x t 
+C e f i c h i e r c o n t i e n t l e s d é f i n i t i o n s , s t r u c t u r e s e t m é c a n i s m e s n é c e s s a i r e s
+à l ` é t u d e d e l a g é o m é t r i e d u s p e c t r e p r e m i e r , i n c l u a n t l a m é t h o d e d e
+P h i l i p p ô t .
+
+s u b s e c t i o n  É t a p e 1 : s u i t e s e x p l i c i t e s p o u r 3 à 1 1 t e r m e s 
+d e f i n i t i o n e t a p e 1 _ 3 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 3 = [ 1 / 2 , 1 / 3 , 1 / 6 ] 
+d e f i n i t i o n e t a p e 1 _ 4 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 4 = [ 1 / 2 , 1 / 4 , 1 / 6 , 1 / 1 2 ] 
+d e f i n i t i o n e t a p e 1 _ 5 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 5 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 2 , 1 / 2 4 ] 
+d e f i n i t i o n e t a p e 1 _ 6 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 6 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 2 4 , 1 / 4 8 ] 
+d e f i n i t i o n e t a p e 1 _ 7 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 7 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 3 2 , 1 / 4 8 , 1 / 9 6 ] 
+d e f i n i t i o n e t a p e 1 _ 8 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 8 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 3 2 , 1 / 6 4 , 1 / 9 6 , 1 / 1 9 2 ] 
+d e f i n i t i o n e t a p e 1 _ 9 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 9 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 3 2 , 1 / 6 4 , 1 / 1 2 8 , 1 / 1 9 2 , 1 / 3 8 4 ] 
+d e f i n i t i o n e t a p e 1 _ 1 0 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 1 0 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 3 2 , 1 / 6 4 , 1 / 1 2 8 , 1 / 2 5 6 , 1 / 3 8 4 , 1 / 7 6 8 ] 
+1 2
+d e f i n i t i o n e t a p e 1 _ 1 1 : :  r a t l i s t  w h e r e
+ e t a p e 1 _ 1 1 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 3 2 , 1 / 6 4 , 1 / 1 2 8 , 1 / 2 5 6 , 1 / 5 1 2 , 1 / 7 6 8 ,
+1 / 1 5 3 6 ] 
+s u b s e c t i o n  S t r u c t u r e r é g l e m e n t a i r e d e s s u i t e s à l ` é t a p e 1 
+f u n e t a p e 1 _ g e n e r a l : :  n a t⇒ r a t l i s t  w h e r e
+ e t a p e 1 _ g e n e r a l n =
+( i f n < 3 t h e n [ ]
+e l s e
+l e t
+b a s e = m a p (λ i . 1 / ( 2 ^ i ) ) [ 1 . . < n - 1 ] ;
+a v a n t = ( 1 / ( 2 ^ ( n - 2 ) ) ) * ( 2 / 3 ) ;
+d e r n i e r = a v a n t / 2
+i n b a s e @ [ a v a n t , d e r n i e r ] ) 
+d e f i n i t i o n s u i t e _ r e g l e m e n t a i r e _ e t a p e 1 : :  n a t⇒ r a t l i s t⇒ b o o l  w h e r e
+ s u i t e _ r e g l e m e n t a i r e _ e t a p e 1 n x s←→
+l e n g t h x s = n∧
+n≥ 3∧
+(∀ i . 1≤ i∧ i≤ n - 2−→ x s ! ( i - 1 ) = 1 / ( 2 ^ i ) )∧
+x s ! ( n - 2 ) = x s ! ( n - 3 ) * ( 2 / 3 )∧
+x s ! ( n - 1 ) = x s ! ( n - 2 ) / 2 
+s u b s e c t i o n  R è g l e g é n é r a l e d e s u b s t i t u t i o n ( t o u t e s é t a p e s≥ 2 ) 
+t e x t 
+L a p o s i t i o n d e s u b s t i t u t i o n d é p e n d u n i q u e m e n t d u n o m b r e d e t e r m e s n :
+ p o u r 3≤ n≤ 7 , l a p o s i t i o n d e s u b s t i t u t i o n e s t n - 2 ( 1 , 2 , 3 , 4 , 5 ) ;
+ p o u r n≥ 8 , l a p o s i t i o n d e s u b s t i t u t i o n e s t f i x é e à 6 .
+
+d e f i n i t i o n p o s _ s u b s t i t u t i o n : :  n a t⇒ n a t  w h e r e
+ p o s _ s u b s t i t u t i o n n =
+( i f n < 3 t h e n 0
+e l s e i f n≤ 7 t h e n n - 2
+e l s e 6 ) 
+s u b s e c t i o n  É t a p e 2 : s u i t e s e x p l i c i t e s p o u r 3 à 7 t e r m e s 
+d e f i n i t i o n e t a p e 2 _ 3 : :  r a t l i s t  w h e r e
+ e t a p e 2 _ 3 = [ 1 / 4 , 1 / 6 , 1 / 1 2 ] 
+d e f i n i t i o n e t a p e 2 _ 4 : :  r a t l i s t  w h e r e
+ e t a p e 2 _ 4 = [ 1 / 2 , 1 / 8 , 1 / 1 2 , 1 / 2 4 ] 
+d e f i n i t i o n e t a p e 2 _ 5 : :  r a t l i s t  w h e r e
+ e t a p e 2 _ 5 = [ 1 / 2 , 1 / 4 , 1 / 1 6 , 1 / 2 4 , 1 / 4 8 ] 
+d e f i n i t i o n e t a p e 2 _ 6 : :  r a t l i s t  w h e r e
+ e t a p e 2 _ 6 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 3 2 , 1 / 4 8 , 1 / 9 6 ] 
+d e f i n i t i o n e t a p e 2 _ 7 : :  r a t l i s t  w h e r e
+1 3
+ e t a p e 2 _ 7 = [ 1 / 2 , 1 / 4 , 1 / 8 , 1 / 1 6 , 1 / 6 4 , 1 / 9 6 , 1 / 1 9 2 ] 
+d e f i n i t i o n s u i t e _ r e g l e m e n t a i r e _ e t a p e 2 _ p e t i t : :
+ n a t⇒ r a t l i s t⇒ b o o l  w h e r e
+ s u i t e _ r e g l e m e n t a i r e _ e t a p e 2 _ p e t i t n x s←→
+l e n g t h x s = n∧ 3≤ n∧ n≤ 7∧
+x s ! ( n - 2 ) = x s ! ( n - 3 ) * ( 2 / 3 )∧
+s u m _ l i s t x s = 1 - x s ! ( p o s _ s u b s t i t u t i o n n - 1 ) 
+d e f i n i t i o n s u i t e _ r e g l e m e n t a i r e _ e t a p e 2 _ g r a n d : :
+ n a t⇒ r a t l i s t⇒ b o o l  w h e r e
+ s u i t e _ r e g l e m e n t a i r e _ e t a p e 2 _ g r a n d n x s←→
+l e n g t h x s = n∧ n≥ 8∧
+x s ! ( n - 2 ) = x s ! ( n - 3 ) * ( 2 / 3 )∧
+p o s _ s u b s t i t u t i o n n = 6∧
+s u m _ l i s t x s = 1 - ( 1 / 6 4 ) 
+s u b s e c t i o n  É t a p e 3 : s u i t e s e x p l i c i t e s p o u r 7 t e r m e s e t m o i n s 
+t e x t 
+L ` é t a p e 3 r é p è t e l e m é c a n i s m e d e l ` é t a p e 2 :
+u n e p o s i t i o n e s t s u b s t i t u é e , e t u n e v a l e u r c o m p e n s a t o i r e e s t a j o u t é e
+d e l ` a u t r e c ô t é d e l ` é g a l i t é . L a p o s i t i o n d e s u b s t i t u t i o n e s t l a m ê m e
+q u e p o u r l ` é t a p e 2 p o u r u n n o m b r e d e t e r m e s d o n n é .
+
+d e f i n i t i o n e t a p e 3 _ 3 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 3 = [ 1 / 2 4 , 1 / 1 2 , 1 / 8 ] 
+d e f i n i t i o n e t a p e 3 _ 4 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 4 = [ 1 / 4 8 , 1 / 2 4 , 1 / 1 6 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 5 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 5 = [ 1 / 9 6 , 1 / 4 8 , 1 / 3 2 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 6 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 6 = [ 1 / 1 9 2 , 1 / 9 6 , 1 / 6 4 , 1 / 8 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 7 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 7 = [ 1 / 1 9 2 , 1 / 9 6 , 1 / 1 2 8 , 1 / 1 6 , 1 / 8 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n v a l e u r _ s u b s t i t u e e _ e t a p e 3 : :  n a t⇒ r a t  w h e r e
+ v a l e u r _ s u b s t i t u e e _ e t a p e 3 n =
+( i f n = 3 t h e n 1 / 2 + 1 / 4
+e l s e i f n = 4 t h e n 1 / 4 + 1 / 8
+e l s e i f n = 5 t h e n 1 / 8 + 1 / 1 6
+e l s e i f n = 6 t h e n 1 / 1 6 + 1 / 3 2
+e l s e i f n = 7 t h e n 1 / 3 2 + 1 / 6 4
+e l s e 0 ) 
+d e f i n i t i o n s u i t e _ r e g l e m e n t a i r e _ e t a p e 3 : :
+ n a t⇒ r a t l i s t⇒ b o o l  w h e r e
+ s u i t e _ r e g l e m e n t a i r e _ e t a p e 3 n x s←→
+l e n g t h x s = n∧ 3≤ n∧ n≤ 7∧
+s u m _ l i s t x s = 1 - v a l e u r _ s u b s t i t u e e _ e t a p e 3 n 
+1 4
+s u b s e c t i o n  É t a p e 3 : s u i t e s e x p l i c i t e s p o u r 8 t e r m e s e t p l u s 
+d e f i n i t i o n e t a p e 3 _ 8 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 8 =
+[ 1 / 3 8 4 , 1 / 1 9 2 , 1 / 1 2 8 , 1 / 3 2 , 1 / 1 6 , 1 / 8 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 9 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 9 =
+[ 1 / 7 6 8 , 1 / 3 8 4 , 1 / 2 5 6 , 1 / 1 2 8 , 1 / 3 2 , 1 / 1 6 , 1 / 8 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 1 0 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 1 0 =
+[ 1 / 1 5 3 6 , 1 / 7 6 8 , 1 / 5 1 2 , 1 / 2 5 6 , 1 / 1 2 8 , 1 / 3 2 , 1 / 1 6 , 1 / 8 , 1 / 4 , 1 / 2 ] 
+d e f i n i t i o n e t a p e 3 _ 1 1 : :  r a t l i s t  w h e r e
+ e t a p e 3 _ 1 1 =
+[ 1 / 3 0 7 2 , 1 / 1 5 3 6 , 1 / 1 0 2 4 , 1 / 5 1 2 , 1 / 2 5 6 , 1 / 1 2 8 , 1 / 3 2 , 1 / 1 6 , 1 / 8 , 1 / 4 ,
+1 / 2 ] 
+d e f i n i t i o n v a l e u r _ s u b s t i t u e e _ e t a p e 3 _ g r a n d : :  r a t  w h e r e
+ v a l e u r _ s u b s t i t u e e _ e t a p e 3 _ g r a n d = ( 1 / 6 4 + 1 / 1 2 8 ) 
+d e f i n i t i o n s u i t e _ r e g l e m e n t a i r e _ e t a p e 3 _ g r a n d : :
+ n a t⇒ r a t l i s t⇒ b o o l  w h e r e
+ s u i t e _ r e g l e m e n t a i r e _ e t a p e 3 _ g r a n d n x s←→
+l e n g t h x s = n∧ n≥ 8∧
+p o s _ s u b s t i t u t i o n n = 6∧
+s u m _ l i s t x s = 1 - v a l e u r _ s u b s t i t u e e _ e t a p e 3 _ g r a n d 
+s u b s e c t i o n  P r o p r i é t é f o n d a m e n t a l e d e s p u i s s a n c e s d e d e u x 
+l e m m a r a t i o _ p u i s s a n c e s _ d e _ d e u x :
+f i x e s n : : n a t
+s h o w s  ( 1 / ( 2 ^ ( S u c n ) ) : : r a t ) / ( 1 / ( 2 ^ n ) ) = 1 / 2 
+b y ( s i m p a d d : f i e l d _ s i m p s )
+l e m m a e x e m p l e s _ r a t i o _ p u i s s a n c e s _ d e _ d e u x :
+s h o w s  ( 1 / 1 2 8 : : r a t ) / ( 1 / 6 4 ) = 1 / 2 
+a n d  ( 1 / 6 4 : : r a t ) / ( 1 / 3 2 ) = 1 / 2 
+a n d  ( 1 / 3 2 : : r a t ) / ( 1 / 1 6 ) = 1 / 2 
+a n d  ( 1 / 1 6 : : r a t ) / ( 1 / 8 ) = 1 / 2 
+a n d  ( 1 / 8 : : r a t ) / ( 1 / 4 ) = 1 / 2 
+a n d  ( 1 / 4 : : r a t ) / ( 1 / 2 ) = 1 / 2 
+b y ( s i m p _ a l l a d d : r a t i o _ p u i s s a n c e s _ d e _ d e u x )
+s u b s e c t i o n  S t r u c t u r e s p e c t r a l e g e n e r a l e p o u r n t e r m e s e t i n f i n i t e d ` e t a p e s 
+t e x t 
+D a n s c e t t e s e c t i o n , o n f o r m a l i s e l a s t r u c t u r e p u r e m e n t s p e c t r a l e d e s
+p u i s s a n c e s d e d e u x ,
+i n d e p e n d a n t e d e s s u b s t i t u t i o n s s p e c i f i q u e s d e s e t a p e s 1 , 2 e t 3 .
+I d e e c e n t r a l e :
+1 5
+ c h a q u e t e r m e e s t d e l a f o r m e 1 / 2 ^ i ( i≥ 1 ) ;
+ l e r a p p o r t e n t r e d e u x t e r m e s c o n s e c u t i f s e s t t o u j o u r s 1 / 2 ;
+ c e t t e p r o p r i e t e v a u t p o u r t o u t e l o n g u e u r f i n i e n , e t c o n c e p t u e l l e m e n t
+p o u r u n e i n f i n i t e d e t e r m e s .
+
+d e f i n i t i o n t e r m e _ s p e c t r a l : :  n a t⇒ r a t  w h e r e
+ t e r m e _ s p e c t r a l i = 1 / ( 2 ^ i ) 
+d e f i n i t i o n s u i t e _ s p e c t r a l e : :  n a t⇒ r a t l i s t  w h e r e
+ s u i t e _ s p e c t r a l e n = m a p t e r m e _ s p e c t r a l [ 1 . . < S u c n ] 
+t e x t 
+P r o p r i e t e s p e c t r a l e l o c a l e : p o u r t o u t i≥ 1 ,
+l e r a p p o r t e n t r e l e t e r m e i + 1 e t l e t e r m e i e s t e x a c t e m e n t 1 / 2 .
+
+l e m m a r a t i o _ s p e c t r a l _ l o c a l :
+f i x e s i : : n a t
+a s s u m e s  i≥ 1 
+s h o w s  t e r m e _ s p e c t r a l ( S u c i ) / t e r m e _ s p e c t r a l i = ( 1 / 2 : : r a t ) 
+p r o o f -
+h a v e  t e r m e _ s p e c t r a l ( S u c i ) / t e r m e _ s p e c t r a l i
+= ( 1 / ( 2 ^ ( S u c i ) ) ) / ( 1 / ( 2 ^ i ) ) 
+b y ( s i m p a d d : t e r m e _ s p e c t r a l _ d e f )
+a l s o h a v e  . . . = ( 1 / 2 : : r a t ) 
+u s i n g r a t i o _ p u i s s a n c e s _ d e _ d e u x [ o f i ] b y s i m p
+f i n a l l y s h o w ? t h e s i s .
+q e d
+t e x t 
+I n t e r p r e t a t i o n :
+ l a d e f i n i t i o n  t e r m e _ s p e c t r a l  e n c o d e u n e i n f i n i t e d e t e r m e s 1 / 2 ^ i , i≥
+1 ;
+ l e l e m m e  r a t i o _ s p e c t r a l _ l o c a l  m o n t r e q u e l e r a p p o r t e n t r e d e u x t e r m e s
+c o n s e c u t i f s
+e s t t o u j o u r s 1 / 2 , p o u r t o u t i ;
+ e n p r o l o n g e a n t i s a n s b o r n e , o n o b t i e n t u n e s t r u c t u r e s p e c t r a l e q u i
+p r o d u i t 1 / 2
+u n e i n f i n i t e d e f o i s , d e m a n i è r e p u r e m e n t a r i t h m e t i q u e .
+
+e n d
+4 . 2 T a b l e a u f r a c t i o n n a i r e  E t a p e 1
+P o s . 1 1 1 0 9 8 7 6 5 4 3 2 1 S o m m e
+1
+61
+31
+2= 1
+1
+121
+61
+41
+2= 1
+1
+241
+121
+81
+41
+2= 1
+1
+481
+241
+161
+81
+41
+2= 1
+1
+961
+481
+321
+161
+81
+41
+2= 1
+1
+1921
+961
+641
+321
+161
+81
+41
+2= 1
+1
+3841
+1921
+1281
+641
+321
+161
+81
+41
+2= 1
+1
+7681
+3841
+2561
+1281
+641
+321
+161
+81
+41
+2= 1
+1
+15361
+7681
+5121
+2561
+1281
+641
+321
+161
+81
+41
+2= 1
+1 6
+R é s u m é v i s u e l
+I n t e r p r e t a t i o n : C e r e s u l t a t m o n t r e q u e l e r a p p o r t e n t r e d e u x p u i s s a n c e s s u c c e s s i v e s d e
+1
+2e s t t o u j o u r s c o n s t a n t e t é g a l à1
+2. C o m m e u n e c h a î n e o ù c h a q u e m a i l l o n e s t e x a c t e m e n t
+l a m o i t i é d u p r é c é d e n t , c e t t e p r o p r i é t é r e s t e v r a i e j u s q u ' à l ' i n  n i .
+4 . 3 M e t h o d e d e P h i l i p p ô t  T a b l e a u x d e s E t a p e s 2 e t 3
+P o s . 1 1 1 0 9 8 7 6 5 4 3 2 1 S o m m e
+1
+61
+31
+2= 1
+1
+121
+61
+41
+2= 1
+1
+241
+121
+81
+41
+2= 1
+1
+481
+241
+161
+81
+41
+2= 1
+1
+961
+481
+321
+161
+81
+41
+2= 1
+1
+1921
+961
+641
+321
+161
+81
+41
+2= 1
+1
+3841
+1921
+1281
+641
+321
+161
+81
+41
+2= 1
+T a b l e a u E t a p e 3  M e t h o d e d e P h i l i p p ô t
+1 1 1 0 9 8 7 6 5 4 3 2 1 P o s i t i o n s S o m m e s
+1
+241
+121
+82 1 =1− 1
+2+1
+4
+1
+481
+241
+161
+23 1 =1− 1
+4+1
+8
+1
+961
+481
+321
+41
+24 1 =1− 1
+8+1
+16
+1
+1921
+961
+641
+81
+41
+25 1 =1− 1
+16+1
+32
+1
+1921
+961
+1281
+161
+81
+41
+26 1 =1− 1
+32+1
+64
+R é s u m é v i s u e l
+I n t e r p r e t a t i o n d e s E t a p e s 2 e t 3 : C e s t a b l e a u x i l l u s t r e n t l a p r o g r e s s i o n d e l a m é -
+t h o d e d e P h i l i p p ô t o ù u n e p o s i t i o n e s t s u b s t i t u é e à c h a q u e é t a p e . L a v a l e u r s u b s t i t u é e e s t
+m u l t i p l i é e p a r1
+2p a r r a p p o r t à l ' é t a p e p r é c é d e n t e , c r é a n t a i n s i u n e s t r u c t u r e f r a c t i o n n a i r e
+c o h é r e n t e q u i c o n v e r g e v e r s l e s p r o p r i é t é s d e s n o m b r e s p r e m i e r s .
+T a b l e a u E t a p e 3 p o u r 8 t e r m e s e t p l u s  M e t h o d e d e P h i l i p p ô t
+1 1 1 0 9 8 7 6 5 4 3 2 1 P o s i t i o n s S o m m e s
+1
+7681
+3841
+2561
+321
+161
+81
+41
+2=1− 1
+64+1
+128
+1
+15361
+7681
+5121
+2561
+321
+161
+81
+41
+2=1− 1
+64+1
+128
+1
+30721
+15361
+10241
+5121
+2561
+321
+161
+81
+41
+2=1− 1
+64+1
+128
+1
+61441
+30721
+20481
+10241
+5121
+2561
+321
+161
+81
+41
+2=1− 1
+64+1
+128
+R a p p o r t s p e c t r a l g e n e r a l i s e :1
+2n+1
+1
+2n=1
+2p o u r t o u tn≥0.
+F o r m e i t e r a t i v e :1/256
+1/128=1/128
+1/64=1/64
+1/32=···=1
+2,r e p e t e a l ' i n  n i .
+F o r m e e n t i e r e m e n t g e n e r a l i s e e :1
+n1
+1
+n2=n2
+n1=1
+2d e s q u en 2=2n1.
+R e s u m e e x p l i c a t i f ( F R ) .
+C e t t e e q u a t i o n e x p r i m e l a p r o p r i e t e f o n d a m e n t a l e d e s p u i s s a n c e s d e d e u x : c h a q u e t e r m e e s t
+e x a c t e m e n t l a m o i t i e d u p r e c e d e n t . A i n s i , l e r a p p o r t e n t r e d e u x i n v e r s e s c o n s e c u t i f s d e p u i s s a n c e s
+d e d e u x e s t t o u j o u r s e g a l a 1 / 2 . C e t t e r e l a t i o n e s t s t a b l e , r e p e t i t i v e e t s e p r o p a g e i n d e  n i m e n t
+l o r s q u e l ' o n i t e r e l a s t r u c t u r e . E l l e c o n s t i t u e l e n o y a u s p e c t r a l d e l a m e t h o d e , g a r a n t i s s a n t u n e
+c o h e r e n c e i n t e r n e p a r f a i t e e n t r e l e s n i v e a u x s u c c e s s i f s .
+1 7
+5 L e s N o m b r e s P r e m i e r s e t l ' E m p l o i d u D i g a m m a
+D e t e r m i n e r l e s n o m b r e s p r e m i e r s e s t u n e a u t r e m e t h o d e i t e r a t i v e , m a i s c e t t e f o i s d e u x s u i t e s
+s o n t n e c e s s a i r e s . D e u x s u i t e s d e r a c i n e s c a r r e e s f o r m e n t u n r a p p o r t t r i a n g u l a i r e b a s e / h a u t e u r =
+1 / 2 .
+D é  n i t i o n : S u i t e s p o u r l e s n o m b r e s p r e m i e r s
+P o u r l e n o m b r e p r e m i e r ( 2 9 ) , q u i e s t l e 1 0en o m b r e p r e m i e r , d e u x s u i t e s d e 1 0 r a c i n e s
+c a r r e e s , q u i s o n t l e p r o d u i t d e l a p r o p o s i t i o n√
+a2+b2 , f o r m e n t l e s d e u x s u i t e s . L e s d e u x
+s u i t e s o n t t o u j o u r s l a m e m e q u a n t i t e d e t e r m e s l o r s q u ' i l s ' a g i t d u m e m e n o m b r e p r e m i e r .
+5 . 1 E x e m p l e : D e t e r m i n e r l e n o m b r e p r e m i e r ( 5 )
+C o m m e n c o n s p a r 3 t e r m e s , l e 3en o m b r e p r e m i e r e t a n t ( 5 ) .
+L a s u i t e f r a c t i o n n a i r e e g a l e a 1 p o u r t r o i s f r a c t i o n s :
+1
+6+1
+3+1
+2=1
+E x e m p l e : C a l c u l d e l a p r e m i e r e s u i t e p o u r ( 5 )
+P r e m i e r t e r m e :  √
+1.25
+2−1
+2!
+×4+2=√
+5
+O u(12+22)1/2=√
+5
+D e u x i e m e t e r m e :  √
+1.25
+2−1
+3!
+×6+2=√
+11.25
+O u(1.52+32)1/2=√
+11.25
+T r o i s i e m e t e r m e :  √
+1.25
+2−1
+6!
+×12+2=√
+45
+O u(32+62)1/2=√
+45
+S o m m e d e l a p r e m i e r e s u i t e d e ( 5 ) :
+√
+45 +√
+11.25 +√
+5 =√
+151.25
+E q u a t i o n d e v e r i  c a t i o n  n a l e :
+ √
+13.203125
+2×23!
+−√
+5 =√
+151.25.
+5 . 2 T a b l e a u d e s v a l e u r s d e l ' i n t e r v a l l e 2 9 , 3 1 , 3 7 , 4 1
+N o m b r e p r e m i e r C a l c u l D i g a m m a V a l e u r D i g a m m a
+2 9 −√
+81920 =−√
+81920
+3 1 +5√
+81920 =√
+204800
+3 7 +9√
+81920 +5√
+184320 =√
+22302720
+4 1 +13√
+81920 +9√
+184320 +5√
+737280 =√
+141086720
+1 8
+5 . 3 E x e m p l e c o m p l e t : D e t e r m i n e r l e n o m b r e p r e m i e r ( 3 1 )
+L e n o m b r e p r e m i e r 3 1 e s t l e 1 1i e m en o m b r e p r e m i e r . V o i c i l e t a b l e a u d e l a s o m m e d e s d e u x
+s u i t e s p o u r 1 1 t e r m e s :
+T a b l e a u d e l a s o m m e d e l a 1e r ee t 2i e m es u i t e ( 3 1 ) , 1 1i e m en o m b r e p r e m i e r
+P o s i t i o n 1e r es u i t e 2i e m es u i t e
+1√
+5√
+5
+2√
+20√
+20
+3√
+80√
+80
+4√
+320√
+320
+5√
+1280√
+1280
+6√
+5120√
+5120
+7√
+20480√
+20480
+8√
+81920√
+81920
+9√
+327680√
+327680
+1 0√
+983040√
+1966080
+1 1√
+3932160√
+7864320
+5 . 3 . 1 V e r i  c a t i o n
+S o m m e d e l a 1e r es u i t e :
+√
+5+√
+20+√
+80+√
+320+√
+1280+√
+5120+√
+20480+√
+81920+√
+327680+√
+983040+√
+3932160
+=√
+13827845
+S o m m e d e l a 2i e m es u i t e :
+√
+5+√
+20+√
+80+√
+320+√
+1280+√
+5120+√
+20480+√
+81920+√
+327680+√
+1966080+√
+7864320
+=√
+54285125
+D i g a m m a :+5√
+81920
+D i g a m m a c a l c u l e :
+S o m m e 1e r es u i t e+ D i g a m m a= D i g a m m a c a l c u l e
+√
+13827845 +5√
+81920 =√
+26519045
+D e t e r m i n a t i o n d u n o m b r e p r e m i e r 3 1 :
+√
+54285125−√
+26519045√
+5120=31
+5 . 3 . 2 V e r i  c a t i o n a l t e r n a t i v e
+(√
+54285125−31)×√
+5120 =√
+26519045 ( D i g a m m a c a l c u l e )
+1 9
+M e t h o d e s S p e c t r a l e s : E x e m p l e s p o u r l e r a p p o r t 1 / 2
+E x e m p l e p o u r l e n o m b r e p r e m i e r 3 1 ( 1 1 i e m e n o m b r e p r e m i e r , 1 1 t e r m e s )
+2 + 4 + 8 + 1 6 + 3 2 + 6 4 + 1 2 8 + 2 5 6 + 5 1 2 + 7 6 8 + 1 5 3 6 = 3 3 2 6 S o m m e s u i t e A ( 3 1 ) .
+2 + 4 + 8 + 1 6 + 3 2 + 1 2 8 + 2 5 6 + 5 1 2 + 1 0 2 4 + 1 5 3 6 + 3 0 7 2 = 6 5 9 0 S o m m e s u i t e B ( 3 1 ) .
+3.25
+2·211
+−2=3326 s o m m e s u i t e A .
+6.5
+2·211
+−66=6590 s o m m e s u i t e B .
+D i g a m m a :5·256=1280 .
+D i g a m m a c a l c u l e :3326+1280=4606 .
+6590−4606
+64=311 1 i e m e n o m b r e p r e m i e r .
+E x e m p l e p o u r l e n o m b r e p r e m i e r 2 9 ( 1 0 i e m e n o m b r e p r e m i e r , 1 0 t e r m e s )
+2 + 4 + 8 + 1 6 + 3 2 + 6 4 + 1 2 8 + 2 5 6 + 3 8 4 + 7 6 8 = 1 6 6 2 S o m m e s u i t e A ( 2 9 ) .
+2 + 4 + 8 + 1 6 + 3 2 + 1 2 8 + 2 5 6 + 5 1 2 + 7 6 8 + 1 5 3 6 = 3 2 6 2 S o m m e s u i t e B ( 2 9 ) .
+3.25
+2·210
+−2=1662
+6.5
+2·210
+−66=3262
+D i g a m m a ( 8 i e m e p o s i t i o n ) :256 .
+D i g a m m a c a l c u l e :1662−256=1406 .
+(3262/64−29)·64=1406
+3262−1406
+64=291 0 i e m e n o m b r e p r e m i e r .
+E x e m p l e p o u r l e n o m b r e p r e m i e r 2 3 ( 9 i e m e n o m b r e p r e m i e r )
+2 + 3 + 4 + 8 + 1 6 + 3 2 + 6 4 + 1 2 8 + 1 9 2 + 3 8 4 = 8 3 0 S o m m e 1 e r e s u i t e ( 2 3 ) .
+2 + 4 + 8 + 1 6 + 3 2 + 1 2 8 + 2 5 6 + 3 8 4 + 7 6 8 = 1 5 9 8 S o m m e 2 i e m e s u i t e ( 2 3 ) .
+D i g a m m a c a l c u l e :
+(1598/64−23)·64=126
+1598−126
+64=239 i e m e n o m b r e p r e m i e r .
+2 0
+3.25
+2·2n
+−2= s o m m e 1 e r e s u i t e .
+6.5
+2·2n
+−66= s o m m e 2 i e m e s u i t e .
+Q u a n dn e s t u n e n t i e r s t r i c t e m e n t p o s i t i f ,n c o r r e s p o n d a l a p o s i t i o n d u n o m b r e p r e m i e r e t
+a l a q u a n t i t e d e t e r m e s d a n s l a s u i t e .
+L o r s q u e 2 = 1 e r , 3 = 2 e , 5 = 3 e , . . . a l o r sPn=n - i e m e .
+E x e m p l e p o u r l e n o m b r e p r e m i e r 3 7 ( 1 2 i e m e n o m b r e p r e m i e r , 1 2 t e r m e s )
+2 + 4 + 8 + 1 6 + 3 2 + 6 4 + 1 2 8 + 2 5 6 + 5 1 2 + 1 0 2 4 + 1 5 3 6 + 3 0 7 2 = 6 6 5 4 S o m m e s u i t e A .
+2 + 4 + 8 + 1 6 + 3 2 + 1 2 8 + 2 5 6 + 5 1 2 + 1 0 2 4 + 2 0 4 8 + 3 0 7 2 + 6 1 4 4 = 1 3 2 4 6 S o m m e s u i t e B .
+3.25
+2·212
+−2=6654
+6.5
+2·212
+−66=13246
+D i g a m m a ( 3 7 ) :9·256+5·384=4224 .
+D i g a m m a c a l c u l e :6654+4224=10878 .
+13246−10878
+64=371 2 i e m e n o m b r e p r e m i e r .
+E x e m p l e p o u r l e n o m b r e p r e m i e r 4 1 ( 1 3 i e m e n o m b r e p r e m i e r , 1 3 t e r m e s )
+2 + 4 + 8 + 1 6 + 3 2 + 6 4 + 1 2 8 + 2 5 6 + 5 1 2 + 1 0 2 4 + 2 0 4 8 + 3 0 7 2 + 6 1 4 4 = 1 3 3 1 0 S o m m e s u i t e A .
+2 + 4 + 8 + 1 6 + 3 2 + 1 2 8 + 2 5 6 + 5 1 2 + 1 0 2 4 + 2 0 4 8 + 4 0 9 6 + 6 1 4 4 + 1 2 2 8 8 = 2 6 5 5 8 S o m m e s u i t e B .
+3.25
+2·213
+−2=13310
+6.5
+2·213
+−66=26558
+D i g a m m a ( 4 1 ) :13·256+9·384+5·768=10624 .
+D i g a m m a c a l c u l e :13310+10624=23934 .
+26558−23934
+64=411 3 i e m e n o m b r e p r e m i e r .
+2 1
+D i s t a n c e s p e c t r a l e ( c o m p a r a i s o n 1 a 1 )
+C o m p a r a i s o n d e n o m b r e s p r e m i e r s 1 * 1 :
+ 3.25
+2·2n1−2
+− 3.25
+2·2n2−2
+ 6.5
+2·2n1−66
+− 6.5
+2·2n2−66=1
+2
+T o u j o u r s .
+O r d o n n e e :R ord(A,B)=X
+n∈AA(n)−X
+n∈BA(n)
+X
+n∈AB(n)−X
+n∈BB(n)a v e c|B|=|A|+1,max(A)<min(B),
+Rord(A,B)̸=1
+2.
+R e s u m e e x p l i c a t i f ( O r d o n n e e ) .
+D a n s l e c a s o r d o n n e , l e s b l o c s A e t B r e s p e c t e n t u n e s t r u c t u r e s t r i c t e m e n t c r o i s s a n t e e t d e c a l e e
+d ' u n e u n i t e . M a l g r e c e t t e o r g a n i s a t i o n r i g o u r e u s e , l e r a p p o r t o b t e n u n ' e s t p a s e g a l à1/2 . C e l a
+m o n t r e q u e l ' a l i g n e m e n t d e s p u i s s a n c e s e t l a p r o g r e s s i o n s t r u c t u r e l l e n e s u  s e n t p a s à p r o d u i r e
+l a s y m e t r i e s p e c t r a l e a t t e n d u e . L e s y s t e m e o r d o n n e r e s t e c o h e r e n t , m a i s i l n e c o n d u i t p a s a u
+r a p p o r t1/2 .
+C h a o t i q u e :R chaos(A,B)=X
+n∈AA(n)−X
+n∈BA(n)
+X
+n∈AB(n)−X
+n∈BB(n)a v e c|A|̸=|B|,¬ O r d o n n é e(A,B),
+Rchaos(A,B)=0.5+f a i b l e r e s t e.
+R e s u m e e x p l i c a t i f ( C h a o t i q u e ) .
+D a n s l e c a s c h a o t i q u e , l e s b l o c s A e t B n e r e s p e c t e n t p l u s l a s t r u c t u r e o r d o n n e e : l e u r s l o n -
+g u e u r s d i  è r e n t e t l e u r s p u i s s a n c e s n e s o n t p l u s a l i g n e e s . C e t t e a b s e n c e d ' o r g a n i s a t i o n c r e e u n e
+c o m p e n s a t i o n a r i t h m e t i q u e q u i r a p p r o c h e l e r a p p o r t d e0.5 , m a i s a v e c u n l e g e r r e s i d u . L e r e s u l -
+t a t n ' e s t d o n c p a s s t r u c t u r e l : i l p r o v i e n t d ' u n d e s e q u i l i b r e i n t e r n e e n t r e l e s b l o c s , r e v e l a n t u n
+c o m p o r t e m e n t i r r e g u l i e r e t n o n l i n e a i r e .
+A t t e n t i o n : I n c o h e r e n c e a l g e b r i q u e
+C e q u i e s t i n c o h e r e n t p u i s q u e l e s e q u a t i o n s s o n t d e s v a l e u r s p r e a l a b l e m e n t i d e n t i  e e s
+à l a s o m m e d e s S u i t e s A e t B . L ' e q u a t i o n s p e c t r a l e e s t n u m e r i q u e m e n t v a l i d e m a i s
+a l g e b r i q u e m e n t i n c o h e r e n t e .
+5 . 3 . 3 E x e m p l e s n u m e r i q u e s d e m o n t r a n t l ' i n c o h e r e n c e
+P o u rn=5 :
+S o m m e S u i t e A ( 5 )=2+3+6=11( 8 )
+S o m m e S u i t e B ( 5 )=−59.5+6.5+13=−40( 9 )
+P o u rn=11 :
+S o m m e S u i t e A ( 1 1 )=2+4+8+12+24=50( 1 0 )
+S o m m e S u i t e B ( 1 1 )=−59.5+6.5+13+26+52=38( 1 1 )
+2 2
+V e r i  c a t i o n d e s r a p p o r t s :
+11
+−40̸=1
+2e t50
+38̸=1
+2
+11−50
+−40−38=1
+2N u m e r i q u e m e n t v a l i d e , a l g e b r i q u e m e n t i n c o h e r e n t .
+5 . 3 . 4 E x p l i c a t i o n d e l ' i n c o h e r e n c e
+C o n s i d e r o n s d e u x e q u a t i o n s s i m p l e s p o u r i l l u s t r e r :
+E q u a t i o n A :3x+2=9( 1 2 )
+E q u a t i o n B :6x+4=11( 1 3 )
+L e r a p p o r t d e s e q u a t i o n s :
+3x+2
+6x+4=9
+11̸=1
+2
+C e c i d e m o n t r e q u e b i e n q u e l e s c o e  c i e n t s(3/6=1/2) s u g g e r e n t u n r a p p o r t d e1
+2, l e s
+v a l e u r s n u m e r i q u e s r e e l l e s n e r e s p e c t e n t p a s c e r a p p o r t e n r a i s o n d e s c o n s t a n t e s a d d i t i v e s d a n s
+l e s e q u a t i o n s .
+S u i t e s p o u r l e s n o m b r e s p r e m i e r s n e g a t i f s
+E x e m p l e s d e s u i t e s A n e g a t i v e s
+- 2 : 1 3 / 4 - 1 3 / 8 - 2 = - 3 / 8 = - 1 e r n o m b r e p r e m i e r , 1 t e r m e .
+- 3 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 2 = - 1 . 8 2 5 = - 2 i e m e n o m b r e p r e m i e r , 2 t e r m e s .
+- 5 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 2 = - 1 . 5 9 3 7 5 = - 3 i e m e n o m b r e p r e m i e r , 3 t e r m e s .
+- 7 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 1 3 / 6 4 - 2 = - 1 . 7 9 6 8 7 5 = - 4 i e m e n o m b r e p r e m i e r , 4 t e r m e s .
+- 1 1 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 1 3 / 6 4 - 1 3 / 1 2 8 - 2 = - 1 . 8 9 8 4 3 7 5 = - 5 i e m e n o m b r e p r e m i e r , 5
+t e r m e s .
+- 1 3 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 1 3 / 6 4 - 1 3 / 1 2 8 - 1 3 / 2 5 6 - 2 = - 1 . 9 4 9 2 1 8 7 5 = - 6 i e m e n o m b r e
+p r e m i e r , 6 t e r m e s .
+- 1 7 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 1 3 / 6 4 - 1 3 / 1 2 8 - 1 3 / 2 5 6 - 1 3 / 5 1 2 - 2 = - 1 . 9 7 4 6 0 9 3 7 5 = - 7 i e m e
+n o m b r e p r e m i e r , 7 t e r m e s .
+- 4 7 : 1 3 / 4 - 1 3 / 8 - 1 3 / 1 6 - 1 3 / 3 2 - 1 3 / 6 4 - 1 3 / 1 2 8 - 1 3 / 2 5 6 - 1 3 / 5 1 2 - 1 3 / 1 0 2 4 - 1 3 / 2 0 4 8 -
+1 3 / 4 0 9 6 - 1 3 / 8 1 9 2 - 1 3 / 1 6 3 8 4 - 1 3 / 3 2 7 6 8 - 1 3 / 6 5 5 3 6 - 1 3 / 1 3 1 0 7 2 - 2 = - 1 . 9 9 9 9 0 0 8 1 8 = - 1 5 i e m e
+n o m b r e p r e m i e r , 1 5 t e r m e s .
+3.25
+2·2n
+−2= s o m m e s u i t e A p o s i t i v e .
+6.5
+2·2n
+−66= s o m m e s u i t e B p o s i t i v e .
+3.25·2n−2= s o m m e s u i t e A n e g a t i v e .
+6.5·2n−66= s o m m e s u i t e B n e g a t i v e .
+2 3
+Q u a n t i t e d e n o m b r e s e n t r e d e u x n o m b r e s p r e m i e r s
+E n t r e 2 3 e t 7
+D e t e r m i n e r l a s o m m e d e l a s u i t e A d u n o m b r e p r e m i e r s u i v a n t 7 , s o i t 1 1 .
+7 e s t l e 4 i e m e n o m b r e p r e m i e r e t 1 1 e s t l e 5 i e m e .
+3.25
+2·25
+−2=50 s o m m e s u i t e A ( 1 1 )
+D e t e r m i n e r l a s o m m e d e l a s u i t e B d e 2 3 :
+6.5
+2·29
+−66=1598
+D e t e r m i n e r l e D i g a m m a c a l c u l e d e 2 3 :
+(1598/64−23)·64=126
+S o u s t r a c t i o n :
+50−(1598−126)=−1442
+D e t e r m i n e r l e D i g a m m a c a l c u l e d e 7 :
+6.5
+2·24
+−66=−14
+((−14)/64−7)·64=−464
+(−1442−(−464))/64=−15
+I l y a d o n c 1 5 n o m b r e s e n t r e 2 3 e t 7 :
+8 , 9 , 1 0 , 1 1 , 1 2 , 1 3 , 1 4 , 1 5 , 1 6 , 1 7 , 1 8 , 1 9 , 2 0 , 2 1 , 2 2 .
+E n t r e - 1 9 e t - 5
+D e t e r m i n e r l e n o m b r e p r e m i e r p r e c e d e n t - 1 9 , s o i t - 5 .
+S o m m e s u i t e A ( - 7 ) :
+3.25·2−7−2=−10110/5120
+S o m m e s u i t e B ( - 3 ) :
+6.5·2−3−66=−20860/320
+D i g a m m a c a l c u l e ( - 3 ) :
+((−20860/320)/64−(−5))·64=81540/320
+S o u s t r a c t i o n :
+−10110/5120−(−20860/320−81540/320)=1628290/5120
+D i g a m m a c a l c u l e ( - 1 9 ) :
+S o m m e s u i t e B ( - 1 9 ) :
+6.5·2−8−66=−337790/5120
+2 4
+((−337790/5120)/64−(−11))·64=5888130/5120
+(1628290/5120−5888130/5120)/64=−13
+I l y a d o n c 1 3 n o m b r e s e n t r e - 1 9 e t - 5 :
+- 1 8 , - 1 7 , - 1 6 , - 1 5 , - 1 4 , - 1 3 , - 1 2 , - 1 1 , - 1 0 , - 9 , - 8 , - 7 , - 6 .
+E n t r e - 3 1 e t 1 7
+S o m m e s u i t e A ( - 2 9 ) :
+3.25·2−10−2=−40895/20480
+S o m m e s u i t e B ( 1 7 ) :
+6.5·28−66=350
+D i g a m m a c a l c u l e ( 1 7 ) :
+(350/64−17)·64=−738
+S o u s t r a c t i o n :
+−40895/20480−(350−738)=−22323135/20480
+D i g a m m a c a l c u l e ( - 3 1 ) :
+6.5·2−11−66=−1351615/20480
+((−1351615/20480)/64−(−31))·64=39280705/20480
+(−22323135/20480−39280705/20480)/64=−47
+I l y a d o n c 4 7 n o m b r e s e n t r e - 3 1 e t 1 7 .
+5 . 3 . 5 A x i o m a t i s a t i o n
+A x i o m a t i s a t i o n d u R a p p o r t S p e c t r a l
+ Q u a n dn≥1 e t q u en≤−1
+T o u s l e sn r a m è n e à u n p r e m i e rP . T o u s l e sP s o n t d e t e r m i n e s e n f o n c t i o n d en c o n s e q u e n c e
+d e s s u i t e A e t B o un e s t d e t e r m i n e p a r l a q u a n t i t e d e t e r m e s d a n s l e s s u i t e s A e t B .
+T o u s l e sP e n t r e e u x r e s p e c t e n t l e r a p p o r t s p e c t r a l1
+k. C e r a p p o r t e s t n u m e r i q u e m e n t
+v a l i d e , a l g e b r i q u e m e n t i n c o h e r e n t . 
+2 5
+6 F o r m e G e n e r a l e d e s S u i t e s  S c r i p t H O L C o m p l e t
+6 . 1 S c r i p t H O L C o m p l e t : m e t h o d e _ s p e c t r a l . t h y ( P a r t i e 1 )
+F i c h i e r : m
+
+[... Document tronqué ...]
