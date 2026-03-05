@@ -28,13 +28,13 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
-- **NOUVEAU**: Support des fichiers Isabelle HOL (.thy) via le bouton "Ajouter document"
-  - Les fichiers .thy sont automatiquement analysés par l'IA avec un prompt spécialisé
-  - Sauvegarde automatique dans `/app/data/isabelle_proofs/`
-  - Rechargement automatique du contexte IA après upload
-- **Fichiers Isabelle intégrés** (0 erreurs, compilation Cygwin-Terminal):
-  - `methode_spectral.thy` (47KB): Géométrie du spectre des nombres premiers
-  - `methode_de_philippot.thy` (7KB): Méthode de Philippôt formalisée
+- Support des fichiers Isabelle HOL (.thy) via le bouton "Ajouter document"
+- **NOUVEAU**: Intégration complète du dépôt GitHub de Philippe Thomas Savard:
+  - URL: https://github.com/2racinede4carreunivers-dev/analyse-de-la-conjecture-zeta-riemann-savard
+  - Fichiers Isabelle HOL (67,419 caractères): `methode_spectral.thy`, `methode_de_philippot.thy`
+  - Guides méthodologiques (24,493 caractères): `README.md`, `guide_methode_de_philippot.md`, `guide_methode_spectrale.md`
+  - Certification: Isabelle2025-2 Build Passing, LaTeX PDF OK (3 mars 2026)
+  - Licence: Apache 2.0
 
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
