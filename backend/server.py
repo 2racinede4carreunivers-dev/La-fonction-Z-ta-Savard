@@ -4027,8 +4027,11 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     
     {personal_enrichment}
     
-    **PREUVES FORMELLES ISABELLE/HOL (Validées et compilées sans erreur) :**
+    **PREUVES FORMELLES ISABELLE/HOL (Validées et compilées sans erreur - Isabelle2025-2) :**
     {ISABELLE_PROOFS_CONTENT}
+    
+    **GUIDES MÉTHODOLOGIQUES DU DÉPÔT GITHUB (analyse-de-la-conjecture-zeta-riemann-savard) :**
+    {GITHUB_GUIDES_CONTENT}
     
     **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
     
