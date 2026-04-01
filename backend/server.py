@@ -3634,7 +3634,7 @@ async def get_concepts(categorie: Optional[str] = None):
     if categorie:
         filter_query["categorie"] = categorie
     
-    concepts = await db.concepts.find(filter_query).to_list(length=None)
+    concepts = await db.concepts.find(filter_query).to_list(length=1000)
     return [ConceptModel(**concept) for concept in concepts]
 
 @app.get("/api/concepts/{concept_id}", response_model=ConceptModel)
@@ -3652,7 +3652,7 @@ async def get_categories():
         {"$group": {"_id": "$categorie", "count": {"$sum": 1}}},
         {"$sort": {"_id": 1}}
     ]
-    categories = await db.concepts.aggregate(pipeline).to_list(length=None)
+    categories = await db.concepts.aggregate(pipeline).to_list(length=1000)
     return [{"categorie": cat["_id"], "count": cat["count"]} for cat in categories]
 
 @app.post("/api/search")
@@ -3670,14 +3670,14 @@ async def search_concepts(query: SearchQuery):
     if query.categorie:
         search_filter["categorie"] = query.categorie
     
-    concepts = await db.concepts.find(search_filter).to_list(length=None)
+    concepts = await db.concepts.find(search_filter).to_list(length=1000)
     return [ConceptModel(**concept) for concept in concepts]
 
 # Nouvelles routes pour les tableaux de Philippôt
 @app.get("/api/tableaux-philippot", response_model=List[TableauPhilippotModel])
 async def get_tableaux_philippot():
     """Récupère tous les tableaux de la méthode de Philippôt"""
-    tableaux = await db.tableaux_philippot.find().to_list(length=None)
+    tableaux = await db.tableaux_philippot.find().to_list(length=1000)
     return [TableauPhilippotModel(**tableau) for tableau in tableaux]
 
 @app.get("/api/tableaux-philippot/{tableau_id}", response_model=TableauPhilippotModel)
@@ -3902,7 +3902,7 @@ async def get_documents(session_id: str):
     """Récupère tous les documents d'une session"""
     documents = await db.uploaded_documents.find(
         {"user_session": session_id}
-    ).sort("upload_date", -1).to_list(length=None)
+    ).sort("upload_date", -1).to_list(length=1000)
     
     # Retourner sans le contenu pour économiser la bande passante
     return [
@@ -4527,7 +4527,7 @@ async def get_chat_history(session_id: str):
     """Récupère l'historique d'une session de chat"""
     history = await db.conversations.find(
         {"session_id": session_id}
-    ).sort("timestamp", 1).to_list(length=None)
+    ).sort("timestamp", 1).to_list(length=1000)
     
     return [
         {
@@ -5030,7 +5030,7 @@ async def get_collaboration_documents(session_id: str):
     """Récupérer les documents collaboratifs d'une session"""
     documents = await db.collaboration_documents.find(
         {"session_id": session_id}
-    ).sort("updated_at", -1).to_list(length=None)
+    ).sort("updated_at", -1).to_list(length=1000)
     
     return [
         {
@@ -5289,7 +5289,7 @@ async def gerer_dictionnaire_personnel(request: dict):
         elif action == "get":
             termes = await db.dictionnaire_personnel.find(
                 {"session_id": session_id}
-            ).sort("created_at", -1).to_list(length=None)
+            ).sort("created_at", -1).to_list(length=1000)
             
             return {
                 "success": True,
@@ -5331,7 +5331,7 @@ async def analyser_lacunes_comprehension(request: dict):
         # Récupérer l'historique des questions pour cette session
         historique_questions = await db.chat_history.find(
             {"session_id": session_id, "type": "user"}
-        ).sort("timestamp", -1).limit(50).to_list(length=None)
+        ).sort("timestamp", -1).limit(50).to_list(length=1000)
         
         if not historique_questions:
             return {
@@ -5401,7 +5401,7 @@ async def detecter_sections_problematiques():
         questions_recentes = await db.chat_history.find({
             "type": "user",
             "timestamp": {"$gte": (datetime.now(timezone.utc) - datetime.timedelta(days=30)).isoformat()}
-        }).to_list(length=None)
+        }).to_list(length=1000)
         
         if not questions_recentes:
             return {
@@ -6055,7 +6055,7 @@ async def lister_concepts(
                 {"mots_cles": {"$in": [search]}}
             ]
         
-        concepts = await db.concepts.find(query).to_list(length=None)
+        concepts = await db.concepts.find(query).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         concepts = convert_objectid(concepts)
@@ -6079,12 +6079,12 @@ async def obtenir_concept(concept_id: str):
         # Récupérer les relations
         relations = await db.relations.find({
             "$or": [{"concept_1_id": concept_id}, {"concept_2_id": concept_id}]
-        }).to_list(length=None)
+        }).to_list(length=1000)
         
         # Récupérer les formules liées
         formules = await db.formules.find({
             "concepts_lies": {"$in": [concept_id]}
-        }).to_list(length=None)
+        }).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         concept = convert_objectid(concept)
@@ -6151,7 +6151,7 @@ async def lister_formules(domaine: Optional[str] = None):
         if domaine:
             query["domaine"] = domaine
             
-        formules = await db.formules.find(query).to_list(length=None)
+        formules = await db.formules.find(query).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         formules = convert_objectid(formules)
@@ -6175,7 +6175,7 @@ async def obtenir_formule(code_formule: str):
         # Récupérer les validations empiriques
         validations = await db.validations_empiriques.find({
             "formule_id": formule["id"]
-        }).to_list(length=None)
+        }).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         formule = convert_objectid(formule)
@@ -6404,13 +6404,13 @@ async def acces_concepts_complets():
     """Accès privilégié complet aux concepts pour l'IA spécialisée"""
     try:
         # Récupérer tous les concepts
-        concepts = await db.concepts.find({}).to_list(length=None)
+        concepts = await db.concepts.find({}).to_list(length=1000)
         
         # Récupérer toutes les formules
-        formules = await db.formules.find({}).to_list(length=None)
+        formules = await db.formules.find({}).to_list(length=1000)
         
         # Récupérer toutes les relations
-        relations = await db.relations.find({}).to_list(length=None)
+        relations = await db.relations.find({}).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         concepts = convert_objectid(concepts)
@@ -6465,13 +6465,13 @@ async def requete_contextuelle_ia(request: dict):
         if concepts_recherches:
             query_concepts["titre"] = {"$in": concepts_recherches}
         
-        concepts_filtres = await db.concepts.find(query_concepts).to_list(length=None)
+        concepts_filtres = await db.concepts.find(query_concepts).to_list(length=1000)
         
         # Récupérer les formules associées
         concept_ids = [c["id"] for c in concepts_filtres]
         formules_associees = await db.formules.find({
             "concepts_lies": {"$in": concept_ids}
-        }).to_list(length=None)
+        }).to_list(length=1000)
         
         # Convertir les ObjectId pour la sérialisation JSON
         concepts_filtres = convert_objectid(concepts_filtres)
