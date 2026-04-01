@@ -6543,6 +6543,46 @@ async def get_questions_log(request: dict):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur récupération historique: {str(e)}")
 
+
+# === ENDPOINTS DE SYNCHRONISATION GITHUB ===
+
+@app.get("/api/github/status")
+async def get_github_sync_status():
+    """Retourne le statut de la synchronisation GitHub"""
+    return {
+        "repo_url": "https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre",
+        "content_size": len(GITHUB_REPO_CONTENT),
+        "last_sync": get_last_sync_info(),
+        "status": "active" if GITHUB_REPO_CONTENT else "inactive"
+    }
+
+@app.post("/api/github/sync")
+async def trigger_github_sync():
+    """Déclenche une synchronisation manuelle avec le dépôt GitHub"""
+    global GITHUB_REPO_CONTENT
+    
+    try:
+        updated = sync_repository()
+        if updated:
+            GITHUB_REPO_CONTENT = load_all_content()
+            return {
+                "success": True,
+                "message": "Dépôt synchronisé avec succès - Nouveau contenu chargé",
+                "content_size": len(GITHUB_REPO_CONTENT),
+                "updated": True
+            }
+        else:
+            return {
+                "success": True,
+                "message": "Dépôt déjà à jour",
+                "content_size": len(GITHUB_REPO_CONTENT),
+                "updated": False
+            }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Erreur synchronisation: {str(e)}")
+
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
