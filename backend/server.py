@@ -13,6 +13,9 @@ import math
 import base64
 import json
 
+# Import du système de synchronisation GitHub
+from github_sync import sync_repository, load_all_content, log_sync, get_last_sync_info
+
 # Import du système évolutif
 from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
 # Import de l'IA socratique
