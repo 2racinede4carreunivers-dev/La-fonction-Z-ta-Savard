@@ -96,7 +96,7 @@ def extract_pdf_text(pdf_path, max_chars=80000):
         return f"[Erreur extraction PDF: {str(e)}]"
 
 def load_all_content():
-    """Charge tout le contenu du dépôt pour l'IA"""
+    """Charge tout le contenu du dépôt pour l'IA - Version optimisée"""
     content = ""
     
     # En-tête
@@ -111,14 +111,14 @@ Certification: SLSA Build Level 3 - Isabelle2025-2 - LaTeX
     
     repo_path = LOCAL_REPO_PATH
     
-    # 1. Charger le README principal
+    # 1. Charger le README principal (PRIORITÉ HAUTE)
     readme_path = os.path.join(repo_path, "README.md")
     if os.path.exists(readme_path):
         with open(readme_path, 'r', encoding='utf-8') as f:
             content += f"\n\n{'='*80}\n=== README PRINCIPAL ===\n{'='*80}\n"
             content += f.read()
     
-    # 2. Charger tous les fichiers .thy (Isabelle/HOL)
+    # 2. Charger tous les fichiers .thy (Isabelle/HOL) - PRIORITÉ HAUTE
     hol_dir = os.path.join(repo_path, "src/hol")
     if os.path.exists(hol_dir):
         content += f"\n\n{'='*80}\n=== PREUVES FORMELLES ISABELLE/HOL (Certifiées SLSA) ===\n{'='*80}\n"
@@ -129,29 +129,7 @@ Certification: SLSA Build Level 3 - Isabelle2025-2 - LaTeX
                     content += f"\n\n--- {thy_file} ---\n"
                     content += f.read()
     
-    # 3. Charger tous les fichiers .tex (LaTeX)
-    tex_dir = os.path.join(repo_path, "src/tex")
-    if os.path.exists(tex_dir):
-        content += f"\n\n{'='*80}\n=== DOCUMENTS LATEX (Source) ===\n{'='*80}\n"
-        for tex_file in sorted(os.listdir(tex_dir)):
-            if tex_file.endswith('.tex'):
-                tex_path = os.path.join(tex_dir, tex_file)
-                with open(tex_path, 'r', encoding='utf-8') as f:
-                    content += f"\n\n--- {tex_file} ---\n"
-                    content += f.read()
-    
-    # 4. Charger les PDFs (extraits texte)
-    pdf_dir = os.path.join(repo_path, "src/pdf")
-    if os.path.exists(pdf_dir):
-        content += f"\n\n{'='*80}\n=== DOCUMENTS PDF (Compilés et Certifiés) ===\n{'='*80}\n"
-        for pdf_file in sorted(os.listdir(pdf_dir)):
-            if pdf_file.endswith('.pdf'):
-                pdf_path = os.path.join(pdf_dir, pdf_file)
-                text = extract_pdf_text(pdf_path)
-                content += f"\n\n--- {pdf_file} ---\n"
-                content += text
-    
-    # 5. Charger les guides
+    # 3. Charger les guides de la documentation (PRIORITÉ MOYENNE)
     docs_dir = os.path.join(repo_path, "docs")
     if os.path.exists(docs_dir):
         content += f"\n\n{'='*80}\n=== DOCUMENTATION ET GUIDES ===\n{'='*80}\n"
@@ -162,20 +140,28 @@ Certification: SLSA Build Level 3 - Isabelle2025-2 - LaTeX
                     with open(md_path, 'r', encoding='utf-8') as f:
                         rel_path = os.path.relpath(md_path, docs_dir)
                         content += f"\n\n--- {rel_path} ---\n"
-                        content += f.read()
+                        file_content = f.read()
+                        # Limiter chaque fichier md à 30000 caractères
+                        if len(file_content) > 30000:
+                            file_content = file_content[:30000] + "\n[... Document tronqué ...]"
+                        content += file_content
     
-    # 6. Charger le CHANGELOG
-    changelog_dir = os.path.join(repo_path, "CHANGELOG")
-    if os.path.exists(changelog_dir):
-        content += f"\n\n{'='*80}\n=== CHANGELOG ===\n{'='*80}\n"
-        for md_file in sorted(os.listdir(changelog_dir)):
-            if md_file.endswith('.md'):
-                md_path = os.path.join(changelog_dir, md_file)
-                with open(md_path, 'r', encoding='utf-8') as f:
-                    content += f"\n\n--- {md_file} ---\n"
-                    content += f.read()
+    # 4. Charger les PDFs (extraits texte) - LIMITÉS pour éviter le dépassement
+    pdf_dir = os.path.join(repo_path, "src/pdf")
+    if os.path.exists(pdf_dir):
+        content += f"\n\n{'='*80}\n=== DOCUMENTS PDF (Compilés et Certifiés) - Résumés ===\n{'='*80}\n"
+        for pdf_file in sorted(os.listdir(pdf_dir)):
+            if pdf_file.endswith('.pdf'):
+                pdf_path = os.path.join(pdf_dir, pdf_file)
+                # Limiter l'extraction des PDFs à 25000 caractères chacun
+                text = extract_pdf_text(pdf_path, max_chars=25000)
+                content += f"\n\n--- {pdf_file} ---\n"
+                content += text
     
-    log_sync(f"Contenu chargé: {len(content)} caractères")
+    # 5. NE PAS charger les fichiers .tex complets (redondants avec les PDFs)
+    # Les .tex sont la source, les PDFs sont la version compilée
+    
+    log_sync(f"Contenu chargé (optimisé): {len(content)} caractères")
     return content
 
 def get_last_sync_info():
