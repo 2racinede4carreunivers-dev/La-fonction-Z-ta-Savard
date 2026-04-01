@@ -96,67 +96,33 @@ def load_isabelle_proofs():
     
     return isabelle_content
 
-# Fonction pour charger les guides méthodologiques du dépôt GitHub
+# Fonction pour charger les guides méthodologiques du dépôt GitHub (OBSOLÈTE - remplacé par sync GitHub)
 def load_github_guides():
-    """Charge les guides méthodologiques du dépôt GitHub de Philippe Thomas Savard"""
-    guides_content = ""
-    github_dir = "/app/data/github_repo"
-    
-    try:
-        # Charger le README
-        readme_path = os.path.join(github_dir, "README.md")
-        if os.path.exists(readme_path):
-            with open(readme_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== DÉPÔT GITHUB: README - Géométrie du spectre des nombres premiers ===\n"
-                guides_content += f.read()
-        
-        # Charger guide_methode_de_philippot.md
-        philippot_guide_path = os.path.join(github_dir, "guide_methode_de_philippot.md")
-        if os.path.exists(philippot_guide_path):
-            with open(philippot_guide_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== GUIDE MÉTHODOLOGIQUE: Méthode de Philippôt (guide_methode_de_philippot.md) ===\n"
-                guides_content += f.read()
-        
-        # Charger guide_methode_spectrale.md
-        spectrale_guide_path = os.path.join(github_dir, "guide_methode_spectrale.md")
-        if os.path.exists(spectrale_guide_path):
-            with open(spectrale_guide_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== GUIDE MÉTHODOLOGIQUE: Méthode Spectrale (guide_methode_spectrale.md) ===\n"
-                guides_content += f.read()
-        
-        # Charger le PDF français (extrait texte)
-        pdf_fr_path = os.path.join(github_dir, "geometrie_spectre_premier_fr.txt")
-        if os.path.exists(pdf_fr_path):
-            with open(pdf_fr_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== DOCUMENT PDF: Géométrie du Spectre Premier (Version Française) ===\n"
-                guides_content += f.read()
-        
-        # Charger le PDF anglais (extrait texte)
-        pdf_en_path = os.path.join(github_dir, "geometrie_spectre_premier_en.txt")
-        if os.path.exists(pdf_en_path):
-            with open(pdf_en_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== DOCUMENT PDF: Prime Spectrum Geometry (English Version) ===\n"
-                guides_content += f.read()
-        
-        # Charger le PDF philosophie (extrait texte)
-        pdf_philo_path = os.path.join(github_dir, "philosophie_geometrie_spectre_premier.txt")
-        if os.path.exists(pdf_philo_path):
-            with open(pdf_philo_path, 'r', encoding='utf-8') as f:
-                guides_content += "\n\n=== DOCUMENT PDF: Philosophie de la Géométrie du Spectre Premier ===\n"
-                guides_content += f.read()
-                
-    except Exception as e:
-        print(f"Erreur lors du chargement des guides GitHub: {e}")
-    
-    return guides_content
+    """OBSOLÈTE - Utiliser GITHUB_REPO_CONTENT à la place"""
+    return ""
 
-# Contenu des preuves Isabelle chargé au démarrage
+# === NOUVEAU SYSTÈME: Synchronisation GitHub "L'univers est au carré" ===
+print("=" * 60)
+print("INITIALISATION - Synchronisation GitHub 'L'univers est au carré'")
+print("Dépôt: https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre")
+print("=" * 60)
+
+# Synchroniser le dépôt GitHub au démarrage
+try:
+    sync_repository()
+    GITHUB_REPO_CONTENT = load_all_content()
+    print(f"✅ Contenu GitHub chargé: {len(GITHUB_REPO_CONTENT)} caractères")
+except Exception as e:
+    print(f"❌ Erreur synchronisation GitHub: {e}")
+    GITHUB_REPO_CONTENT = ""
+
+# Contenu des preuves Isabelle (backup local)
 ISABELLE_PROOFS_CONTENT = load_isabelle_proofs()
-print(f"Fichiers Isabelle HOL chargés: {len(ISABELLE_PROOFS_CONTENT)} caractères")
+print(f"Fichiers Isabelle HOL (backup): {len(ISABELLE_PROOFS_CONTENT)} caractères")
 
-# Contenu des guides GitHub chargé au démarrage
-GITHUB_GUIDES_CONTENT = load_github_guides()
-print(f"Guides GitHub chargés: {len(GITHUB_GUIDES_CONTENT)} caractères")
+# Variable obsolète maintenue pour compatibilité
+GITHUB_GUIDES_CONTENT = ""
+print(f"Base de connaissances exclusive GitHub: ACTIVÉE")
 
 # Modèles Pydantic
 class ConceptModel(BaseModel):
