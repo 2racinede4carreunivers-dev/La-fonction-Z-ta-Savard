@@ -55,6 +55,26 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# === TÂCHE DE SYNCHRONISATION GITHUB PÉRIODIQUE ===
+async def periodic_github_sync():
+    """Synchronise le dépôt GitHub toutes les heures"""
+    global GITHUB_REPO_CONTENT
+    while True:
+        await asyncio.sleep(3600)  # 1 heure
+        try:
+            updated = sync_repository()
+            if updated:
+                GITHUB_REPO_CONTENT = load_all_content()
+                log_sync(f"Synchronisation automatique: {len(GITHUB_REPO_CONTENT)} caractères chargés")
+        except Exception as e:
+            log_sync(f"Erreur synchronisation automatique: {str(e)}")
+
+@app.on_event("startup")
+async def start_background_tasks():
+    """Démarre les tâches de fond au démarrage"""
+    asyncio.create_task(periodic_github_sync())
+    print("✅ Tâche de synchronisation GitHub périodique démarrée (toutes les heures)")
+
 # Configuration MongoDB
 MONGO_URL = os.environ.get("MONGO_URL", "mongodb://localhost:27017")
 DB_NAME = os.environ.get("DB_NAME", "univers_au_carre")
