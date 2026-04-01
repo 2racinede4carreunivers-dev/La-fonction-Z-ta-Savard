@@ -4018,11 +4018,20 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     
     {personal_enrichment}
     
-    **PREUVES FORMELLES ISABELLE/HOL (Validées et compilées sans erreur - Isabelle2025-2) :**
-    {ISABELLE_PROOFS_CONTENT}
+    ================================================================================
+    === BASE DE CONNAISSANCES EXCLUSIVE - DÉPÔT GITHUB "L'UNIVERS EST AU CARRÉ" ===
+    === Dépôt: https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre ===
+    === Certification: SLSA Build Level 3 - Isabelle2025-2 - LaTeX ===
+    ================================================================================
     
-    **GUIDES MÉTHODOLOGIQUES DU DÉPÔT GITHUB (analyse-de-la-conjecture-zeta-riemann-savard) :**
-    {GITHUB_GUIDES_CONTENT}
+    **IMPORTANT: Utilise EXCLUSIVEMENT le contenu ci-dessous pour répondre aux questions.**
+    **Ce contenu est la source officielle et certifiée de la théorie de Philippe Thomas Savard.**
+    
+    {GITHUB_REPO_CONTENT}
+    
+    ================================================================================
+    === FIN DE LA BASE DE CONNAISSANCES GITHUB ===
+    ================================================================================
     
     **CONTEXTE PERSONNEL DE PHILIPPE THOMAS SAVARD :**
     
@@ -4041,12 +4050,10 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     **INSTRUCTIONS PERSONNALISÉES :**
     - Tu connais l'auteur Philippe Thomas Savard et son style de questionnement
     - Adapte tes réponses à son niveau de compréhension avancé de sa propre théorie
-    - Référence les discussions passées quand pertinent
-    - Identifie et signale les nouvelles pistes de recherche
-    - Aide à structurer et clarifier sa pensée
-    - Propose des connexions avec ses travaux précédents
-    - Utilise les concepts théoriques enrichis selon leur domaine spécifique
-    - **UTILISE LES PREUVES ISABELLE/HOL ci-dessus comme référence pour expliquer les concepts mathématiques avec précision**
+    - **UTILISE EXCLUSIVEMENT le contenu du dépôt GitHub "L'univers est au carré" pour répondre**
+    - Référence les preuves formelles Isabelle/HOL certifiées SLSA
+    - Cite les documents LaTeX et PDFs officiels du dépôt
+    - Si une information n'est pas dans le dépôt GitHub, indique-le clairement
     """
     
     try:
