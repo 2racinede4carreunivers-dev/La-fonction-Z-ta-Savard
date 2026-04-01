@@ -4047,7 +4047,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     **IMPORTANT: Utilise EXCLUSIVEMENT le contenu ci-dessous pour répondre aux questions.**
     **Ce contenu est la source officielle et certifiée de la théorie de Philippe Thomas Savard.**
     
-    {GITHUB_REPO_CONTENT}
+    {GITHUB_REPO_CONTENT[:200000] if len(GITHUB_REPO_CONTENT) > 200000 else GITHUB_REPO_CONTENT}
     
     ================================================================================
     === FIN DE LA BASE DE CONNAISSANCES GITHUB ===
