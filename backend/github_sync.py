@@ -15,8 +15,8 @@ import hashlib
 from datetime import datetime
 import PyPDF2
 
-GITHUB_REPO_URL = "https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre.git"
-LOCAL_REPO_PATH = "/app/data/L-univers-est-au-carre"
+GITHUB_REPO_URL = "https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026.git"
+LOCAL_REPO_PATH = "/app/data/Theorie-mathematique-philippe-thomas-savard-2026"
 SYNC_LOG_PATH = "/app/data/github_sync_log.txt"
 
 def log_sync(message):
