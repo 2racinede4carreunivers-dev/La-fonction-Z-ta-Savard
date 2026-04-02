@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 class CriticalDeploymentTester:
-    def __init__(self, base_url="https://author-identity-fix.preview.emergentagent.com"):
+    def __init__(self, base_url="https://theo-sync.preview.emergentagent.com"):
         self.base_url = base_url
         self.tests_run = 0
         self.tests_passed = 0
@@ -61,7 +61,7 @@ class CriticalDeploymentTester:
         print("🚀 CRITICAL DEPLOYMENT ENDPOINTS - FINAL TESTING")
         print("Test complet final du backend avant déploiement - Application 'L'univers est au carré'")
         print("Code d'accès upload documents implémenté: Uni1374079226497308car")
-        print("Backend sur: https://author-identity-fix.preview.emergentagent.com")
+        print("Backend sur: https://theo-sync.preview.emergentagent.com")
         print("=" * 80)
         
         all_critical_tests_passed = True
