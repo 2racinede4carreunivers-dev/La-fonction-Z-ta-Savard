@@ -5800,6 +5800,8 @@ const SalonLecturePage = () => {
   const [showConceptForm, setShowConceptForm] = useState(false);
   const [showFormuleForm, setShowFormuleForm] = useState(false);
   const [activeAdminTab, setActiveAdminTab] = useState('concepts');
+  const [githubSyncStatus, setGithubSyncStatus] = useState(null);
+  const [githubSyncing, setGithubSyncing] = useState(false);
   const [conceptForm, setConceptForm] = useState({
     titre: '',
     description: '',
@@ -9733,6 +9735,16 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                   >
                     📊 Statistiques
                   </button>
+                  <button
+                    onClick={() => {
+                      setActiveAdminTab('github-sync');
+                      axios.get(`${API_URL}/api/github/status`).then(res => setGithubSyncStatus(res.data)).catch(() => {});
+                    }}
+                    className={`px-4 py-2 rounded text-sm ${activeAdminTab === 'github-sync' ? 'bg-emerald-600 text-white' : 'bg-slate-700 text-gray-300'}`}
+                    data-testid="admin-tab-github-sync"
+                  >
+                    Sync GitHub
+                  </button>
                 </div>
               </CardHeader>
               
@@ -9851,6 +9863,59 @@ Fin de la deuxième partie de l'ouvrage « L'univers est au carré » et de la g
                         );
                       })}
                     </div>
+                  </div>
+                )}
+
+                {activeAdminTab === 'github-sync' && (
+                  <div className="space-y-4" data-testid="admin-github-sync-panel">
+                    <h3 className="text-emerald-400 font-semibold">Synchronisation GitHub</h3>
+                    
+                    {githubSyncStatus && (
+                      <div className="space-y-3">
+                        <div className="bg-slate-800/40 border border-emerald-600/30 rounded p-4 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-400 text-sm">Statut</span>
+                            <span className={`text-sm font-medium px-2 py-0.5 rounded ${githubSyncStatus.status === 'active' ? 'bg-emerald-900/40 text-emerald-400' : 'bg-red-900/40 text-red-400'}`}>
+                              {githubSyncStatus.status === 'active' ? 'Actif' : 'Inactif'}
+                            </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-gray-400 text-sm">Taille du contexte</span>
+                            <span className="text-white text-sm font-mono">{(githubSyncStatus.content_size || 0).toLocaleString('fr-FR')} car.</span>
+                          </div>
+                          <div className="pt-2 border-t border-white/5">
+                            <span className="text-gray-400 text-xs">Derniere sync</span>
+                            <p className="text-gray-300 text-xs mt-1 font-mono">{githubSyncStatus.last_sync || 'N/A'}</p>
+                          </div>
+                          <div className="pt-2 border-t border-white/5">
+                            <span className="text-gray-400 text-xs">Depot</span>
+                            <p className="text-emerald-400/80 text-xs mt-1 break-all">{githubSyncStatus.repo_url || 'N/A'}</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <button
+                      onClick={async () => {
+                        setGithubSyncing(true);
+                        try {
+                          const res = await axios.post(`${API_URL}/api/github/sync`);
+                          setGithubSyncStatus(prev => ({ ...prev, content_size: res.data.content_size, status: 'active' }));
+                          const statusRes = await axios.get(`${API_URL}/api/github/status`);
+                          setGithubSyncStatus(statusRes.data);
+                          alert(res.data.updated ? `Synchronisation terminee - ${(res.data.content_size || 0).toLocaleString('fr-FR')} caracteres charges` : `Depot deja a jour - ${(res.data.content_size || 0).toLocaleString('fr-FR')} caracteres`);
+                        } catch (err) {
+                          alert('Erreur de synchronisation: ' + (err.response?.data?.detail || err.message));
+                        } finally {
+                          setGithubSyncing(false);
+                        }
+                      }}
+                      disabled={githubSyncing}
+                      className={`w-full py-3 rounded font-medium text-sm transition-all ${githubSyncing ? 'bg-slate-700 text-gray-500 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-white'}`}
+                      data-testid="github-sync-button"
+                    >
+                      {githubSyncing ? 'Synchronisation en cours...' : 'Lancer la synchronisation'}
+                    </button>
                   </div>
                 )}
               </CardContent>

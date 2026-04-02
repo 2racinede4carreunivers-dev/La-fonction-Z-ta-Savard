@@ -59,4 +59,4 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 
 ## Dernière Mise à Jour
 - **Date**: 2 avril 2026
-- **Changement**: Migration de la synchronisation GitHub vers le nouveau dépôt `Theorie-mathematique-philippe-thomas-savard-2026` avec extraction intelligente des .tex (suppression des blocs HOL dupliqués)
+- **Changement**: Migration sync GitHub vers nouveau depot + ajout bouton "Sync GitHub" dans le panneau admin (Salon de Lecture > Admin > Sync GitHub)
