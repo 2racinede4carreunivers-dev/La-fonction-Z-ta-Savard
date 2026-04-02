@@ -12,47 +12,51 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 ## Fonctionnalités Implémentées
 
 ### Modules IA
-1. **IA Spécialisée** - Expert de la théorie avec base de connaissances enrichie
+1. **IA Spécialisée** - Expert de la théorie avec base de connaissances enrichie (contexte GitHub)
 2. **IA Évolutive** - Apprentissage continu basé sur les conversations
 3. **IA Socratique** - Challenge et questionnement du raisonnement
 
+### Synchronisation GitHub (ACTIF)
+- **Dépôt**: https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026
+- **Fichiers chargés**:
+  - 5 fichiers `.thy` (Isabelle/HOL) : `methode_spectral.thy`, `methode_de_philippot.thy`, `espace_philippot.thy`, `mecanique_discret.thy`, `postulat_carre.thy` (~105k car.)
+  - 7 fichiers `.tex` (texte extrait, blocs HOL dédupliqués) : `geometrie_du_spectre_premier.tex`, `geometry_prime_spectrum.tex`, `mecanique_harmonique_du_chaos_discret.tex`, `postulat_de_univers_carre.tex`, `espace_de_philippot.tex`, `pilosophy_geometry_of_prime_number.tex`, `teleosemantique_philosophie_esprit_analogiste.tex` (~100k car.)
+  - 7 fichiers `.md` (documentation) (~27k car.)
+- **Total contexte**: ~235k caractères
+- **Sync automatique**: Toutes les heures
+- **Endpoints**: `POST /api/github/sync`, `GET /api/github/status`
+- **Optimisation**: Les scripts HOL embarqués dans les .tex sont retirés (déjà couverts par les .thy officiels)
+
 ### Galerie de Schémas
 - 22 images de visualisation de la théorie
-- Section "Schémas & Visualisations" dans l'interface
 
 ### Système Admin
-- Page secrète `/admin-questions` pour historique des questions
-- Accès via icône 🔑 + Ctrl+Shift+A
+- Accès via icône 🔑 + Ctrl+Alt+W
 - Protection par mot de passe
-- Logging des questions posées à l'IA Spécialisée
+- Page `/admin-questions` pour historique des questions
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
-- Support des fichiers Isabelle HOL (.thy) via le bouton "Ajouter document"
-- **NOUVEAU**: Intégration complète du dépôt GitHub de Philippe Thomas Savard:
-  - URL: https://github.com/2racinede4carreunivers-dev/analyse-de-la-conjecture-zeta-riemann-savard
-  - Fichiers Isabelle HOL (67,419 caractères): `methode_spectral.thy`, `methode_de_philippot.thy`
-  - Guides méthodologiques (24,493 caractères): `README.md`, `guide_methode_de_philippot.md`, `guide_methode_spectrale.md`
-  - Certification: Isabelle2025-2 Build Passing, LaTeX PDF OK (3 mars 2026)
-  - Licence: Apache 2.0
+- Support des fichiers Isabelle HOL (.thy)
 
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
 
 ## Fichiers Clés
-- `/app/backend/server.py` - Serveur API principal
+- `/app/backend/server.py` - Serveur API principal (~6600 lignes)
+- `/app/backend/github_sync.py` - Synchronisation GitHub avec extraction .thy/.tex/.md
 - `/app/frontend/src/App.js` - Frontend monolithique (>12,000 lignes)
-- `/app/data/isabelle_proofs/methode_spectral.thy` - Preuves spectrales (rapport 1/2, 1/3, 1/4, asymétries)
-- `/app/data/isabelle_proofs/methode_de_philippot.thy` - Méthode de Philippôt généralisée
+- `/app/backend/modules/evolutionary_qa_system.py` - IA Évolutive
+- `/app/backend/modules/ia_socratique_evolutive.py` - IA Socratique
 
 ## Mots de Passe et Codes Secrets
 - **Admin/Upload**: `Uni1098020238ARC1374079226497308zetacar`
-- **Phrase Auteur** (pour toutes les IAs): `Bonjour je m'appelle Philippe Thomas Savard, je suis l'auteur de la théorie:1374079226497308.`
+- **Phrase Auteur** (pour toutes les IAs): `je suis l'auteur de la théorie:1374079226497308`
 
 ## Backlog (P2/P3)
-1. **Refactorisation App.js** - Découper en composants plus petits
+1. **Refactorisation App.js** - Découper en composants plus petits (reporté par l'utilisateur)
 2. **Projet Fusion** - Fusion avec applications LaTeX et CAO
 
 ## Dernière Mise à Jour
-- **Date**: 9 février 2025
-- **Changement**: Ajout des 2 scripts Isabelle HOL dans la base de connaissances de l'IA
+- **Date**: 2 avril 2026
+- **Changement**: Migration de la synchronisation GitHub vers le nouveau dépôt `Theorie-mathematique-philippe-thomas-savard-2026` avec extraction intelligente des .tex (suppression des blocs HOL dupliqués)
