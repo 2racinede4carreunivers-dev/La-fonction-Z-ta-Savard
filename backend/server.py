@@ -124,7 +124,7 @@ def load_github_guides():
 # === NOUVEAU SYSTÈME: Synchronisation GitHub "L'univers est au carré" ===
 print("=" * 60)
 print("INITIALISATION - Synchronisation GitHub 'L'univers est au carré'")
-print("Dépôt: https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre")
+print("Dépôt: https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026")
 print("=" * 60)
 
 # Synchroniser le dépôt GitHub au démarrage
@@ -4040,7 +4040,7 @@ async def chat_with_ai_extended(chat_message: ExtendedChatMessage):
     
     ================================================================================
     === BASE DE CONNAISSANCES EXCLUSIVE - DÉPÔT GITHUB "L'UNIVERS EST AU CARRÉ" ===
-    === Dépôt: https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre ===
+    === Dépôt: https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026 ===
     === Certification: SLSA Build Level 3 - Isabelle2025-2 - LaTeX ===
     ================================================================================
     
@@ -6570,7 +6570,7 @@ async def get_questions_log(request: dict):
 async def get_github_sync_status():
     """Retourne le statut de la synchronisation GitHub"""
     return {
-        "repo_url": "https://github.com/2racinede4carreunivers-dev/L-univers-est-au-carre",
+        "repo_url": "https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026",
         "content_size": len(GITHUB_REPO_CONTENT),
         "last_sync": get_last_sync_info(),
         "status": "active" if GITHUB_REPO_CONTENT else "inactive"
