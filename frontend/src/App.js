@@ -11666,6 +11666,9 @@ const AdminQuestionsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [totalCount, setTotalCount] = useState(0);
+  const [activeTab, setActiveTab] = useState('questions');
+  const [githubSyncStatus, setGithubSyncStatus] = useState(null);
+  const [githubSyncing, setGithubSyncing] = useState(false);
 
   const handleLogin = async () => {
     setError('');
@@ -11761,7 +11764,7 @@ const AdminQuestionsPage = () => {
         <Card className="bg-slate-800/90 border-cyan-400/30">
           <CardHeader>
             <CardTitle className="text-2xl text-white flex items-center justify-between">
-              <span>📊 Historique des Questions Posées à l'IA</span>
+              <span>Administration</span>
               <Button
                 onClick={() => {
                   setIsAuthenticated(false);
@@ -11772,38 +11775,118 @@ const AdminQuestionsPage = () => {
                 size="sm"
                 className="border-red-400/30 text-red-300 hover:bg-red-400/10"
               >
-                Déconnexion
+                Deconnexion
               </Button>
             </CardTitle>
-            <p className="text-blue-200 text-sm mt-2">
-              Total de questions enregistrées: <span className="font-bold text-cyan-300">{totalCount}</span>
-            </p>
+            <div className="flex gap-3 mt-4">
+              <button
+                onClick={() => setActiveTab('questions')}
+                className={`px-4 py-2 rounded text-sm font-medium transition-colors ${activeTab === 'questions' ? 'bg-cyan-600 text-white' : 'bg-slate-700 text-gray-300 hover:bg-slate-600'}`}
+                data-testid="admin-tab-questions"
+              >
+                Historique Questions ({totalCount})
+              </button>
+              <button
+                onClick={() => {
+                  setActiveTab('github-sync');
+                  axios.get(`${API_URL}/api/github/status`).then(res => setGithubSyncStatus(res.data)).catch(() => {});
+                }}
+                className={`px-4 py-2 rounded text-sm font-medium transition-colors ${activeTab === 'github-sync' ? 'bg-emerald-600 text-white' : 'bg-slate-700 text-gray-300 hover:bg-slate-600'}`}
+                data-testid="admin-tab-github-sync"
+              >
+                Sync GitHub
+              </button>
+            </div>
           </CardHeader>
           <CardContent>
-            {loading ? (
-              <div className="text-center text-blue-200 py-8">Chargement...</div>
-            ) : (
-              <div className="space-y-3 max-h-[600px] overflow-y-auto">
-                {questions.map((q, index) => (
-                  <div key={index} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-xs text-cyan-400 font-mono">
-                        {formatDate(q.timestamp)}
-                      </span>
-                      <span className="text-xs text-slate-400">
-                        Session: {q.session_id.slice(0, 8)}...
-                      </span>
-                    </div>
-                    <div className="text-white bg-slate-800 rounded p-3">
-                      {q.question}
-                    </div>
-                  </div>
-                ))}
-                {questions.length === 0 && (
-                  <div className="text-center text-slate-400 py-8">
-                    Aucune question enregistrée pour le moment
+            {activeTab === 'questions' && (
+              <>
+                <p className="text-blue-200 text-sm mb-4">
+                  Total de questions enregistrees: <span className="font-bold text-cyan-300">{totalCount}</span>
+                </p>
+                {loading ? (
+                  <div className="text-center text-blue-200 py-8">Chargement...</div>
+                ) : (
+                  <div className="space-y-3 max-h-[600px] overflow-y-auto">
+                    {questions.map((q, index) => (
+                      <div key={index} className="bg-slate-700/50 rounded-lg p-4 border border-slate-600">
+                        <div className="flex justify-between items-start mb-2">
+                          <span className="text-xs text-cyan-400 font-mono">
+                            {formatDate(q.timestamp)}
+                          </span>
+                          <span className="text-xs text-slate-400">
+                            Session: {q.session_id.slice(0, 8)}...
+                          </span>
+                        </div>
+                        <div className="text-white bg-slate-800 rounded p-3">
+                          {q.question}
+                        </div>
+                      </div>
+                    ))}
+                    {questions.length === 0 && (
+                      <div className="text-center text-slate-400 py-8">
+                        Aucune question enregistree pour le moment
+                      </div>
+                    )}
                   </div>
                 )}
+              </>
+            )}
+
+            {activeTab === 'github-sync' && (
+              <div className="space-y-5" data-testid="admin-github-sync-panel">
+                <h3 className="text-emerald-400 font-semibold text-lg">Synchronisation du depot GitHub</h3>
+
+                {githubSyncStatus && (
+                  <div className="bg-slate-700/40 border border-emerald-600/30 rounded-lg p-5 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400">Statut</span>
+                      <span className={`text-sm font-medium px-3 py-1 rounded-full ${githubSyncStatus.status === 'active' ? 'bg-emerald-900/50 text-emerald-400 border border-emerald-500/30' : 'bg-red-900/50 text-red-400 border border-red-500/30'}`}>
+                        {githubSyncStatus.status === 'active' ? 'Actif' : 'Inactif'}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400">Taille du contexte IA</span>
+                      <span className="text-white font-mono text-lg">{(githubSyncStatus.content_size || 0).toLocaleString('fr-FR')} car.</span>
+                    </div>
+                    <div className="border-t border-white/10 pt-3">
+                      <span className="text-gray-400 text-sm">Derniere synchronisation</span>
+                      <p className="text-cyan-300 text-sm mt-1 font-mono">{githubSyncStatus.last_sync || 'N/A'}</p>
+                    </div>
+                    <div className="border-t border-white/10 pt-3">
+                      <span className="text-gray-400 text-sm">Depot source</span>
+                      <p className="text-emerald-400/80 text-sm mt-1 break-all">{githubSyncStatus.repo_url || 'N/A'}</p>
+                    </div>
+                  </div>
+                )}
+
+                {!githubSyncStatus && (
+                  <div className="text-center text-gray-400 py-4">Chargement du statut...</div>
+                )}
+
+                <button
+                  onClick={async () => {
+                    setGithubSyncing(true);
+                    try {
+                      const res = await axios.post(`${API_URL}/api/github/sync`);
+                      const statusRes = await axios.get(`${API_URL}/api/github/status`);
+                      setGithubSyncStatus(statusRes.data);
+                      alert(res.data.updated
+                        ? `Synchronisation terminee! ${(res.data.content_size || 0).toLocaleString('fr-FR')} caracteres charges.`
+                        : `Depot deja a jour. ${(res.data.content_size || 0).toLocaleString('fr-FR')} caracteres en memoire.`
+                      );
+                    } catch (err) {
+                      alert('Erreur: ' + (err.response?.data?.detail || err.message));
+                    } finally {
+                      setGithubSyncing(false);
+                    }
+                  }}
+                  disabled={githubSyncing}
+                  className={`w-full py-3 rounded-lg font-medium text-sm transition-all ${githubSyncing ? 'bg-slate-700 text-gray-500 cursor-not-allowed' : 'bg-emerald-600 hover:bg-emerald-500 text-white'}`}
+                  data-testid="github-sync-button"
+                >
+                  {githubSyncing ? 'Synchronisation en cours...' : 'Lancer la synchronisation maintenant'}
+                </button>
               </div>
             )}
           </CardContent>
