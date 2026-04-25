@@ -389,12 +389,14 @@ def detect_author_authentication(message: str):
     Phrase secrète: Bonjour je m'appelle Philippe Thomas Savard, je suis l'auteur de la théorie:1374079226497308.
     Retourne True si l'auteur est authentifié, False sinon.
     """
-    AUTHOR_PHRASE = os.environ.get("AUTHOR_PHRASE", "je suis l'auteur de la théorie:1374079226497308")
-    AUTHOR_NAME = os.environ.get("AUTHOR_NAME", "Philippe Thomas Savard")
+    AUTHOR_PHRASE = os.environ.get("AUTHOR_PHRASE")
+    AUTHOR_NAME = os.environ.get("AUTHOR_NAME")
+    if not AUTHOR_PHRASE or not AUTHOR_NAME:
+        return False
     # Vérifier si la phrase contient les éléments clés d'identification
     message_lower = message.lower()
     return (AUTHOR_PHRASE.lower() in message_lower) or \
-           (AUTHOR_NAME.lower() in message_lower and "1374079226497308" in message)
+           (AUTHOR_NAME.lower() in message_lower and AUTHOR_PHRASE.split(":")[-1] in message)
 
 def get_author_context_addition():
     """
