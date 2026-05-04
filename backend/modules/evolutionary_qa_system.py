@@ -30,6 +30,7 @@ class QuestionReponse:
     derniere_evolution: str
     meta_score: float  # Score d'évolution automatique
     relations_internes: List[str]  # IDs des Q&R liées
+    source: str = ""  # Origine: "" = logiciel, "github_qa_bank" = depot GitHub
     
 class MetaProgrammationEngine:
     """

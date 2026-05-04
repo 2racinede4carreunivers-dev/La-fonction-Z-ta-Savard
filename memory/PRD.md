@@ -12,51 +12,46 @@ Application web complète pour explorer et interagir avec la théorie mathémati
 ## Fonctionnalités Implémentées
 
 ### Modules IA
-1. **IA Spécialisée** - Expert de la théorie avec base de connaissances enrichie (contexte GitHub)
-2. **IA Évolutive** - Apprentissage continu basé sur les conversations
+1. **IA Spécialisée** - Expert de la théorie avec base de connaissances GitHub (contexte 250k car.)
+2. **IA Évolutive** - Banque Q&R synchronisée GitHub (124+ Q&R) + apprentissage utilisateurs
 3. **IA Socratique** - Challenge et questionnement du raisonnement
 
 ### Synchronisation GitHub (ACTIF)
 - **Dépôt**: https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026
-- **Fichiers chargés**:
-  - 5 fichiers `.thy` (Isabelle/HOL) : `methode_spectral.thy`, `methode_de_philippot.thy`, `espace_philippot.thy`, `mecanique_discret.thy`, `postulat_carre.thy` (~105k car.)
-  - 7 fichiers `.tex` (texte extrait, blocs HOL dédupliqués) : `geometrie_du_spectre_premier.tex`, `geometry_prime_spectrum.tex`, `mecanique_harmonique_du_chaos_discret.tex`, `postulat_de_univers_carre.tex`, `espace_de_philippot.tex`, `pilosophy_geometry_of_prime_number.tex`, `teleosemantique_philosophie_esprit_analogiste.tex` (~100k car.)
-  - 7 fichiers `.md` (documentation) (~27k car.)
-- **Total contexte**: ~235k caractères
-- **Sync automatique**: Toutes les heures
+- **Sync contenu IA**: 5 .thy + 7 .tex (nettoyés) + 7 .md = ~250k car.
+- **Sync banque Q&R**: 106 Q&R depuis SQLite (`qa_bank/qa_bank.db`) -> fusionnées avec la banque logiciel (21 originales) = 127 total
+- **Sync automatique**: Toutes les heures (contenu + Q&R)
+- **Sync manuelle**: Bouton dans Admin > Sync GitHub
 - **Endpoints**: `POST /api/github/sync`, `GET /api/github/status`
-- **Optimisation**: Les scripts HOL embarqués dans les .tex sont retirés (déjà couverts par les .thy officiels)
-
-### Galerie de Schémas
-- 22 images de visualisation de la théorie
 
 ### Système Admin
-- Accès via icône 🔑 + Ctrl+Alt+W
-- Protection par mot de passe
-- Page `/admin-questions` pour historique des questions
+- Accès: icône 🔑 (bas gauche) + Ctrl+Alt+W + mot de passe
+- Page `/admin-questions` avec onglets:
+  - **Historique Questions**: log des questions posées aux IA
+  - **Sync GitHub**: statut, taille contexte, banque Q&R, bouton sync manuelle
 
 ### Documents et Preuves Formelles
 - Upload de documents avec protection par mot de passe
 - Support des fichiers Isabelle HOL (.thy)
 
+## Fichiers Clés
+- `/app/backend/server.py` - Serveur API principal
+- `/app/backend/github_sync.py` - Sync GitHub: contenu IA + banque Q&R
+- `/app/backend/modules/evolutionary_qa_system.py` - IA Évolutive avec banque fusionnée
+- `/app/frontend/src/App.js` - Frontend monolithique (>12k lignes)
+- `/app/data/banque_evolutive.json` - Banque Q&R fusionnée (GitHub + logiciel)
+
 ## Intégrations Tierces
 - Anthropic Claude via `emergentintegrations`
 
-## Fichiers Clés
-- `/app/backend/server.py` - Serveur API principal (~6600 lignes)
-- `/app/backend/github_sync.py` - Synchronisation GitHub avec extraction .thy/.tex/.md
-- `/app/frontend/src/App.js` - Frontend monolithique (>12,000 lignes)
-- `/app/backend/modules/evolutionary_qa_system.py` - IA Évolutive
-- `/app/backend/modules/ia_socratique_evolutive.py` - IA Socratique
-
 ## Mots de Passe et Codes Secrets
 - **Admin/Upload**: `Uni1098020238ARC1374079226497308zetacar`
-- **Phrase Auteur** (pour toutes les IAs): `je suis l'auteur de la théorie:1374079226497308`
+- **Phrase Auteur**: `je suis l'auteur de la théorie:1374079226497308`
 
-## Backlog (P2/P3)
-1. **Refactorisation App.js** - Découper en composants plus petits (reporté par l'utilisateur)
-2. **Projet Fusion** - Fusion avec applications LaTeX et CAO
+## Backlog
+1. **Refactorisation App.js** (P2) - Découper en composants plus petits (reporté)
+2. **Projet Fusion** (P3) - Fusion avec applications LaTeX et CAO
 
 ## Dernière Mise à Jour
-- **Date**: 2 avril 2026
-- **Changement**: Migration sync GitHub vers nouveau depot + ajout bouton "Sync GitHub" dans le panneau admin (Salon de Lecture > Admin > Sync GitHub)
+- **Date**: 4 mai 2026
+- **Changement**: Synchronisation bidirectionnelle banque Q&R entre dépôt GitHub (106 Q&R SQLite) et logiciel web (21 Q&R originales). L'IA Évolutive bénéficie désormais de 124+ Q&R.

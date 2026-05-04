@@ -11849,6 +11849,10 @@ const AdminQuestionsPage = () => {
                       <span className="text-gray-400">Taille du contexte IA</span>
                       <span className="text-white font-mono text-lg">{(githubSyncStatus.content_size || 0).toLocaleString('fr-FR')} car.</span>
                     </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-gray-400">Banque Q&R</span>
+                      <span className="text-white font-mono text-lg">{githubSyncStatus.qa_bank_size || 0} questions</span>
+                    </div>
                     <div className="border-t border-white/10 pt-3">
                       <span className="text-gray-400 text-sm">Derniere synchronisation</span>
                       <p className="text-cyan-300 text-sm mt-1 font-mono">{githubSyncStatus.last_sync || 'N/A'}</p>

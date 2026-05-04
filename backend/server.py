@@ -14,7 +14,7 @@ import base64
 import json
 
 # Import du système de synchronisation GitHub
-from github_sync import sync_repository, load_all_content, log_sync, get_last_sync_info
+from github_sync import sync_repository, load_all_content, log_sync, get_last_sync_info, sync_qa_bank
 
 # Import du système évolutif
 from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
@@ -66,6 +66,7 @@ async def periodic_github_sync():
             if updated:
                 GITHUB_REPO_CONTENT = load_all_content()
                 log_sync(f"Synchronisation automatique: {len(GITHUB_REPO_CONTENT)} caractères chargés")
+            sync_qa_bank()
         except Exception as e:
             log_sync(f"Erreur synchronisation automatique: {str(e)}")
 
@@ -132,6 +133,8 @@ try:
     sync_repository()
     GITHUB_REPO_CONTENT = load_all_content()
     print(f"✅ Contenu GitHub chargé: {len(GITHUB_REPO_CONTENT)} caractères")
+    qa_added = sync_qa_bank()
+    print(f"✅ Banque Q&R synchronisée: {qa_added} nouvelles questions importées")
 except Exception as e:
     print(f"❌ Erreur synchronisation GitHub: {e}")
     GITHUB_REPO_CONTENT = ""
@@ -6571,11 +6574,19 @@ async def get_questions_log(request: dict):
 @app.get("/api/github/status")
 async def get_github_sync_status():
     """Retourne le statut de la synchronisation GitHub"""
+    import json as _json
+    qa_count = 0
+    try:
+        with open("/app/data/banque_evolutive.json", 'r') as f:
+            qa_count = len(_json.load(f).get("banque", []))
+    except Exception:
+        pass
     return {
         "repo_url": "https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026",
         "content_size": len(GITHUB_REPO_CONTENT),
         "last_sync": get_last_sync_info(),
-        "status": "active" if GITHUB_REPO_CONTENT else "inactive"
+        "status": "active" if GITHUB_REPO_CONTENT else "inactive",
+        "qa_bank_size": qa_count
     }
 
 @app.post("/api/github/sync")
@@ -6587,19 +6598,14 @@ async def trigger_github_sync():
         updated = sync_repository()
         if updated:
             GITHUB_REPO_CONTENT = load_all_content()
-            return {
-                "success": True,
-                "message": "Dépôt synchronisé avec succès - Nouveau contenu chargé",
-                "content_size": len(GITHUB_REPO_CONTENT),
-                "updated": True
-            }
-        else:
-            return {
-                "success": True,
-                "message": "Dépôt déjà à jour",
-                "content_size": len(GITHUB_REPO_CONTENT),
-                "updated": False
-            }
+        qa_added = sync_qa_bank()
+        return {
+            "success": True,
+            "message": "Synchronisé" if updated else "Dépôt déjà à jour",
+            "content_size": len(GITHUB_REPO_CONTENT),
+            "updated": updated,
+            "qa_added": qa_added
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur synchronisation: {str(e)}")
 

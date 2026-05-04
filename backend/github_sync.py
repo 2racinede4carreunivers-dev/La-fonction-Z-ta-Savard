@@ -270,8 +270,129 @@ def get_last_sync_info():
         return "Erreur lecture log"
 
 
+# =============================================================================
+# SYNCHRONISATION BANQUE Q&R (GitHub SQLite -> logiciel web JSON)
+# =============================================================================
+
+BANQUE_WEB_PATH = "/app/data/banque_evolutive.json"
+QA_BANK_DB_PATH = os.path.join(LOCAL_REPO_PATH, "qa_bank", "qa_bank.db")
+
+
+def sync_qa_bank():
+    """Synchronise la banque Q&R du depot GitHub avec celle du logiciel web.
+    Les Q&R du depot (SQLite) sont fusionnees avec celles du logiciel (JSON).
+    Les doublons sont evites via un hash de la question."""
+    import sqlite3
+    import json
+    import uuid
+    from datetime import datetime
+
+    # 1. Lire les Q&R validees depuis la base SQLite du depot
+    github_qrs = []
+    try:
+        if not os.path.exists(QA_BANK_DB_PATH):
+            log_sync("Banque Q&R GitHub non trouvee, sync Q&R ignoree")
+            return 0
+
+        conn = sqlite3.connect(QA_BANK_DB_PATH)
+        conn.row_factory = sqlite3.Row
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM qa_validated ORDER BY id")
+        rows = cursor.fetchall()
+        conn.close()
+
+        for row in rows:
+            tags_raw = row["tags"] or "[]"
+            try:
+                tags = json.loads(tags_raw) if isinstance(tags_raw, str) else []
+            except Exception:
+                tags = []
+
+            github_qrs.append({
+                "question": row["question"],
+                "answer": row["answer"],
+                "category": row["category"] or "mathematique",
+                "subcategory": row["subcategory"] or "",
+                "difficulty": row["difficulty"] or "intermediaire",
+                "tags": tags,
+                "source": "github_qa_bank",
+                "quality_score": row["quality_score"] or 0.8,
+            })
+
+        log_sync(f"Banque GitHub: {len(github_qrs)} Q&R lues depuis SQLite")
+    except Exception as e:
+        log_sync(f"Erreur lecture banque Q&R GitHub: {e}")
+        return 0
+
+    # 2. Charger la banque web existante
+    web_data = {"banque": [], "concepts_theoriques": {}, "derniere_evolution": "", "version": "1.0"}
+    try:
+        if os.path.exists(BANQUE_WEB_PATH):
+            with open(BANQUE_WEB_PATH, 'r', encoding='utf-8') as f:
+                web_data = json.load(f)
+    except Exception:
+        pass
+
+    existing_banque = web_data.get("banque", [])
+
+    # 3. Creer un index des questions existantes (par hash) pour eviter les doublons
+    existing_hashes = set()
+    for qr in existing_banque:
+        q_normalized = qr.get("question", "").strip().lower()
+        existing_hashes.add(q_normalized)
+
+    # 4. Convertir et fusionner les Q&R GitHub
+    added = 0
+    difficulty_to_niveau = {"debutant": 2, "intermediaire": 3, "avance": 4, "expert": 5}
+
+    for gqr in github_qrs:
+        q_normalized = gqr["question"].strip().lower()
+        if q_normalized in existing_hashes:
+            continue
+
+        concepts_cles = list(gqr["tags"][:5]) if gqr["tags"] else [gqr["category"]]
+        if gqr["subcategory"]:
+            concepts_cles.append(gqr["subcategory"])
+
+        new_entry = {
+            "id": str(uuid.uuid4()),
+            "question": gqr["question"],
+            "reponse": gqr["answer"],
+            "contexte_theorique": ["L'univers est au carre", gqr["category"]],
+            "niveau_complexite": difficulty_to_niveau.get(gqr["difficulty"], 3),
+            "variantes": [],
+            "concepts_cles": concepts_cles,
+            "frequence_utilisation": 0,
+            "derniere_evolution": datetime.now().isoformat(),
+            "meta_score": gqr["quality_score"],
+            "relations_internes": [],
+            "source": "github_qa_bank",
+        }
+        existing_banque.append(new_entry)
+        existing_hashes.add(q_normalized)
+        added += 1
+
+    # 5. Sauvegarder la banque fusionnee
+    web_data["banque"] = existing_banque
+    web_data["derniere_evolution"] = datetime.now().isoformat()
+    web_data["version"] = "2.0-sync"
+
+    try:
+        with open(BANQUE_WEB_PATH, 'w', encoding='utf-8') as f:
+            json.dump(web_data, f, ensure_ascii=False, indent=2)
+        log_sync(f"Banque Q&R fusionnee: +{added} nouvelles (total: {len(existing_banque)})")
+    except Exception as e:
+        log_sync(f"Erreur sauvegarde banque Q&R: {e}")
+
+    return added
+
+
 if __name__ == "__main__":
     print("=== Test du systeme de synchronisation ===")
     sync_repository()
     content = load_all_content()
     print(f"Contenu total: {len(content)} caracteres")
+    print()
+    print("=== Test sync banque Q&R ===")
+    added = sync_qa_bank()
+    print(f"Q&R ajoutees: {added}")
