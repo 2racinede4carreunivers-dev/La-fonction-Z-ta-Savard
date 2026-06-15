@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form, Request
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel
@@ -6608,6 +6608,78 @@ async def trigger_github_sync():
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erreur synchronisation: {str(e)}")
+
+
+
+# =============================================================================
+# GABRIEL - Assistant HOL specialiste Geometrie du spectre des nombres premiers
+# =============================================================================
+
+gabriel_conversations: dict = {}
+
+@app.post("/api/gabriel/ask")
+async def gabriel_ask_endpoint(request: Request):
+    """Endpoint principal de Gabriel"""
+    from modules.gabriel.gabriel_service import gabriel_ask
+    data = await request.json()
+    question = data.get("question", "")
+    session_id = data.get("session_id", "default")
+
+    if not question.strip():
+        raise HTTPException(status_code=400, detail="Question vide")
+
+    if session_id not in gabriel_conversations:
+        gabriel_conversations[session_id] = []
+
+    result = await gabriel_ask(question, session_id, gabriel_conversations[session_id])
+
+    gabriel_conversations[session_id].append({"role": "user", "content": question})
+    gabriel_conversations[session_id].append({"role": "assistant", "content": result["response"]})
+
+    if len(gabriel_conversations[session_id]) > 20:
+        gabriel_conversations[session_id] = gabriel_conversations[session_id][-20:]
+
+    return result
+
+
+@app.post("/api/gabriel/compute")
+async def gabriel_compute_endpoint(request: Request):
+    """Calcul spectral direct (sans LLM)"""
+    from modules.gabriel.spectral_engine import (
+        analyze_prime, analyze_range, verify_prime_equation,
+        compute_spectral_ratio, nth_prime, prime_position, is_known_prime
+    )
+    data = await request.json()
+    action = data.get("action", "")
+    params = data.get("params", {})
+
+    if action == "analyze_prime":
+        p = params.get("prime", 0)
+        return analyze_prime(p)
+    elif action == "verify":
+        n = params.get("n", 0)
+        p = params.get("p", 0)
+        model = params.get("model", "1/2")
+        return verify_prime_equation(n, p, model)
+    elif action == "nth_prime":
+        n = params.get("n", 0)
+        p = nth_prime(n)
+        return {"n": n, "prime": p}
+    elif action == "position":
+        p = params.get("prime", 0)
+        pos = prime_position(p)
+        return {"prime": p, "position": pos, "is_prime": is_known_prime(p)}
+    elif action == "range":
+        start = params.get("start", 2)
+        end = min(params.get("end", 100), 1000)
+        return {"results": analyze_range(start, end)}
+    elif action == "spectral_ratio":
+        A_idx = params.get("A_indices", [])
+        B_idx = params.get("B_indices", [])
+        model = params.get("model", "1/2")
+        return compute_spectral_ratio(A_idx, B_idx, model)
+    else:
+        raise HTTPException(status_code=400, detail=f"Action inconnue: {action}")
 
 
 

@@ -142,6 +142,15 @@ const HomePage = () => {
                 <span className="w-5 h-5 mr-2">🎯</span>
                 Partenaire Intellectuel
               </Button>
+
+              <Button 
+                onClick={() => navigate('/gabriel')}
+                className="bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white px-8 py-3 rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+                data-testid="nav-gabriel"
+              >
+                <span className="w-5 h-5 mr-2">G</span>
+                Gabriel - Assistant HOL
+              </Button>
             </div>
 
             {/* Statistiques enrichies */}
@@ -11658,6 +11667,200 @@ const IAEvolutifPage = () => {
   );
 };
 
+
+// ==================== PAGE GABRIEL - Assistant HOL ====================
+const GabrielPage = () => {
+  const navigate = useNavigate();
+  const [question, setQuestion] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [sessionId] = useState(() => 'gabriel-' + Date.now());
+  const [showComputePanel, setShowComputePanel] = useState(false);
+  const [computeResult, setComputeResult] = useState(null);
+  const [primeInput, setPrimeInput] = useState('');
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => { scrollToBottom(); }, [messages]);
+
+  const sendMessage = async () => {
+    if (!question.trim() || loading) return;
+    const q = question.trim();
+    setQuestion('');
+    setMessages(prev => [...prev, { role: 'user', content: q }]);
+    setLoading(true);
+    try {
+      const res = await axios.post(`${API_URL}/api/gabriel/ask`, {
+        question: q, session_id: sessionId
+      });
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        content: res.data.response,
+        computation: res.data.computation,
+        computation_type: res.data.computation_type
+      }]);
+    } catch (err) {
+      setMessages(prev => [...prev, { role: 'error', content: 'Erreur: ' + (err.response?.data?.detail || err.message) }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const quickCompute = async (action, params) => {
+    try {
+      const res = await axios.post(`${API_URL}/api/gabriel/compute`, { action, params });
+      setComputeResult(res.data);
+    } catch (err) {
+      setComputeResult({ error: err.response?.data?.detail || err.message });
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-amber-950/30 to-slate-900" data-testid="gabriel-page">
+      <div className="container mx-auto max-w-5xl px-4 py-6">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-amber-400">Gabriel</h1>
+            <p className="text-amber-200/60 text-sm mt-1">Assistant HOL - Geometrie du spectre des nombres premiers</p>
+          </div>
+          <div className="flex gap-3">
+            <button
+              onClick={() => setShowComputePanel(!showComputePanel)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${showComputePanel ? 'bg-amber-600 text-white' : 'bg-slate-800 text-amber-300 border border-amber-600/30 hover:bg-slate-700'}`}
+              data-testid="gabriel-compute-toggle"
+            >
+              Calcul direct
+            </button>
+            <button
+              onClick={() => navigate('/')}
+              className="px-4 py-2 rounded-lg text-sm bg-slate-800 text-gray-300 border border-white/10 hover:bg-slate-700"
+            >
+              Retour
+            </button>
+          </div>
+        </div>
+
+        {/* Compute Panel */}
+        {showComputePanel && (
+          <div className="bg-slate-800/60 border border-amber-600/20 rounded-xl p-5 mb-6 space-y-4" data-testid="gabriel-compute-panel">
+            <h3 className="text-amber-400 font-semibold">Calcul spectral direct</h3>
+            <div className="flex gap-3 items-end flex-wrap">
+              <div>
+                <label className="text-gray-400 text-xs block mb-1">Nombre premier</label>
+                <input
+                  type="number"
+                  value={primeInput}
+                  onChange={(e) => setPrimeInput(e.target.value)}
+                  placeholder="ex: 29"
+                  className="bg-slate-900 border border-white/10 rounded px-3 py-2 text-white text-sm w-32"
+                  data-testid="gabriel-prime-input"
+                />
+              </div>
+              <button onClick={() => quickCompute('analyze_prime', { prime: parseInt(primeInput) })}
+                className="px-4 py-2 bg-amber-600 hover:bg-amber-500 text-white rounded text-sm font-medium"
+                data-testid="gabriel-analyze-btn">Analyser</button>
+              <button onClick={() => quickCompute('position', { prime: parseInt(primeInput) })}
+                className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-amber-300 rounded text-sm">Position</button>
+              <button onClick={() => quickCompute('nth_prime', { n: parseInt(primeInput) })}
+                className="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-amber-300 rounded text-sm">N-ieme premier</button>
+            </div>
+            {computeResult && (
+              <pre className="bg-slate-900 rounded p-4 text-xs text-green-400 overflow-x-auto max-h-60 overflow-y-auto" data-testid="gabriel-compute-result">
+                {JSON.stringify(computeResult, null, 2)}
+              </pre>
+            )}
+          </div>
+        )}
+
+        {/* Chat area */}
+        <div className="bg-slate-800/40 border border-amber-600/20 rounded-xl overflow-hidden">
+          <div className="h-[500px] overflow-y-auto p-5 space-y-4" data-testid="gabriel-messages">
+            {messages.length === 0 && (
+              <div className="text-center py-16 space-y-4">
+                <div className="text-5xl font-bold text-amber-500/30">G</div>
+                <p className="text-amber-200/40 text-sm max-w-md mx-auto">
+                  Posez une question sur la geometrie du spectre des nombres premiers.
+                  Gabriel effectue des calculs spectraux verifies (SA, SB, digamma, rapports) et explique les resultats.
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center mt-4">
+                  {['Verifie le premier 97', 'Analyse les premiers de 2 a 50', 'Quel est le 25e nombre premier?', 'Calcule le rapport spectral entre 5 et 11'].map(q => (
+                    <button key={q} onClick={() => { setQuestion(q); }}
+                      className="px-3 py-1.5 bg-amber-900/30 border border-amber-600/20 rounded-full text-amber-300/80 text-xs hover:bg-amber-800/40 transition-colors">
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+            {messages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                <div className={`max-w-[85%] rounded-xl px-4 py-3 ${
+                  msg.role === 'user' ? 'bg-amber-600/20 border border-amber-500/30 text-white' :
+                  msg.role === 'error' ? 'bg-red-900/20 border border-red-500/30 text-red-300' :
+                  'bg-slate-700/50 border border-white/5 text-gray-200'
+                }`}>
+                  {msg.role === 'assistant' && msg.computation && (
+                    <details className="mb-3">
+                      <summary className="text-amber-400 text-xs cursor-pointer hover:text-amber-300">
+                        Calculs spectraux ({msg.computation_type})
+                      </summary>
+                      <pre className="mt-2 text-xs text-green-400/80 bg-slate-900/50 rounded p-2 overflow-x-auto whitespace-pre-wrap">
+                        {msg.computation}
+                      </pre>
+                    </details>
+                  )}
+                  <div className="text-sm whitespace-pre-wrap leading-relaxed" style={{wordBreak: 'break-word'}}>
+                    {msg.content}
+                  </div>
+                </div>
+              </div>
+            ))}
+            {loading && (
+              <div className="flex justify-start">
+                <div className="bg-slate-700/50 border border-white/5 rounded-xl px-4 py-3 text-amber-400/60 text-sm">
+                  Gabriel calcule et reflechit...
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {/* Input */}
+          <div className="border-t border-white/5 p-4">
+            <div className="flex gap-3">
+              <input
+                type="text"
+                value={question}
+                onChange={(e) => setQuestion(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+                placeholder="Posez votre question sur la methode spectrale..."
+                className="flex-1 bg-slate-900 border border-white/10 rounded-lg px-4 py-3 text-white text-sm placeholder-gray-500 focus:outline-none focus:border-amber-500/50"
+                disabled={loading}
+                data-testid="gabriel-input"
+              />
+              <button
+                onClick={sendMessage}
+                disabled={loading || !question.trim()}
+                className={`px-6 py-3 rounded-lg font-medium text-sm transition-colors ${
+                  loading || !question.trim() ? 'bg-slate-700 text-gray-500 cursor-not-allowed' : 'bg-amber-600 hover:bg-amber-500 text-white'
+                }`}
+                data-testid="gabriel-send-btn"
+              >
+                Envoyer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 // ==================== PAGE ADMIN - HISTORIQUE QUESTIONS ====================
 const AdminQuestionsPage = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -11983,6 +12186,7 @@ function App() {
           <Route path="/salle-illustrations" element={<SalleIllustrationsPage />} />
           <Route path="/ia-evolutif" element={<IAEvolutifPage />} />
           <Route path="/ia-socratique" element={<IASocratiquePage />} />
+          <Route path="/gabriel" element={<GabrielPage />} />
           <Route path="/admin-questions" element={<AdminQuestionsPage />} />
         </Routes>
       </div>
