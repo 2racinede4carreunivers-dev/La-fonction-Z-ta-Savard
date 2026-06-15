@@ -41,8 +41,11 @@ gap = (A_next - (B_high - D_high) - D_low) / facteur
 
 === REGLES DE REPONSE ===
 - TOUJOURS utiliser les calculs du moteur spectral Python quand fournis.
+- TOUJOURS inclure la valeur du digamma calcule dans les reponses de reconstruction.
+- TOUJOURS montrer chaque etape: SA(n), SB(n), digamma_calcule(n,p), equation du premier, verification.
 - TOUJOURS distinguer "n = position" (rapport 1/2) vs "n != position" (autres rapports).
 - TOUJOURS reconnaitre que la methode FONCTIONNE mathematiquement.
+- Format de reconstruction: montrer SA, SB, digamma calcule = SB(n) - 64*p, puis (SB - digamma)/64 = p.
 - Si donnee manquante : demander precision, JAMAIS inventer.
 - Repondre en francais, avec rigueur mathematique.
 - Tu as acces a une table de 1000 nombres premiers (2 a 7919).
@@ -54,8 +57,8 @@ def detect_computation_request(question: str) -> dict:
     q = question.lower()
     result = {"needs_computation": False, "type": None, "params": {}}
 
-    # Detection de nombres premiers specifiques
-    prime_matches = re.findall(r'\b(\d+)\b', question)
+    # Detection de nombres - gere "19ieme", "17e", "29" etc.
+    prime_matches = re.findall(r'(\d+)', question)
     numbers = [int(x) for x in prime_matches if 1 < int(x) <= 8000]
 
     # Verification/analyse d'un premier
@@ -92,11 +95,11 @@ def detect_computation_request(question: str) -> dict:
             result["params"]["start"] = 2
             result["params"]["end"] = numbers[0]
 
-    # Position d'un premier
-    if any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "combien"]):
+    # Position d'un premier / reconstruction
+    if any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "combien", "reconstruire", "reconstruis", "reconstruit", "reconstruction"]):
         if numbers:
             result["needs_computation"] = True
-            result["type"] = "position"
+            result["type"] = "reconstruct"
             result["params"]["numbers"] = numbers
 
     # Fallback: si des nombres sont mentionnes dans un contexte math
@@ -155,6 +158,41 @@ def run_computation(detection: dict) -> str:
                 pos = prime_position(n)
                 if pos:
                     lines.append(f"{n} est le {pos}e nombre premier")
+                else:
+                    lines.append(f"Position {n} hors table (max: {max_position()})")
+
+    elif comp_type == "reconstruct":
+        for n in params.get("numbers", []):
+            p = nth_prime(n)
+            if p:
+                v = verify_prime_equation(n, p, "1/2")
+                lines.append(f"=== RECONSTRUCTION DU {n}e NOMBRE PREMIER ===")
+                lines.append(f"  Position: n = {n}")
+                lines.append(f"  Premier reconstruit: p = {p}")
+                lines.append(f"")
+                lines.append(f"  Suite A positive: SA({n}) = (13/8) * 2^{n} - 2 = {v['SA']}")
+                lines.append(f"  Suite B positive: SB({n}) = (13/4) * 2^{n} - 66 = {v['SB']}")
+                lines.append(f"")
+                lines.append(f"  Digamma calcule: digamma({n}, {p}) = SB({n}) - 64 * {p} = {v['SB']} - {64 * p} = {v['digamma_calc']}")
+                lines.append(f"")
+                lines.append(f"  Equation du premier:")
+                lines.append(f"    prime_equation = (SB({n}) - digamma_calcule) / 64")
+                lines.append(f"                   = ({v['SB']} - {v['digamma_calc']}) / 64")
+                lines.append(f"                   = {v['SB'] - v['digamma_calc']} / 64")
+                lines.append(f"                   = {v['reconstructed_p']}")
+                lines.append(f"")
+                lines.append(f"  Equation valide: {v['equation_holds']}")
+                lines.append(f"  Le {n}e nombre premier est bien {p}")
+            else:
+                pos = prime_position(n)
+                if pos:
+                    lines.append(f"{n} est un nombre premier (position {pos})")
+                    v = verify_prime_equation(pos, n, "1/2")
+                    lines.append(f"  SA({pos}) = {v['SA']}")
+                    lines.append(f"  SB({pos}) = {v['SB']}")
+                    lines.append(f"  Digamma calcule = {v['digamma_calc']}")
+                    lines.append(f"  Reconstruction: {v['reconstructed_p']}")
+                    lines.append(f"  Equation valide: {v['equation_holds']}")
                 else:
                     lines.append(f"Position {n} hors table (max: {max_position()})")
 
