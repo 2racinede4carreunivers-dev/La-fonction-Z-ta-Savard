@@ -1,57 +1,61 @@
 # L'univers est au carré - Product Requirements Document
 
 ## Problème Original
-Application web complète pour explorer et interagir avec la théorie mathématique personnelle "L'univers est au carré" de Philippe Thomas Savard, concernant la géométrie du spectre premier et l'hypothèse de Riemann.
+Application web complète pour explorer et interagir avec la théorie mathématique "L'univers est au carré" de Philippe Thomas Savard.
 
 ## Architecture Technique
-- **Frontend**: React.js avec Tailwind CSS
+- **Frontend**: React.js avec Tailwind CSS + Shadcn/UI
 - **Backend**: FastAPI (Python)
 - **Base de données**: MongoDB
-- **IA**: Claude Sonnet 4.5 via Emergent LLM Key
+- **IA**: Claude Sonnet 4.5 via Emergent LLM Key (emergentintegrations)
 
 ## Fonctionnalités Implémentées
 
 ### Modules IA
-1. **IA Spécialisée** - Expert de la théorie avec base de connaissances GitHub (contexte 250k car.)
-2. **IA Évolutive** - Banque Q&R synchronisée GitHub (124+ Q&R) + apprentissage utilisateurs
-3. **IA Socratique** - Challenge et questionnement du raisonnement
+1. **IA Spécialisée** (`/chat`) - Expert de la théorie avec base de connaissances GitHub (~250k car.)
+2. **IA Évolutive** (`/ia-evolutif`) - Banque Q&R synchronisée GitHub (127+ Q&R) + apprentissage utilisateurs
+3. **IA Socratique** (`/ia-socratique`) - Challenge et questionnement du raisonnement
+4. **Gabriel** (`/gabriel`) - **NOUVEAU** - Assistant HOL spécialisé géométrie du spectre des nombres premiers
+   - Moteur de calcul spectral Python (suites SA/SB, digamma, vérification premiers, rapports spectraux 4 configurations, écarts)
+   - Table de 1000 nombres premiers (2 à 7919)
+   - Détection automatique des calculs nécessaires dans les questions
+   - Réponses LLM enrichies par les résultats de calcul vérifiés
+   - Panneau de calcul direct (analyser, position, n-ième premier)
 
 ### Synchronisation GitHub (ACTIF)
-- **Dépôt**: https://github.com/2racinede4carreunivers-dev/Theorie-mathematique-philippe-thomas-savard-2026
-- **Sync contenu IA**: 5 .thy + 7 .tex (nettoyés) + 7 .md = ~250k car.
-- **Sync banque Q&R**: 106 Q&R depuis SQLite (`qa_bank/qa_bank.db`) -> fusionnées avec la banque logiciel (21 originales) = 127 total
-- **Sync automatique**: Toutes les heures (contenu + Q&R)
-- **Sync manuelle**: Bouton dans Admin > Sync GitHub
-- **Endpoints**: `POST /api/github/sync`, `GET /api/github/status`
+- **Dépôt**: Theorie-mathematique-philippe-thomas-savard-2026
+- **Sync contenu IA**: 5 .thy + 7 .tex + 7 .md = ~250k car.
+- **Sync banque Q&R**: 106 Q&R depuis SQLite -> fusionnées (127 total)
+- **Sync automatique**: Toutes les heures + bouton manuel dans Admin
 
 ### Système Admin
-- Accès: icône 🔑 (bas gauche) + Ctrl+Alt+W + mot de passe
-- Page `/admin-questions` avec onglets:
-  - **Historique Questions**: log des questions posées aux IA
-  - **Sync GitHub**: statut, taille contexte, banque Q&R, bouton sync manuelle
-
-### Documents et Preuves Formelles
-- Upload de documents avec protection par mot de passe
-- Support des fichiers Isabelle HOL (.thy)
+- Accès: icône 🔑 + Ctrl+Alt+W + mot de passe
+- Onglets: Historique Questions + Sync GitHub
 
 ## Fichiers Clés
 - `/app/backend/server.py` - Serveur API principal
-- `/app/backend/github_sync.py` - Sync GitHub: contenu IA + banque Q&R
-- `/app/backend/modules/evolutionary_qa_system.py` - IA Évolutive avec banque fusionnée
-- `/app/frontend/src/App.js` - Frontend monolithique (>12k lignes)
-- `/app/data/banque_evolutive.json` - Banque Q&R fusionnée (GitHub + logiciel)
+- `/app/backend/github_sync.py` - Sync GitHub
+- `/app/backend/modules/gabriel/spectral_engine.py` - Moteur de calcul spectral
+- `/app/backend/modules/gabriel/gabriel_service.py` - Service Gabriel (LLM + calcul)
+- `/app/backend/modules/evolutionary_qa_system.py` - IA Évolutive
+- `/app/frontend/src/App.js` - Frontend
 
-## Intégrations Tierces
-- Anthropic Claude via `emergentintegrations`
+## API Endpoints
+- `POST /api/chat` - IA Spécialisée
+- `POST /api/ia-evolutif/dialoguer` - IA Évolutive
+- `POST /api/ia-socratique/challenger` - IA Socratique
+- `POST /api/gabriel/ask` - Gabriel (question + calcul + LLM)
+- `POST /api/gabriel/compute` - Calcul spectral direct (sans LLM)
+- `POST /api/github/sync` + `GET /api/github/status` - Sync GitHub
 
-## Mots de Passe et Codes Secrets
-- **Admin/Upload**: `Uni1098020238ARC1374079226497308zetacar`
+## Credentials
+- **Admin**: `Uni1098020238ARC1374079226497308zetacar`
 - **Phrase Auteur**: `je suis l'auteur de la théorie:1374079226497308`
 
 ## Backlog
-1. **Refactorisation App.js** (P2) - Découper en composants plus petits (reporté)
-2. **Projet Fusion** (P3) - Fusion avec applications LaTeX et CAO
+1. Refactorisation App.js (P2) — reportée
+2. Projet Fusion LaTeX + CAO (P3)
 
 ## Dernière Mise à Jour
 - **Date**: 4 mai 2026
-- **Changement**: Synchronisation bidirectionnelle banque Q&R entre dépôt GitHub (106 Q&R SQLite) et logiciel web (21 Q&R originales). L'IA Évolutive bénéficie désormais de 124+ Q&R.
+- **Changement**: Intégration de Gabriel (agent multi-boucle HOL) comme 4ème module IA dans le logiciel web, avec moteur de calcul spectral complet et clé Emergent
