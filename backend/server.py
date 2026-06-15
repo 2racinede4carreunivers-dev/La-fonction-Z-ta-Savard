@@ -6682,6 +6682,14 @@ async def gabriel_compute_endpoint(request: Request):
         raise HTTPException(status_code=400, detail=f"Action inconnue: {action}")
 
 
+@app.get("/api/gabriel/visualize")
+async def gabriel_visualize_endpoint(start: int = 1, end: int = 50):
+    """Donnees de visualisation pour les graphiques spectraux"""
+    from modules.gabriel.spectral_engine import generate_viz_data
+    end = min(end, 200)
+    return generate_viz_data(start, end)
+
+
 
 if __name__ == "__main__":
     import uvicorn

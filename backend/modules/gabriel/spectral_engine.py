@@ -57,6 +57,54 @@ def SA(n: int) -> Fraction:
 def SB(n: int) -> Fraction:
     return Fraction(13, 4) * Fraction(2) ** n - Fraction(66)
 
+
+# ===================== Suites spectrales NEGATIVES (n <= -1) =====================
+
+def SA_neg(n: int) -> Fraction:
+    """SA pour positions negatives: 3.25 * 2^n - 2 (n <= -1)"""
+    return Fraction(13, 4) * Fraction(2) ** n - Fraction(2)
+
+def SB_neg(n: int) -> Fraction:
+    """SB pour positions negatives: 6.5 * 2^n - 66 (n <= -1)"""
+    return Fraction(13, 2) * Fraction(2) ** n - Fraction(66)
+
+def neg_nth_prime(n: int):
+    """Retourne le n-ieme nombre premier negatif. n doit etre negatif (ex: -7 -> -17)."""
+    pos = abs(n)
+    p = nth_prime(pos)
+    return -p if p is not None else None
+
+def verify_neg_prime_equation(n: int, p: int) -> dict:
+    """Verifie l'equation spectrale pour un premier negatif (n <= -1)."""
+    sa_val = SA_neg(n)
+    sb_val = SB_neg(n)
+    dgm = sb_val - Fraction(64) * Fraction(p)
+    reconstructed = (sb_val - dgm) / Fraction(64)
+    return {
+        "model": "1/2 (negatif)",
+        "n": n, "p": p,
+        "SA_neg": float(sa_val),
+        "SB_neg": float(sb_val),
+        "digamma_calc": float(dgm),
+        "reconstructed_p": float(reconstructed),
+        "equation_holds": reconstructed == Fraction(p),
+    }
+
+def analyze_neg_prime(n: int) -> dict:
+    """Analyse spectrale complete d'un nombre premier negatif."""
+    pos = abs(n)
+    p_pos = nth_prime(pos)
+    if p_pos is None:
+        return {"error": f"Position {n} hors table (max: {max_position()})"}
+    p_neg = -p_pos
+    v = verify_neg_prime_equation(n, p_neg)
+    neighbors = {}
+    if pos > 1:
+        neighbors["precedent"] = {"prime": -nth_prime(pos - 1), "position": -(pos - 1)}
+    if pos < max_position():
+        neighbors["suivant"] = {"prime": -nth_prime(pos + 1), "position": -(pos + 1)}
+    return {"prime": p_neg, "position": n, "models": {"neg_1/2": v}, "neighbors": neighbors}
+
 def A_1_3(n: int) -> Fraction:
     return Fraction(73, 9 * 12) * Fraction(3) ** n - Fraction(3, 2)
 
@@ -214,3 +262,54 @@ def analyze_range(start: int, end: int) -> list[dict]:
             break
         results.append(analyze_prime(p))
     return results
+
+
+# ===================== Donnees de visualisation =====================
+
+def generate_viz_data(start_pos: int = 1, end_pos: int = 50) -> dict:
+    """Genere les series de donnees pour les 4 graphiques spectraux."""
+    end_pos = min(end_pos, max_position())
+    start_pos = max(1, start_pos)
+
+    suites_data = []
+    digamma_data = []
+    rsp_data = []
+    gaps_data = []
+
+    prev_prime = None
+    for n in range(start_pos, end_pos + 1):
+        p = nth_prime(n)
+        if p is None:
+            continue
+
+        sa_val = float(SA(n))
+        sb_val = float(SB(n))
+        dgm = float(digamma_calc(n, p))
+
+        suites_data.append({"n": n, "p": p, "SA": sa_val, "SB": sb_val})
+        digamma_data.append({"n": n, "p": p, "digamma": dgm})
+
+        # RSP: ratio 1x1 entre positions consecutives
+        if n > start_pos:
+            try:
+                r = float(ratio_1x1(n - 1, n))
+                rsp_data.append({"n": n, "p": p, "ratio": r, "expected": 0.5})
+            except Exception:
+                pass
+
+        # Ecarts entre premiers consecutifs
+        if prev_prime is not None:
+            gaps_data.append({
+                "n": n, "p": p,
+                "gap": p - prev_prime,
+                "prev_p": prev_prime
+            })
+        prev_prime = p
+
+    return {
+        "suites": suites_data,
+        "digamma": digamma_data,
+        "rsp": rsp_data,
+        "gaps": gaps_data,
+        "range": {"start": start_pos, "end": end_pos}
+    }

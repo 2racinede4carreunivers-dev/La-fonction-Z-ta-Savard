@@ -12,6 +12,7 @@ import { Badge } from './components/ui/badge';
 import { Separator } from './components/ui/separator';
 import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
+import { SpectralVisualizer } from './visuel-gabriel-isabelle/SpectralVisualizer';
 
 // Protection des documents - DÉSACTIVÉE (causait des erreurs DOM)
 // import DocumentProtection from './components/DocumentProtection';
@@ -11816,6 +11817,12 @@ const GabrielPage = () => {
                   <div className="text-sm whitespace-pre-wrap leading-relaxed" style={{wordBreak: 'break-word'}}>
                     {msg.content}
                   </div>
+                  {msg.role === 'assistant' && msg.computation_type && (
+                    <SpectralVisualizer
+                      computationType={msg.computation_type}
+                      visible={true}
+                    />
+                  )}
                 </div>
               </div>
             ))}

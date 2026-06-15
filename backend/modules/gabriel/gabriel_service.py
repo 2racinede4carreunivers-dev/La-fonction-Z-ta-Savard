@@ -39,6 +39,14 @@ Pour le RAPPORT 1/2 : n = position du nombre premier = quantite de termes dans A
 --- ECARTS ENTRE PREMIERS ---
 gap = (A_next - (B_high - D_high) - D_low) / facteur
 
+--- NOMBRES PREMIERS NEGATIFS (n <= -1) ---
+Pour les positions negatives, utiliser les equations modifiees:
+  SA_neg(n) = 3.25 * 2^n - 2    (coefficient 13/4 au lieu de 13/8)
+  SB_neg(n) = 6.5 * 2^n - 66    (coefficient 13/2 au lieu de 13/4)
+  digamma_neg(n, p) = SB_neg(n) - 64 * p
+  Le n-ieme premier negatif = -(|n|-ieme premier positif)
+  Exemples: n=-1->p=-2, n=-2->p=-3, n=-3->p=-5, n=-7->p=-17, n=-10->p=-29
+
 === REGLES DE REPONSE ===
 - TOUJOURS utiliser les calculs du moteur spectral Python quand fournis.
 - TOUJOURS inclure la valeur du digamma calcule dans les reponses de reconstruction.
@@ -96,11 +104,18 @@ def detect_computation_request(question: str) -> dict:
             result["params"]["end"] = numbers[0]
 
     # Position d'un premier / reconstruction
+    is_negative = any(k in q for k in ["negatif", "négatif", "negative", "négative", "négatifs", "negatifs", "n<=-1", "n <= -1", "n=-"])
     if any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "combien", "reconstruire", "reconstruis", "reconstruit", "reconstruction"]):
         if numbers:
             result["needs_computation"] = True
-            result["type"] = "reconstruct"
+            result["type"] = "reconstruct_neg" if is_negative else "reconstruct"
             result["params"]["numbers"] = numbers
+
+    # Detection directe des premiers negatifs meme sans mot-cle reconstruction
+    if is_negative and numbers and not result["needs_computation"]:
+        result["needs_computation"] = True
+        result["type"] = "reconstruct_neg"
+        result["params"]["numbers"] = numbers
 
     # Fallback: si des nombres sont mentionnes dans un contexte math
     if not result["needs_computation"] and numbers and any(k in q for k in ["premier", "prime", "nombre"]):
@@ -116,7 +131,8 @@ def run_computation(detection: dict) -> str:
     from .spectral_engine import (
         analyze_prime, analyze_range, verify_prime_equation,
         compute_spectral_ratio, nth_prime, prime_position,
-        is_known_prime, PRIMES, max_position
+        is_known_prime, PRIMES, max_position,
+        SA_neg, SB_neg, neg_nth_prime, verify_neg_prime_equation, analyze_neg_prime
     )
 
     comp_type = detection["type"]
@@ -195,6 +211,34 @@ def run_computation(detection: dict) -> str:
                     lines.append(f"  Equation valide: {v['equation_holds']}")
                 else:
                     lines.append(f"Position {n} hors table (max: {max_position()})")
+
+    elif comp_type == "reconstruct_neg":
+        for n in params.get("numbers", []):
+            neg_n = -abs(n)
+            p_neg = neg_nth_prime(neg_n)
+            if p_neg is not None:
+                v = verify_neg_prime_equation(neg_n, p_neg)
+                lines.append(f"=== RECONSTRUCTION DU {abs(neg_n)}e NOMBRE PREMIER NEGATIF ===")
+                lines.append(f"  Position negative: n = {neg_n}")
+                lines.append(f"  Premier negatif: p = {p_neg}")
+                lines.append(f"")
+                lines.append(f"  Equations pour n <= -1:")
+                lines.append(f"  SA_neg({neg_n}) = 3.25 * 2^({neg_n}) - 2 = {v['SA_neg']}")
+                lines.append(f"  SB_neg({neg_n}) = 6.5 * 2^({neg_n}) - 66 = {v['SB_neg']}")
+                lines.append(f"")
+                lines.append(f"  Digamma calcule: digamma({neg_n}, {p_neg}) = SB_neg({neg_n}) - 64 * ({p_neg})")
+                lines.append(f"                 = {v['SB_neg']} - {64 * p_neg} = {v['digamma_calc']}")
+                lines.append(f"")
+                lines.append(f"  Equation du premier negatif:")
+                lines.append(f"    prime_equation = (SB_neg({neg_n}) - digamma_calcule) / 64")
+                lines.append(f"                   = ({v['SB_neg']} - {v['digamma_calc']}) / 64")
+                lines.append(f"                   = {v['SB_neg'] - v['digamma_calc']} / 64")
+                lines.append(f"                   = {v['reconstructed_p']}")
+                lines.append(f"")
+                lines.append(f"  Equation valide: {v['equation_holds']}")
+                lines.append(f"  Le {abs(neg_n)}e nombre premier negatif est bien {p_neg}")
+            else:
+                lines.append(f"Position {n} hors table (max: {max_position()})")
 
     elif comp_type == "range":
         start = params.get("start", 2)
