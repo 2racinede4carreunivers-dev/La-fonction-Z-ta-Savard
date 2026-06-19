@@ -13,36 +13,45 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 
 ### Modules IA
 1. **IA Spécialisée** (`/chat`) - Base de connaissances GitHub (~250k car.)
-2. **IA Évolutive** (`/ia-evolutif`) - Banque Q&R synchronisée (127+ Q&R)
+2. **IA Évolutive** (`/ia-evolutif`) - Banque Q&R synchronisée (179 Q&R)
 3. **IA Socratique** (`/ia-socratique`) - Challenge du raisonnement
-4. **Gabriel** (`/gabriel`) - Assistant HOL spécialisé géométrie du spectre des nombres premiers
-   - Moteur de calcul spectral: SA/SB, digamma, vérification premiers, rapports RSP, écarts
+4. **Gabriel V2** (`/gabriel`) - Assistant HOL spécialisé géométrie du spectre des nombres premiers
+   - Moteur de calcul spectral V2: SA/SB, digamma, vérification premiers, rapports RSP, écarts
+   - **Formule d'écart CORRIGÉE** (gap_solver_final): Supporte (+,+), (-,-), et mixte (-,+)
    - **Nombres premiers négatifs** (n ≤ -1): SA_neg = 3.25×2^n-2, SB_neg = 6.5×2^n-66
-   - **4 graphiques spectraux** automatiques sous les réponses (Recharts):
-     - Suites SA/SB (log10), Digamma, RSP convergence vers 1/2, Écarts entre premiers
-   - Détection automatique des calculs (reconstruct, reconstruct_neg, analyze, range, ratio, gap)
+   - **Courbes RSP** avec configurations: 1x1, sym, chaos, ord
+   - **4 graphiques spectraux** automatiques sous les réponses (Recharts)
+   - Détection automatique des calculs (reconstruct, reconstruct_neg, analyze, range, ratio, gap_v2, rsp_curve)
    - Composants visuels dans `/app/frontend/src/visuel-gabriel-isabelle/`
 
 ### Synchronisation GitHub
-- Dépôt: Theorie-mathematique-philippe-thomas-savard-2026
-- Contenu IA + Banque Q&R (106 GitHub + 21 originales = 127 total)
+- Dépôt principal: Theorie-mathematique-philippe-thomas-savard-2026
+- Dépôt Gabriel local: agent-multiloop-Gabriel-local (analysé pour mise à jour V2)
+- Contenu IA: .thy + .tex + .md + documentation Gabriel (Ia_geo_spec_prem_app_deplo)
+- Banque Q&R: 179 Q&R fusionnées
 - Sync auto horaire + bouton manuel dans Admin
 
 ### Système Admin
 - Accès: 🔑 + Ctrl+Alt+W + mot de passe → `/admin-questions`
 - Onglets: Historique Questions + Sync GitHub
 
-## Fichiers Clés
-- `/app/backend/modules/gabriel/spectral_engine.py` - Moteur calcul spectral (positif + négatif)
+## Fichiers Clés Gabriel V2
+- `/app/backend/modules/gabriel/spectral_engine.py` - Moteur calcul spectral V2 (positif + négatif)
 - `/app/backend/modules/gabriel/gabriel_service.py` - Service Gabriel (détection + LLM)
+- `/app/backend/modules/gabriel/gap_solver.py` - **NOUVEAU** Formule d'écart V2 corrigée
+- `/app/backend/modules/gabriel/rsp_curve.py` - **NOUVEAU** Courbes RSP avec rendu ASCII
 - `/app/frontend/src/visuel-gabriel-isabelle/SpectralVisualizer.jsx` - 4 graphiques
 - `/app/backend/server.py` - API principale
-- `/app/backend/github_sync.py` - Sync GitHub
+- `/app/backend/github_sync.py` - Sync GitHub (inclut maintenant Ia_geo_spec_prem_app_deplo)
 
-## API Endpoints
+## API Endpoints Gabriel V2
 - `POST /api/gabriel/ask` - Question Gabriel (calcul + LLM)
 - `POST /api/gabriel/compute` - Calcul spectral direct
 - `GET /api/gabriel/visualize` - Données pour graphiques
+- `POST /api/gabriel/gap` - **NOUVEAU** Écart spectral V2 (positifs, négatifs, mixtes)
+- `GET /api/gabriel/rsp-curve` - **NOUVEAU** Courbe RSP (config=1x1|sym|chaos|ord)
+
+## Autres API Endpoints
 - `POST /api/chat`, `/api/ia-evolutif/dialoguer`, `/api/ia-socratique/challenger`
 - `POST /api/github/sync`, `GET /api/github/status`
 
@@ -51,9 +60,15 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 - **Phrase Auteur**: `je suis l'auteur de la théorie:1374079226497308`
 
 ## Backlog
-1. Refactorisation App.js (P2) — reportée
+1. Refactorisation App.js (P2) — reportée (>12,000 lignes)
 2. Projet Fusion LaTeX + CAO (P3)
 
 ## Dernière Mise à Jour
-- **Date**: 4 mai 2026
-- **Changements**: Ajout support nombres premiers négatifs (n ≤ -1) + 4 graphiques spectraux automatiques (suites, digamma, RSP, écarts) dans Gabriel
+- **Date**: 19 juin 2026
+- **Changements**: 
+  - Mise à jour module Gabriel vers V2 (nouvelles formules du dépôt local)
+  - Ajout gap_solver.py avec formule d'écart corrigée (supporte +/+, -/-, mixte)
+  - Ajout rsp_curve.py pour courbes RSP avec rendu ASCII
+  - Ajout endpoints /api/gabriel/gap et /api/gabriel/rsp-curve
+  - Inclusion documentation Ia_geo_spec_prem_app_deplo dans sync GitHub
+  - Correction modèle LLM (claude-sonnet-4-5-20250929)

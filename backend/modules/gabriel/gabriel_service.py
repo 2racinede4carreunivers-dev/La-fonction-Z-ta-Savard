@@ -372,7 +372,7 @@ async def gabriel_ask(question: str, session_id: str, conversation_history: list
             api_key=os.environ.get("EMERGENT_LLM_KEY"),
             session_id=f"gabriel-{session_id}",
             system_message=system_prompt
-        ).with_model("anthropic", "claude-sonnet-4-20250514")
+        ).with_model("anthropic", "claude-sonnet-4-5-20250929")
 
         user_message = UserMessage(text=question)
         response = await chat.send_message(user_message)
