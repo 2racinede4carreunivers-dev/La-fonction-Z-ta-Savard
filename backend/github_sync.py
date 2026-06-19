@@ -227,6 +227,15 @@ Les fichiers .tex sont les documents theoriques (texte extrait, code HOL omis ca
                     rel = os.path.relpath(os.path.join(root, md_file), repo)
                     docs_paths.append((rel, os.path.join(root, md_file)))
 
+    # 4. Documentation Gabriel / IA deploiement (Ia_geo_spec_prem_app_deplo)
+    gabriel_docs_dir = os.path.join(repo, "Ia_geo_spec_prem_app_deplo")
+    if os.path.exists(gabriel_docs_dir):
+        for root, _, files in os.walk(gabriel_docs_dir):
+            for md_file in sorted(files):
+                if md_file.endswith('.md'):
+                    rel = os.path.relpath(os.path.join(root, md_file), repo)
+                    docs_paths.append((f"[Gabriel] {rel}", os.path.join(root, md_file)))
+
     md_section = f"\n{'='*80}\n=== DOCUMENTATION ET GUIDES ===\n{'='*80}\n"
     for label, md_path in docs_paths:
         if os.path.exists(md_path):

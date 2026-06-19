@@ -1,11 +1,18 @@
 """
-Moteur de calcul spectral - adapte de l'agent Gabriel (Philippe Thomas Savard).
+Moteur de calcul spectral V2 - adapte de l'agent Gabriel (Philippe Thomas Savard).
 Contient: suites SA/SB, digamma, verification premiers, ecarts, rapports spectraux.
 Table des 1000 premiers nombres premiers (2 a 7919).
+
+VERSION 2.0 - Ameliorations:
+- Formule d'ecart CORRIGEE (gap_solver_final)
+- Courbes RSP avec rendu ASCII
+- Reconstruction detaillee avec explications
+- Support complet des nombres premiers negatifs
 """
 from __future__ import annotations
 from fractions import Fraction
 from enum import Enum
+from typing import Optional, Any
 from ._primes_data import PRIMES_RAW
 
 # ===================== Table des nombres premiers =====================
@@ -13,13 +20,15 @@ from ._primes_data import PRIMES_RAW
 PRIMES: list[int] = list(PRIMES_RAW)
 
 
-def nth_prime(n: int):
+def nth_prime(n: int) -> Optional[int]:
+    """Retourne le n-ieme nombre premier (1-indexed). 2 = 1er, 3 = 2e, etc."""
     if n < 1 or n > len(PRIMES):
         return None
     return PRIMES[n - 1]
 
 
-def prime_position(p: int):
+def prime_position(p: int) -> Optional[int]:
+    """Retourne la position (1-indexed) du nombre premier p."""
     try:
         return PRIMES.index(p) + 1
     except ValueError:
@@ -27,10 +36,12 @@ def prime_position(p: int):
 
 
 def is_known_prime(p: int) -> bool:
+    """Verifie si p est dans la table des premiers."""
     return p in PRIMES
 
 
 def max_position() -> int:
+    """Position max disponible dans la table."""
     return len(PRIMES)
 
 
@@ -196,7 +207,6 @@ def detect_configuration(A_indices, B_indices) -> AsymmetryKind:
 
 def compute_spectral_ratio(A_indices, B_indices, model: str = "1/2") -> dict:
     config = detect_configuration(A_indices, B_indices)
-    fns = get_suite_functions(model)
     if config == AsymmetryKind.SYM_1x1:
         ratio = ratio_1x1(A_indices[0], B_indices[0], model)
     else:
@@ -211,20 +221,44 @@ def compute_spectral_ratio(A_indices, B_indices, model: str = "1/2") -> dict:
     }
 
 
-# ===================== Ecarts entre premiers =====================
+# ===================== Ecarts entre premiers (V2 - Formule corrigee) =====================
 
 def gap_equation(A_next, B_high, D_high, D_low, model: str = "1/3") -> Fraction:
+    """Ancienne formule (conservee pour compatibilite)."""
     fns = get_suite_functions(model)
     return (Fraction(A_next) - (Fraction(B_high) - Fraction(D_high)) - Fraction(D_low)) / fns["factor"]
 
-def compute_gap(p_high: int, p_low: int, A_next, B_high, D_high, D_low, model: str = "1/3") -> dict:
-    kind = GapKind.POS_POS if p_high >= 0 and p_low >= 0 else (GapKind.NEG_NEG if p_high <= 0 and p_low <= 0 else GapKind.NEG_POS)
-    gap = gap_equation(A_next, B_high, D_high, D_low, model)
-    return {
-        "kind": kind.value, "model": model,
-        "p_high": p_high, "p_low": p_low,
-        "gap": float(gap), "expected_gap": p_low - p_high,
-    }
+
+def compute_gap_v2(p1: int, p2: int) -> dict:
+    """
+    NOUVELLE FORMULE V2 - Calcul d'ecart spectral CORRECT.
+    
+    Formule: gap = (SA(n_next_min) - (SB(n_min) - dgm(n_min)) - (SB(n_max) - dgm(n_max))) / 64
+    
+    Supporte: (+,+), (-,-), et mixte (-,+)
+    """
+    from .gap_solver import compute_gap as gap_compute
+    result = gap_compute(p1, p2)
+    if result:
+        return result
+    return {"error": f"Impossible de calculer l'ecart entre {p1} et {p2}"}
+
+
+def compute_gap(p_high: int, p_low: int, A_next=None, B_high=None, D_high=None, D_low=None, model: str = "1/3") -> dict:
+    """
+    Calcul d'ecart - utilise la nouvelle formule V2 si les parametres anciens ne sont pas fournis.
+    """
+    # Si les anciens parametres sont fournis, utiliser l'ancienne methode
+    if A_next is not None and B_high is not None and D_high is not None and D_low is not None:
+        kind = GapKind.POS_POS if p_high >= 0 and p_low >= 0 else (GapKind.NEG_NEG if p_high <= 0 and p_low <= 0 else GapKind.NEG_POS)
+        gap = gap_equation(A_next, B_high, D_high, D_low, model)
+        return {
+            "kind": kind.value, "model": model,
+            "p_high": p_high, "p_low": p_low,
+            "gap": float(gap), "expected_gap": p_low - p_high,
+        }
+    # Sinon utiliser la nouvelle formule V2
+    return compute_gap_v2(p_high, p_low)
 
 
 # ===================== Analyse automatique d'un nombre premier =====================
@@ -262,6 +296,53 @@ def analyze_range(start: int, end: int) -> list[dict]:
             break
         results.append(analyze_prime(p))
     return results
+
+
+# ===================== Reconstruction detaillee (V2) =====================
+
+def reconstruct_prime_detailed(n: int, p: int = None, model: str = "1/2") -> dict:
+    """
+    Reconstruction DETAILLEE du P-ieme nombre premier.
+    
+    Retourne toutes les etapes du calcul avec explications.
+    """
+    # Si p n'est pas fourni, le determiner depuis n
+    if p is None:
+        p = nth_prime(n)
+        if p is None:
+            return {"error": f"Position {n} hors table (max: {max_position()})"}
+    
+    # Verification complete
+    result = verify_prime_equation(n, p, model)
+    
+    fns = get_suite_functions(model)
+    factor = fns["factor"]
+    
+    # Construire les lignes d'explication
+    explanation_lines = [
+        f"--- Reconstruction du {p}-ieme nombre premier (modele {model}) ---",
+        f"Donnees : n = {n} termes dans les suites A et B.",
+        f"Modele spectral : {model} - base {fns['base']} - facteur {factor}.",
+        "",
+        "Calcul des sommes :",
+        f"  SA(n={n})   = {result['SA']}",
+        f"  SB(n={n})   = {result['SB']}",
+        "",
+        f"Digamma calcule : digamma_calc(n, p) = SB(n) - {factor} * p",
+        f"  digamma_calc = {result['SB']} - {factor} * {p} = {result['digamma_calc']}",
+        "",
+        f"Equation du premier : prime_equation(n, p) = (SB(n) - digamma_calc) / {factor}",
+        f"  prime_equation = ({result['SB']} - {result['digamma_calc']}) / {factor} = {result['reconstructed_p']}",
+        "",
+        f"Verification : prime_equation == p ? {result['equation_holds']}",
+        f"==> Le {n}-ieme nombre premier est P = {p}.",
+    ]
+    
+    return {
+        **result,
+        "explanation_lines": explanation_lines,
+        "explanation": "\n".join(explanation_lines),
+    }
 
 
 # ===================== Donnees de visualisation =====================
@@ -313,3 +394,46 @@ def generate_viz_data(start_pos: int = 1, end_pos: int = 50) -> dict:
         "gaps": gaps_data,
         "range": {"start": start_pos, "end": end_pos}
     }
+
+
+# ===================== Courbe RSP (V2) =====================
+
+def generate_rsp_curve_data(config: str = "1x1", k_max: int = 50) -> dict:
+    """
+    Genere les donnees de courbe RSP avec rendu ASCII.
+    
+    Configurations:
+    - "1x1"   : paires consecutives
+    - "sym"   : blocs symetriques
+    - "chaos" : blocs chaotiques
+    - "ord"   : blocs ordonnes asymetriques
+    """
+    from .rsp_curve import generate_rsp_viz_data
+    return generate_rsp_viz_data(config, k_max)
+
+
+# ===================== Exports supplementaires =====================
+
+__all__ = [
+    # Table des premiers
+    "PRIMES", "nth_prime", "prime_position", "is_known_prime", "max_position",
+    # Enums
+    "GapKind", "AsymmetryKind",
+    # Suites positives
+    "SA", "SB", "sum_SA", "sum_SB",
+    # Suites negatives
+    "SA_neg", "SB_neg", "neg_nth_prime", "verify_neg_prime_equation", "analyze_neg_prime",
+    # Autres modeles
+    "A_1_3", "B_1_3", "A_1_4", "B_1_4", "SA_mix", "SB_mix",
+    "SUITES_BY_MODEL", "get_suite_functions",
+    # Digamma
+    "digamma_calc", "prime_equation", "verify_prime_equation",
+    # Ratios
+    "ratio_1x1", "ratio_nxn", "detect_configuration", "compute_spectral_ratio",
+    # Ecarts
+    "gap_equation", "compute_gap", "compute_gap_v2",
+    # Analyse
+    "analyze_prime", "analyze_range", "reconstruct_prime_detailed",
+    # Visualisation
+    "generate_viz_data", "generate_rsp_curve_data",
+]

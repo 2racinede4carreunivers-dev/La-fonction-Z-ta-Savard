@@ -65,63 +65,81 @@ def detect_computation_request(question: str) -> dict:
     q = question.lower()
     result = {"needs_computation": False, "type": None, "params": {}}
 
-    # Detection de nombres - gere "19ieme", "17e", "29" etc.
-    prime_matches = re.findall(r'(\d+)', question)
-    numbers = [int(x) for x in prime_matches if 1 < int(x) <= 8000]
+    # Detection de nombres - gere "19ieme", "17e", "29" etc. et aussi nombres negatifs "-41"
+    prime_matches = re.findall(r'-?\d+', question)
+    numbers = [int(x) for x in prime_matches if abs(int(x)) <= 8000 and int(x) != 0]
+    positive_numbers = [n for n in numbers if n > 0]
 
     # Verification/analyse d'un premier
     if any(k in q for k in ["verifie", "analyse", "montre", "prouve", "calcul", "spectral", "digamma", "equation"]):
-        if numbers:
+        if positive_numbers:
             result["needs_computation"] = True
             result["type"] = "analyze_prime"
-            result["params"]["primes"] = numbers
+            result["params"]["primes"] = positive_numbers
+
+    # Courbe RSP (NOUVELLE FONCTIONNALITE V2)
+    if any(k in q for k in ["courbe rsp", "rsp curve", "evolution du rapport", "convergence"]):
+        result["needs_computation"] = True
+        result["type"] = "rsp_curve"
+        result["params"]["config"] = "1x1"  # Par defaut
+        if "sym" in q or "symetrique" in q:
+            result["params"]["config"] = "sym"
+        elif "chaos" in q or "chaotique" in q:
+            result["params"]["config"] = "chaos"
+        elif "ord" in q or "ordonne" in q:
+            result["params"]["config"] = "ord"
+        result["params"]["k_max"] = 50
+        for n in positive_numbers:
+            if n <= 500:
+                result["params"]["k_max"] = n
+                break
 
     # Rapport spectral
-    if any(k in q for k in ["rapport", "ratio", "rsp", "1/2", "1/3", "1/4"]):
+    elif any(k in q for k in ["rapport", "ratio", "rsp", "1/2", "1/3", "1/4"]):
         result["needs_computation"] = True
         result["type"] = "spectral_ratio"
-        if numbers:
-            result["params"]["numbers"] = numbers
+        if positive_numbers:
+            result["params"]["numbers"] = positive_numbers
 
-    # Ecart entre premiers
+    # Ecart entre premiers (V2 - supporte negatifs)
     if any(k in q for k in ["ecart", "gap", "distance", "entre"]):
         if len(numbers) >= 2:
             result["needs_computation"] = True
-            result["type"] = "gap"
+            result["type"] = "gap_v2"
             result["params"]["primes"] = numbers[:2]
 
     # Plage de nombres premiers
     if any(k in q for k in ["plage", "range", "liste", "premiers de", "premiers entre"]):
-        if len(numbers) >= 2:
+        if len(positive_numbers) >= 2:
             result["needs_computation"] = True
             result["type"] = "range"
-            result["params"]["start"] = min(numbers[:2])
-            result["params"]["end"] = max(numbers[:2])
-        elif len(numbers) == 1:
+            result["params"]["start"] = min(positive_numbers[:2])
+            result["params"]["end"] = max(positive_numbers[:2])
+        elif len(positive_numbers) == 1:
             result["needs_computation"] = True
             result["type"] = "range"
             result["params"]["start"] = 2
-            result["params"]["end"] = numbers[0]
+            result["params"]["end"] = positive_numbers[0]
 
     # Position d'un premier / reconstruction
     is_negative = any(k in q for k in ["negatif", "négatif", "negative", "négative", "négatifs", "negatifs", "n<=-1", "n <= -1", "n=-"])
     if any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "combien", "reconstruire", "reconstruis", "reconstruit", "reconstruction"]):
-        if numbers:
+        if positive_numbers:
             result["needs_computation"] = True
             result["type"] = "reconstruct_neg" if is_negative else "reconstruct"
-            result["params"]["numbers"] = numbers
+            result["params"]["numbers"] = positive_numbers
 
     # Detection directe des premiers negatifs meme sans mot-cle reconstruction
-    if is_negative and numbers and not result["needs_computation"]:
+    if is_negative and positive_numbers and not result["needs_computation"]:
         result["needs_computation"] = True
         result["type"] = "reconstruct_neg"
-        result["params"]["numbers"] = numbers
+        result["params"]["numbers"] = positive_numbers
 
     # Fallback: si des nombres sont mentionnes dans un contexte math
-    if not result["needs_computation"] and numbers and any(k in q for k in ["premier", "prime", "nombre"]):
+    if not result["needs_computation"] and positive_numbers and any(k in q for k in ["premier", "prime", "nombre"]):
         result["needs_computation"] = True
         result["type"] = "analyze_prime"
-        result["params"]["primes"] = numbers[:5]
+        result["params"]["primes"] = positive_numbers[:5]
 
     return result
 
@@ -285,6 +303,49 @@ def run_computation(detection: dict) -> str:
                 lines.append(f"  {p2}: n={pos2}, SB={v2['SB']}, dgm={v2['digamma_calc']}")
                 lines.append(f"  Ecart arithmetique: {p2 - p1}")
                 lines.append(f"  Entiers entre eux: {p2 - p1 - 1}")
+
+    elif comp_type == "gap_v2":
+        # NOUVELLE FORMULE V2 - Supporte positifs, negatifs et mixtes
+        from .gap_solver import compute_gap as gap_compute
+        primes = params.get("primes", [])
+        if len(primes) >= 2:
+            p1, p2 = primes[0], primes[1]
+            result = gap_compute(p1, p2)
+            if result and "error" not in result:
+                lines.append(f"=== ECART SPECTRAL V2 (Formule corrigee) ===")
+                lines.append(f"  Type d'ecart: {result['gap_type']}")
+                lines.append(f"  Premier 1: {result['p1']} (position n={result['position_p1']})")
+                lines.append(f"  Premier 2: {result['p2']} (position n={result['position_p2']})")
+                lines.append(f"")
+                lines.append(f"  Position suivant min: n={result['position_suivant_min']}")
+                lines.append(f"  SA(n_suivant_min) = {result['SA_suivant_min']:.6f}")
+                lines.append(f"  SB(n_min) = {result['SB_min']:.6f}")
+                lines.append(f"  Digamma(n_min) = {result['digamma_min']:.6f}")
+                lines.append(f"  SB(n_max) = {result['SB_max']:.6f}")
+                lines.append(f"  Digamma(n_max) = {result['digamma_max']:.6f}")
+                lines.append(f"")
+                lines.append(f"  Formule: {result['formula_used']}")
+                lines.append(f"  Ecart calcule: {result['gap_float']:.4f} ~ {result['gap_count']}")
+                if "arithmetic_gap" in result.get("validation", {}):
+                    lines.append(f"  Ecart arithmetique reel: {result['validation']['arithmetic_gap']}")
+                lines.append(f"")
+                lines.append(f"  {result['explanation']}")
+            else:
+                error_msg = result.get("error", "Erreur inconnue") if result else "Calcul impossible"
+                lines.append(f"Erreur calcul ecart: {error_msg}")
+
+    elif comp_type == "rsp_curve":
+        # NOUVELLE FONCTIONNALITE - Courbe RSP
+        from .rsp_curve import generate_rsp_viz_data
+        config = params.get("config", "1x1")
+        k_max = params.get("k_max", 50)
+        result = generate_rsp_viz_data(config, k_max)
+        lines.append(f"=== COURBE RSP (Configuration: {config}, k=1 a {k_max}) ===")
+        lines.append(f"")
+        lines.append(result["ascii_curve"])
+        lines.append(f"")
+        lines.append(f"=== RESUME STATISTIQUE ===")
+        lines.append(result["summary"])
 
     if not lines:
         return "(Aucun calcul spectral applicable pour ces parametres)"

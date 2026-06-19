@@ -1,0 +1,50 @@
+{
+  "summary": "Gabriel V2 backend testing complete. All 10 new V2 tests pass (gap +/+, -/-, mixed; rsp-curve 1x1/sym; visualize; ask detection gap_v2 + reconstruct_neg). Plus 11 existing Gabriel tests still pass (no regression). All requested endpoints work and produce expected spectral output. LLM (Anthropic Claude) is failing with model-not-found (claude-sonnet-4-20250514), but the /api/gabriel/ask endpoint correctly falls back to returning raw spectral computation results as required by the problem statement.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/gabriel/ask",
+        "issue": "LLM call fails with 'model claude-sonnet-4-20250514 not_found_error'. Endpoint still returns 200 with fallback message + computation. Not blocking V2 verification (raw spectral output is correct), but the LLM-formatted answer is unavailable."
+      },
+      {
+        "endpoint": "/api/gabriel/gap",
+        "issue": "Missing p1/p2 returns HTTP 200 with {error: ...} instead of HTTP 400. Inconsistent with other endpoints (e.g. /api/gabriel/compute returns 400 on invalid input). Consider returning 400 for validation errors."
+      }
+    ]
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_gabriel_v2.py",
+    "/app/backend/tests/test_gabriel.py",
+    "/app/test_reports/pytest/pytest_gabriel_v2_results.xml",
+    "/app/test_reports/pytest/pytest_gabriel_results.xml"
+  ],
+  "action_items": [
+    "Update LLM model name in gabriel_service.py (line ~375) from 'claude-sonnet-4-20250514' to a valid model id so the LLM response works (e.g. claude-sonnet-4-5-20250929 via emergentintegrations).",
+    "Optional: return HTTP 400 from /api/gabriel/gap when p1 or p2 is missing, and from compute_gap when the prime isn't found (currently returns generic error string at 200)."
+  ],
+  "critical_code_review_comments": [
+    "gabriel_service.detect_computation_request: 'gap_v2' branch uses 'if' (not 'elif') and triggers whenever the question contains 'entre' AND has >=2 numbers. This can override earlier detections (e.g. analyze_prime). Currently works for the tested phrasings but is fragile; consider ordering rules by specificity.",
+    "compute_gap returns either a dict (success) or None (failure); endpoint then returns {error: ...}. The error path could surface a clearer 4xx + JSON schema.",
+    "_compute_SA/SB in gap_solver.py use floating-point (3.25/2)*2**n; rsp_curve.py uses Fraction(13,8)*Fraction(2)**n for the same constant. Both correct but inconsistent precision — for n=-13 in (-41,-5) gap, float drift is visible (SA_suivant_min ~ -1.9996 instead of exact). Consider Fraction for symbolic stability.",
+    "server.py /api/gabriel/gap: 'await request.json()' has no validation/Pydantic model — prefer a BaseModel for type checking & auto-docs."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_gabriel_v2.py"
+  ],
+  "success_rate": {
+    "backend": "100% (21/21 tests pass: 10 new V2 + 11 existing Gabriel)",
+    "frontend": "not tested (testing_type=backend only)"
+  },
+  "test_credentials": "Not required for these endpoints",
+  "seed_data_creation": "None - module uses built-in PRIMES_RAW table",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "Gabriel V2 endpoints (/api/gabriel/gap, /api/gabriel/rsp-curve, /api/gabriel/visualize) all working as expected. Detection logic in /api/gabriel/ask correctly identifies gap_v2 and reconstruct_neg computation types. LLM model 'claude-sonnet-4-20250514' is currently 404 from Anthropic — fallback path returns spectral computation as plain text. Verified results: gap(7,43)=positive_positive arithmetic_gap=36 spectral=-49; gap(-41,-5)=negative_negative spectral=46 arithmetic=36; gap(-5,7)=mixed zero_special=true; rsp-curve 1x1 converges to 0.5; visualize returns prime suites with SA/SB. Test file at /app/backend/tests/test_gabriel_v2.py.",
+  "rca_of_the_issue": "N/A - no bugs to RCA. LLM 404 is environment-side (Anthropic model id), not a code defect; raw spectral path is functioning per requirement."
+}

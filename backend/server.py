@@ -6690,6 +6690,46 @@ async def gabriel_visualize_endpoint(start: int = 1, end: int = 50):
     return generate_viz_data(start, end)
 
 
+@app.get("/api/gabriel/rsp-curve")
+async def gabriel_rsp_curve_endpoint(config: str = "1x1", k_max: int = 50):
+    """
+    Genere les donnees de courbe RSP (Rapport Spectral).
+    
+    Configurations:
+    - "1x1"   : paires consecutives (defaut)
+    - "sym"   : blocs symetriques
+    - "chaos" : blocs chaotiques
+    - "ord"   : blocs ordonnes asymetriques
+    """
+    from modules.gabriel.rsp_curve import generate_rsp_viz_data
+    k_max = min(k_max, 200)
+    return generate_rsp_viz_data(config, k_max)
+
+
+@app.post("/api/gabriel/gap")
+async def gabriel_gap_endpoint(request: Request):
+    """
+    Calcul d'ecart spectral V2 avec la formule corrigee.
+    
+    Supporte:
+    - Ecarts positifs (+,+)
+    - Ecarts negatifs (-,-)
+    - Ecarts mixtes (-,+)
+    """
+    from modules.gabriel.gap_solver import compute_gap
+    data = await request.json()
+    p1 = data.get("p1")
+    p2 = data.get("p2")
+    
+    if p1 is None or p2 is None:
+        return {"error": "Parametres p1 et p2 requis"}
+    
+    result = compute_gap(p1, p2)
+    if result:
+        return result
+    return {"error": f"Impossible de calculer l'ecart entre {p1} et {p2}"}
+
+
 
 if __name__ == "__main__":
     import uvicorn
