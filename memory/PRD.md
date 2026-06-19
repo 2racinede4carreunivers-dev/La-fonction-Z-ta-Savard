@@ -72,3 +72,4 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
   - Ajout endpoints /api/gabriel/gap et /api/gabriel/rsp-curve
   - Inclusion documentation Ia_geo_spec_prem_app_deplo dans sync GitHub
   - Correction modèle LLM (claude-sonnet-4-5-20250929)
+  - **FIX**: Détection ordinale améliorée ("37ième premier" → reconstruct n=37, pas analyze 37)

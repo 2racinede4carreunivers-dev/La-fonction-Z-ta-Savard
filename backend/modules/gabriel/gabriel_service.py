@@ -70,12 +70,30 @@ def detect_computation_request(question: str) -> dict:
     numbers = [int(x) for x in prime_matches if abs(int(x)) <= 8000 and int(x) != 0]
     positive_numbers = [n for n in numbers if n > 0]
 
-    # Verification/analyse d'un premier
-    if any(k in q for k in ["verifie", "analyse", "montre", "prouve", "calcul", "spectral", "digamma", "equation"]):
+    # Detection des indicateurs ordinaux (37ième, 12e, 100ème, etc.)
+    # Ces patterns indiquent une demande de POSITION, pas d'analyse d'un premier
+    ordinal_pattern = re.search(r'(\d+)\s*(ième|ieme|ème|eme|e|er|ère|ere)\s*(nombre\s*)?(premier|prime)?', q)
+    is_ordinal_request = ordinal_pattern is not None
+    
+    is_negative = any(k in q for k in ["negatif", "négatif", "negative", "négative", "négatifs", "negatifs", "n<=-1", "n <= -1", "n=-"])
+
+    # PRIORITE 1: Demande de position/reconstruction (détection ordinale)
+    # "37ième nombre premier", "quel est le 100e premier", "reconstruis le 12ème"
+    if is_ordinal_request or any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "n-ième", "nième", 
+                                                    "combien", "reconstruire", "reconstruis", "reconstruit", 
+                                                    "reconstruction", "déterminer", "determiner", "trouver le"]):
         if positive_numbers:
             result["needs_computation"] = True
-            result["type"] = "analyze_prime"
-            result["params"]["primes"] = positive_numbers
+            result["type"] = "reconstruct_neg" if is_negative else "reconstruct"
+            result["params"]["numbers"] = positive_numbers
+            return result  # Retourner immédiatement pour éviter les overrides
+
+    # Detection directe des premiers negatifs meme sans mot-cle reconstruction
+    if is_negative and positive_numbers:
+        result["needs_computation"] = True
+        result["type"] = "reconstruct_neg"
+        result["params"]["numbers"] = positive_numbers
+        return result
 
     # Courbe RSP (NOUVELLE FONCTIONNALITE V2)
     if any(k in q for k in ["courbe rsp", "rsp curve", "evolution du rapport", "convergence"]):
@@ -93,13 +111,15 @@ def detect_computation_request(question: str) -> dict:
             if n <= 500:
                 result["params"]["k_max"] = n
                 break
+        return result
 
     # Rapport spectral
-    elif any(k in q for k in ["rapport", "ratio", "rsp", "1/2", "1/3", "1/4"]):
+    if any(k in q for k in ["rapport", "ratio", "rsp", "1/2", "1/3", "1/4"]):
         result["needs_computation"] = True
         result["type"] = "spectral_ratio"
         if positive_numbers:
             result["params"]["numbers"] = positive_numbers
+        return result
 
     # Ecart entre premiers (V2 - supporte negatifs)
     if any(k in q for k in ["ecart", "gap", "distance", "entre"]):
@@ -107,6 +127,7 @@ def detect_computation_request(question: str) -> dict:
             result["needs_computation"] = True
             result["type"] = "gap_v2"
             result["params"]["primes"] = numbers[:2]
+            return result
 
     # Plage de nombres premiers
     if any(k in q for k in ["plage", "range", "liste", "premiers de", "premiers entre"]):
@@ -120,26 +141,23 @@ def detect_computation_request(question: str) -> dict:
             result["type"] = "range"
             result["params"]["start"] = 2
             result["params"]["end"] = positive_numbers[0]
+        return result
 
-    # Position d'un premier / reconstruction
-    is_negative = any(k in q for k in ["negatif", "négatif", "negative", "négative", "négatifs", "negatifs", "n<=-1", "n <= -1", "n=-"])
-    if any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "combien", "reconstruire", "reconstruis", "reconstruit", "reconstruction"]):
+    # Verification/analyse d'un premier (APRES les détections de position)
+    if any(k in q for k in ["verifie", "analyse", "montre", "prouve", "calcul", "spectral", "digamma", "equation"]):
         if positive_numbers:
             result["needs_computation"] = True
-            result["type"] = "reconstruct_neg" if is_negative else "reconstruct"
-            result["params"]["numbers"] = positive_numbers
+            result["type"] = "analyze_prime"
+            result["params"]["primes"] = positive_numbers
+            return result
 
-    # Detection directe des premiers negatifs meme sans mot-cle reconstruction
-    if is_negative and positive_numbers and not result["needs_computation"]:
-        result["needs_computation"] = True
-        result["type"] = "reconstruct_neg"
-        result["params"]["numbers"] = positive_numbers
-
-    # Fallback: si des nombres sont mentionnes dans un contexte math
+    # Fallback: si des nombres sont mentionnes dans un contexte math SANS indicateur ordinal
     if not result["needs_computation"] and positive_numbers and any(k in q for k in ["premier", "prime", "nombre"]):
-        result["needs_computation"] = True
-        result["type"] = "analyze_prime"
-        result["params"]["primes"] = positive_numbers[:5]
+        # Vérifier qu'il n'y a pas d'indicateur ordinal caché
+        if not is_ordinal_request:
+            result["needs_computation"] = True
+            result["type"] = "analyze_prime"
+            result["params"]["primes"] = positive_numbers[:5]
 
     return result
 
