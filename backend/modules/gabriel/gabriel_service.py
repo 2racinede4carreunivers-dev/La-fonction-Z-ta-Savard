@@ -77,11 +77,20 @@ def detect_computation_request(question: str) -> dict:
     
     is_negative = any(k in q for k in ["negatif", "négatif", "negative", "négative", "négatifs", "negatifs", "n<=-1", "n <= -1", "n=-"])
 
+    # PRIORITE 0: Ecart entre premiers (V2 - supporte negatifs)
+    # DOIT être avant reconstruction car "écart entre -11 et 31" ne doit pas déclencher reconstruct
+    if any(k in q for k in ["ecart", "écart", "gap", "distance entre"]):
+        if len(numbers) >= 2:
+            result["needs_computation"] = True
+            result["type"] = "gap_v2"
+            result["params"]["primes"] = numbers[:2]
+            return result
+
     # PRIORITE 1: Demande de position/reconstruction (détection ordinale)
     # "37ième nombre premier", "quel est le 100e premier", "reconstruis le 12ème"
     if is_ordinal_request or any(k in q for k in ["position", "quel est le", "n-ieme", "nieme", "n-ième", "nième", 
                                                     "combien", "reconstruire", "reconstruis", "reconstruit", 
-                                                    "reconstruction", "déterminer", "determiner", "trouver le"]):
+                                                    "reconstruction", "déterminer", "determiner", "trouver le", "générer", "generer"]):
         if positive_numbers:
             result["needs_computation"] = True
             result["type"] = "reconstruct_neg" if is_negative else "reconstruct"
@@ -120,14 +129,6 @@ def detect_computation_request(question: str) -> dict:
         if positive_numbers:
             result["params"]["numbers"] = positive_numbers
         return result
-
-    # Ecart entre premiers (V2 - supporte negatifs)
-    if any(k in q for k in ["ecart", "gap", "distance", "entre"]):
-        if len(numbers) >= 2:
-            result["needs_computation"] = True
-            result["type"] = "gap_v2"
-            result["params"]["primes"] = numbers[:2]
-            return result
 
     # Plage de nombres premiers
     if any(k in q for k in ["plage", "range", "liste", "premiers de", "premiers entre"]):
@@ -332,22 +333,28 @@ def run_computation(detection: dict) -> str:
             if result and "error" not in result:
                 lines.append(f"=== ECART SPECTRAL V2 (Formule corrigee) ===")
                 lines.append(f"  Type d'ecart: {result['gap_type']}")
-                lines.append(f"  Premier 1: {result['p1']} (position n={result['position_p1']})")
-                lines.append(f"  Premier 2: {result['p2']} (position n={result['position_p2']})")
                 lines.append(f"")
-                lines.append(f"  Position suivant min: n={result['position_suivant_min']}")
-                lines.append(f"  SA(n_suivant_min) = {result['SA_suivant_min']:.6f}")
-                lines.append(f"  SB(n_min) = {result['SB_min']:.6f}")
-                lines.append(f"  Digamma(n_min) = {result['digamma_min']:.6f}")
-                lines.append(f"  SB(n_max) = {result['SB_max']:.6f}")
-                lines.append(f"  Digamma(n_max) = {result['digamma_max']:.6f}")
+                lines.append(f"  IMPORTANT: Les valeurs ci-dessous sont les NOMBRES PREMIERS eux-memes,")
+                lines.append(f"  PAS leurs positions. La position est entre parentheses.")
+                lines.append(f"")
+                lines.append(f"  Nombre premier 1: p = {result['p1']} (se trouve a la position n={result['position_p1']})")
+                lines.append(f"  Nombre premier 2: p = {result['p2']} (se trouve a la position n={result['position_p2']})")
+                lines.append(f"")
+                lines.append(f"  Calculs spectraux:")
+                lines.append(f"    Position suivant min: n={result['position_suivant_min']}")
+                lines.append(f"    SA(n_suivant_min) = {result['SA_suivant_min']:.6f}")
+                lines.append(f"    SB(n_min) = {result['SB_min']:.6f}")
+                lines.append(f"    Digamma(n_min) = {result['digamma_min']:.6f}")
+                lines.append(f"    SB(n_max) = {result['SB_max']:.6f}")
+                lines.append(f"    Digamma(n_max) = {result['digamma_max']:.6f}")
                 lines.append(f"")
                 lines.append(f"  Formule: {result['formula_used']}")
-                lines.append(f"  Ecart calcule: {result['gap_float']:.4f} ~ {result['gap_count']}")
+                lines.append(f"  Ecart spectral calcule: {result['gap_float']:.4f} ~ {result['gap_count']}")
                 if "arithmetic_gap" in result.get("validation", {}):
-                    lines.append(f"  Ecart arithmetique reel: {result['validation']['arithmetic_gap']}")
+                    arith = result['validation']['arithmetic_gap']
+                    lines.append(f"  Ecart arithmetique reel: {result['p2']} - ({result['p1']}) = {arith}")
                 lines.append(f"")
-                lines.append(f"  {result['explanation']}")
+                lines.append(f"  RESUME: L'ecart entre les nombres premiers {result['p1']} et {result['p2']} est {result['validation'].get('arithmetic_gap', 'N/A')} (arithmetique)")
             else:
                 error_msg = result.get("error", "Erreur inconnue") if result else "Calcul impossible"
                 lines.append(f"Erreur calcul ecart: {error_msg}")
