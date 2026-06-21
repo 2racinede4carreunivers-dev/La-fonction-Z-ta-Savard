@@ -215,27 +215,54 @@ def run_computation(detection: dict) -> str:
                     lines.append(f"Position {n} hors table (max: {max_position()})")
 
     elif comp_type == "reconstruct":
+        # Import du generateur HOL
+        from .hol_generator import generate_hol_for_reconstruction
+        from .spectral_models import get_model
+        
         for n in params.get("numbers", []):
             p = nth_prime(n)
             if p:
-                v = verify_prime_equation(n, p, "1/2")
+                # Utiliser le nouveau modele spectral
+                model = get_model("1/2")
+                result = model.reconstruct_nth_prime(n, p)
+                
+                # Calcul des valeurs flottantes pour affichage
+                SA_float = float(result.A_value)
+                SB_float = float(result.B_value)
+                digamma_float = float(result.digamma)
+                
                 lines.append(f"=== RECONSTRUCTION DU {n}e NOMBRE PREMIER ===")
                 lines.append(f"  Position: n = {n}")
                 lines.append(f"  Premier reconstruit: p = {p}")
                 lines.append(f"")
-                lines.append(f"  Suite A positive: SA({n}) = (13/8) * 2^{n} - 2 = {v['SA']}")
-                lines.append(f"  Suite B positive: SB({n}) = (13/4) * 2^{n} - 66 = {v['SB']}")
+                lines.append(f"  Suite A positive: SA({n}) = (13/8) * 2^{n} - 2 = {SA_float}")
+                lines.append(f"  Suite B positive: SB({n}) = (13/4) * 2^{n} - 66 = {SB_float}")
                 lines.append(f"")
-                lines.append(f"  Digamma calcule: digamma({n}, {p}) = SB({n}) - 64 * {p} = {v['SB']} - {64 * p} = {v['digamma_calc']}")
+                lines.append(f"  Digamma calcule: digamma({n}, {p}) = SB({n}) - 64 * {p} = {SB_float} - {64 * p} = {digamma_float}")
                 lines.append(f"")
                 lines.append(f"  Equation du premier:")
                 lines.append(f"    prime_equation = (SB({n}) - digamma_calcule) / 64")
-                lines.append(f"                   = ({v['SB']} - {v['digamma_calc']}) / 64")
-                lines.append(f"                   = {v['SB'] - v['digamma_calc']} / 64")
-                lines.append(f"                   = {v['reconstructed_p']}")
+                lines.append(f"                   = ({SB_float} - {digamma_float}) / 64")
+                lines.append(f"                   = {SB_float - digamma_float} / 64")
+                lines.append(f"                   = {int(result.reconstructed_prime)}")
                 lines.append(f"")
-                lines.append(f"  Equation valide: {v['equation_holds']}")
+                lines.append(f"  Equation valide: {result.is_exact}")
                 lines.append(f"  Le {n}e nombre premier est bien {p}")
+                lines.append(f"")
+                lines.append(f"INVARIANT (ratio 1/2): position = n = number_of_terms = {n}")
+                lines.append(f"SA_sum={SA_float:.6f}, SB_sum={SB_float:.6f}, digamma={digamma_float:.6f}")
+                
+                # Generer le fragment HOL
+                hol_code = generate_hol_for_reconstruction(
+                    n=n, p=p,
+                    SA_value=SA_float,
+                    SB_value=SB_float,
+                    digamma_value=digamma_float,
+                    model="1/2"
+                )
+                lines.append(f"")
+                lines.append(f"=== FRAGMENT HOL GENERE ===")
+                lines.append(hol_code)
             else:
                 pos = prime_position(n)
                 if pos:

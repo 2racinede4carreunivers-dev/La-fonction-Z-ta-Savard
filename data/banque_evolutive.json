@@ -3678,6 +3678,46 @@
       "meta_score": 0.85,
       "relations_internes": [],
       "source": "github_qa_bank"
+    },
+    {
+      "id": "906d4818-3904-44c4-afab-ae5fc8475fb9",
+      "question": "Dans le contexte du fichier 'postulat_carre.thy', où le postulat affirme que toute structure géométrique peut être réduite à une forme carrée fondamentale, vérifiez mathématiquement l'équation 'postulat_eq' en utilisant les définitions données. Supposons w = 4, h = 3, s = 2, t = 1, p = 5, et calculez si ((diag * sqrt(unit_p)) ^ 2 = real k * area + h * h) est vérifiée.",
+      "reponse": "Pour vérifier l'équation 'postulat_eq' donnée dans le fichier 'postulat_carre.thy', nous devons premièrement calculer les valeurs des variables impliquées en utilisant les définitions fournies. Commençons par calculer chaque terme :\n\n1. Calcul de 'diag': selon 'definition d_S', diag = sqrt(w^2 + h^2) = sqrt(4^2 + 3^2) = sqrt(16 + 9) = sqrt(25) = 5.\n\n2. Calcul de 'unit_p': selon 'definition unit_p', unit_p = sqrt(real p) + 1 = sqrt(5) + 1.\n\n3. Calcul du terme k: selon la définition, 'k = (THE i. i < length upto_from_2 and upto_from_2 ! i = p) + 1'. La liste 'upto_from_2' est '[2, 3, 4, 5]', donc i = 3 si 'upto_from_2 ! i = 5', alors k = 3 + 1 = 4.\n\n4. Calcul de l'area (aire): selon 'definition area_rect', l'aire = w * h = 4 * 3 = 12.\n\nMaintenant substituons ces valeurs dans l'équation 'postulat_eq':\n((5 * sqrt(sqrt(5) + 1))^2 = 4 * 12 + 3^2)\n=> (5^2 * (sqrt(5) + 1) = 48 + 9)\n=> (25 * (sqrt(5) + 1) = 57) => Qui doit être évaluée numériquement.\n\nPour vérifier, évaluez ceci numériquement. Le côté gauche nécessite une évaluation numérique précise de 25 * (sqrt(5) + 1), qui devrait être approximativement égal à 57 pour satisfaire l'égalité, ce qui n'est pas le cas. Cela montre la subtilité nécessaire pour ajuster ou interpréter les propositions de la théorie de Savard.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 5,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "calcul"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-06-21T00:44:27.247821",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
+    },
+    {
+      "id": "ffe22e98-53d7-4979-8d1b-b283bce9660e",
+      "question": "Comment la formalisation Isabelle/HOL dans le fichier 'methode_spectral.thy' valide-t-elle l'équation du ratio spectral négatif 1/2 donné par l'axiome 'spectral_ratio_neg_un_demi', et quelles sont les implications de cette égalité pour les indices asymétriques ordonnés et chaotiques?",
+      "reponse": "Dans le fichier 'methode_spectral.thy', la définition de RsP_neg est donnée par l'équation RsP_neg n1 n2 = (SA_neg_eq n1 - SA_neg_eq n2) / (SB_neg_eq n1 - SB_neg_eq n2). L'axiomatisation de 'spectral_ratio_neg_un_demi' stipule que pour n1 et n2 tels que n1 ≤ -1, n2 ≤ -1, et n1 ≠ n2, le rapport spectral RsP_neg(n1, n2) est égal à 1/2. Cela est formellement validé dans Isabelle/HOL en utilisant l’axiome pour démontrer le lemme RsP_neg_un_demi_general, assurant que les préconditions sur les indices garantissent ce ratio spectral. Pour les indices asymétriques ordonnés et chaotiques, les définitions de 'asymetrique_ordonnee' et 'asymetrique_chaotique' imposent des contraintes sur les indices qui préservent la validité des indices selon 'indice_valide'. Cela signifie qu’au sein de la structure des indices asymétriques, les conditions de validité permettent de maintenir les propriétés spectrales spécifiées malgré l'asymétrie.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 5,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "structure_hol"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-06-21T00:44:27.247853",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
     }
   ],
   "concepts_theoriques": {
@@ -3776,6 +3816,6 @@
       ]
     }
   },
-  "derniere_evolution": "2026-06-20T01:39:09.094285",
+  "derniere_evolution": "2026-06-21T00:46:37.914410",
   "version": "2.0-sync"
 }

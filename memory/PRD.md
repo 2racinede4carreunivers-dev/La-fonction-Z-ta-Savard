@@ -64,12 +64,17 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 2. Projet Fusion LaTeX + CAO (P3)
 
 ## Dernière Mise à Jour
-- **Date**: 19 juin 2026
+- **Date**: 20 juin 2026
 - **Changements**: 
-  - Mise à jour module Gabriel vers V2 (nouvelles formules du dépôt local)
+  - **Git pull Gabriel v5.2** depuis le dépôt local mis à jour
+  - **Nouveaux fichiers ajoutés**:
+    - `spectral_models.py` - 3 modèles spectraux (1/2, 1/3, 1/4) avec `Fraction` exacte
+    - `hol_generator.py` - Générateur de preuves HOL/Isabelle formelles
+  - **Reconstruction améliorée** avec sortie conforme à Gabriel local:
+    - Invariant (ratio 1/2): position = n = number_of_terms
+    - Fragment HOL généré automatiquement
   - Ajout gap_solver.py avec formule d'écart corrigée (supporte +/+, -/-, mixte)
   - Ajout rsp_curve.py pour courbes RSP avec rendu ASCII
-  - Ajout endpoints /api/gabriel/gap et /api/gabriel/rsp-curve
   - Inclusion documentation Ia_geo_spec_prem_app_deplo dans sync GitHub
-  - Correction modèle LLM (claude-sonnet-4-5-20250929)
-  - **FIX**: Détection ordinale améliorée ("37ième premier" → reconstruct n=37, pas analyze 37)
+  - **FIX**: Détection prioritaire "écart" vs "reconstruction"
+  - **FIX**: Détection ordinale ("37ième" → reconstruct n=37)
