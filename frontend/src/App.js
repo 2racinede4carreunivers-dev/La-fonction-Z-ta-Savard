@@ -13,6 +13,7 @@ import { Separator } from './components/ui/separator';
 import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 import { SpectralVisualizer } from './visuel-gabriel-isabelle/SpectralVisualizer';
+import { AdvancedSpectralVisualizer } from './visuel-gabriel-isabelle/AdvancedSpectralVisualizer';
 
 // Protection des documents - DÉSACTIVÉE (causait des erreurs DOM)
 // import DocumentProtection from './components/DocumentProtection';
@@ -11677,6 +11678,7 @@ const GabrielPage = () => {
   const [loading, setLoading] = useState(false);
   const [sessionId] = useState(() => 'gabriel-' + Date.now());
   const [showComputePanel, setShowComputePanel] = useState(false);
+  const [showAdvancedViz, setShowAdvancedViz] = useState(false);
   const [computeResult, setComputeResult] = useState(null);
   const [primeInput, setPrimeInput] = useState('');
   const messagesEndRef = useRef(null);
@@ -11730,6 +11732,13 @@ const GabrielPage = () => {
           </div>
           <div className="flex gap-3">
             <button
+              onClick={() => setShowAdvancedViz(!showAdvancedViz)}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${showAdvancedViz ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-emerald-300 border border-emerald-600/30 hover:bg-slate-700'}`}
+              data-testid="gabriel-advanced-viz-toggle"
+            >
+              {showAdvancedViz ? '📊 Masquer Graphiques' : '📊 Graphiques Avancés'}
+            </button>
+            <button
               onClick={() => setShowComputePanel(!showComputePanel)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${showComputePanel ? 'bg-amber-600 text-white' : 'bg-slate-800 text-amber-300 border border-amber-600/30 hover:bg-slate-700'}`}
               data-testid="gabriel-compute-toggle"
@@ -11774,6 +11783,13 @@ const GabrielPage = () => {
                 {JSON.stringify(computeResult, null, 2)}
               </pre>
             )}
+          </div>
+        )}
+
+        {/* Graphiques avancés */}
+        {showAdvancedViz && (
+          <div className="bg-slate-800/40 border border-emerald-600/20 rounded-xl p-5 mb-6">
+            <AdvancedSpectralVisualizer visible={showAdvancedViz} />
           </div>
         )}
 

@@ -66,15 +66,20 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 ## Dernière Mise à Jour
 - **Date**: 20 juin 2026
 - **Changements**: 
-  - **Git pull Gabriel v5.2** depuis le dépôt local mis à jour
-  - **Nouveaux fichiers ajoutés**:
+  - **Git pull Gabriel v6.x** depuis le dépôt local mis à jour (v6.0, v6.1, v6.2)
+  - **Nouveaux graphiques avancés implémentés**:
+    - **Courbe Digamma Calculé** (n=1 à n=200) avec formule digamma_calc(n,p) = SB(n) - 64×p
+    - **Rapport Spectral Asymétrique Ordonné** (100 paires) avec blocs A et B croissants
+  - **Nouveaux fichiers backend**:
+    - `advanced_visualizations.py` - Génération des données pour les graphiques avancés
     - `spectral_models.py` - 3 modèles spectraux (1/2, 1/3, 1/4) avec `Fraction` exacte
     - `hol_generator.py` - Générateur de preuves HOL/Isabelle formelles
-  - **Reconstruction améliorée** avec sortie conforme à Gabriel local:
-    - Invariant (ratio 1/2): position = n = number_of_terms
-    - Fragment HOL généré automatiquement
-  - Ajout gap_solver.py avec formule d'écart corrigée (supporte +/+, -/-, mixte)
-  - Ajout rsp_curve.py pour courbes RSP avec rendu ASCII
-  - Inclusion documentation Ia_geo_spec_prem_app_deplo dans sync GitHub
+  - **Nouveau composant frontend**:
+    - `AdvancedSpectralVisualizer.jsx` - Affichage des graphiques avancés
+  - **Nouveaux endpoints API**:
+    - `GET /api/gabriel/digamma-curve` - Courbe digamma n=1 à n=200
+    - `GET /api/gabriel/asymmetric-ordered` - Rapport asymétrique ordonné
+    - `GET /api/gabriel/asymmetric-sums` - Sommes des blocs A et B
+  - Reconstruction avec fragment HOL généré automatiquement
   - **FIX**: Détection prioritaire "écart" vs "reconstruction"
   - **FIX**: Détection ordinale ("37ième" → reconstruct n=37)

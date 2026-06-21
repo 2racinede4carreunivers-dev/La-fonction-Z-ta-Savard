@@ -6730,6 +6730,53 @@ async def gabriel_gap_endpoint(request: Request):
     return {"error": f"Impossible de calculer l'ecart entre {p1} et {p2}"}
 
 
+@app.get("/api/gabriel/digamma-curve")
+async def gabriel_digamma_curve_endpoint(n_start: int = 1, n_end: int = 200):
+    """
+    Graphique du Digamma calcule pour n=1 a n=200.
+    
+    Criteres:
+    - Valeurs du digamma calcule pour chaque position n
+    - Courbe donnant la valeur digamma_calc(n, p) = SB(n) - 64*p
+    """
+    from modules.gabriel.advanced_visualizations import generate_digamma_curve_data
+    n_end = min(n_end, 500)  # Limiter pour performance
+    return generate_digamma_curve_data(n_start, n_end)
+
+
+@app.get("/api/gabriel/asymmetric-ordered")
+async def gabriel_asymmetric_ordered_endpoint(num_pairs: int = 100):
+    """
+    Graphique du Rapport Spectral Asymetrique Ordonne.
+    
+    Criteres:
+    - Blocs A et B en configuration asymetrique ordonnee
+    - Bloc B = A + 1 terme
+    - Ordre croissant chronologique des nombres premiers positifs
+    
+    Exemples:
+    - Paire 1: A=[2], B=[3,5]
+    - Paire 2: A=[2,3], B=[5,7,11]
+    - etc.
+    """
+    from modules.gabriel.advanced_visualizations import generate_asymmetric_ordered_data
+    num_pairs = min(num_pairs, 200)  # Limiter pour performance
+    return generate_asymmetric_ordered_data(num_pairs)
+
+
+@app.get("/api/gabriel/asymmetric-sums")
+async def gabriel_asymmetric_sums_endpoint(num_pairs: int = 100):
+    """
+    Graphique des sommes des blocs A et B pour le rapport asymetrique.
+    
+    Retourne les courbes des valeurs des sommes SA et SB pour chaque bloc
+    a mesure qu'ils grandissent.
+    """
+    from modules.gabriel.advanced_visualizations import generate_asymmetric_sums_data
+    num_pairs = min(num_pairs, 200)
+    return generate_asymmetric_sums_data(num_pairs)
+
+
 
 if __name__ == "__main__":
     import uvicorn
