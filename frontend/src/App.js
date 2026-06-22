@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
 
 // Composants UI
@@ -11830,8 +11831,10 @@ const GabrielPage = () => {
                       </pre>
                     </details>
                   )}
-                  <div className="text-sm whitespace-pre-wrap leading-relaxed" style={{wordBreak: 'break-word'}}>
-                    {msg.content}
+                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none prose-headings:text-amber-400 prose-strong:text-amber-300 prose-code:text-green-400 prose-code:bg-slate-800 prose-code:px-1 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-green-400">
+                    <ReactMarkdown>
+                      {msg.content}
+                    </ReactMarkdown>
                   </div>
                   {msg.role === 'assistant' && msg.computation_type && (
                     <SpectralVisualizer
