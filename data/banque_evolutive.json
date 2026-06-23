@@ -3818,6 +3818,46 @@
       "meta_score": 0.85,
       "relations_internes": [],
       "source": "github_qa_bank"
+    },
+    {
+      "id": "543830b8-6717-4b83-aa1c-8fd19cad89de",
+      "question": "Dans le fichier 'mecanique_harmonique_du_chaos_discret.tex', comment est démontrée l'égalité (LF)^2 = (LF)^2 dans le contexte du produit alternatif pour l'unité √3 + 1 ?",
+      "reponse": "Dans le contexte de la démonstration, l'égalité (LF)^2 = (LF)^2 est une assertion tautologique utilisée pour formaliser l'idée que les longueurs associées au produit alternatif pour l'unité √3 + 1 respectent une invariance géométrique. Dans la démonstration, on commence par définir les différentes mesures et segments impliqués dans la configuration géométrique, par exemple, (AL), (BE), et (LF). Ensuite, on montre que chacune de ces longueurs satisfera l'égalité (LF)^2 = (LF)^2 par construction. Cela est démontré en exploitant les propriétés trigonometriques et géométriques de la configuration associée à l'unité √3 + 1. Comme l'indique l'égalité numériquement vérifiée 1.808657049 = 1.808657049, cela reflète la synergie entre géométrie et le script Isabelle/HOL où une telle égalité est utilisée pour maintenir la cohérence au sein des unités √p + 1 étudiées, connectant directement cette expression triviale à une loi géométrique implicite généralisée à toutes les unitès admissibles.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 4,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "demonstration"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-06-23T23:16:15.676405",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
+    },
+    {
+      "id": "562d2225-8528-4a4e-a26a-deaa1aebb93c",
+      "question": "Comment est démontrée la constance du rapport spectral (1/2) dans le contexte des suites négatives, et quelles sont les implications géométriques de cette démonstration?",
+      "reponse": "Dans le fichier 'geometry_prime_spectrum.tex', la section concernant le 'Rapport spectral 1/2 négatif' introduit la définition mathématique RsP_neg pour le rapport spectral des suites négatives. La définition est exprimée par l'équation: RsP_neg n1 n2 = (SA_neg_eq n1 - SA_neg_eq n2) / (SB_neg_eq n1 - SB_neg_eq n2), où SA_neg_eq et SB_neg_eq sont des fonctions définies respectivement comme 3.25 * (2^n) - 2 et 6.5 * (2^n) - 66. L'équation RsP_neg sert de base à l'axiome spectral_ratio_neg_un_demi, qui stipule que RsP_neg n1 n2 = 1/2 pour n1 ≤ -1, n2 ≤ -1, et n1 ≠ n2. La preuve formelle de cet axiome est soutenue dans le lemme RsP_neg_un_demi_general, utilisant les assumptions que n1 et n2 sont dans la plage négative. Géométriquement, cette constance du rapport 1/2 suggère une symétrie sous-jacente dans la distribution des grandeurs des suites négatives, reflétant une harmonie spectrale. Cela pourrait être interprété comme une propriété intrinsèque de la structure géométrique associée à ces suites, où les transformations sous un cadre géométrique abstrait préservent proportionnellement le décalage relatif des suites entre elles.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 4,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "geometrie"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-06-23T23:16:15.676428",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
     }
   ],
   "concepts_theoriques": {
@@ -3916,6 +3956,6 @@
       ]
     }
   },
-  "derniere_evolution": "2026-06-22T22:44:06.371306",
+  "derniere_evolution": "2026-06-23T23:16:46.901693",
   "version": "2.0-sync"
 }

@@ -15,6 +15,7 @@ import { ScrollArea } from './components/ui/scroll-area';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from './components/ui/dialog';
 import { SpectralVisualizer } from './visuel-gabriel-isabelle/SpectralVisualizer';
 import { AdvancedSpectralVisualizer } from './visuel-gabriel-isabelle/AdvancedSpectralVisualizer';
+import GabrielMarkdown from './components/GabrielMarkdown';
 
 // Protection des documents - DÉSACTIVÉE (causait des erreurs DOM)
 // import DocumentProtection from './components/DocumentProtection';
@@ -11822,19 +11823,17 @@ const GabrielPage = () => {
                   'bg-slate-700/50 border border-white/5 text-gray-200'
                 }`}>
                   {msg.role === 'assistant' && msg.computation && (
-                    <details className="mb-3">
-                      <summary className="text-amber-400 text-xs cursor-pointer hover:text-amber-300">
-                        Calculs spectraux ({msg.computation_type})
+                    <details className="mb-4">
+                      <summary className="text-amber-400 text-xs cursor-pointer hover:text-amber-300 font-medium">
+                        📊 Calculs spectraux ({msg.computation_type})
                       </summary>
-                      <pre className="mt-2 text-xs text-green-400/80 bg-slate-900/50 rounded p-2 overflow-x-auto whitespace-pre-wrap">
+                      <pre className="mt-3 text-xs text-green-400/80 bg-slate-900/80 border border-slate-700 rounded-lg p-4 overflow-x-auto whitespace-pre-wrap">
                         {msg.computation}
                       </pre>
                     </details>
                   )}
-                  <div className="text-sm leading-relaxed prose prose-invert prose-sm max-w-none prose-headings:text-amber-400 prose-strong:text-amber-300 prose-code:text-green-400 prose-code:bg-slate-800 prose-code:px-1 prose-code:rounded prose-pre:bg-slate-900 prose-pre:text-green-400">
-                    <ReactMarkdown>
-                      {msg.content}
-                    </ReactMarkdown>
+                  <div className="text-sm">
+                    <GabrielMarkdown content={msg.content} />
                   </div>
                   {msg.role === 'assistant' && msg.computation_type && (
                     <SpectralVisualizer
