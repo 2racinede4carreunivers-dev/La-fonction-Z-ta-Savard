@@ -6777,6 +6777,22 @@ async def gabriel_asymmetric_sums_endpoint(num_pairs: int = 100):
     return generate_asymmetric_sums_data(num_pairs)
 
 
+@app.get("/api/gabriel/chaotic-comparison")
+async def gabriel_chaotic_comparison_endpoint(num_pairs: int = 10):
+    """
+    Graphique du Rapport Spectral Asymetrique Chaotique.
+    
+    Configuration chaotique de Philippe Thomas Savard:
+    - k=1: A=[3], B=[5,2] -> ratio diverge de 1/2
+    - k=5: A=[13,17,19,23,29], B=[31,2,3,5,7,11] -> ratio ~ 0.5015
+    
+    Propriete: Converge vers 1/2 malgre le "chaos" dans l'ordre des blocs.
+    """
+    from modules.gabriel.chaotic_comparison import generate_chaotic_comparison_data
+    num_pairs = min(num_pairs, 15)
+    return generate_chaotic_comparison_data(num_pairs)
+
+
 
 if __name__ == "__main__":
     import uvicorn

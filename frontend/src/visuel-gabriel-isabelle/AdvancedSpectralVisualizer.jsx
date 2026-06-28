@@ -392,6 +392,164 @@ export const AsymmetricOrderedChart = ({ onLoad }) => {
 };
 
 /**
+ * GRAPHIQUE 3: Rapport Spectral Asymetrique Chaotique
+ */
+export const ChaoticComparisonChart = ({ onLoad }) => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    setLoading(true);
+    try {
+      const res = await axios.get(`${API_URL}/api/gabriel/chaotic-comparison?num_pairs=10`);
+      setData(res.data);
+      if (onLoad) onLoad(res.data);
+    } catch (err) {
+      console.error('Erreur chargement chaotic comparison:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div style={chartStyle.container}>
+        <div style={{ textAlign: 'center', color: 'rgba(249,115,22,0.5)', padding: '40px' }}>
+          Calcul des comparaisons chaotiques...
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || !data.data) return null;
+
+  return (
+    <div style={{...chartStyle.container, border: '1px solid rgba(249,115,22,0.3)'}} data-testid="chaotic-comparison-chart">
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+        <div>
+          <div style={{...chartStyle.title, color: '#f97316'}}>🌀 Rapport Spectral Asymétrique Chaotique</div>
+          <div style={chartStyle.subtitle}>
+            Configuration désordonnée — Convergence surprenante vers 1/2
+          </div>
+        </div>
+      </div>
+
+      {/* Pattern chaotique */}
+      <div style={{ 
+        background: 'rgba(249,115,22,0.1)', 
+        padding: '10px', 
+        borderRadius: '8px', 
+        marginBottom: '12px',
+        fontSize: '11px',
+        color: 'rgba(255,255,255,0.7)'
+      }}>
+        <span style={{ color: '#fb923c', fontWeight: '600' }}>Pattern chaotique:</span> 
+        <br />
+        <span style={{ fontFamily: 'monospace', fontSize: '10px' }}>
+          k=1: (3)-(5,2) | k=2: (5,7)-(11,2,3) | k=3: (7,11,13)-(17,2,3,5) | ...
+        </span>
+      </div>
+
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data.data}>
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.06)" />
+          <XAxis 
+            dataKey="k" 
+            stroke="rgba(255,255,255,0.3)" 
+            tick={{ fontSize: 10 }}
+            label={{ value: 'Index k', position: 'insideBottom', offset: -5, fill: 'rgba(255,255,255,0.4)', fontSize: 11 }}
+          />
+          <YAxis 
+            stroke="rgba(255,255,255,0.3)" 
+            tick={{ fontSize: 10 }}
+            domain={[-0.2, 0.6]}
+          />
+          <Tooltip 
+            content={({ active, payload }) => {
+              if (!active || !payload || !payload.length) return null;
+              const d = payload[0].payload;
+              return (
+                <div style={{ 
+                  background: '#1e293b', 
+                  border: '1px solid rgba(249,115,22,0.3)', 
+                  borderRadius: '8px', 
+                  padding: '12px', 
+                  fontSize: '11px',
+                  maxWidth: '350px'
+                }}>
+                  <p style={{ color: '#f97316', fontWeight: '600', marginBottom: '6px' }}>
+                    Paire k={d.k}
+                  </p>
+                  <p style={{ color: '#fb923c', margin: '2px 0', fontFamily: 'monospace', fontSize: '10px' }}>
+                    A=[{d.bloc_A_str}]
+                  </p>
+                  <p style={{ color: '#fdba74', margin: '2px 0', fontFamily: 'monospace', fontSize: '10px' }}>
+                    B=[{d.bloc_B_str}]
+                  </p>
+                  <p style={{ color: '#10b981', margin: '6px 0 2px' }}>
+                    Ratio: <strong>{d.ratio?.toFixed(10)}</strong>
+                  </p>
+                  <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: '10px' }}>
+                    Delta: {d.delta?.toFixed(10)} | {d.is_converged ? '✓ Convergé' : '○ En cours'}
+                  </p>
+                </div>
+              );
+            }}
+          />
+          <Legend wrapperStyle={{ fontSize: '11px' }} />
+          <ReferenceLine 
+            y={0.5} 
+            stroke={COLORS.expected} 
+            strokeDasharray="6 3" 
+            label={{ value: '1/2', fill: COLORS.expected, fontSize: 10, position: 'right' }} 
+          />
+          <ReferenceLine y={0} stroke="rgba(255,255,255,0.2)" />
+          <Line 
+            type="monotone" 
+            dataKey="ratio" 
+            name="Ratio Chaotique" 
+            stroke="#f97316" 
+            dot={{ r: 4, fill: '#f97316', strokeWidth: 2 }} 
+            strokeWidth={2}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+
+      <div style={{...chartStyle.stats, background: 'rgba(249,115,22,0.1)'}}>
+        <div style={chartStyle.statItem}>
+          Paires: <span style={{...chartStyle.statValue, color: '#fb923c'}}>{data.stats?.num_pairs || 0}</span>
+        </div>
+        <div style={chartStyle.statItem}>
+          Ratio moyen: <span style={{...chartStyle.statValue, color: '#fb923c'}}>{data.stats?.ratio_mean?.toFixed(6) || 'N/A'}</span>
+        </div>
+        <div style={chartStyle.statItem}>
+          Convergées (δ&lt;0.05): <span style={{...chartStyle.statValue, color: '#fb923c'}}>
+            {data.stats?.converged_count || 0} ({((data.stats?.convergence_rate || 0) * 100).toFixed(1)}%)
+          </span>
+        </div>
+      </div>
+
+      {/* Observation */}
+      <div style={{ 
+        marginTop: '12px',
+        padding: '10px', 
+        background: 'rgba(16,185,129,0.1)',
+        borderRadius: '8px',
+        borderLeft: '3px solid #10b981',
+        fontSize: '11px',
+        color: 'rgba(255,255,255,0.8)'
+      }}>
+        <strong style={{ color: '#10b981' }}>Observation remarquable:</strong> {data.observation || 'Convergence vers 1/2 malgré le désordre'}
+      </div>
+    </div>
+  );
+};
+
+/**
  * Composant combine pour afficher les deux graphiques avances
  */
 export const AdvancedSpectralVisualizer = ({ visible }) => {
@@ -414,6 +572,7 @@ export const AdvancedSpectralVisualizer = ({ visible }) => {
       
       <DigammaCurveChart />
       <AsymmetricOrderedChart />
+      <ChaoticComparisonChart />
     </div>
   );
 };
