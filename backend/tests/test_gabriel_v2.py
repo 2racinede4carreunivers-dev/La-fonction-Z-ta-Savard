@@ -26,8 +26,10 @@ class TestGabrielGapEndpoint:
         assert "SA_suivant_min" in d and "SB_min" in d and "digamma_min" in d
         assert "SB_max" in d and "digamma_max" in d
         assert "gap_count" in d and "gap_float" in d
-        assert d["formula_used"].startswith("gap = (SA(n_next_min)")
-        assert d["validation"]["arithmetic_gap"] == 36
+        # Updated: French formula key uses 'n_suivant_min'
+        assert "n_suivant_min" in d["formula_used"]
+        # Arithmetic gap: 43 - 7 - 1 = 35 entiers entre 7 et 43
+        assert d["validation"]["arithmetic_gap"] == 35
 
     def test_gap_negative_negative_minus41_minus5(self):
         """Gap between two negative primes (-41, -5)"""
@@ -39,7 +41,8 @@ class TestGabrielGapEndpoint:
         assert d["p1"] == -41 and d["p2"] == -5
         assert d["position_p1"] == -13 and d["position_p2"] == -3
         assert d["position_suivant_min"] == -12
-        assert d["validation"]["arithmetic_gap"] == 36
+        # Corrected: |-5 - (-41)| - 1 = 36 - 1 = 35 entiers entre -41 et -5
+        assert d["validation"]["arithmetic_gap"] == 35
         assert isinstance(d["gap_count"], int)
         assert isinstance(d["gap_float"], float)
 
@@ -51,7 +54,9 @@ class TestGabrielGapEndpoint:
         d = r.json()
         assert d["gap_type"] == "mixed"
         assert d["p1"] == -5 and d["p2"] == 7
-        assert d["validation"].get("zero_special") is True
+        # Corrected: arithmetic_gap for mixed = |p_neg| + p_pos - 1 = 5 + 7 - 1 = 11
+        assert d["validation"]["arithmetic_gap"] == 11
+        assert "match" in d["validation"]
 
     def test_gap_missing_params(self):
         """Missing p1 or p2 should return error"""

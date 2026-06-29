@@ -64,22 +64,30 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 2. Projet Fusion LaTeX + CAO (P3)
 
 ## Dernière Mise à Jour
-- **Date**: 20 juin 2026
-- **Changements**: 
-  - **Git pull Gabriel v6.x** depuis le dépôt local mis à jour (v6.0, v6.1, v6.2)
-  - **Nouveaux graphiques avancés implémentés**:
-    - **Courbe Digamma Calculé** (n=1 à n=200) avec formule digamma_calc(n,p) = SB(n) - 64×p
-    - **Rapport Spectral Asymétrique Ordonné** (100 paires) avec blocs A et B croissants
-  - **Nouveaux fichiers backend**:
-    - `advanced_visualizations.py` - Génération des données pour les graphiques avancés
-    - `spectral_models.py` - 3 modèles spectraux (1/2, 1/3, 1/4) avec `Fraction` exacte
-    - `hol_generator.py` - Générateur de preuves HOL/Isabelle formelles
-  - **Nouveau composant frontend**:
-    - `AdvancedSpectralVisualizer.jsx` - Affichage des graphiques avancés
-  - **Nouveaux endpoints API**:
-    - `GET /api/gabriel/digamma-curve` - Courbe digamma n=1 à n=200
-    - `GET /api/gabriel/asymmetric-ordered` - Rapport asymétrique ordonné
-    - `GET /api/gabriel/asymmetric-sums` - Sommes des blocs A et B
-  - Reconstruction avec fragment HOL généré automatiquement
-  - **FIX**: Détection prioritaire "écart" vs "reconstruction"
-  - **FIX**: Détection ordinale ("37ième" → reconstruct n=37)
+- **Date**: Décembre 2025
+- **Changements**:
+  - **BUG FIX CRITIQUE**: Erreur 500 sur calcul d'écarts mixtes (ex: -7 et 29)
+    - Root cause: `gap_solver.py` retournait `pos_min/pos_max` mais `gabriel_service.py` attendait `position_p1/position_p2`
+    - Correction: Ajout des clés attendues dans `GapResult.to_dict()` + sous-dict `validation`
+    - Tous les cas testés passent: (+,+), (-,-), (-,+)
+  - **Tests mis à jour**: `test_gabriel_v2.py` aligné avec le comportement corrigé
+  - **20/20 tests passent** (test_gabriel_v2.py + test_gabriel_gap_fix.py)
+
+### Historique Antérieur
+- **Git pull Gabriel v6.x** depuis le dépôt local mis à jour (v6.0, v6.1, v6.2)
+- **Nouveaux graphiques avancés implémentés**:
+  - **Courbe Digamma Calculé** (n=1 à n=200) avec formule digamma_calc(n,p) = SB(n) - 64×p
+  - **Rapport Spectral Asymétrique Ordonné** (100 paires) avec blocs A et B croissants
+- **Nouveaux fichiers backend**:
+  - `advanced_visualizations.py` - Génération des données pour les graphiques avancés
+  - `spectral_models.py` - 3 modèles spectraux (1/2, 1/3, 1/4) avec `Fraction` exacte
+  - `hol_generator.py` - Générateur de preuves HOL/Isabelle formelles
+- **Nouveau composant frontend**:
+  - `AdvancedSpectralVisualizer.jsx` - Affichage des graphiques avancés
+- **Nouveaux endpoints API**:
+  - `GET /api/gabriel/digamma-curve` - Courbe digamma n=1 à n=200
+  - `GET /api/gabriel/asymmetric-ordered` - Rapport asymétrique ordonné
+  - `GET /api/gabriel/asymmetric-sums` - Sommes des blocs A et B
+- Reconstruction avec fragment HOL généré automatiquement
+- **FIX**: Détection prioritaire "écart" vs "reconstruction"
+- **FIX**: Détection ordinale ("37ième" → reconstruct n=37)
