@@ -1,0 +1,42 @@
+{
+  "summary": "Verified the gap_solver fix for the KeyError 'position_p1' 500 bug. Created /app/backend/tests/test_gabriel_gap_fix.py with 10 tests covering the 4 required cases (23,7)=15, (-19,-5)=13, (-31,17)=47, (-7,29)=35 plus position mapping and /api/gabriel/ask non-500 checks. ALL 10 NEW TESTS PASS. The original user bug (Erreur 500 sur ecart entre -7 et 29) is fully resolved.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "tests/test_gabriel_v2.py (pre-existing)",
+        "issue": "3 stale assertions are now incorrect after the fix: (a) expects formula_used to start with 'gap = (SA(n_next_min)' but the new formula uses French 'n_suivant_min'; (b) expects arithmetic_gap=36 for (-41,-5) but the corrected formula returns 35 (mathematically correct: -40..-6 = 35 numbers); (c) expects validation.zero_special=true for mixed case but the new mixed solver doesn't emit that flag. These were written for the old buggy implementation; they should be updated to match the corrected behavior."
+      },
+      {
+        "endpoint": "/api/gabriel/gap",
+        "issue": "Still returns HTTP 200 with {error: ...} when p1/p2 missing or prime unknown. Consider returning HTTP 400 for proper REST semantics (carried over from iteration_3)."
+      }
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_gabriel_gap_fix.py",
+    "/app/test_reports/pytest/pytest_gap_fix_results.xml"
+  ],
+  "action_items": [
+    "Update /app/backend/tests/test_gabriel_v2.py (TestGabrielGapEndpoint) to match the new (correct) gap_solver behavior: French key 'n_suivant_min' in formula_used, arithmetic_gap=35 for (-41,-5), and remove the zero_special expectation for mixed case (or add this flag back to the mixed solver if it's desired)."
+  ],
+  "critical_code_review_comments": [
+    "to_dict() in gap_solver.py uses a runtime check `self.p1 == self.p_min` to map position_p1/p2. This works when p1 == p_min, but if both inputs happen to equal each other... handled by early `if p1 == p2: return None`. Verified mapping works correctly for all tested cases including swapped order (e.g. p1=23, p2=7).",
+    "gabriel_service.detect_computation_request: 'gap_v2' branch uses standalone `if` (not elif); still works for tested phrasings, but ordering is fragile (already noted in iteration_3).",
+    "compute_gap returns None on failure; endpoint wraps it as {error:...} with 200 status - should be 4xx."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_gabriel_gap_fix.py (new)"
+  ],
+  "success_rate": {
+    "backend": "100% on bug-fix scope (10/10 new tests pass). Regression: 18/21 on existing Gabriel suite; the 3 failures are stale assertions unrelated to this fix.",
+    "frontend": "not tested (testing_type=backend only)"
+  },
+  "test_credentials": "Not required",
+  "seed_data_creation": "None - uses built-in PRIMES table",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Bug fix VERIFIED: gap_solver.GapResult.to_dict() now correctly emits position_p1, position_p2, position_suivant_min keys plus a validation sub-dict. The 4 required cases match expected gap_count exactly: (23,7)=15, (-19,-5)=13, (-31,17)=47, (-7,29)=35. /api/gabriel/ask returns 200 with computation_type='gap_v2' and full spectral output for the user's original 'ecart entre -7 et 29' question. Stale tests in test_gabriel_v2.py (3 failures) need their expectations updated by main agent - they're NOT regressions of this fix.",
+  "rca_of_the_issue": "Root cause: gap_solver.GapResult.to_dict() returned keys pos_min/pos_max/pos_suivant_min, but gabriel_service.run_computation (case 'gap_v2', line 401-405) accessed result['position_p1'], result['position_p2'], result['position_suivant_min'] -> KeyError -> 500. Fix (lines 137-170 of gap_solver.py) added the three expected keys plus a 'validation' sub-dict mapping correctly to p1/p2 (using runtime check p1==p_min to determine which input is min vs max). Verified by reproducing the user's exact question 'ecart entre -7 et 29' which now returns 200 with gap_count=35 (mixed type, matches Philippe Thomas Savard formula)."
+}
