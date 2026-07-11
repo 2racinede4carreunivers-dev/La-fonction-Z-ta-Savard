@@ -1,0 +1,30 @@
+{
+  "summary": "Backend testing of the composite absurdity prover feature in POST /api/gabriel/ask. Created /app/backend/tests/test_gabriel_composite_rejection.py with 18 tests covering: (1) all 6 canonical composites {4,9,15,51,91,121} correctly rejected with computation_type='composite_rejection' and is_composite_error=true; (2) response includes factorization (e.g. '3 × 17') and cites HOL theorems (composite_not_prime_i, spectral_method_exclusively_for_primes, no_spectral_position_for_51); (3) primes still work: 17th prime reconstruction returns 59, gap between -7 and 29 returns 35, plain prime questions are not rejected; (4) negative composite -51 also rejected; (5) unit-level checks on the module (factorize(91)=[7,13], factorize(121)=[11,11], build_composite_rejection(7)=None). ALL 18 TESTS PASS in 46s.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {
+        "endpoint": "/api/gabriel/ask",
+        "issue": "FALSE POSITIVE RISK: the number extraction regex r'-?\\d+' in gabriel_ask() pulls ALL integers from the question. Any composite integer in a question — even when it's ordinal metadata (e.g. 'le 4ième premier', 'le 6ème premier') or unrelated context (e.g. 'En 2026, ...') — triggers composite_rejection. Verified: 'Reconstruis le 4ième premier' returns is_composite_error=true (should return 7); 'En 2026, quel est le 5ème premier' also returns is_composite_error=true. This blocks legitimate ordinal reconstruction requests for composite indices, which is a valid Method-Spectrale operation (prime_i(4)=7)."
+      }
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_gabriel_composite_rejection.py",
+    "/app/test_reports/pytest/pytest_composite_rejection.xml"
+  ],
+  "action_items": [
+    "Consider scoping composite detection to numbers that are the SUBJECT of the spectral computation (i.e. use the numbers extracted by detect_computation_request, not raw regex on the whole question). Otherwise 'Reconstruis le 4ième premier' is incorrectly rejected as composite when the user actually wants prime_i(4)=7. Same for year mentions like 2026, or any composite ordinal (4, 6, 8, 9, 10, 12, 14, 15, 16, ...)."
+  ],
+  "critical_code_review_comments": [
+    "gabriel_service.gabriel_ask (line ~474): re.findall(r'-?\\d+', question) is too greedy; it treats any integer in the prose as a candidate for composite rejection. Should tie composite detection to the specific number the user wants to reconstruct/inspect (e.g. the extracted target from detect_computation_request), not to every number in the sentence.",
+    "composite_absurdity_prover.py is well-structured, self-contained, ~300 lines, unit-testable, and correctly cites the .thy theorem names. Good quality module."
+  ],
+  "updated_files": ["/app/backend/tests/test_gabriel_composite_rejection.py (new)"],
+  "success_rate": {"backend": "100% (18/18)", "frontend": "n/a"},
+  "seed_data_creation": "None (session_ids prefixed with TEST_composite_*)",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Composite detection is fully wired for direct composite inputs (4, 9, 15, 51, 91, 121, -51). Primes reconstruction (17->59) and gap (-7,29->35) still work. Known false-positive: any composite integer anywhere in the prose triggers rejection (e.g. '4ième premier' or year '2026'). If main agent tightens the extraction to only the target number, add regression tests for 'Reconstruis le 4ième premier' -> expected 7 (prime_i(4))."
+}

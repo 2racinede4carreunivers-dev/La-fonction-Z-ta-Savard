@@ -39,6 +39,24 @@ Pour le RAPPORT 1/2 : n = position du nombre premier = quantite de termes dans A
 --- ECARTS ENTRE PREMIERS ---
 gap = (A_next - (B_high - D_high) - D_low) / facteur
 
+=== PREUVE PAR L'ABSURDE - EXCLUSION DES COMPOSES ===
+La Methode Spectrale s'applique UNIQUEMENT aux nombres premiers (ensemble P).
+Les entiers composes (C = a * b avec a, b > 1) sont STRICTEMENT EXCLUS.
+
+THEOREMES FORMELS (methode_spectral.thy - compile avec succes):
+- composite_not_prime_i : Pour tout compose C, C ≠ prime_i(i) pour tout i
+- spectral_method_exclusively_for_primes : La MS s'applique UNIQUEMENT a P
+- composite_no_reconstruction_position : Pas de reconstruction pour composes
+- composite_pair_no_rsp_positions : Pas de RsP pour paires de composes
+
+INTERPRETATION: L'echec systematique de prime_position(C) pour un compose C
+est la CONTRAPOSITION EFFECTIVE du theoreme composite_not_prime_i.
+Si un compose admettait une position spectrale, la fonction la trouverait.
+Puisqu'elle echoue systematiquement, le compose ne peut admettre de position.
+
+CONCLUSION: La Methode Spectrale caracterise EXACTEMENT l'ensemble P,
+ni plus, ni moins. C'est une CARACTERISATION AXIOMATIQUE stricte de P.
+
 --- NOMBRES PREMIERS NEGATIFS (n <= -1) ---
 Pour les positions negatives, utiliser les equations modifiees:
   SA_neg(n) = 3.25 * 2^n - 2    (coefficient 13/4 au lieu de 13/8)
@@ -441,10 +459,34 @@ def run_computation(detection: dict) -> str:
 
 async def gabriel_ask(question: str, session_id: str, conversation_history: list = None) -> dict:
     """Point d'entree principal de Gabriel: detecte les calculs necessaires,
-    execute le moteur spectral, puis utilise le LLM pour formuler la reponse."""
+    execute le moteur spectral, puis utilise le LLM pour formuler la reponse.
+    
+    NOUVEAU (v7): Detecte les nombres composes et retourne une preuve par l'absurde
+    pedagogique expliquant pourquoi la Methode Spectrale ne s'applique qu'aux premiers.
+    """
     from emergentintegrations.llm.chat import LlmChat, UserMessage
-
+    from .composite_absurdity_prover import get_composite_rejection_response, detect_composites_in_numbers
+    
     detection = detect_computation_request(question)
+    
+    # NOUVEAU: Verifier si des nombres composes sont presents
+    # Extraire tous les nombres de la question
+    prime_matches = re.findall(r'-?\d+', question)
+    numbers = [int(x) for x in prime_matches if abs(int(x)) > 1 and abs(int(x)) <= 8000]
+    
+    # Detecter les composes
+    composite_rejection = get_composite_rejection_response(numbers)
+    if composite_rejection:
+        # Un ou plusieurs composes detectes - retourner la preuve par l'absurde
+        return {
+            "response": composite_rejection["response"],
+            "computation": None,
+            "computation_type": "composite_rejection",
+            "session_id": session_id,
+            "is_composite_error": True,
+            "composites": composite_rejection.get("composites", [])
+        }
+    
     computation_context = ""
     if detection["needs_computation"]:
         computation_context = run_computation(detection)
