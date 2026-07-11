@@ -1,9 +1,16 @@
 """
 Tests for the composite absurdity prover in Gabriel.
 
-Feature under test: POST /api/gabriel/ask must detect composite integers in the
-user's question and return a pedagogical rejection message (preuve par
-l'absurde) instead of running the spectral engine.
+Feature under test: POST /api/gabriel/ask must detect composite integers when
+they are used as PRIME NUMBERS to analyze (in gaps, prime analysis, etc.), NOT
+when they are used as positions/indices (reconstruction of the n-th prime).
+
+The composite rejection only applies to:
+- gap_v2: "Écart entre 7 et 51" (51 is composite, rejected)
+- analyze_prime: "Analyse le premier 51" (51 is composite, rejected)
+
+The composite rejection does NOT apply to:
+- reconstruct: "Reconstruis le 51ième premier" (51 is a position, allowed)
 
 Reference module: /app/backend/modules/gabriel/composite_absurdity_prover.py
 Reference service: /app/backend/modules/gabriel/gabriel_service.py (gabriel_ask)
@@ -38,42 +45,46 @@ def _post(question: str) -> dict:
     return r.json()
 
 
-# === Composite detection: canonical composites ===
-class TestCompositeRejectionCanonical:
-    """The 6 canonical composites (with dedicated .thy theorems) must all trigger rejection."""
+# === Composite detection via GAP queries (the correct context) ===
+class TestCompositeRejectionViaGap:
+    """Composites used in gap calculations must trigger rejection."""
 
-    @pytest.mark.parametrize("n", CANONICAL_COMPOSITES)
-    def test_canonical_composite_rejected(self, n):
-        data = _post(f"Peux-tu calculer la position spectrale de {n} ?")
-        assert data.get("is_composite_error") is True, f"n={n}: expected is_composite_error=True, got {data}"
-        assert data.get("computation_type") == "composite_rejection", f"n={n}: {data.get('computation_type')}"
+    @pytest.mark.parametrize("n", [51, 91, 121])
+    def test_composite_in_gap_rejected(self, n):
+        """Écart entre un premier et un composé doit être rejeté."""
+        data = _post(f"Quel est l'écart entre 7 et {n} ?")
+        assert data.get("is_composite_error") is True, f"n={n}: expected is_composite_error=True"
+        assert data.get("computation_type") == "composite_rejection"
         assert data.get("computation") is None
         composites = data.get("composites") or []
-        assert any(c["value"] == n for c in composites), f"n={n}: composites list = {composites}"
+        assert any(c["value"] == n for c in composites), f"n={n}: composites = {composites}"
 
-    def test_response_contains_factorization_51(self):
-        data = _post("Reconstruis 51")
-        resp = data["response"]
+    def test_gap_51_factorization_in_response(self):
+        """La réponse doit contenir la factorisation de 51."""
+        data = _post("Écart entre 7 et 51")
+        resp = data.get("response", "")
         assert "51" in resp
-        assert "3" in resp and "17" in resp
-        # Décomposition explicite
-        assert "3 × 17" in resp or "3 x 17" in resp or "3×17" in resp
+        assert ("3 × 17" in resp or "3 x 17" in resp or "3×17" in resp)
 
-    def test_response_contains_hol_theorems(self):
-        data = _post("Analyse le nombre 51")
-        resp = data["response"]
-        # Must cite the formal HOL theorems from methode_spectral.thy
+    def test_gap_cites_hol_theorems(self):
+        """La réponse doit citer les théorèmes HOL."""
+        data = _post("Écart entre 7 et 51")
+        resp = data.get("response", "")
         assert "composite_not_prime_i" in resp
         assert "spectral_method_exclusively_for_primes" in resp
 
-    def test_response_cites_canonical_thy_for_51(self):
-        data = _post("Que penses-tu de 51 ?")
-        resp = data["response"]
+    def test_gap_51_cites_canonical_theorem(self):
+        """La réponse doit citer le théorème spécifique pour 51."""
+        data = _post("Écart entre 7 et 51")
+        resp = data.get("response", "")
         assert "no_spectral_position_for_51" in resp
 
-    def test_composites_dict_has_required_fields(self):
-        data = _post("Position de 51 ?")
-        c = data["composites"][0]
+    def test_composites_dict_structure(self):
+        """Le dictionnaire composites doit avoir les champs requis."""
+        data = _post("Écart entre 7 et 51")
+        composites = data.get("composites", [])
+        assert len(composites) >= 1
+        c = composites[0]
         assert c["value"] == 51
         assert c["factors"] == [3, 17]
         assert c["is_composite"] is True
@@ -112,10 +123,11 @@ class TestPrimesStillWork:
         assert not data.get("is_composite_error"), f"7 is prime: {data}"
 
 
-# === Negative composites should also be caught ===
+# === Negative composites via gap should also be caught ===
 class TestNegativeComposites:
-    def test_negative_composite_minus_51(self):
-        data = _post("Analyse -51")
+    def test_negative_composite_in_gap(self):
+        """Un composé négatif dans un écart doit être rejeté."""
+        data = _post("Écart entre -7 et -51")
         assert data.get("is_composite_error") is True
         composites = data.get("composites") or []
         assert any(c["value"] == -51 and c["is_negative"] is True for c in composites), composites

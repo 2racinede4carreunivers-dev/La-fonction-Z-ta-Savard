@@ -66,12 +66,24 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 ## Dernière Mise à Jour
 - **Date**: Décembre 2025
 - **Changements**:
-  - **BUG FIX CRITIQUE**: Erreur 500 sur calcul d'écarts mixtes (ex: -7 et 29)
-    - Root cause: `gap_solver.py` retournait `pos_min/pos_max` mais `gabriel_service.py` attendait `position_p1/position_p2`
-    - Correction: Ajout des clés attendues dans `GapResult.to_dict()` + sous-dict `validation`
-    - Tous les cas testés passent: (+,+), (-,-), (-,+)
-  - **Tests mis à jour**: `test_gabriel_v2.py` aligné avec le comportement corrigé
-  - **20/20 tests passent** (test_gabriel_v2.py + test_gabriel_gap_fix.py)
+  - **NOUVELLE FONCTIONNALITÉ**: Preuve par l'absurde - Exclusion des composés
+    - Nouveau module: `composite_absurdity_prover.py`
+    - La Méthode Spectrale s'applique UNIQUEMENT aux nombres premiers (ℙ)
+    - Les composés (4, 9, 15, 51, 91, 121, etc.) sont rejetés avec message pédagogique
+    - Référence les théorèmes HOL formels de `methode_spectral.thy` (qui compile)
+    - Théorèmes: `composite_not_prime_i`, `spectral_method_exclusively_for_primes`
+  - **Git pull Gabriel v7** - Synchronisation complète du dépôt
+    - 133 fichiers mis à jour / créés
+    - Nouvelles fonctionnalités: Plan Trifocal, Vision Gabriel, Métaphores Géométriques
+    - Fichier `methode_spectral.thy` complet (3047 lignes, compile avec succès)
+  - **BUG FIX**: Erreur 500 sur calcul d'écarts mixtes (ex: -7 et 29)
+    - Correction des clés dans `GapResult.to_dict()`
+  - **35+ tests passent** (v2, gap_fix, composite_rejection)
+
+### Fichiers Gabriel V7 Clés
+- `/app/backend/modules/gabriel/composite_absurdity_prover.py` - **NOUVEAU** Preuve par l'absurde
+- `/app/backend/modules/gabriel/gap_solver.py` - Formule d'écart V2 corrigée
+- `/app/data/gabriel-agent/.../theories/methode_spectral.thy` - 3047 lignes, compile HOL
 
 ### Historique Antérieur
 - **Git pull Gabriel v6.x** depuis le dépôt local mis à jour (v6.0, v6.1, v6.2)

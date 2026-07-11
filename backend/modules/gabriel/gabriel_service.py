@@ -463,29 +463,43 @@ async def gabriel_ask(question: str, session_id: str, conversation_history: list
     
     NOUVEAU (v7): Detecte les nombres composes et retourne une preuve par l'absurde
     pedagogique expliquant pourquoi la Methode Spectrale ne s'applique qu'aux premiers.
+    
+    IMPORTANT: La detection des composes ne s'applique QUE lorsque l'utilisateur
+    demande explicitement d'analyser un nombre comme premier (ecart, analyse),
+    PAS pour les positions/indices (reconstruction du n-ieme premier).
     """
     from emergentintegrations.llm.chat import LlmChat, UserMessage
-    from .composite_absurdity_prover import get_composite_rejection_response, detect_composites_in_numbers
+    from .composite_absurdity_prover import get_composite_rejection_response
     
     detection = detect_computation_request(question)
     
     # NOUVEAU: Verifier si des nombres composes sont presents
-    # Extraire tous les nombres de la question
-    prime_matches = re.findall(r'-?\d+', question)
-    numbers = [int(x) for x in prime_matches if abs(int(x)) > 1 and abs(int(x)) <= 8000]
+    # MAIS seulement pour les types de calcul ou le nombre EST le premier a analyser
+    # PAS pour reconstruction (ou le nombre est une POSITION, pas un premier)
+    composite_check_types = ["gap_v2", "analyze_prime", "spectral_ratio"]
     
-    # Detecter les composes
-    composite_rejection = get_composite_rejection_response(numbers)
-    if composite_rejection:
-        # Un ou plusieurs composes detectes - retourner la preuve par l'absurde
-        return {
-            "response": composite_rejection["response"],
-            "computation": None,
-            "computation_type": "composite_rejection",
-            "session_id": session_id,
-            "is_composite_error": True,
-            "composites": composite_rejection.get("composites", [])
-        }
+    if detection["needs_computation"] and detection["type"] in composite_check_types:
+        # Extraire les nombres qui sont les SUJETS du calcul (premiers a analyser)
+        numbers_to_check = []
+        if detection["type"] == "gap_v2":
+            numbers_to_check = detection["params"].get("primes", [])
+        elif detection["type"] == "analyze_prime":
+            numbers_to_check = detection["params"].get("primes", [])
+        elif detection["type"] == "spectral_ratio":
+            numbers_to_check = detection["params"].get("numbers", [])
+        
+        if numbers_to_check:
+            composite_rejection = get_composite_rejection_response(numbers_to_check)
+            if composite_rejection:
+                # Un ou plusieurs composes detectes - retourner la preuve par l'absurde
+                return {
+                    "response": composite_rejection["response"],
+                    "computation": None,
+                    "computation_type": "composite_rejection",
+                    "session_id": session_id,
+                    "is_composite_error": True,
+                    "composites": composite_rejection.get("composites", [])
+                }
     
     computation_context = ""
     if detection["needs_computation"]:
