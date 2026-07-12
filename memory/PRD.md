@@ -66,19 +66,15 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 ## Dernière Mise à Jour
 - **Date**: Décembre 2025
 - **Changements**:
+  - **AMÉLIORATION**: SYSTEM_PROMPT Gabriel amélioré avec exemple numérique complet
+    - Formule d'écart spectral détaillée avec cas (5, 47) → -41 exact
+    - Calculs intermédiaires explicites pour référence LLM
   - **NOUVELLE FONCTIONNALITÉ**: Preuve par l'absurde - Exclusion des composés
     - Nouveau module: `composite_absurdity_prover.py`
     - La Méthode Spectrale s'applique UNIQUEMENT aux nombres premiers (ℙ)
-    - Les composés (4, 9, 15, 51, 91, 121, etc.) sont rejetés avec message pédagogique
-    - Référence les théorèmes HOL formels de `methode_spectral.thy` (qui compile)
-    - Théorèmes: `composite_not_prime_i`, `spectral_method_exclusively_for_primes`
-  - **Git pull Gabriel v7** - Synchronisation complète du dépôt
-    - 133 fichiers mis à jour / créés
-    - Nouvelles fonctionnalités: Plan Trifocal, Vision Gabriel, Métaphores Géométriques
-    - Fichier `methode_spectral.thy` complet (3047 lignes, compile avec succès)
-  - **BUG FIX**: Erreur 500 sur calcul d'écarts mixtes (ex: -7 et 29)
-    - Correction des clés dans `GapResult.to_dict()`
-  - **35+ tests passent** (v2, gap_fix, composite_rejection)
+  - **Git pull Gabriel v7** - 133 fichiers synchronisés
+  - **BUG FIX**: Erreur 500 sur calcul d'écarts mixtes
+  - **Tests validés**: 100% (gap_calculations, composite_rejection, gap_fix, v2)
 
 ### Fichiers Gabriel V7 Clés
 - `/app/backend/modules/gabriel/composite_absurdity_prover.py` - **NOUVEAU** Preuve par l'absurde
