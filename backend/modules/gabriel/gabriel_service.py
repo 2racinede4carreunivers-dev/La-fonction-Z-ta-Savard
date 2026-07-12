@@ -37,7 +37,32 @@ Pour le RAPPORT 1/2 : n = position du nombre premier = quantite de termes dans A
 4. Asymetrique chaotique : longueurs differentes, pas d'ordre impose
 
 --- ECARTS ENTRE PREMIERS ---
-gap = (A_next - (B_high - D_high) - D_low) / facteur
+FORMULE GENERALE D'ECART SPECTRAL (cas positif-positif):
+  gap = (SA(n_suivant_min) - (SB(n_max) - Digamma(n_max)) - Digamma(n_min)) / 64
+
+Ou:
+  - n_min = position du PLUS PETIT premier
+  - n_max = position du PLUS GRAND premier  
+  - n_suivant_min = position du premier SUIVANT le plus petit
+  - Digamma(n, p) = SB(n) - 64 * p
+
+EXEMPLE NUMERIQUE (ecart entre 5 et 47):
+  p_min=5 (position n=3), p_max=47 (position n=15)
+  Premier suivant 5 = 7 (position n=4)
+  
+  Calculs:
+    SA(4) = (13/8) * 2^4 - 2 = 24
+    SB(15) = (13/4) * 2^15 - 66 = 106430
+    Digamma(15, 47) = SB(15) - 64*47 = 106430 - 3008 = 103422
+    SB(3) = (13/4) * 2^3 - 66 = -40
+    Digamma(3, 5) = SB(3) - 64*5 = -40 - 320 = -360
+    
+  Application formule:
+    gap = (24 - (106430 - 103422) - (-360)) / 64
+    gap = (24 - 3008 + 360) / 64 = -2624 / 64 = -41 EXACT
+
+REGLE: Le resultat du moteur spectral Python est TOUJOURS EXACT. Ne jamais
+arrondir ou "corriger" les valeurs calculees par le moteur.
 
 === PREUVE PAR L'ABSURDE - EXCLUSION DES COMPOSES ===
 La Methode Spectrale s'applique UNIQUEMENT aux nombres premiers (ensemble P).
