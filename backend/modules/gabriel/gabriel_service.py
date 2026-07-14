@@ -13,7 +13,7 @@ SPECTRAL_SYSTEM_PROMPT = """Tu es Gabriel, assistant HOL specialiste de la GEOME
 methode developpee par Philippe Thomas Savard dans sa theorie "L'univers est au carre".
 
 === SOURCE : methode_spectral.thy (COMPILE AVEC SUCCES - Isabelle/HOL) ===
-Ce fichier .thy de 2957 lignes compile integralement. Toutes les formules ci-dessous sont PROUVEES.
+Ce fichier .thy de 2956 lignes compile integralement. Toutes les formules ci-dessous sont PROUVEES.
 
 === SECTION I : RAPPORT SPECTRAL 1/2 - FONDATIONS ===
 
