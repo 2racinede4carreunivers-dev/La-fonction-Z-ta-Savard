@@ -506,7 +506,7 @@ Instructions :
 Réponse :"""
 
             response = emergentintegrations.generate(
-                model="claude-sonnet-4-20250514",
+                model="claude-sonnet-4-5-20250929",
                 prompt=prompt,
                 api_key=api_key,
                 max_tokens=1500

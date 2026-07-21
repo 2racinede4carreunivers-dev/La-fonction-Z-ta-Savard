@@ -1,0 +1,25 @@
+{
+  "summary": "Regression tests for the LLM model rename fix (claude-sonnet-4-20250514 -> claude-sonnet-4-5-20250929). Verified 19 corrections (18 in server.py, 1 in evolutionary_qa_system.py). All 4 previously-broken AI endpoints now return valid 200 responses: /api/chat (IA Spécialisée), /api/ia-evolutif/dialoguer (IA Évolutive, after /api/ia-evolutif/initialiser-auto), /api/ia-socratique/challenger (IA Socratique with reflexion_utilisateur only - note: request body does NOT include an 'affirmation' field despite reviewer note), and /api/gabriel/ask (baseline, still working). 5/5 pytest assertions passed in 28.5s.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_llm_model_fix_iteration8.py",
+    "/app/test_reports/pytest/pytest_iteration8.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "grep confirms all 18 with_model() calls in server.py + 1 in evolutionary_qa_system.py use the corrected model id 'claude-sonnet-4-5-20250929'. No stale occurrences of the invalid 'claude-sonnet-4-20250514' remain.",
+    "Note: The review request mentions IA Socratique needs fields 'affirmation' AND 'reflexion_utilisateur', but the Pydantic model DialogueSocratiqueRequest (server.py L3516) only defines reflexion_utilisateur + optional contexte_session. Endpoint works fine with just reflexion_utilisateur. If an 'affirmation' field is expected by the frontend, the backend schema needs updating - otherwise the reviewer's note is inaccurate.",
+    "server.py has grown to 6799 lines — still recommend splitting into routers (persistent finding from earlier iterations)."
+  ],
+  "updated_files": ["/app/backend/tests/test_llm_model_fix_iteration8.py"],
+  "success_rate": {"backend": "100%", "frontend": "N/A"},
+  "seed_data_creation": "None (uses existing /app/data/exemple_banque_initiale.json via initialiser-auto endpoint)",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "test_llm_model_fix_iteration8.py covers all 4 AI endpoints affected by the model rename. Reuse as regression suite for any future LLM-related changes. LLM calls average ~5-7s each; total suite ~28s.",
+  "rca of the issue": "Anthropic model id 'claude-sonnet-4-20250514' did not exist on the Emergent LLM proxy, causing every with_model()/LlmChat call using it to fail at inference time. Only Gabriel (which uses a different code path / correct id) was unaffected. Fix: renamed 19 occurrences to the valid 'claude-sonnet-4-5-20250929'. Verified via live end-to-end 200 responses on /api/chat, /api/ia-evolutif/dialoguer, /api/ia-socratique/challenger, /api/gabriel/ask."
+}
