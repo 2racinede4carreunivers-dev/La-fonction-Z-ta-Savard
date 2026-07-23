@@ -4998,6 +4998,26 @@
       "meta_score": 0.85,
       "relations_internes": [],
       "source": "github_qa_bank"
+    },
+    {
+      "id": "c7e20a1a-bb09-4fd5-b683-5c13d123613c",
+      "question": "Comment dans la méthode de comparaison asymétrique pour 1/2 et 1/4, les définitions de 'asymetrique_ordonnee' et 'asymetrique_chaotique' utilisent-elles la condition 'indice_valide' pour définir les relations entre les suites A et B, et pourquoi cette condition est-elle cruciale pour la validité des indices de ces suites ?",
+      "reponse": "Les définitions 'asymetrique_ordonnee' et 'asymetrique_chaotique' dans le fichier 'methode_spectral.thy' reposent sur la condition 'indice_valide' pour s'assurer que les indices des listes A_indices et B_indices sont mathématiquement valides. Pour 'asymetrique_ordonnee', chaque élément des indices des listes doit être valide, c'est-à-dire supérieur ou égal à 1 ou inférieur ou égal à -1 pour les entiers (définition 'indice_valide'). Cette condition garantit que les suites peuvent correctement être ordonnées en respectant les contraintes de croissante stricte et de non-emptiness, tout en imposant une précédence (dernière de A < première de B) et une différence de taille (B ayant un élément de plus que A). De même, 'asymetrique_chaotique', bien qu’elle relâche l'exigence d'ordonnancement, utilise 'indice_valide' pour confirmer que les indices utilisés ne violent pas les conditions structurelles sous-jacentes. Cette validation des indices est essentielle à la méthode de comparaison asymétrique car elle assure que toutes les opérations de somme et de comparaison impliquant A et B sont effectuées sur des ensembles d'indices qui respectent un format cohérent et sûr, évitant ainsi des incohérences structurelles dans les calculs algorithmiques. L'application de l'axiome dans le lemme 'asymetrie_implique_indices_valides' épure et sécurise formellement la structure des indices.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 4,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "relation"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-07-23T03:31:19.251712",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
     }
   ],
   "concepts_theoriques": {
@@ -5096,6 +5116,6 @@
       ]
     }
   },
-  "derniere_evolution": "2026-07-21T04:42:19.877053",
-  "version": "1.0"
+  "derniere_evolution": "2026-07-23T03:35:44.533313",
+  "version": "2.0-sync"
 }

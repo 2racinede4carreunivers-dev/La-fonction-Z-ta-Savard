@@ -1,0 +1,23 @@
+{
+  "summary": "Regression backend testing for Gabriel Section XIII (Pont Savard) update. Verified: (1) SYSTEM_PROMPT in gabriel_service.py includes new Section XIII block with psi_savard equation, 4 canonical validations (28.888, 96.894, 226.894, -100.798), Ensemble = 1/x + 1/t + 1/ms structure, and 3 concordances C1/C2/C3. (2) File methode_spectral.thy is 3180 lines. (3) section_XIII.py module (418 lines) is present. (4) /api/gabriel/compute nth_prime(33)=137 exact. (5) /api/gabriel/gap(5,47) returns gap_float=-41.0 exact. (6) Gabriel LLM correctly explains Section XIII/Pont Savard, enumerates C1/C2/C3, and knows psi_savard(30,10)=28.888 canonical value. 11/11 pytest passed in 36.4s.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_gabriel_section_xiii.py",
+    "/app/test_reports/pytest/iteration_9.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "SPECTRAL_SYSTEM_PROMPT now spans lines 12-~200 of gabriel_service.py and is very large. Consider extracting to a separate .md/.txt template file and loading at startup - improves readability and lets Section XIII updates happen without touching Python code.",
+    "server.py remains at 6799 lines - persistent recommendation to split /api/gabriel/* endpoints into their own APIRouter file (e.g., modules/gabriel/routes.py).",
+    "/api/gabriel/gap response is inconsistent: uses 'gap_count' (positive int) AND 'gap_float' (signed float). The signed value is what the review request expects ('ecart entre 5 et 47 = -41'). Consider aliasing 'gap' as the canonical signed value for API stability.",
+    "gabriel_conversations dict in server.py L6631 is an in-memory session store (not persisted, not thread-safe across workers). Fine for MVP, but note for future scale."
+  ],
+  "updated_files": ["/app/backend/tests/test_gabriel_section_xiii.py"],
+  "success_rate": {"backend": "100%", "frontend": "N/A"},
+  "test_credentials": "N/A - no auth on /api/gabriel/*",
+  "seed_data_creation": "None",
+  "retest_needed": false,
+  "should_main_agent_self_test": false,
+  "context_for_next_testing_agent": "test_gabriel_section_xiii.py is a stable regression suite covering: SYSTEM_PROMPT content assertions (fast, offline), .thy line-count guard (>=3000), deterministic spectral endpoints (nth_prime=137, gap 5<->47=-41), and 3 LLM behavioral checks (Section XIII explanation, three concordances, psi_savard(30,10)=28.888). Each LLM call ~7-10s, ~36s total suite. If the SYSTEM_PROMPT is refactored to load from an external file, update the import-based assertions to read the resolved template instead of the module constant."
+}
