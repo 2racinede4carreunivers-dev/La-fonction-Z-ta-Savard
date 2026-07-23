@@ -5018,6 +5018,46 @@
       "meta_score": 0.85,
       "relations_internes": [],
       "source": "github_qa_bank"
+    },
+    {
+      "id": "d7603e9a-8d79-4e4e-9416-6554410f7f7a",
+      "question": "Comment est démontrée l'équation `sqrt (4 * real p) * (sin (arcsin (((1 / 2) / ((sqrt (real p) + 1) / sqrt 18)) * (1 / 2)))) ^ 2 = 1 / sqrt (real p)` dans le fichier `mecanique_discret.thy`, et quel est le rôle de chaque composant dans la démonstration?",
+      "reponse": "L'équation `sqrt (4 * real p) * (sin (arcsin (((1 / 2) / ((sqrt (real p) + 1) / sqrt 18)) * (1 / 2)))) ^ 2 = 1 / sqrt (real p)` est démontrée en établissant un lien entre l'expression trigonometrique `alt_factor` et l'invariant géométrique `inv_ratio_height_halfbase`. Ici, `sqrt (4 * real p)` représente une échelle de transformation pour la mesure géométrique. La fonction `sin (arcsin (...))` est utilisée pour contrôler la proportionnalité entre les dimensions trigonométriques et algébriques. Plus précisément, `(((1 / 2) / ((sqrt (real p) + 1) / sqrt 18)) * (1 / 2))` crée un facteur de rééchelle qui lie directement l'invariant géométrique à travers une expression trigonometrique ajustée, assurant que `alt_factor` égale `1 / sqrt (real p)`. Cette démonstration, présente dans le lemme `alt_factor_explicit_for_primes`, utilise l'axiome `alt_factor_axiom`, qui est confirmée dans le fichier par des appels successifs à des lemmes comme `alt_factor_for_primes` et `inv_ratio_height_halfbase_simpl`, vérifiant pour des conditions où `p` est un entier admissible et premier.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 5,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "equation"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-07-23T23:07:31.351259",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
+    },
+    {
+      "id": "8aca80a6-4a82-4c6a-8520-f73b9f14bd69",
+      "question": "Dans le fichier 'espace_philippot.thy', comment l'équation relative à la diagonale de base multiplicée par la hauteur, plus le rayon, le tout divisé par 2, est-elle reliée à la somme du carré de la hauteur et de l'aire du disque, spécifiquement pour l'axiome 'relation_diag_hauteur_rayon'?",
+      "reponse": "L'axiome 'relation_diag_hauteur_rayon' dans le fichier 'espace_philippot.thy' établit une relation mathématique entre des propriétés géométriques de la pyramide dans l'Espace de Philippot. Selon cet axiome, il est affirmé que '(diag_base * hauteur n + rayon n) / 2 = (hauteur n)^2 + aire_disque', où 'diag_base', 'hauteur n', 'rayon n', et 'aire_disque' sont des valeurs géométriques définies dans le contexte. La démonstration de cet axiome démontre comment la diagonale de base, lorsqu'elle est multipliée par la hauteur et additionnée du rayon, puis divisée par deux, équivaut à la somme du carré de la hauteur et de l'aire d'un disque. Cette relation met en lumière un équilibre géométrique entre les différents éléments de la pyramide décrits, fournissant un lien formel entre des dimensions linéaires (diagonale et rayon) et des superficies (aire du disque).",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 4,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "geometrie"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-07-23T23:07:31.351283",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
     }
   ],
   "concepts_theoriques": {
@@ -5116,6 +5156,6 @@
       ]
     }
   },
-  "derniere_evolution": "2026-07-23T03:35:44.533313",
+  "derniere_evolution": "2026-07-23T23:15:41.661051",
   "version": "2.0-sync"
 }

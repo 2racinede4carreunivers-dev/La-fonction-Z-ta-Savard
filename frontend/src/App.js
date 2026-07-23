@@ -17,12 +17,20 @@ import { SpectralVisualizer } from './visuel-gabriel-isabelle/SpectralVisualizer
 import { AdvancedSpectralVisualizer } from './visuel-gabriel-isabelle/AdvancedSpectralVisualizer';
 import GabrielMarkdown from './components/GabrielMarkdown';
 
+// Composants d'authentification et pages légales
+import AuthPage from './components/AuthPage';
+import LicencePage from './components/LicencePage';
+import ConfidentialitePage from './components/ConfidentialitePage';
+import GuidePage from './components/GuidePage';
+import SuggestionsPage from './components/SuggestionsPage';
+import AdminPanel from './components/AdminPanel';
+
 // Protection des documents - DÉSACTIVÉE (causait des erreurs DOM)
 // import DocumentProtection from './components/DocumentProtection';
 import domManager from './utils/DOMManager';
 
 // Icônes
-import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu } from 'lucide-react';
+import { Search, MessageCircle, BookOpen, Sparkles, Atom, Calculator, Telescope, Send, ArrowRight, Star, Zap, Globe, Brain, Play, Info, TrendingUp, Layers, Target, Edit3, Save, Plus, List, Type, AlignLeft, Bold, Italic, Underline, Menu, LogOut, Shield, FileText, HelpCircle, MessageSquare } from 'lucide-react';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -12130,6 +12138,16 @@ const AdminQuestionsPage = () => {
 
 // App principale
 function App() {
+  // États d'authentification
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [sessionToken, setSessionToken] = useState('');
+  const [checkingAuth, setCheckingAuth] = useState(true);
+  
+  // États pour les pages spéciales
+  const [currentPage, setCurrentPage] = useState('main'); // main, licence, confidentialite, guide, suggestions, admin
+
   // États de navigation et de contenu
   const [selectedConcept, setSelectedConcept] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -12143,6 +12161,62 @@ function App() {
   // États globaux pour les dossiers (disponibles dans toute l'app)
   const [folders, setFolders] = useState([]);
   const [currentFolder, setCurrentFolder] = useState('root');
+
+  // Vérifier l'authentification au chargement
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('sessionToken');
+      if (token) {
+        try {
+          const response = await fetch(`${API_URL}/api/auth/validate`, {
+            headers: { 'X-Session-Token': token }
+          });
+          const data = await response.json();
+          if (data.valid) {
+            setIsAuthenticated(true);
+            setUserEmail(data.email);
+            setIsAdmin(data.is_admin);
+            setSessionToken(token);
+          } else {
+            localStorage.removeItem('sessionToken');
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('isAdmin');
+          }
+        } catch (err) {
+          console.error('Auth check failed:', err);
+        }
+      }
+      setCheckingAuth(false);
+    };
+    checkAuth();
+  }, []);
+
+  // Gérer la connexion réussie
+  const handleAuthSuccess = (data) => {
+    setIsAuthenticated(true);
+    setUserEmail(data.email);
+    setIsAdmin(data.is_admin);
+    setSessionToken(data.session_token);
+  };
+
+  // Gérer la déconnexion
+  const handleLogout = async () => {
+    try {
+      await fetch(`${API_URL}/api/auth/logout`, {
+        method: 'POST',
+        headers: { 'X-Session-Token': sessionToken }
+      });
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+    localStorage.removeItem('sessionToken');
+    localStorage.removeItem('userEmail');
+    localStorage.removeItem('isAdmin');
+    setIsAuthenticated(false);
+    setUserEmail('');
+    setIsAdmin(false);
+    setSessionToken('');
+  };
 
   // Effet pour le raccourci clavier admin (Ctrl+Alt+W)
   useEffect(() => {
@@ -12182,10 +12256,97 @@ function App() {
     folders, setFolders, currentFolder, setCurrentFolder
   };
 
+  // Écran de chargement pendant la vérification d'auth
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+          <p className="text-white">Vérification de la session...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Page d'authentification si non connecté
+  if (!isAuthenticated) {
+    return <AuthPage onAuthSuccess={handleAuthSuccess} />;
+  }
+
+  // Pages spéciales (hors router)
+  if (currentPage === 'licence') {
+    return <LicencePage onBack={() => setCurrentPage('main')} />;
+  }
+  if (currentPage === 'confidentialite') {
+    return <ConfidentialitePage onBack={() => setCurrentPage('main')} />;
+  }
+  if (currentPage === 'guide') {
+    return <GuidePage onBack={() => setCurrentPage('main')} />;
+  }
+  if (currentPage === 'suggestions') {
+    return <SuggestionsPage onBack={() => setCurrentPage('main')} sessionToken={sessionToken} />;
+  }
+  if (currentPage === 'admin-panel' && isAdmin) {
+    return <AdminPanel onBack={() => setCurrentPage('main')} sessionToken={sessionToken} />;
+  }
+
   return (
     <Router>
       <div className="App">
         <Navigation />
+        
+        {/* Barre utilisateur en haut à droite */}
+        <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+          <div className="bg-black/30 backdrop-blur-sm rounded-full px-4 py-2 flex items-center gap-3 border border-white/10">
+            <span className="text-white/70 text-sm">{userEmail}</span>
+            {isAdmin && (
+              <span className="bg-yellow-500/20 text-yellow-400 text-xs px-2 py-1 rounded-full">Admin</span>
+            )}
+            <button
+              onClick={handleLogout}
+              className="text-white/50 hover:text-white transition-colors"
+              title="Déconnexion"
+            >
+              <LogOut className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+
+        {/* Menu liens légaux en bas */}
+        <div className="fixed bottom-4 right-4 z-50 flex items-center gap-2">
+          <button
+            onClick={() => setCurrentPage('licence')}
+            className="bg-black/30 backdrop-blur-sm text-white/60 hover:text-white text-xs px-3 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-all flex items-center gap-1"
+          >
+            <FileText className="w-3 h-3" /> Licence
+          </button>
+          <button
+            onClick={() => setCurrentPage('confidentialite')}
+            className="bg-black/30 backdrop-blur-sm text-white/60 hover:text-white text-xs px-3 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-all flex items-center gap-1"
+          >
+            <Shield className="w-3 h-3" /> Confidentialité
+          </button>
+          <button
+            onClick={() => setCurrentPage('guide')}
+            className="bg-black/30 backdrop-blur-sm text-white/60 hover:text-white text-xs px-3 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-all flex items-center gap-1"
+          >
+            <HelpCircle className="w-3 h-3" /> Guide
+          </button>
+          <button
+            onClick={() => setCurrentPage('suggestions')}
+            className="bg-black/30 backdrop-blur-sm text-white/60 hover:text-white text-xs px-3 py-2 rounded-lg border border-white/10 hover:border-white/30 transition-all flex items-center gap-1"
+          >
+            <MessageSquare className="w-3 h-3" /> Suggestions
+          </button>
+          {isAdmin && (
+            <button
+              onClick={() => setCurrentPage('admin-panel')}
+              className="bg-yellow-500/20 backdrop-blur-sm text-yellow-400 hover:text-yellow-300 text-xs px-3 py-2 rounded-lg border border-yellow-500/30 hover:border-yellow-500/50 transition-all flex items-center gap-1"
+            >
+              <Shield className="w-3 h-3" /> Admin
+            </button>
+          )}
+        </div>
         
         {/* Icône admin discrète - Clic pour activer, puis Ctrl+Alt+W */}
         <button

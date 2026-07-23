@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form, Request
+from fastapi import FastAPI, HTTPException, Query, UploadFile, File, Form, Request, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr
 from typing import List, Optional, Dict, Any
 import os
 from dotenv import load_dotenv
@@ -20,6 +20,17 @@ from github_sync import sync_repository, load_all_content, log_sync, get_last_sy
 from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
 # Import de l'IA socratique
 from modules.ia_socratique_evolutive import IASocratiqueEvolutive
+# Import du système d'authentification
+from modules.auth_service import (
+    initiate_verification, verify_code, validate_session, logout,
+    is_admin, ADMIN_EMAIL, ADMIN_CONTACT_EMAIL,
+    EmailVerificationRequest, CodeVerificationRequest
+)
+# Import du système d'historique
+from modules.history_service import (
+    record_question, get_questions_history, submit_suggestion,
+    get_all_suggestions, register_user_visit, get_all_users, get_user_stats
+)
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
 
@@ -3050,6 +3061,326 @@ async def startup_event():
 @app.get("/api/health")
 async def health_check():
     return {"status": "ok", "message": "L'univers est au carré API - Version enrichie"}
+
+# ===============================================
+# SYSTÈME D'AUTHENTIFICATION PAR EMAIL
+# ===============================================
+
+class SuggestionRequest(BaseModel):
+    suggestion: str
+
+@app.post("/api/auth/request-code")
+async def request_verification_code(request: EmailVerificationRequest):
+    """
+    Demande un code de vérification par email.
+    Le code est valide pendant 60 minutes.
+    """
+    result = await initiate_verification(request.email)
+    return result
+
+@app.post("/api/auth/verify-code")
+async def verify_email_code(request: CodeVerificationRequest):
+    """
+    Vérifie le code entré par l'utilisateur.
+    En cas de succès, retourne un token de session.
+    """
+    result = verify_code(request.email, request.code)
+    
+    if result["success"]:
+        # Enregistrer la visite
+        register_user_visit(request.email)
+    
+    return result
+
+@app.post("/api/auth/logout")
+async def logout_user(session_token: str = Header(None, alias="X-Session-Token")):
+    """Déconnecte l'utilisateur."""
+    if session_token and logout(session_token):
+        return {"success": True, "message": "Déconnexion réussie"}
+    return {"success": False, "message": "Session non trouvée"}
+
+@app.get("/api/auth/validate")
+async def validate_user_session(session_token: str = Header(None, alias="X-Session-Token")):
+    """Valide un token de session."""
+    if not session_token:
+        return {"valid": False, "message": "Token manquant"}
+    
+    session = validate_session(session_token)
+    if session:
+        return {
+            "valid": True,
+            "email": session.email,
+            "is_admin": session.is_admin
+        }
+    return {"valid": False, "message": "Session invalide ou expirée"}
+
+# ===============================================
+# SUGGESTIONS DES UTILISATEURS (350 caractères max)
+# ===============================================
+
+@app.post("/api/suggestions")
+async def submit_user_suggestion(
+    request: SuggestionRequest,
+    session_token: str = Header(None, alias="X-Session-Token")
+):
+    """Soumet une suggestion (requiert authentification)."""
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    result = submit_suggestion(session.email, request.suggestion)
+    return result
+
+@app.get("/api/suggestions")
+async def get_suggestions(
+    session_token: str = Header(None, alias="X-Session-Token"),
+    limit: int = 100
+):
+    """Récupère les suggestions (admin uniquement)."""
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    if not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé à l'administrateur")
+    
+    return get_all_suggestions(limit)
+
+# ===============================================
+# HISTORIQUE DES QUESTIONS (Admin uniquement)
+# ===============================================
+
+@app.get("/api/admin/history")
+async def get_admin_history(
+    session_token: str = Header(None, alias="X-Session-Token"),
+    limit: int = 100,
+    user_email: Optional[str] = None,
+    ia_module: Optional[str] = None
+):
+    """Récupère l'historique des questions (admin uniquement)."""
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    if not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé à l'administrateur")
+    
+    return get_questions_history(limit, user_email, ia_module)
+
+@app.get("/api/admin/users")
+async def get_admin_users(
+    session_token: str = Header(None, alias="X-Session-Token"),
+    limit: int = 100
+):
+    """Récupère la liste des utilisateurs (admin uniquement)."""
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    if not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé à l'administrateur")
+    
+    return get_all_users(limit)
+
+@app.get("/api/admin/stats")
+async def get_admin_stats(session_token: str = Header(None, alias="X-Session-Token")):
+    """Récupère les statistiques globales (admin uniquement)."""
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    if not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé à l'administrateur")
+    
+    return get_user_stats()
+
+# ===============================================
+# PAGES STATIQUES (Licence, Confidentialité, Guide)
+# ===============================================
+
+@app.get("/api/pages/licence")
+async def get_licence_page():
+    """Retourne le contenu de la page Licence."""
+    return {
+        "title": "Licence d'utilisation",
+        "content": """© Philippe Thomas Savard & E1 (Emergent Labs) - Tous droits réservés
+
+═══════════════════════════════════════════════════════════════════
+
+PROPRIÉTÉ INTELLECTUELLE
+
+Le logiciel "L'Univers est au Carré", son idée originale, son concept,
+son architecture et l'ensemble de son code source sont la propriété
+EXCLUSIVE de Philippe Thomas Savard et E1 (Emergent Labs).
+
+Les informations, formules mathématiques, théories et contenus générés
+par cette application sont la propriété intellectuelle de 
+Philippe Thomas Savard.
+
+═══════════════════════════════════════════════════════════════════
+
+PERMISSIONS ACCORDÉES AUX UTILISATEURS
+
+✓ Consulter et utiliser les informations fournies
+✓ Partager et reproduire les contenus générés
+✓ Modifier et adapter les informations pour usage personnel ou académique
+
+═══════════════════════════════════════════════════════════════════
+
+CONDITIONS OBLIGATOIRES
+
+• L'auteur (Philippe Thomas Savard) DOIT être cité et nommé lors de
+  toute reproduction, modification ou partage des contenus
+• La source (L'Univers est au Carré - www.universestaucarre.com) 
+  DOIT être mentionnée
+• Toute utilisation commerciale nécessite une autorisation écrite
+• Ces conditions s'appliquent sans exception
+
+═══════════════════════════════════════════════════════════════════
+
+AVERTISSEMENT
+
+Les informations sont fournies à titre informatif et éducatif, 
+SANS GARANTIE d'exactitude ou d'exhaustivité.
+
+Les modules IA (hors Gabriel) évoluent à chaque requête dans un 
+souci d'amélioration continue et de transparence.
+
+═══════════════════════════════════════════════════════════════════
+
+CONTACT
+
+Pour toute question, autorisation ou signalement :
+Thomasphilippesavard@gmail.com"""
+    }
+
+@app.get("/api/pages/confidentialite")
+async def get_confidentialite_page():
+    """Retourne le contenu de la page Confidentialité."""
+    return {
+        "title": "Politique de Confidentialité",
+        "content": """POLITIQUE DE CONFIDENTIALITÉ
+L'Univers est au Carré - www.universestaucarre.com
+
+═══════════════════════════════════════════════════════════════════
+
+DONNÉES COLLECTÉES
+
+Le strict minimum est collecté pour assurer le bon fonctionnement
+et la sécurité de l'application :
+
+• Adresse email (pour l'authentification)
+• Date et heure des visites
+• Questions posées aux différents agents IA
+
+═══════════════════════════════════════════════════════════════════
+
+UTILISATION DES DONNÉES
+
+Vos données sont utilisées exclusivement pour :
+• Vous authentifier et sécuriser votre session
+• Améliorer la qualité des réponses des agents IA
+• Assurer la sécurité et prévenir les abus
+
+═══════════════════════════════════════════════════════════════════
+
+CONSERVATION
+
+• Les données de session sont conservées 24 heures
+• L'historique des questions est conservé pour amélioration du service
+• Vous pouvez demander la suppression de vos données à tout moment
+
+═══════════════════════════════════════════════════════════════════
+
+VOS DROITS
+
+Conformément aux réglementations en vigueur, vous disposez de :
+• Droit d'accès à vos données
+• Droit de rectification
+• Droit à l'effacement
+• Droit à la portabilité
+
+═══════════════════════════════════════════════════════════════════
+
+CONTACT ADMINISTRATEUR
+
+Philippe Thomas Savard
+Email : Thomasphilippesavard@gmail.com
+
+Pour toute question concernant vos données personnelles ou pour
+signaler un problème de fonctionnement avec l'application,
+n'hésitez pas à me contacter.""",
+        "admin_email": "Thomasphilippesavard@gmail.com"
+    }
+
+@app.get("/api/pages/guide")
+async def get_guide_page():
+    """Retourne le contenu du Guide d'utilisation."""
+    return {
+        "title": "Guide d'utilisation",
+        "sections": [
+            {
+                "title": "Gabriel - IA Spécialiste HOL",
+                "content": """Gabriel est l'assistant principal, spécialisé dans la Géométrie du Spectre 
+des Nombres Premiers développée par Philippe Thomas Savard.
+
+• Posez des questions sur les formules spectrales (SA, SB, Digamma)
+• Demandez des reconstructions de nombres premiers
+• Calculez des écarts entre premiers (positifs, négatifs, mixtes)
+• Explorez les rapports spectraux (1/2, 1/3, 1/4)
+
+Gabriel s'appuie sur le fichier methode_spectral.thy (Isabelle/HOL) 
+qui compile intégralement - toutes ses réponses sont mathématiquement vérifiées."""
+            },
+            {
+                "title": "IA Spécialisée",
+                "content": """L'IA Spécialisée offre une expertise approfondie sur la théorie 
+"L'Univers est au Carré".
+
+TRANSPARENCE : Cette IA évolue à chaque requête pour amélioration continue.
+Les informations sont fournies SANS GARANTIE - utilisez votre jugement critique."""
+            },
+            {
+                "title": "IA Évolutive",
+                "content": """L'IA Évolutive utilise une banque de questions-réponses qui s'enrichit
+au fil des interactions.
+
+TRANSPARENCE : Ce module évolue à chaque requête.
+Les réponses s'améliorent avec le temps mais sont fournies SANS GARANTIE."""
+            },
+            {
+                "title": "IA Socratique",
+                "content": """L'IA Socratique vous challenge intellectuellement en posant des questions
+provocatrices pour approfondir votre réflexion.
+
+TRANSPARENCE : Ce module évolue à chaque requête.
+Les questions visent à stimuler la pensée critique - SANS GARANTIE de perfection."""
+            }
+        ],
+        "important_notice": """AVERTISSEMENT IMPORTANT
+
+Toutes les IA (sauf Gabriel qui s'appuie sur des preuves formelles HOL)
+évoluent continuellement. Les informations sont fournies à titre éducatif
+et informatif, SANS GARANTIE d'exactitude absolue.
+
+Les contenus restent la propriété intellectuelle de Philippe Thomas Savard.
+Toute reproduction doit mentionner l'auteur et la source."""
+    }
 
 # ===============================================
 # SYSTÈME D'IA ÉVOLUTIF - ENDPOINTS PRINCIPAUX
