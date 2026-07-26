@@ -8,8 +8,22 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 - **Backend**: FastAPI (Python)
 - **Base de données**: MongoDB
 - **IA**: Claude Sonnet 4.5 via Emergent LLM Key
+- **Authentification**: Google OAuth via Emergent Auth (NOUVEAU)
 
 ## Fonctionnalités Implémentées
+
+### Authentification Google OAuth (NOUVEAU - Juillet 2026)
+- Page de connexion Google OAuth élégante
+- Admin exclusif: `philippotcarre@outlook.com`
+- Session cookie httpOnly (7 jours)
+- Sécurité: Validation serveur uniquement (pas de localStorage fallback)
+
+### Pages Légales et Utilitaires (NOUVEAU)
+- **Licence** (`LicencePage.jsx`) - Propriété intellectuelle Philippe Thomas Savard & E1
+- **Confidentialité** (`ConfidentialitePage.jsx`) - Politique de confidentialité
+- **Guide** (`GuidePage.jsx`) - Guide d'utilisation
+- **Suggestions** (`SuggestionsPage.jsx`) - Soumission de suggestions (requiert auth)
+- **Admin Panel** (`AdminPanel.jsx`) - Panneau admin (réservé philippotcarre@outlook.com)
 
 ### Modules IA
 1. **IA Spécialisée** (`/chat`) - Base de connaissances GitHub (~250k car.)
@@ -64,9 +78,24 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 2. Projet Fusion LaTeX + CAO (P3)
 
 ## Dernière Mise à Jour
-- **Date**: Décembre 2025
+- **Date**: Juillet 2026
 - **Changements**:
-  - **MISE À JOUR MAJEURE**: Fichier `methode_spectral.thy` v2956 lignes (COMPILE avec succès)
+  - **AUTHENTIFICATION GOOGLE OAUTH**: Implémentation complète
+    - Page de connexion avec bouton Google
+    - Callback OAuth `/auth/callback`
+    - Session sécurisée via cookie httpOnly
+    - Faille localStorage corrigée (validation serveur uniquement)
+  - **PAGES LÉGALES**: Licence, Confidentialité, Guide, Suggestions, Admin Panel
+  - **CORRECTION SÉCURITÉ**: Suppression du fallback localStorage dans l'authentification
+  - **FIX CATEGORIES**: Filtrage des catégories null dans `/api/categories`
+  - **Tests**: iteration_10.json - Backend 88.9%, Frontend 85.7%
+
+### Fichiers Auth Clés
+- `/app/backend/modules/google_auth_service.py` - Service Google OAuth
+- `/app/frontend/src/components/AuthPage.jsx` - Page de connexion
+- `/app/frontend/src/components/AdminPanel.jsx` - Panneau admin
+
+### Historique Antérieur
     - Copié dans `/app/backend/modules/gabriel/theories/`
     - SYSTEM_PROMPT enrichi avec références exactes aux lemmes prouvés et numéros de lignes
     - Sections I-XII couvertes: rapport 1/2, 1/3, 1/4, négatifs, plan trifocal

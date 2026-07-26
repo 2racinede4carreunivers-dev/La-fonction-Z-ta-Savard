@@ -4068,13 +4068,14 @@ async def get_concept(concept_id: str):
 
 @app.get("/api/categories")
 async def get_categories():
-    """Récupère toutes les catégories disponibles"""
+    """Récupère toutes les catégories disponibles (exclut les null)"""
     pipeline = [
+        {"$match": {"categorie": {"$ne": None}}},  # Exclure les catégories null
         {"$group": {"_id": "$categorie", "count": {"$sum": 1}}},
         {"$sort": {"_id": 1}}
     ]
     categories = await db.concepts.aggregate(pipeline).to_list(length=1000)
-    return [{"categorie": cat["_id"], "count": cat["count"]} for cat in categories]
+    return [{"categorie": cat["_id"], "count": cat["count"]} for cat in categories if cat["_id"]]
 
 @app.post("/api/search")
 async def search_concepts(query: SearchQuery):

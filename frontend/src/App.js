@@ -12166,6 +12166,7 @@ function App() {
   const [currentFolder, setCurrentFolder] = useState('root');
 
   // Vérifier l'authentification au chargement
+  // SÉCURITÉ: Seule la réponse serveur détermine l'authentification (pas localStorage)
   useEffect(() => {
     const checkAuth = async () => {
       // Check if we're on the callback page
@@ -12183,33 +12184,22 @@ function App() {
           const userData = await response.json();
           setUser(userData);
           setIsAuthenticated(true);
-          localStorage.setItem('user', JSON.stringify(userData));
+          // localStorage only for display cache, NOT for auth decision
+          localStorage.setItem('user_display', JSON.stringify(userData));
         } else {
-          // Check localStorage as fallback
-          const storedUser = localStorage.getItem('user');
-          if (storedUser) {
-            try {
-              const userData = JSON.parse(storedUser);
-              setUser(userData);
-              setIsAuthenticated(true);
-            } catch {
-              localStorage.removeItem('user');
-            }
-          }
+          // Server says not authenticated - clear any cached data and stay logged out
+          localStorage.removeItem('user');
+          localStorage.removeItem('user_display');
+          setIsAuthenticated(false);
+          setUser(null);
         }
       } catch (err) {
         console.error('Auth check failed:', err);
-        // Check localStorage as fallback
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-          try {
-            const userData = JSON.parse(storedUser);
-            setUser(userData);
-            setIsAuthenticated(true);
-          } catch {
-            localStorage.removeItem('user');
-          }
-        }
+        // Network error - stay logged out for security
+        localStorage.removeItem('user');
+        localStorage.removeItem('user_display');
+        setIsAuthenticated(false);
+        setUser(null);
       }
       setCheckingAuth(false);
     };
