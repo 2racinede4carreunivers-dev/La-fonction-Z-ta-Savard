@@ -508,9 +508,10 @@ def run_computation(detection: dict) -> str:
                 lines.append(f"  Ecart spectral calcule: {result['gap_float']:.4f} ~ {result['gap_count']}")
                 if "arithmetic_gap" in result.get("validation", {}):
                     arith = result['validation']['arithmetic_gap']
-                    lines.append(f"  Ecart arithmetique reel: {result['p2']} - ({result['p1']}) = {arith}")
+                    # L'écart = nombre d'entiers ENTRE les deux premiers (pas la soustraction directe)
+                    lines.append(f"  Ecart arithmetique (entiers entre {result['p_min']} et {result['p_max']}): {arith}")
                 lines.append(f"")
-                lines.append(f"  RESUME: L'ecart entre les nombres premiers {result['p1']} et {result['p2']} est {result['validation'].get('arithmetic_gap', 'N/A')} (arithmetique)")
+                lines.append(f"  RESUME: L'ecart entre les nombres premiers {result['p1']} et {result['p2']} est {result['validation'].get('arithmetic_gap', 'N/A')} entiers")
             else:
                 error_msg = result.get("error", "Erreur inconnue") if result else "Calcul impossible"
                 lines.append(f"Erreur calcul ecart: {error_msg}")

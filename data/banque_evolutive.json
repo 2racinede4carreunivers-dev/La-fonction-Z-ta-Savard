@@ -5198,6 +5198,26 @@
       "meta_score": 0.85,
       "relations_internes": [],
       "source": "github_qa_bank"
+    },
+    {
+      "id": "535f4621-8091-4925-9ad1-3d1b59801abc",
+      "question": "Comment les définitions des suites A_1_4 et B_1_4 dans le 'Modèle spectral 1/4', c'est-à-dire, A_1_4 n = ((241 / 16) / 12) * (4 ^ n) - (4 / 3) et B_1_4 n = ((964 / 16) / 12) * (4 ^ n) - (3073 * (4 / 3)), se comparent-elles avec les relations caractérisées par le lemme relation_37 et relation_41 concernant la fonction digamma définie par digamma_calc?",
+      "reponse": "Les définitions des suites A_1_4 et B_1_4 sont utilisées pour modéliser des relations spectrales spécifiques dans le cadre de la fraction 1/4, tandis que les lemmes relation_37 et relation_41 concernent des calculs liés à la fonction digamma_calc pour certains nombres spécifiques, en particulier les nombres 37 et 41. A_1_4 et B_1_4 sont définies par des expressions qui comprennent des multiplicateurs et des soustractions constants basés sur des puissances de 4 \\(4^n\\), avec des modes d'ajustement (comme \\(-4/3\\) pour A_1_4 et \\(-3073 * (4/3)\\) pour B_1_4). En revanche, les relations 37 et 41 reposent sur l'identité SA \\(n37\\) + D37 et SA \\(n41\\) + D41, où SA et D sont des valeurs calculées qui, une fois combinées conformément à digamma_calc, se simplifient directement pour donner la valeur prévue. Les deux contextes montrent une application créative de la multiplication et de l'addition/soustraction dans les analyses spectrales mais diffèrent dans les objectifs qu'ils poursuivent : la mise en évidence de la symétrie spectrale dans le cas des suites 1/4 contre le calcul précis de la digamma pour des valeurs spécifiques dans les lemmes relation_37 et relation_41.",
+      "contexte_theorique": [
+        "L'univers est au carre",
+        "mathematique"
+      ],
+      "niveau_complexite": 3,
+      "variantes": [],
+      "concepts_cles": [
+        "mathematique",
+        "comparaison"
+      ],
+      "frequence_utilisation": 0,
+      "derniere_evolution": "2026-07-26T19:01:11.673983",
+      "meta_score": 0.85,
+      "relations_internes": [],
+      "source": "github_qa_bank"
     }
   ],
   "concepts_theoriques": {
@@ -5296,6 +5316,6 @@
       ]
     }
   },
-  "derniere_evolution": "2026-07-26T18:36:12.170715",
+  "derniere_evolution": "2026-07-26T19:01:11.673995",
   "version": "2.0-sync"
 }
