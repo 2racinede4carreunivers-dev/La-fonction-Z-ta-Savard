@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ReactMarkdown from 'react-markdown';
 import './App.css';
@@ -18,7 +18,7 @@ import { AdvancedSpectralVisualizer } from './visuel-gabriel-isabelle/AdvancedSp
 import GabrielMarkdown from './components/GabrielMarkdown';
 
 // Composants d'authentification et pages légales
-import AuthPage from './components/AuthPage';
+import AuthPage, { AuthCallback } from './components/AuthPage';
 import LicencePage from './components/LicencePage';
 import ConfidentialitePage from './components/ConfidentialitePage';
 import GuidePage from './components/GuidePage';
@@ -12140,10 +12140,13 @@ const AdminQuestionsPage = () => {
 function App() {
   // États d'authentification
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [sessionToken, setSessionToken] = useState('');
+  const [user, setUser] = useState(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  
+  // Variables dérivées de l'utilisateur
+  const userEmail = user?.email || '';
+  const isAdmin = userEmail === 'philippotcarre@outlook.com';
+  const sessionToken = user?.session_token || localStorage.getItem('session_token') || '';
   
   // États pour les pages spéciales
   const [currentPage, setCurrentPage] = useState('main'); // main, licence, confidentialite, guide, suggestions, admin
@@ -12165,25 +12168,47 @@ function App() {
   // Vérifier l'authentification au chargement
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem('sessionToken');
-      if (token) {
-        try {
-          const response = await fetch(`${API_URL}/api/auth/validate`, {
-            headers: { 'X-Session-Token': token }
-          });
-          const data = await response.json();
-          if (data.valid) {
-            setIsAuthenticated(true);
-            setUserEmail(data.email);
-            setIsAdmin(data.is_admin);
-            setSessionToken(token);
-          } else {
-            localStorage.removeItem('sessionToken');
-            localStorage.removeItem('userEmail');
-            localStorage.removeItem('isAdmin');
+      // Check if we're on the callback page
+      if (window.location.pathname === '/auth/callback') {
+        setCheckingAuth(false);
+        return;
+      }
+      
+      try {
+        const response = await fetch(`${API_URL}/api/auth/me`, {
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const userData = await response.json();
+          setUser(userData);
+          setIsAuthenticated(true);
+          localStorage.setItem('user', JSON.stringify(userData));
+        } else {
+          // Check localStorage as fallback
+          const storedUser = localStorage.getItem('user');
+          if (storedUser) {
+            try {
+              const userData = JSON.parse(storedUser);
+              setUser(userData);
+              setIsAuthenticated(true);
+            } catch {
+              localStorage.removeItem('user');
+            }
           }
-        } catch (err) {
-          console.error('Auth check failed:', err);
+        }
+      } catch (err) {
+        console.error('Auth check failed:', err);
+        // Check localStorage as fallback
+        const storedUser = localStorage.getItem('user');
+        if (storedUser) {
+          try {
+            const userData = JSON.parse(storedUser);
+            setUser(userData);
+            setIsAuthenticated(true);
+          } catch {
+            localStorage.removeItem('user');
+          }
         }
       }
       setCheckingAuth(false);
@@ -12191,12 +12216,10 @@ function App() {
     checkAuth();
   }, []);
 
-  // Gérer la connexion réussie
-  const handleAuthSuccess = (data) => {
+  // Gérer la connexion réussie (callback de AuthCallback)
+  const handleAuthSuccess = (userData) => {
+    setUser(userData);
     setIsAuthenticated(true);
-    setUserEmail(data.email);
-    setIsAdmin(data.is_admin);
-    setSessionToken(data.session_token);
   };
 
   // Gérer la déconnexion
@@ -12204,18 +12227,14 @@ function App() {
     try {
       await fetch(`${API_URL}/api/auth/logout`, {
         method: 'POST',
-        headers: { 'X-Session-Token': sessionToken }
+        credentials: 'include'
       });
     } catch (err) {
       console.error('Logout error:', err);
     }
-    localStorage.removeItem('sessionToken');
-    localStorage.removeItem('userEmail');
-    localStorage.removeItem('isAdmin');
+    localStorage.removeItem('user');
     setIsAuthenticated(false);
-    setUserEmail('');
-    setIsAdmin(false);
-    setSessionToken('');
+    setUser(null);
   };
 
   // Effet pour le raccourci clavier admin (Ctrl+Alt+W)
@@ -12256,8 +12275,11 @@ function App() {
     folders, setFolders, currentFolder, setCurrentFolder
   };
 
-  // Écran de chargement pendant la vérification d'auth
-  if (checkingAuth) {
+  // Vérifier si on est sur la page de callback d'authentification
+  const isAuthCallback = window.location.pathname === '/auth/callback';
+
+  // Écran de chargement pendant la vérification d'auth (sauf callback)
+  if (checkingAuth && !isAuthCallback) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 flex items-center justify-center">
         <div className="text-center">
@@ -12266,6 +12288,11 @@ function App() {
         </div>
       </div>
     );
+  }
+
+  // Page de callback OAuth - toujours accessible
+  if (isAuthCallback) {
+    return <AuthCallback onAuthSuccess={handleAuthSuccess} />;
   }
 
   // Page d'authentification si non connecté
@@ -12360,6 +12387,7 @@ function App() {
         
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/auth/callback" element={<AuthCallback onAuthSuccess={handleAuthSuccess} />} />
           <Route path="/methode-philippot" element={<MethodePhilippotPage />} />
           <Route path="/explorer" element={<ExplorerPage />} />
           <Route path="/chat" element={<ChatPage />} />

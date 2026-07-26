@@ -20,17 +20,18 @@ from github_sync import sync_repository, load_all_content, log_sync, get_last_sy
 from modules.evolutionary_qa_system import IAQuestionnementEvolutif, QuestionReponse
 # Import de l'IA socratique
 from modules.ia_socratique_evolutive import IASocratiqueEvolutive
-# Import du système d'authentification
-from modules.auth_service import (
-    initiate_verification, verify_code, validate_session, logout,
-    is_admin, ADMIN_EMAIL, ADMIN_CONTACT_EMAIL,
-    EmailVerificationRequest, CodeVerificationRequest
+# Import du système d'authentification Google OAuth
+from modules.google_auth_service import (
+    exchange_session_id, create_or_update_user, create_session,
+    validate_session, delete_session, is_admin, 
+    ADMIN_EMAIL, ADMIN_CONTACT_EMAIL, UserSession
 )
 # Import du système d'historique
 from modules.history_service import (
     record_question, get_questions_history, submit_suggestion,
     get_all_suggestions, register_user_visit, get_all_users, get_user_stats
 )
+from fastapi.responses import JSONResponse
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
 
@@ -3063,45 +3064,127 @@ async def health_check():
     return {"status": "ok", "message": "L'univers est au carré API - Version enrichie"}
 
 # ===============================================
-# SYSTÈME D'AUTHENTIFICATION PAR EMAIL
+# SYSTÈME D'AUTHENTIFICATION GOOGLE OAUTH
 # ===============================================
 
 class SuggestionRequest(BaseModel):
     suggestion: str
 
-@app.post("/api/auth/request-code")
-async def request_verification_code(request: EmailVerificationRequest):
-    """
-    Demande un code de vérification par email.
-    Le code est valide pendant 60 minutes.
-    """
-    result = await initiate_verification(request.email)
-    return result
+class SessionExchangeRequest(BaseModel):
+    session_id: str
 
-@app.post("/api/auth/verify-code")
-async def verify_email_code(request: CodeVerificationRequest):
+@app.post("/api/auth/session")
+async def exchange_session(request: SessionExchangeRequest):
     """
-    Vérifie le code entré par l'utilisateur.
-    En cas de succès, retourne un token de session.
+    Échange le session_id temporaire (de Google OAuth) contre un session_token persistant.
+    REMINDER: DO NOT HARDCODE THE URL, OR ADD ANY FALLBACKS OR REDIRECT URLS, THIS BREAKS THE AUTH
     """
-    result = verify_code(request.email, request.code)
+    # Exchange session_id with Emergent Auth
+    user_data = await exchange_session_id(request.session_id)
     
-    if result["success"]:
-        # Enregistrer la visite
-        register_user_visit(request.email)
+    if not user_data:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
     
-    return result
+    # Create or update user in database
+    user_id = create_or_update_user(
+        email=user_data["email"],
+        name=user_data["name"],
+        picture=user_data.get("picture")
+    )
+    
+    # Create persistent session
+    session_token = user_data.get("session_token", f"session_{uuid.uuid4().hex}")
+    session_info = create_session(user_id, session_token)
+    
+    # Register visit
+    register_user_visit(user_data["email"])
+    
+    # Create response with httpOnly cookie
+    response = JSONResponse(content={
+        "success": True,
+        "user": {
+            "user_id": user_id,
+            "email": user_data["email"],
+            "name": user_data["name"],
+            "picture": user_data.get("picture"),
+            "is_admin": is_admin(user_data["email"])
+        }
+    })
+    
+    # Set httpOnly cookie
+    response.set_cookie(
+        key="session_token",
+        value=session_token,
+        httponly=True,
+        secure=True,
+        samesite="none",
+        max_age=7 * 24 * 60 * 60,  # 7 days
+        path="/"
+    )
+    
+    return response
+
+@app.get("/api/auth/me")
+async def get_current_user(
+    request: Request,
+    authorization: Optional[str] = Header(None)
+):
+    """
+    Récupère les informations de l'utilisateur connecté.
+    Vérifie le cookie session_token ou le header Authorization.
+    """
+    # Get session token from cookie first, then header
+    session_token = request.cookies.get("session_token")
+    
+    if not session_token and authorization:
+        # Try Authorization header (Bearer token)
+        if authorization.startswith("Bearer "):
+            session_token = authorization[7:]
+        else:
+            session_token = authorization
+    
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Non authentifié")
+    
+    session = validate_session(session_token)
+    if not session:
+        raise HTTPException(status_code=401, detail="Session invalide ou expirée")
+    
+    return {
+        "user_id": session.user_id,
+        "email": session.email,
+        "name": session.name,
+        "picture": session.picture,
+        "is_admin": session.is_admin
+    }
 
 @app.post("/api/auth/logout")
-async def logout_user(session_token: str = Header(None, alias="X-Session-Token")):
+async def logout_user(request: Request):
     """Déconnecte l'utilisateur."""
-    if session_token and logout(session_token):
-        return {"success": True, "message": "Déconnexion réussie"}
-    return {"success": False, "message": "Session non trouvée"}
+    session_token = request.cookies.get("session_token")
+    
+    if session_token:
+        delete_session(session_token)
+    
+    response = JSONResponse(content={"success": True, "message": "Déconnexion réussie"})
+    response.delete_cookie(key="session_token", path="/")
+    
+    return response
 
 @app.get("/api/auth/validate")
-async def validate_user_session(session_token: str = Header(None, alias="X-Session-Token")):
-    """Valide un token de session."""
+async def validate_user_session(
+    request: Request,
+    authorization: Optional[str] = Header(None)
+):
+    """Valide un token de session (pour compatibilité)."""
+    session_token = request.cookies.get("session_token")
+    
+    if not session_token and authorization:
+        if authorization.startswith("Bearer "):
+            session_token = authorization[7:]
+        else:
+            session_token = authorization
+    
     if not session_token:
         return {"valid": False, "message": "Token manquant"}
     
@@ -3109,7 +3192,9 @@ async def validate_user_session(session_token: str = Header(None, alias="X-Sessi
     if session:
         return {
             "valid": True,
+            "user_id": session.user_id,
             "email": session.email,
+            "name": session.name,
             "is_admin": session.is_admin
         }
     return {"valid": False, "message": "Session invalide ou expirée"}
