@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /**
  * Page d'authentification Google OAuth pour L'Univers est au Carré
@@ -141,6 +141,7 @@ const AuthPage = ({ onAuthSuccess }) => {
  */
 export const AuthCallback = ({ onAuthSuccess }) => {
   const hasProcessed = useRef(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     // Prevent double processing in StrictMode
@@ -148,13 +149,46 @@ export const AuthCallback = ({ onAuthSuccess }) => {
     hasProcessed.current = true;
 
     const processAuth = async () => {
-      // Extract session_id from URL fragment
+      // Check for OAuth errors in URL (hash or query params)
       const hash = window.location.hash;
+      const searchParams = new URLSearchParams(window.location.search);
+      
+      // Check for error in query params (consent denied, access denied, etc.)
+      const errorParam = searchParams.get('error');
+      const errorDescription = searchParams.get('error_description');
+      
+      // Also check hash for errors
+      const hashErrorMatch = hash.match(/error=([^&]+)/);
+      const hashErrorDescMatch = hash.match(/error_description=([^&]+)/);
+      
+      if (errorParam || hashErrorMatch) {
+        const errorType = errorParam || (hashErrorMatch ? decodeURIComponent(hashErrorMatch[1]) : 'unknown');
+        const errorDesc = errorDescription || (hashErrorDescMatch ? decodeURIComponent(hashErrorDescMatch[1]) : '');
+        
+        console.log('OAuth cancelled or denied:', errorType, errorDesc);
+        
+        // Show friendly message briefly, then redirect
+        if (errorType === 'access_denied' || errorType === 'consent_denied') {
+          setError('Connexion annulée. Redirection vers la page de connexion...');
+        } else {
+          setError(`Erreur d'authentification. Redirection...`);
+        }
+        
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+        return;
+      }
+      
+      // Extract session_id from URL fragment
       const sessionIdMatch = hash.match(/session_id=([^&]+)/);
       
       if (!sessionIdMatch) {
         console.error('No session_id found in URL');
-        window.location.href = '/';
+        setError('Session invalide. Redirection...');
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
         return;
       }
 
@@ -193,7 +227,10 @@ export const AuthCallback = ({ onAuthSuccess }) => {
       } catch (error) {
         console.error('Auth error:', error);
         localStorage.removeItem('user');
-        window.location.href = '/';
+        setError('Erreur de connexion. Redirection...');
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
       }
     };
 
@@ -209,16 +246,38 @@ export const AuthCallback = ({ onAuthSuccess }) => {
       background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)'
     }}>
       <div style={{ textAlign: 'center' }}>
-        <div style={{
-          width: '50px',
-          height: '50px',
-          border: '3px solid rgba(255, 215, 0, 0.3)',
-          borderTopColor: '#ffd700',
-          borderRadius: '50%',
-          animation: 'spin 1s linear infinite',
-          margin: '0 auto 20px'
-        }} />
-        <p style={{ color: '#ffd700', fontSize: '18px' }}>Connexion en cours...</p>
+        {error ? (
+          <>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              backgroundColor: 'rgba(255, 215, 0, 0.2)',
+              borderRadius: '50%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              margin: '0 auto 20px',
+              fontSize: '24px'
+            }}>
+              ↩️
+            </div>
+            <p style={{ color: '#ffd700', fontSize: '18px', marginBottom: '10px' }}>{error}</p>
+            <p style={{ color: '#a0aec0', fontSize: '14px' }}>Vous serez redirigé automatiquement</p>
+          </>
+        ) : (
+          <>
+            <div style={{
+              width: '50px',
+              height: '50px',
+              border: '3px solid rgba(255, 215, 0, 0.3)',
+              borderTopColor: '#ffd700',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite',
+              margin: '0 auto 20px'
+            }} />
+            <p style={{ color: '#ffd700', fontSize: '18px' }}>Connexion en cours...</p>
+          </>
+        )}
         <style>{`
           @keyframes spin {
             to { transform: rotate(360deg); }
