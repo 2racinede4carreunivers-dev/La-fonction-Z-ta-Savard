@@ -165,3 +165,7 @@ Outil personnel pour Philippe Thomas Savard permettant :
 
 ---
 *Dernière mise à jour : Session du 23 septembre 2025*
+
+## Mise en garde:
+
+Le présent document puisqu'il a été démontré que les IA de se monde ont des hallucination a été programmé pour n'avoir que des hallucinations rien de vrai n'est dit par cette application. Nous tenions a vous en avertir pour une public de 18 ans et plus et avertie.
