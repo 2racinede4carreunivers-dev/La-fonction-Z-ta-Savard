@@ -31,6 +31,12 @@ from modules.history_service import (
     record_question, get_questions_history, submit_suggestion,
     get_all_suggestions, register_user_visit, get_all_users, get_user_stats
 )
+# Import du système d'analytics
+from modules.analytics_service import (
+    record_visit, get_analytics_summary, get_visitors_by_country,
+    get_visitors_by_city, get_visits_timeline, get_top_pages,
+    get_device_stats, get_monthly_stats
+)
 from fastapi.responses import JSONResponse
 # CORRECTIF OBJECTID SERIALIZATION - Pydantic v2 Compatible
 from bson import ObjectId
@@ -66,6 +72,56 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# === MIDDLEWARE D'ANALYTICS ===
+@app.middleware("http")
+async def analytics_middleware(request: Request, call_next):
+    """Enregistre chaque visite pour les statistiques (sauf endpoints internes)."""
+    # Ignorer certains chemins (health, static, etc.)
+    skip_paths = ["/api/health", "/api/admin/analytics", "/favicon.ico", "/static"]
+    path = request.url.path
+    
+    should_track = not any(path.startswith(sp) for sp in skip_paths)
+    
+    # Traiter la requête
+    response = await call_next(request)
+    
+    # Enregistrer la visite de manière asynchrone (ne pas bloquer la réponse)
+    if should_track and response.status_code < 400:
+        try:
+            # Récupérer l'IP (avec support des proxies)
+            forwarded = request.headers.get("x-forwarded-for")
+            if forwarded:
+                ip = forwarded.split(",")[0].strip()
+            else:
+                ip = request.client.host if request.client else "unknown"
+            
+            # Récupérer les headers
+            user_agent = request.headers.get("user-agent", "")
+            referer = request.headers.get("referer")
+            
+            # Récupérer l'email utilisateur si authentifié
+            user_email = None
+            session_token = request.cookies.get("session_token")
+            if session_token:
+                session = validate_session(session_token)
+                if session:
+                    user_email = session.email
+            
+            # Enregistrer en arrière-plan
+            asyncio.create_task(record_visit(
+                ip=ip,
+                path=path,
+                method=request.method,
+                user_agent=user_agent,
+                referer=referer,
+                user_email=user_email
+            ))
+        except Exception as e:
+            # Ne jamais bloquer la requête pour des erreurs d'analytics
+            pass
+    
+    return response
 
 # === TÂCHE DE SYNCHRONISATION GITHUB PÉRIODIQUE ===
 async def periodic_github_sync():
@@ -3198,6 +3254,130 @@ async def validate_user_session(
             "is_admin": session.is_admin
         }
     return {"valid": False, "message": "Session invalide ou expirée"}
+
+# ===============================================
+# ANALYTICS - STATISTIQUES DES VISITEURS (Admin Only)
+# ===============================================
+
+@app.get("/api/admin/analytics/summary")
+async def get_admin_analytics_summary(request: Request):
+    """Récupère le résumé des statistiques (Admin uniquement)."""
+    # Vérifier l'authentification admin
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    summary = await get_analytics_summary()
+    return summary
+
+@app.get("/api/admin/analytics/by-country")
+async def get_admin_analytics_by_country(
+    request: Request,
+    days: int = Query(default=30, ge=1, le=365),
+    limit: int = Query(default=20, ge=1, le=100)
+):
+    """Récupère les statistiques par pays (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_visitors_by_country(days=days, limit=limit)
+    return {"period_days": days, "data": data}
+
+@app.get("/api/admin/analytics/by-city")
+async def get_admin_analytics_by_city(
+    request: Request,
+    days: int = Query(default=30, ge=1, le=365),
+    limit: int = Query(default=20, ge=1, le=100)
+):
+    """Récupère les statistiques par ville (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_visitors_by_city(days=days, limit=limit)
+    return {"period_days": days, "data": data}
+
+@app.get("/api/admin/analytics/timeline")
+async def get_admin_analytics_timeline(
+    request: Request,
+    days: int = Query(default=30, ge=1, le=365)
+):
+    """Récupère la timeline des visites (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_visits_timeline(days=days)
+    return {"period_days": days, "data": data}
+
+@app.get("/api/admin/analytics/top-pages")
+async def get_admin_analytics_top_pages(
+    request: Request,
+    days: int = Query(default=30, ge=1, le=365),
+    limit: int = Query(default=20, ge=1, le=100)
+):
+    """Récupère les pages les plus visitées (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_top_pages(days=days, limit=limit)
+    return {"period_days": days, "data": data}
+
+@app.get("/api/admin/analytics/devices")
+async def get_admin_analytics_devices(
+    request: Request,
+    days: int = Query(default=30, ge=1, le=365)
+):
+    """Récupère les statistiques par appareil (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_device_stats(days=days)
+    return {"period_days": days, "data": data}
+
+@app.get("/api/admin/analytics/monthly")
+async def get_admin_analytics_monthly(
+    request: Request,
+    months: int = Query(default=12, ge=1, le=24)
+):
+    """Récupère les statistiques mensuelles (Admin uniquement)."""
+    session_token = request.cookies.get("session_token")
+    if not session_token:
+        raise HTTPException(status_code=401, detail="Authentification requise")
+    
+    session = validate_session(session_token)
+    if not session or not session.is_admin:
+        raise HTTPException(status_code=403, detail="Accès réservé aux administrateurs")
+    
+    data = await get_monthly_stats(months=months)
+    return {"months": months, "data": data}
 
 # ===============================================
 # SUGGESTIONS DES UTILISATEURS (350 caractères max)

@@ -49,6 +49,27 @@ Application web pour explorer la théorie mathématique "L'univers est au carré
 - Accès: 🔑 + Ctrl+Alt+W + mot de passe → `/admin-questions`
 - Onglets: Historique Questions + Sync GitHub
 
+### Système Analytics (NOUVEAU - Août 2026)
+- **Middleware de tracking** : Enregistre automatiquement chaque visite
+- **Géolocalisation IP** : Pays, ville, région (via ip-api.com gratuit)
+- **Données collectées** :
+  - Visites par jour/semaine/mois
+  - Visiteurs uniques
+  - Pays et villes des visiteurs
+  - Types d'appareils (desktop/mobile/tablet)
+  - Pages les plus visitées
+- **Panneau Admin** : Graphiques interactifs (Recharts)
+  - Timeline des visites
+  - Répartition par pays (bar chart)
+  - Répartition par ville (bar chart)
+  - Appareils (pie chart)
+  - Statistiques mensuelles
+- **Accès** : Réservé à `philippotcarre@outlook.com`
+
+### Fichiers Analytics
+- `/app/backend/modules/analytics_service.py` - Service d'analytics complet
+- `/app/frontend/src/components/AdminPanel.jsx` - Panneau admin avec onglet Analytics
+
 ## Fichiers Clés Gabriel V2
 - `/app/backend/modules/gabriel/spectral_engine.py` - Moteur calcul spectral V2 (positif + négatif)
 - `/app/backend/modules/gabriel/gabriel_service.py` - Service Gabriel (détection + LLM)
